@@ -1,3 +1,43 @@
+# 1.2.0
+* ZF3 compatibility [#567](https://github.com/pull/567)
+* Expose to `zend*component*installer` as module `DoctrineModule` [#570](https://github.com/pull/570)
+* ZF3 Composer dependencies * hotfix [#571](https://github.com/pull/571)
+* Command line tools improvements [#572](https://github.com/pull/572)
+* Add missing Doctrine APCu Cache [#569](https://github.com/pull/569)
+* Changed isset for array_key_exists in context check [#568](https://github.com/pull/568)
+* Hydrator ignores private/protected getter/setter [#560](https://github.com/pull/560)
+
+# 1.1.0
+ * fixed require-dev dependancies [#557](https://github.com/doctrine/DoctrineModule/pull/557)
+ * Update hydrator.md [#561](https://github.com/doctrine/DoctrineModule/pull/561)
+ * [git] Add .gitattributes to remove unneeded files [#559](https://github.com/doctrine/DoctrineModule/pull/559)
+ * refactored factories for SM v3 [#558](https://github.com/doctrine/DoctrineModule/pull/558)
+
+# 1.0.1
+
+ * Drop compatibility with PHP 5.4 [#553](https://github.com/doctrine/DoctrineModule/pull/553)
+ * Improve TravisCi build to work with PHP 7 [#553](https://github.com/doctrine/DoctrineModule/pull/553)
+ * Update doctrine/common ~2.6 [#551](https://github.com/doctrine/DoctrineModule/pull/551)
+
+# 1.0.0
+
+ * Remove deprecated api call from test [#523](https://github.com/doctrine/DoctrineModule/pull/523)
+ * Allow for the use of Zend\Cache\Service\StorageCacheAbstractServiceFactory [#547](https://github.com/doctrine/DoctrineModule/pull/547)
+
+# 0.10.1
+
+ * Drop compatibility with PHP 5.4 [#553](https://github.com/doctrine/DoctrineModule/pull/553)
+ * Update doctrine/common ~2.6 [#551](https://github.com/doctrine/DoctrineModule/pull/551)
+
+# 0.10.0
+
+ * Fixed php_codesniffer dependency [#521](https://github.com/doctrine/DoctrineModule/pull/521)
+ * Fixed wrong Predis Mock [#534](https://github.com/doctrine/DoctrineModule/pull/534)
+ * Update hydrator.md [#537](https://github.com/doctrine/DoctrineModule/pull/537)
+ * Fix for issue #230 and  fixes for #234 [#520](https://github.com/doctrine/DoctrineModule/pull/520)
+ * Feature/snake case [#539](https://github.com/doctrine/DoctrineModule/pull/539)
+ * Adds additional processing for DoctrineObject::toMany [#535](https://github.com/doctrine/DoctrineModule/pull/535)
+
 # 0.9.0
 
  * Fixed intend in hydrator.md [#471](https://github.com/doctrine/DoctrineModule/pull/471)

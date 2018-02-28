@@ -1,8 +1,8 @@
 ## Hydrator
 
-Hydrators are simple objects that allow to convert an array of data to an object (this is called "hydrating") and to
-convert back an object to an array (this is called "extracting"). Hydrators are mainly used in the context of Forms,
-with the new binding functionality of Zend Framework 2, but can also be used for any hydrating/extracting context (for
+Hydrators convert an array of data to an object (this is called "hydrating") and 
+convert an object back to an array (this is called "extracting"). Hydrators are mainly used in the context of Forms,
+with the binding functionality of Zend Framework 2, but can also be used in any hydrating/extracting context (for
 instance, it can be used in RESTful context). If you are not really comfortable with hydrators, please first
 read [Zend Framework hydrator's documentation](http://framework.zend.com/manual/current/en/modules/zend.stdlib.hydrator.html).
 
@@ -720,7 +720,7 @@ through the public API of your entities (that is to say, with getters and setter
 behaviour to work by reference (that is to say that the hydrator will access the properties through Reflection API,
 and hence bypass any logic you may include in your setters/getters).
 
-To change the behaviour, just give the third parameter of the constructor to false:
+To change the behaviour, just give the second parameter of the constructor to false:
 
 ```php
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
