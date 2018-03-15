@@ -56,6 +56,10 @@ class ComposerStaticInit947332f466d1e448ee5e236210945390
             'ZendDeveloperTools\\' => 19,
             'ZF\\DevelopmentMode\\' => 19,
         ),
+        'U' => 
+        array (
+            'User\\' => 5,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -250,6 +254,10 @@ class ComposerStaticInit947332f466d1e448ee5e236210945390
         'ZF\\DevelopmentMode\\' => 
         array (
             0 => __DIR__ . '/..' . '/zfcampus/zf-development-mode/src',
+        ),
+        'User\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/module/User/src',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (

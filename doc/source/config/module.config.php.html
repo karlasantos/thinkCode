@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * TCC - Ci&ecirc;ncia da Computa&ccedil;&atilde;o, URI Santo &Acirc;ngelo
+ * @author Karla dos Santos Lencina &lt;karla.krs@outlook.com&gt;
+ */
+
+namespace Application;
+
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+
+/**
+ * Configura&ccedil;&otilde;es do m&oacute;dulo Application
+ */
+return [
+    //cadastro de nota&ccedil;&atilde;o da doctrine para identifica&ccedil;&atilde;o das entidades
+    'doctrine' =&gt; [
+        'driver' =&gt; [
+            'my_annotation_driver' =&gt; [
+                'class' =&gt; AnnotationDriver::class,
+                'cache' =&gt; 'array',
+                'paths' =&gt; [
+                    __DIR__ . '/../src/Model'
+                ],
+            ],
+            'orm_default' =&gt; [
+                'drivers' =&gt; [
+                    __NAMESPACE__ . '\Model' =&gt; 'my_annotation_driver'
+                ],
+            ],
+        ],
+    ],
+    //rotas de navega&ccedil;&atilde;o
+    'router' =&gt; [
+        'routes' =&gt; [
+            'home' =&gt; [
+                'type' =&gt; Literal::class,
+                'options' =&gt; [
+                    'route'    =&gt; '/',
+                    'defaults' =&gt; [
+                        'controller' =&gt; Controller\IndexController::class,
+                        'action'     =&gt; 'index',
+                    ],
+                ],
+            ],
+            'application' =&gt; [
+                'type'    =&gt; Segment::class,
+                'options' =&gt; [
+                    'route'    =&gt; '/application[/:action]',
+                    'defaults' =&gt; [
+                        'controller' =&gt; Controller\IndexController::class,
+                        'action'     =&gt; 'index',
+                    ],
+                ],
+            ],
+            'login' =&gt; [
+                'type'    =&gt; Literal::class,
+                'options' =&gt; [
+                    'route'    =&gt; '/login',
+                    'defaults' =&gt; [
+                        'controller' =&gt; Controller\AuthController::class,
+                        'action'     =&gt; 'index',
+                    ],
+                ],
+            ],
+        ],
+    ],
+    //Assinatura e fabrica&ccedil;&atilde;o dos controllers
+    'controllers' =&gt; [
+        'factories' =&gt; [
+            Controller\IndexController::class =&gt; InvokableFactory::class,
+            Controller\AuthController::class  =&gt; InvokableFactory::class,
+        ],
+    ],
+    //Configura&ccedil;&otilde;es dos arquivos de visualiza&ccedil;&atilde;o
+    'view_manager' =&gt; [
+        'display_not_found_reason' =&gt; true,
+        'display_exceptions'       =&gt; true,
+        'doctype'                  =&gt; 'HTML5',
+        'not_found_template'       =&gt; 'error/404',
+        'exception_template'       =&gt; 'error/index',
+        'template_map' =&gt; [
+            'layout/layout'           =&gt; __DIR__ . '/../view/layout/layout.phtml',
+            'layout/auth'             =&gt; __DIR__ . '/../view/layout/auth.phtml',
+            'application/index/index' =&gt; __DIR__ . '/../view/application/index/index.phtml',
+            'error/404'               =&gt; __DIR__ . '/../view/error/404.phtml',
+            'error/index'             =&gt; __DIR__ . '/../view/error/index.phtml',
+        ],
+        'template_path_stack' =&gt; [
+            __DIR__ . '/../view',
+        ],
+        //Habilita a serializa&ccedil;&atilde;o Json (para utiliza&ccedil;&atilde;o de API-REST)
+        'strategies' =&gt; [
+            'ViewJsonStrategy'
+        ],
+    ],
+];
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

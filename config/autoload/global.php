@@ -38,11 +38,8 @@ return [
                 'params' => [
                     'host' => 'localhost',
                     'port' => '5432',
-                    'user'     => 'tcc_user',
-                    'password' => 'tcc_pass',
-                    'dbname' => 'tcc_db',
                     'driverOptions' => [
-                        1002 => 'SET NAMES utf8'
+                        1002 => 'SET NAMES utf8',
                     ]
                 ]
             ],

@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+use Zend\Mvc\Application;
+?&gt;
+&lt;h1&gt;A 404 error occurred&lt;/h1&gt;
+&lt;h2&gt;&lt;?= $this-&gt;message ?&gt;&lt;/h2&gt;
+
+&lt;?php if (! empty($this-&gt;reason)) :
+    switch ($this-&gt;reason) {
+        case Application::ERROR_CONTROLLER_CANNOT_DISPATCH:
+            $reasonMessage = 'The requested controller was unable to dispatch the request.';
+            break;
+        case Application::ERROR_MIDDLEWARE_CANNOT_DISPATCH:
+            $reasonMessage = 'The requested middleware was unable to dispatch the request.';
+            break;
+        case Application::ERROR_CONTROLLER_NOT_FOUND:
+            $reasonMessage = 'The requested controller could not be mapped to an existing controller class.';
+            break;
+        case Application::ERROR_CONTROLLER_INVALID:
+            $reasonMessage = 'The requested controller was not dispatchable.';
+            break;
+        case Application::ERROR_ROUTER_NO_MATCH:
+            $reasonMessage = 'The requested URL could not be matched by routing.';
+            break;
+        default:
+            $reasonMessage = 'We cannot determine at this time why a 404 was generated.';
+            break;
+    }
+?&gt;
+&lt;p&gt;&lt;?= $reasonMessage ?&gt;&lt;/p&gt;
+&lt;?php endif ?&gt;
+
+&lt;?php if (! empty($this-&gt;controller)) : ?&gt;
+&lt;dl&gt;
+    &lt;dt&gt;Controller:&lt;/dt&gt;
+    &lt;dd&gt;
+        &lt;?= $this-&gt;escapeHtml($this-&gt;controller) ?&gt;
+        &lt;?php
+        if (! empty($this-&gt;controller_class) &amp;&amp; $this-&gt;controller_class != $this-&gt;controller) {
+            printf('(resolves to %s)', $this-&gt;escapeHtml($this-&gt;controller_class));
+        }
+        ?&gt;
+    &lt;/dd&gt;
+&lt;/dl&gt;
+&lt;?php endif ?&gt;
+
+&lt;?php if (! empty($this-&gt;display_exceptions)) : ?&gt;
+    &lt;?php if (isset($this-&gt;exception)
+        &amp;&amp; ($this-&gt;exception instanceof \Exception || $this-&gt;exception instanceof \Error)) : ?&gt;
+&lt;hr/&gt;
+
+&lt;h2&gt;Additional information:&lt;/h2&gt;
+&lt;h3&gt;&lt;?= get_class($this-&gt;exception) ?&gt;&lt;/h3&gt;
+&lt;dl&gt;
+    &lt;dt&gt;File:&lt;/dt&gt;
+    &lt;dd&gt;
+        &lt;pre&gt;&lt;?= $this-&gt;exception-&gt;getFile() ?&gt;:&lt;?= $this-&gt;exception-&gt;getLine() ?&gt;&lt;/pre&gt;
+    &lt;/dd&gt;
+    &lt;dt&gt;Message:&lt;/dt&gt;
+    &lt;dd&gt;
+        &lt;pre&gt;&lt;?= $this-&gt;escapeHtml($this-&gt;exception-&gt;getMessage()) ?&gt;&lt;/pre&gt;
+    &lt;/dd&gt;
+    &lt;dt&gt;Stack trace:&lt;/dt&gt;
+    &lt;dd&gt;
+        &lt;pre&gt;&lt;?= $this-&gt;escapeHtml($this-&gt;exception-&gt;getTraceAsString()) ?&gt;&lt;/pre&gt;
+    &lt;/dd&gt;
+&lt;/dl&gt;
+
+        &lt;?php if ($ex = $this-&gt;exception-&gt;getPrevious()) : ?&gt;
+&lt;hr/&gt;
+
+&lt;h2&gt;Previous exceptions:&lt;/h2&gt;
+&lt;ul class=&quot;list-unstyled&quot;&gt;
+            &lt;?php $icount = 0 ?&gt;
+            &lt;?php while ($ex) : ?&gt;
+    &lt;li&gt;
+        &lt;h3&gt;&lt;?= get_class($ex) ?&gt;&lt;/h3&gt;
+        &lt;dl&gt;
+            &lt;dt&gt;File:&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;pre&gt;&lt;?= $ex-&gt;getFile() ?&gt;:&lt;?= $ex-&gt;getLine() ?&gt;&lt;/pre&gt;
+            &lt;/dd&gt;
+            &lt;dt&gt;Message:&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;pre&gt;&lt;?= $this-&gt;escapeHtml($ex-&gt;getMessage()) ?&gt;&lt;/pre&gt;
+            &lt;/dd&gt;
+            &lt;dt&gt;Stack trace:&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;pre&gt;&lt;?= $this-&gt;escapeHtml($ex-&gt;getTraceAsString()) ?&gt;&lt;/pre&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/li&gt;
+                &lt;?php
+                $ex = $ex-&gt;getPrevious();
+                if (++$icount &gt;= 50) {
+                    echo '&lt;li&gt;There may be more exceptions, but we do not have enough memory to process it.&lt;/li&gt;';
+                    break;
+                }
+                ?&gt;
+            &lt;?php endwhile ?&gt;
+&lt;/ul&gt;
+        &lt;?php endif ?&gt;
+    &lt;?php else : ?&gt;
+&lt;h3&gt;No Exception available&lt;/h3&gt;
+    &lt;?php endif ?&gt;
+&lt;?php endif ?&gt;
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

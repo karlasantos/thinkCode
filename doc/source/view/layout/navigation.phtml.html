@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+foreach ($this-&gt;container as $page):
+    $sub = $page-&gt;getPages();
+    $aAttribs = '';
+    $liClasses = array();
+    $liClass = '';
+    if ($page-&gt;isActive(true))
+        $liClasses[] = 'active';
+    if (count($sub) &gt; 0):
+        $liClasses[] = '';
+        $aAttribs = ' aria-expanded=&quot;false&quot; data-toggle=&quot;collapse&quot;';
+    endif;
+    if (count($liClasses) &gt; 0)
+        $liClass = ' class=&quot;' . implode(' ', $liClasses) . '&quot;';
+    $tamSub = count($sub);
+    $caret = $tamSub &gt; 0 ? '&lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;' : '';
+    $href = $tamSub &gt; 0 ? 'javascript:void(0)' : $this-&gt;url($page-&gt;getRoute(), array('action' =&gt; $page-&gt;getAction()));
+    echo '&lt;li' . $liClass . '&gt;&lt;a href=&quot;' . $href . '&quot;' . $aAttribs . '&gt;' . $page-&gt;getlabel() . $caret . '&lt;/a&gt;';
+    if ($tamSub &gt; 0):
+        echo '&lt;ul class=&quot;collapse list-unstyled&quot;&gt;';
+        foreach ($sub as $pages):
+            $active = $pages-&gt;isActive() ? ' class=&quot;active&quot;' : '';
+            echo '&lt;li' . $active . '&gt;&lt;a href=&quot;' . $this-&gt;url($pages-&gt;getRoute(), array('action' =&gt; $pages-&gt;getAction())) . '&quot;&gt;' . $pages-&gt;getlabel() . '&lt;/a&gt;&lt;/li&gt;';
+        endforeach;
+        echo '&lt;/ul&gt;&lt;/li&gt;';
+    else:
+        echo '&lt;/li&gt;';
+    endif;
+//    echo '&lt;li class=&quot;divider-vertical&quot;&gt;&lt;/li&gt;';
+    unset($aAttribs, $liClass, $liClasses, $tamSub, $caret);
+endforeach;</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

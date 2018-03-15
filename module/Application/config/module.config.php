@@ -8,7 +8,6 @@ namespace Application;
 
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 /**
@@ -18,16 +17,16 @@ return [
     //cadastro de notação da doctrine para identificação das entidades
     'doctrine' => [
         'driver' => [
-            'my_annotation_driver' => [
+            'application_annotation_driver' => [
                 'class' => AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [
-                    __DIR__ .  '/../src/Entity'
+                    __DIR__ . '/../src/Entity'
                 ],
             ],
             'orm_default' => [
                 'drivers' => [
-                    __NAMESPACE__ . '\Entity' => 'my_annotation_driver'
+                    __NAMESPACE__ . '\Entity' => 'application_annotation_driver'
                 ],
             ],
         ],
@@ -55,23 +54,6 @@ return [
                     ],
                 ],
             ],
-            'login' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/login',
-                    'defaults' => [
-                        'controller' => Controller\AuthController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-        ],
-    ],
-    //Assinatura e fabricação dos controllers
-    'controllers' => [
-        'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-            Controller\AuthController::class  => InvokableFactory::class,
         ],
     ],
     //Configurações dos arquivos de visualização
