@@ -11,6 +11,12 @@
  * file.
  */
 
+use Doctrine\DBAL\Driver\PDOPgSql\Driver;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\EntityManager;
+use User\Entity\User;
+use Zend\Navigation\Service\DefaultNavigationFactory;
+
 return [
     //Nagegação do Menu
     'navigation' => array(
@@ -32,9 +38,10 @@ return [
     //Configurações da conexão com o DB
     'doctrine' => [
         'connection' => [
+            //configurações para mapeamento de entidades
             'orm_default' => [
                 'doctrine_type_mappings' => ['enum' => 'string'],
-                'driverClass' => 'Doctrine\DBAL\Driver\PDOPgSql\Driver',
+                'driverClass' => Driver::class,
                 'params' => [
                     'host' => 'localhost',
                     'port' => '5432',
@@ -43,9 +50,10 @@ return [
                     ]
                 ]
             ],
+            //driver de conexão com o DB
             'driver' => [
                 'my_annotation_driver' => [
-                    'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                    'class' => AnnotationDriver::class,
                     'cache' => 'array',
                     'paths' => [
                         __DIR__ . '/../../module/Application/src/Entity',
@@ -59,10 +67,22 @@ return [
                 ]
             ],
         ],
+        //configurações de autenticação da aplicação
+        'authentication' => [
+            'orm_default' => [
+                'object_manager'      => EntityManager::class,
+                'identity_class'      => User::class,
+                'identity_property'   => 'email',
+                'credential_property' => 'password',
+                'credential_callable' => function(User $user, $passwordSent) {
+                    return password_verify($passwordSent, $user->getPassword());
+                }
+            ]
+        ]
     ],
     'service_manager' => [
         'factories' => [
-            'navigation' => Zend\Navigation\Service\DefaultNavigationFactory::class,
+            'navigation' => DefaultNavigationFactory::class,
         ],
     ],
 ];

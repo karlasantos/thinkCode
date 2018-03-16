@@ -4,20 +4,15 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace Application\Controller\Factory;
+namespace User\Controller\Factory;
 
-use User\Controller\AuthController;
 use Doctrine\ORM\EntityManager;
+use User\Controller\AuthController;
+use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
-/**
- * Classe fabricadora genérica de Controller
- *
- * Class ControllerFactory
- * @package Application\Controller\Factory
- */
-class ControllerFactory implements FactoryInterface
+class AuthControllerFactory implements FactoryInterface
 {
     /**
      * Método mágico de invocação de classe
@@ -25,14 +20,14 @@ class ControllerFactory implements FactoryInterface
      * @param ContainerInterface $container
      * @param string $requestedName
      * @param array|null $options
-     * @return AuthController|object
+     * @return object
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $em = $container->get(EntityManager::class);
-
-        return new $requestedName($em);
+        $authService = $container->get(AuthenticationServiceInterface::class);
+        return new AuthController($em, $authService);
     }
 }

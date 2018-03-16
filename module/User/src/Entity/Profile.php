@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="profiles")
- * @package Application\Entity
+ * @package User\Entity
  */
 class Profile
 {
@@ -74,10 +74,13 @@ class Profile
      */
     private $gender;
 
-//    /**
-//     * @var User
-//     */
-//    private $user;
+    /**
+     * Usuário dono do perfil
+     *
+     * @ORM\OneToOne(targetEntity="User", mappedBy="profile", cascade={"persist", "remove"})
+     * @var User
+     */
+    private $user;
 
     /**
      * Retorna o id de identificação do perfil
@@ -187,5 +190,25 @@ class Profile
     public function setGender($gender)
     {
         $this->gender = $gender;
+    }
+
+    /**
+     * Retorna o usuário dono do perfil
+     *
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Define o usuário dono do perfil
+     *
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 }
