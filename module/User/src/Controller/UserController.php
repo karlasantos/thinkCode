@@ -19,6 +19,13 @@ class UserController extends AbstractRestfulController
         $this->entityManager = $entityManager;
     }
 
+    public function indexAction()
+    {
+        return new JsonModel([
+            'results' => array(),
+        ]);
+    }
+
     public function getList()
     {
         return new JsonModel([

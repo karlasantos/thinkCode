@@ -10,6 +10,7 @@ namespace User;
 use User\Controller\Factory\AuthControllerFactory;
 use User\Service\Factory\AuthenticationServiceFactory;
 use Zend\Authentication\AuthenticationServiceInterface;
+use Zend\Authentication\AuthenticationService;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
@@ -39,6 +40,11 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
     {
         //Assinatura e fabricação dos controllers
         return [
+            //atribui um aliases para os controllers fabricados
+            'aliases' => [
+                'auth' => Controller\AuthController::class,
+                'user' => Controller\UserController::class
+            ],
             'factories' => [
                 Controller\AuthController::class  => AuthControllerFactory::class,
                 Controller\UserController::class  => ControllerFactory::class,
@@ -56,6 +62,10 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
     {
         // TODO: Implement getServiceConfig() method.
         return [
+            //atribui um aliases para os services fabricados
+            'aliases' => [
+                AuthenticationService::class => AuthenticationServiceInterface::class
+            ],
             'factories' => [
                 AuthenticationServiceInterface::class => AuthenticationServiceFactory::class,
             ],

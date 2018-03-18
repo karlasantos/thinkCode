@@ -7,6 +7,7 @@
 namespace User;
 
 use Application\Controller\Factory\ControllerFactory;
+use function PHPSTORM_META\type;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -36,66 +37,114 @@ return [
     //rotas de navegação
     'router' => [
         'routes' => [
+            //rotas para a aplicação
             'user' => [
-                'type'    => Segment::class,
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/user[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\UserController::class,
-                        'action'     => 'index',
-                    ],
+                    'route' => '/',
                 ],
+                'may_terminate' => false,
+                'child_routes' => [
+                    'user' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => '/user/[:controller[/:action[/:id]]]',
+                            'constraints' => [
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'         => '[0-9]*',
+                            ],
+                            'defaults' => array(
+                                'controller' => Controller\UserController::class
+                            ),
+                        ]
+                    ],
+                    'login' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => 'login',
+                            'defaults' => [
+                                'controller' => Controller\AuthController::class,
+                                'action'     => 'login',
+                            ],
+                        ],
+                    ],
+                    'register' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => 'register',
+                            'defaults' => [
+                                'controller' => Controller\AuthController::class,
+                                'action'     => 'register',
+                            ],
+                        ],
+                    ],
+                    'recover-password' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => 'recover-password',
+                            'defaults' => [
+                                'controller' => Controller\AuthController::class,
+                                'action'     => 'recover-password',
+                            ],
+                        ],
+                    ],
+                ]
             ],
-            'auth' => [
-                'type'    => Literal::class,
+            //rotas para a API
+            'api' => [
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/auth',
-                    'defaults' => [
-                        'controller' => Controller\AuthController::class,
-                        'action'     => 'index',
-                    ],
+                    'route' => '/api',
                 ],
-            ],
-            'register' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/register',
-                    'defaults' => [
-                        'controller' => Controller\AuthController::class,
-                        'action'     => 'register',
+                'may_terminate' => false,
+                'child_routes' => [
+                    'user' => [
+                        'type' => 'segment',
+                        'options' => [
+                            'route' => '/user/[:controller[/:action[/:id]]]',
+                            'constraints' => [
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'         => '[0-9]*',
+                            ],
+                            'defaults' => array(
+                                'controller' => Controller\UserController::class
+                            ),
+                        ]
                     ],
-                ],
-            ],
-            'recover-password' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/recover-password',
-                    'defaults' => [
-                        'controller' => Controller\AuthController::class,
-                        'action'     => 'recover-password',
+                    'login' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/login',
+                            'defaults' => [
+                                'controller' => Controller\AuthController::class,
+                                'action'     => 'login',
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'login' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/login',
-                    'defaults' => [
-                        'controller' => Controller\AuthController::class,
-                        'action'     => 'login',
+                    'register' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/register',
+                            'defaults' => [
+                                'controller' => Controller\AuthController::class,
+                                'action'     => 'register',
+                            ],
+                        ],
                     ],
-                ],
-            ],
-            'logout' => [
-                'type'    => Literal::class,
-                'options' => [
-                    'route'    => '/logout',
-                    'defaults' => [
-                        'controller' => Controller\AuthController::class,
-                        'action'     => 'logout',
+                    'recover-password' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/recover-password',
+                            'defaults' => [
+                                'controller' => Controller\AuthController::class,
+                                'action'     => 'recover-password',
+                            ],
+                        ],
                     ],
-                ],
-            ],
+                ]
+            ]
         ],
     ],
     //Configurações dos arquivos de visualização

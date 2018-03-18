@@ -39,8 +39,6 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return [
             'factories' => [
                 Controller\IndexController::class => InvokableFactory::class,
-                Controller\AuthController::class  => ControllerFactory::class,
-                Controller\UserController::class  => ControllerFactory::class,
             ],
         ];
     }

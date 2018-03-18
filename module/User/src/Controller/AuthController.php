@@ -8,7 +8,8 @@ namespace User\Controller;
 
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationServiceInterface;
-use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\Controller\AbstractRestfulController;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManager;
 
@@ -18,7 +19,7 @@ use Doctrine\ORM\EntityManager;
  *
  * @package Application\Controller
  */
-class AuthController extends AbstractActionController
+class AuthController extends AbstractRestfulController
 {
     /**
      * @var EntityManager
@@ -41,14 +42,6 @@ class AuthController extends AbstractActionController
         $this->authService = $authService;
     }
 
-    public function indexAction()
-    {
-        $this->layout()->setTemplate('layout/auth');
-
-        return new ViewModel();
-    }
-
-
     public function registerAction()
     {
         $this->layout()->setTemplate('layout/auth');
@@ -64,21 +57,30 @@ class AuthController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\Response|ViewModel
+     * Realiza o login do usuário
+     *
+     * @return \Zend\Http\Response|JsonModel|ViewModel
      */
     public function loginAction() {
-        //redireciona para o home caso o usuário já esteja logado
-        if($this->authService->hasIdentity()) {
-            return $this->redirect()->toRoute('home');
-        }
-
         $messageError = null;
         $request = $this->getRequest();
+        $urlRequest = $this->url()->fromRoute();
+        $apiRequest = strpos($urlRequest, 'api');
 
+        //verifica se o usuário está logado
+        if($this->authService->hasIdentity()) {
+            /* verifica origem da requisição:
+                   true: requisição realizada pela API e retorno JSON
+                   false: requisição realizada pelo ambiente e redireciona para a página home
+               */
+            return ($apiRequest)? (new JsonModel(array('message' => 'Usuário já logado'))) : ($this->redirect()->toRoute('home'));
+
+        }
+
+        //verificar o login do usuário
         if($request->isPost()) {
-            //verificar o login do usuário
-
             //se dados enviados na requisição forem validados segue essa linha:
+            //todo capturar os dados enviados na requisição
             $data = null;
             //passando as credenciais para o adaptador de login
             /** @var CallbackCheckAdapter $authAdapter */
@@ -88,12 +90,28 @@ class AuthController extends AbstractActionController
 
             $result = $this->authService->authenticate();
 
-            //redireciona a página para o home se login for válido
             if($result->isValid()) {
-               return $this->redirect()->toRoute('home');
+                //todo definir o status da requisição para ok
+                /* verifica origem da requisição:
+                   true: requisição realizada pela API e retorno JSON
+                   false: requisição realizada pelo ambiente e redireciona para a página home
+               */
+                return ($apiRequest)? (new JsonModel(array())) : ($this->redirect()->toRoute('home'));
             } else {
                 $messageError = "Login Inválido";
             }
+        }
+
+        //todo define o status da requisição
+
+        //verifica se a requisição foi realizada como API e retorna um JSON como resposta
+        //todo verificar essa opção de get na API, deve ser desabilitada
+        if($apiRequest) {
+            return new JsonModel(
+                array(
+                    'error' => $messageError
+                )
+            );
         }
 
         $this->layout()->setTemplate('layout/auth');
