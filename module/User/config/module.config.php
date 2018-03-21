@@ -41,55 +41,56 @@ return [
             'user' => [
                 'type' => Literal::class,
                 'options' => [
-                    'route' => '/',
+                    'route' => '/user',
+                    'defaults' => array(
+                        'controller' => Controller\UserController::class,
+                        'action' => 'index'
+                    ),
                 ],
-                'may_terminate' => false,
+                'may_terminate' => true,
                 'child_routes' => [
                     'user' => [
                         'type' => 'segment',
                         'options' => [
-                            'route' => '/user/[:controller[/:action[/:id]]]',
+                            'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => [
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id'         => '[0-9]*',
                             ],
-                            'defaults' => array(
-                                'controller' => Controller\UserController::class
-                            ),
                         ]
                     ],
-                    'login' => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => 'login',
-                            'defaults' => [
-                                'controller' => Controller\AuthController::class,
-                                'action'     => 'login',
-                            ],
-                        ],
-                    ],
-                    'register' => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => 'register',
-                            'defaults' => [
-                                'controller' => Controller\AuthController::class,
-                                'action'     => 'register',
-                            ],
-                        ],
-                    ],
-                    'recover-password' => [
-                        'type'    => Literal::class,
-                        'options' => [
-                            'route'    => 'recover-password',
-                            'defaults' => [
-                                'controller' => Controller\AuthController::class,
-                                'action'     => 'recover-password',
-                            ],
-                        ],
-                    ],
                 ]
+            ],
+            'login' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/login',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'login',
+                    ],
+                ],
+            ],
+            'register' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/register',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'register',
+                    ],
+                ],
+            ],
+            'recover-password' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/recover-password',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'recover-password',
+                    ],
+                ],
             ],
             //rotas para a API
             'api' => [
@@ -102,7 +103,7 @@ return [
                     'user' => [
                         'type' => 'segment',
                         'options' => [
-                            'route' => '/user/[:controller[/:action[/:id]]]',
+                            'route' => '/user[/:controller[/:action[/:id]]]',
                             'constraints' => [
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',

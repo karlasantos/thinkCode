@@ -7,6 +7,7 @@
 
 namespace User;
 
+use User\Controller\AuthController;
 use User\Controller\Factory\AuthControllerFactory;
 use User\Service\Factory\AuthenticationServiceFactory;
 use Zend\Authentication\AuthenticationServiceInterface;
@@ -15,6 +16,7 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Application\Controller\Factory\ControllerFactory;
+use Zend\Mvc\MvcEvent;
 
 /**
  * Class Module
@@ -24,6 +26,35 @@ use Application\Controller\Factory\ControllerFactory;
 class Module implements ConfigProviderInterface, ServiceProviderInterface, ControllerProviderInterface
 {
     const VERSION = '3.0.3-dev';
+
+    /**
+     * Verifica a permissão de acesso a determinada área do sistema e redireciona para o login em caso de não permissão
+     * @param MvcEvent $event
+     */
+    public function onBootstrap(MvcEvent $event)
+    {
+        $eventManager = $event->getApplication()->getEventManager();
+        $container = $event->getApplication()->getServiceManager();
+
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH,
+            function(MvcEvent $event) use($container) {
+                $match = $event->getRouteMatch();
+
+                $authService = $container->get(AuthenticationServiceInterface::class);
+
+                //pega a requisição acessada
+                $routeName = $match->getMatchedRouteName();
+
+                if($authService->hasIdentity()) {
+                    //se usuário logado apenas retorna
+                    return;
+                } else if(strpos($routeName, 'user') !== false) {
+                    //se a rota contiver o nome do módulo e usuário não estiver logado redireciona para o login
+                    $match->setParam('controller', AuthController::class)
+                        ->setParam('action', 'login');
+                }
+        }, 100);
+    }
 
     public function getConfig()
     {

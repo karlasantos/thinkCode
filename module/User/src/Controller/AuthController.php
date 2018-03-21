@@ -74,16 +74,15 @@ class AuthController extends AbstractRestfulController
                    false: requisição realizada pelo ambiente e redireciona para a página home
                */
             return ($apiRequest)? (new JsonModel(array('message' => 'Usuário já logado'))) : ($this->redirect()->toRoute('home'));
-
         }
 
         //verificar o login do usuário
         if($request->isPost()) {
-            //se dados enviados na requisição forem validados segue essa linha:
-            //todo capturar os dados enviados na requisição
-            $data = null;
+            //recupera os dados da requisição
+            $data = $this->params()->fromPost();
+
             //passando as credenciais para o adaptador de login
-            /** @var CallbackCheckAdapter $authAdapter */
+            /* @var CallbackCheckAdapter $authAdapter */
             $authAdapter = $this->authService->getAdapter();
             $authAdapter->setIdentity($data['email']);
             $authAdapter->setCredential($data['password']);
@@ -91,18 +90,17 @@ class AuthController extends AbstractRestfulController
             $result = $this->authService->authenticate();
 
             if($result->isValid()) {
-                //todo definir o status da requisição para ok
+                $this->getResponse()->setStatusCode(200);
                 /* verifica origem da requisição:
                    true: requisição realizada pela API e retorno JSON
                    false: requisição realizada pelo ambiente e redireciona para a página home
                */
                 return ($apiRequest)? (new JsonModel(array())) : ($this->redirect()->toRoute('home'));
             } else {
+                $this->getResponse()->setStatusCode(400);
                 $messageError = "Login Inválido";
             }
         }
-
-        //todo define o status da requisição
 
         //verifica se a requisição foi realizada como API e retorna um JSON como resposta
         //todo verificar essa opção de get na API, deve ser desabilitada

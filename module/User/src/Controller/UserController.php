@@ -9,6 +9,7 @@ namespace User\Controller;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Doctrine\ORM\EntityManager;
+use Zend\View\Model\ViewModel;
 
 class UserController extends AbstractRestfulController
 {
@@ -21,9 +22,11 @@ class UserController extends AbstractRestfulController
 
     public function indexAction()
     {
-        return new JsonModel([
-            'results' => array(),
-        ]);
+//        return new JsonModel([
+//            'results' => array(),
+//        ]);
+        return new ViewModel();
+
     }
 
     public function getList()
