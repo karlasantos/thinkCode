@@ -6,6 +6,7 @@
 
 namespace User\Entity;
 
+use Application\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -15,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="profiles")
  * @package User\Entity
  */
-class Profile
+class Profile extends Entity
 {
     /**
      * Id de identificação do perfil
@@ -210,5 +211,22 @@ class Profile
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * Retorna os todos dados do usuário em formato de array
+     * @inheritdoc
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id'       => $this->id,
+            'fullName' => $this->fullName,
+            'avatar'   => $this->avatar,
+            'school'   => $this->school,
+            'birthday' => $this->birthday,
+            'gender'   => $this->gender
+        );
     }
 }

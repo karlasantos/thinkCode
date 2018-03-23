@@ -6,6 +6,7 @@
 
 namespace User\Entity;
 
+use Application\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -16,7 +17,7 @@ use DateTime;
  * @ORM\Table(name="users")
  * @package User\Entity
  */
-class User
+class User extends Entity
 {
     /**
      * Id de identificação do usuário
@@ -48,6 +49,8 @@ class User
     private $password;
 
     /**
+     * Perfil do usuário
+     *
      * @ORM\OneToOne(targetEntity="Profile", inversedBy="user", fetch="LAZY")
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      *
@@ -63,6 +66,14 @@ class User
      * @var DateTime
      */
     private $created;
+
+    /**
+     * Indica se a conta de usuário está ativa
+     *
+     * @ORM\Column(name="active_account", type="boolean", nullable=false, options={"default": true})
+     * @var boolean
+     */
+    private $activeAccount;
 
     /**
      * Retorna o id de identificação do usuário
@@ -111,6 +122,7 @@ class User
      */
     public function setPassword($password)
     {
+        $password = password_hash($password, PASSWORD_BCRYPT);
         $this->password = $password;
     }
 
@@ -152,5 +164,41 @@ class User
     public function setCreated($created)
     {
         $this->created = $created;
+    }
+
+    /**
+     * Retorna se a conta de usuário está ativa
+     *
+     * @return bool
+     */
+    public function isActiveAccount()
+    {
+        return $this->activeAccount;
+    }
+
+    /**
+     * Define se a conta de usuário está ativa
+     *
+     * @param bool $activeAccount
+     */
+    public function setActiveAccount($activeAccount)
+    {
+        $this->activeAccount = $activeAccount;
+    }
+
+    /**
+     * Retorna os todos dados do usuário em formato de array
+     * @inheritdoc
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'id'       => $this->id,
+            'email'    => $this->email,
+            'password' => $this->password,
+            'created'  => $this->created->format('d-m-Y H:i:s'),
+            'profile'  => $this->profile->toArray()
+        );
     }
 }

@@ -10,9 +10,6 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 
-//criar a sessão para guardar o usuário
-//criar o serviço de AuthenticationService
-
 class AuthenticationServiceFactory implements FactoryInterface
 {
     /**

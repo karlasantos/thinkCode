@@ -72,6 +72,16 @@ return [
                     ],
                 ],
             ],
+            'logout' => [
+                'type'    => Literal::class,
+                'options' => [
+                    'route'    => '/logout',
+                    'defaults' => [
+                        'controller' => Controller\AuthController::class,
+                        'action'     => 'logout',
+                    ],
+                ],
+            ],
             'register' => [
                 'type'    => Literal::class,
                 'options' => [
@@ -124,13 +134,13 @@ return [
                             ],
                         ],
                     ],
-                    'register' => [
+                    'logout' => [
                         'type'    => Literal::class,
                         'options' => [
-                            'route'    => '/register',
+                            'route'    => '/logout',
                             'defaults' => [
                                 'controller' => Controller\AuthController::class,
-                                'action'     => 'register',
+                                'action'     => 'logout',
                             ],
                         ],
                     ],

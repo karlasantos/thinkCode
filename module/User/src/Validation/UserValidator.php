@@ -16,12 +16,12 @@ use Zend\Validator\StringLength;
 /**
  * Valida os dados enviados na requisição de criação de Usuário
  *
- * Class CreateUserValidator
+ * Class UserValidator
  * @package User\Validation
  */
-class CreateUserValidator extends InputFilter
+class UserValidator extends InputFilter
 {
-    public function __construct($data = array())
+    public function __construct($data, $createRequest = false)
     {
         // id
         $this->add(array(
@@ -59,10 +59,10 @@ class CreateUserValidator extends InputFilter
             ),
         ));
 
-        // senha
+        // password
         $this->add(array(
             'name'     => 'password',
-            'required' => true,
+            'required' => false,
             'filters'  => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -81,8 +81,8 @@ class CreateUserValidator extends InputFilter
                     'name' => 'StringLength',
                     'options' => array(
                         'encoding' => 'UTF-8',
-                        'min' => 8,
-                        'max' => 55,
+                        'min' => 6,
+                        'max' => 40,
                         'messages' => array(
                             StringLength::TOO_SHORT => 'A senha conter no mínimo 6 caracteres.',
                             StringLength::TOO_LONG => 'A senha conter no máximo 40 caracteres.',
@@ -92,10 +92,10 @@ class CreateUserValidator extends InputFilter
             ),
         ));
 
-        // confirmacao de senha
+        // passwordConfirm
         $this->add(array(
             'name'     => 'passwordConfirm',
-            'required' => true,
+            'required' => false,
             'filters'  => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -124,8 +124,14 @@ class CreateUserValidator extends InputFilter
         ));
 
         if (! empty($data)) {
+
+            //define os password com obrigatórios na requisição de create
+            if($createRequest) {
+                $this->get('password')->setRequired(true);
+                $this->get('passwordConfirm')->setRequired(true);
+            }
+
             $this->setData($data);
         }
     }
-
 }
