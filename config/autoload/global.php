@@ -26,12 +26,12 @@ return [
             array(
                 'label' => '<i class="icon-home"></i> Home',
                 'class' => 'start',
-                'route' => 'home',
+                'route' => 'tcc-home',
             ),
             array(
                 'label' => '<i class="icon-interface-windows"></i> Sistema',
                 'class' => '',
-                'route' => 'application',
+                'route' => 'tcc-application',
             ),
         ),
     ),

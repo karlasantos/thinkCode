@@ -6,11 +6,15 @@
 
 namespace User\Controller;
 
+use Exception;
 use User\Entity\User;
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationServiceInterface;
-use Zend\Mvc\Controller\AbstractRestfulController;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\Smtp as SmtpTransport;
+use Zend\Mail\Transport\SmtpOptions;
 use Zend\View\Model\ViewModel;
 use Doctrine\ORM\EntityManager;
 
@@ -20,19 +24,31 @@ use Doctrine\ORM\EntityManager;
  *
  * @package Application\Controller
  */
-class AuthController extends AbstractRestfulController
+class AuthController extends AbstractActionController
 {
     /**
+     * Gerenciador de entidades do Doctrine
+     *
      * @var EntityManager
      */
     private $entityManager;
 
     /**
+     * Serviço de autenticação
+     *
      * @var AuthenticationServiceInterface
      */
     private $authService;
 
-    const EMAIL_SENDER = "karladslencina@aluno.santoangelo.uri.br";
+    /**
+     * E-mail do remetente
+     */
+    const EMAIL_SENDER = "karlacc.uri@gmail.com";
+
+    /**
+     * Senha do e-mail
+     */
+    const PASS_EMAIL_SENDER = "uricienciadacomputacao2018";
 
     /**
      * AuthController constructor.
@@ -54,7 +70,7 @@ class AuthController extends AbstractRestfulController
      * @param bool $useSymbols
      * @return string
      */
-    private function generatePassword($length = 6, $useUppercases = true, $useNumbers = true, $useSymbols = false)
+    private function generatePassword($length = 8, $useUppercases = true, $useNumbers = true, $useSymbols = false)
     {
         $smallLetters = 'abcdefghijklmnopqrstuvwxyz';
         $capitalLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -74,6 +90,11 @@ class AuthController extends AbstractRestfulController
         return $password;
     }
 
+    /**
+     * Carrega a página HTML de registro de nova conta no sistema
+     *
+     * @return ViewModel
+     */
     public function registerAction()
     {
         $this->layout()->setTemplate('layout/auth');
@@ -81,6 +102,14 @@ class AuthController extends AbstractRestfulController
         return new ViewModel();
     }
 
+    /**
+     * Requisição POST: Realiza a recuperação de senha de usuário enviando uma nova senha por email
+     * Requisição GET: carrega a página HTML de recuperação de senha
+     *
+     * Requisições: @GET e @POST
+     * @api
+     * @return JsonModel|ViewModel
+     */
     public function recoverPasswordAction()
     {
         $messageError = null;
@@ -94,33 +123,84 @@ class AuthController extends AbstractRestfulController
 
             if(isset($data['email'])) {
                 //realiza um select no DB para obter a informação de conta ativa do usuário
-                $user = $this->entityManager->createQueryBuilder()
-                    ->select('u.id, u.activeAccount')
+                $userData = $this->entityManager->createQueryBuilder()
+                    ->select('u.id, u.activeAccount, profile.fullName as name')
                     ->from(User::class, 'u')
+                    ->leftJoin('u.profile', 'profile')
                     ->where('u.email like :email')
                     ->setParameter('email', $data['email'])->getQuery()->getArrayResult();
-                $user = count($user) > 0 ? $user[0] : array();
+                $userData = count($userData) > 0 ? $userData[0] : array();
 
-                if(isset($user['activeAccount'])) {
+                if(isset($userData['activeAccount']) && $userData['activeAccount']) {
                     $newPassword = $this->generatePassword();
 
-                    //todo continuar aqui
+                    try {
+                        //retorna o usuário e atualiza a sua senha salva no DB
+                        $user = $this->entityManager->find(User::class, $userData['id']);
+
+                        if(!$user instanceof User) {
+                            throw new Exception('Usuário não encontrado.');
+                        }
+
+                        $user->setPassword($newPassword);
+                        $this->entityManager->persist($user);
+                        $this->entityManager->flush();
+                    } catch (Exception $exception) {
+                        //retorna erro interno para o usuário em caso de exceção gerada durante o processo de alteração de senha
+                        $this->getResponse()->setStatusCode(500);
+
+                        return new JsonModel(
+                            array(
+                                'error' => "Ocorreu um erro interno ao alterar a senha, tente novamente mais tarde.",
+                                'exception' => $exception->getMessage()
+                            )
+                        );
+                    }
+
+                    $message = new Message();
+                    $message->addTo($data['email']);
+                    $message->addFrom(AuthController::EMAIL_SENDER);
+                    //todo colocar o nome definido para a ferramenta
+                    $message->setSubject('Recuperação de Senha do XXX');
+                    $content = "Olá ".$userData['name'] .",\nutilize a senha a seguir para realizar login no XXX:\n".$newPassword;
+                    $message->setBody($content);
+                    $message->setEncoding('UTF-8');
+                    $message->getHeaders()->addHeaderLine('Content-Type', 'text/plain; charset=UTF-8');
+
+                    $transport = new SmtpTransport();
+                    $options   = new SmtpOptions([
+                        'host'              => 'smtp.gmail.com',
+                        'connection_class'  => 'login',
+                        'connection_config' => [
+                            'ssl'       => 'tls',
+                            'username' => AuthController::EMAIL_SENDER,
+                            'password' => AuthController::PASS_EMAIL_SENDER,
+                        ],
+                    ]);
+                    $options->setPort(587);
+                    $transport->setOptions($options);
+                    $transport->send($message);
+
+                    return new JsonModel(array('message' => "Uma mensagem com uma nova senha de acesso foi enviada para seu e-mail."));
                 } else {
                     $this->getResponse()->setStatusCode(400);
-                    $messageError = "Não foi encontrada nenhuma conta cadastrada para este e-mail.";
+                    return new JsonModel(array('message' => "Não foi encontrada nenhuma conta cadastrada para este e-mail."));
                 }
             }
-
         }
 
         $this->layout()->setTemplate('layout/auth');
-
         return new ViewModel();
     }
 
     /**
      * Realiza o login do usuário
      *
+     * Requisição POST: realiza o login
+     * Requisição GET: carrega o HTML com o formulário de login
+     *
+     * Requisições: @GET e @POST
+     * @api
      * @return \Zend\Http\Response|JsonModel|ViewModel
      */
     public function loginAction()
@@ -208,6 +288,6 @@ class AuthController extends AbstractRestfulController
         //destrói a sessão do usuário
         $this->authService->clearIdentity();
 
-        return ($apiRequest)? new JsonModel(array('message' => 'Logout realizado com sucesso.')) : $this->redirect()->toRoute('login');
+        return ($apiRequest)? new JsonModel(array('message' => "Logout realizado com sucesso.")) : $this->redirect()->toRoute('login');
     }
 }

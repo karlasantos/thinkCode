@@ -37,14 +37,12 @@ return [
     //rotas de navegação
     'router' => [
         'routes' => [
-            //rotas para a aplicação
-            'user' => [
+            'tcc-user' => [
                 'type' => Literal::class,
                 'options' => [
                     'route' => '/user',
                     'defaults' => array(
                         'controller' => Controller\UserController::class,
-                        'action' => 'index'
                     ),
                 ],
                 'may_terminate' => true,
@@ -110,7 +108,7 @@ return [
                 ],
                 'may_terminate' => false,
                 'child_routes' => [
-                    'user' => [
+                    'tcc-user' => [
                         'type' => 'segment',
                         'options' => [
                             'route' => '/user[/:controller[/:action[/:id]]]',

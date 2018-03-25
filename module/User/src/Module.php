@@ -42,16 +42,17 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
 
                 $authService = $container->get(AuthenticationServiceInterface::class);
 
-                //pega a requisição acessada
+                //pega a requisição acessada pelo nome da rota
                 $routeName = $match->getMatchedRouteName();
 
                 if($authService->hasIdentity()) {
                     //se usuário logado apenas retorna
                     return;
-                } else if(strpos($routeName, 'user') !== false) {
+                } else if(strpos($routeName, 'tcc') !== false) {
                     //se a rota contiver o nome do módulo e usuário não estiver logado redireciona para o login
-                    $match->setParam('controller', AuthController::class)
-                        ->setParam('action', 'login');
+                    //todo descomentar as duas linhas abaixo para filtro de usuário logado e colocar uma condição para liberar o create de user
+//                    $match->setParam('controller', AuthController::class)
+//                        ->setParam('action', 'login');
                 }
         }, 100);
     }

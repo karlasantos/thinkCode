@@ -33,6 +33,8 @@ class ComposerStaticInit947332f466d1e448ee5e236210945390
             'Zend\\Mvc\\Console\\' => 17,
             'Zend\\Mvc\\' => 9,
             'Zend\\ModuleManager\\' => 19,
+            'Zend\\Mime\\' => 10,
+            'Zend\\Mail\\' => 10,
             'Zend\\Log\\' => 9,
             'Zend\\Loader\\' => 12,
             'Zend\\Json\\' => 10,
@@ -166,6 +168,14 @@ class ComposerStaticInit947332f466d1e448ee5e236210945390
         'Zend\\ModuleManager\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-modulemanager/src',
+        ),
+        'Zend\\Mime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-mime/src',
+        ),
+        'Zend\\Mail\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-mail/src',
         ),
         'Zend\\Log\\' => 
         array (

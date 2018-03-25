@@ -34,7 +34,7 @@ return [
     //rotas de navegação
     'router' => [
         'routes' => [
-            'home' => [
+            'tcc-home' => [
                 'type' => Literal::class,
                 'options' => [
                     'route'    => '/home',
@@ -44,7 +44,7 @@ return [
                     ],
                 ],
             ],
-            'application' => [
+            'tcc-application' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/application[/:action]',
