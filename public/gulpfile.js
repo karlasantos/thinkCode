@@ -55,20 +55,20 @@ gulp.task('minify-css', function() {
 /**
  * Minificar os JS do projeto e concatenar em um arquivo
  */
-gulp.task('minify-js', function () {
-    gulp.src('js/*.js') //define o local dos arquivos para minificar
-        .pipe(concat('all.min.js')) //concatena todos os min.js em um arquivo
-        .pipe(uglify()) //minifica os arquivos
-        .pipe(gulp.dest('js/minify')); //define o destino
-});
-
 // gulp.task('minify-js', function () {
-//     gulp.src('js/**/*.js') //define o local dos arquivos para minificar
-//         .pipe(browserify()) //concatena todos os min.js em um arquivo
-//         .pipe(uglify())
-//         .pipe(rename('all.min.js')) //minifica os arquivos
+//     gulp.src('js/*.js') //define o local dos arquivos para minificar
+//         .pipe(concat('all.min.js')) //concatena todos os min.js em um arquivo
+//         .pipe(uglify()) //minifica os arquivos
 //         .pipe(gulp.dest('js/minify')); //define o destino
 // });
+
+gulp.task('minify-js', function () {
+    gulp.src('js/*.js') //define o local dos arquivos para minificar
+        .pipe(browserify()) //concatena todos os min.js em um arquivo
+        .pipe(uglify())
+        .pipe(rename('all.min.js')) //minifica os arquivos
+        .pipe(gulp.dest('js/minify')); //define o destino
+});
 
 /**
  * Minificar os códigos com angular
@@ -76,17 +76,10 @@ gulp.task('minify-js', function () {
 gulp.task('minify-angular', function () {
     gulp.src('js/app/app.js') //define o local dos arquivos para minificar
         .pipe(browserify()) //concatena todos os min.js em um arquivo
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(rename('all.min.js')) //minifica os arquivos
         .pipe(gulp.dest('js/app/minify')); //define o destino
 });
-
-// gulp.task('minify-angular', function () {
-//     gulp.src('js/app/app.js') //define o local dos arquivos para minificar
-//         .pipe(concat('all.min.js')) //concatena todos os min.js em um arquivo
-//         .pipe(uglify()) //minifica os arquivos
-//         .pipe(gulp.dest('js/app/minify')); //define o destino
-// });
 
 /**
  * Minificar as imagens do projeto
@@ -105,5 +98,5 @@ gulp.task('watch', function () {
     gulp.watch('css/*.css', ['minify-css']);
     gulp.watch('js/*.js', ['minify-js']);
     gulp.watch('img/*', ['minify-img']);
-    gulp.watch('js/app/*.js', ['minify-angular']);
+    gulp.watch('js/app/app.js', ['minify-angular']);
 });

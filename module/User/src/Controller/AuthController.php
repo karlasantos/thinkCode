@@ -11,6 +11,7 @@ use User\Entity\User;
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Zend\Mail\Message;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
@@ -24,7 +25,7 @@ use Doctrine\ORM\EntityManager;
  *
  * @package Application\Controller
  */
-class AuthController extends AbstractActionController
+class AuthController extends AbstractRestfulController
 {
     /**
      * Gerenciador de entidades do Doctrine
@@ -119,7 +120,7 @@ class AuthController extends AbstractActionController
 
         if($request->isPost()) {
             //recupera os dados da requisição
-            $data = $this->params()->fromPost();
+            $data = (array)json_decode($request->getContent());
 
             if(isset($data['email'])) {
                 //realiza um select no DB para obter a informação de conta ativa do usuário
@@ -216,13 +217,15 @@ class AuthController extends AbstractActionController
                    true: requisição realizada pela API e retorno JSON
                    false: requisição realizada pelo ambiente e redireciona para a página home
                */
-            return ($apiRequest)? (new JsonModel(array('message' => 'Usuário já logado'))) : ($this->redirect()->toRoute('home'));
+            return ($apiRequest)? (new JsonModel(array('message' => 'Usuário já logado'))) : ($this->redirect()->toRoute('tcc-home'));
         }
 
         //verificar o login do usuário
         if($request->isPost()) {
             //recupera os dados da requisição
             $data = $this->params()->fromPost();
+            //todo modificar para esta opção para aceitar json
+//            $data = (array)json_decode($request->getContent());
 
             //verifica se os dados foram enviados corretamente (precaução para API)
             if(isset($data['email']) && isset($data['password'])) {
@@ -249,7 +252,7 @@ class AuthController extends AbstractActionController
                        true: requisição realizada pela API e retorno JSON
                        false: requisição realizada pelo ambiente e redireciona para a página home
                    */
-                    return ($apiRequest) ? (new JsonModel(array('message' => 'Login realizado com sucesso.'))) : ($this->redirect()->toRoute('home'));
+                    return ($apiRequest) ? (new JsonModel(array('message' => 'Login realizado com sucesso.'))) : ($this->redirect()->toRoute('tcc-home'));
                 } else {
                     $this->authService->clearIdentity();
 
@@ -270,9 +273,7 @@ class AuthController extends AbstractActionController
         }
 
         $this->layout()->setTemplate('layout/auth');
-        return new ViewModel(
-            array($result)
-        );
+        return new ViewModel($result);
     }
 
     /**
