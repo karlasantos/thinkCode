@@ -65,7 +65,7 @@ class UserController extends AbstractRestfulController
     public function create($data)
     {
         //instancia validadores dos dados
-        $userFilter = new UserValidator($data, true);
+        $userFilter = new UserValidator($this->entityManager, $data, true);
         $profileFilter = new ProfileValidator($data);
 
         //se houver erro nos dados enviados na requisição retorna mensagem de erro
@@ -73,7 +73,7 @@ class UserController extends AbstractRestfulController
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(
                 array(
-                    'error' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
+                    'result' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
                 )
             );
         }
@@ -100,14 +100,14 @@ class UserController extends AbstractRestfulController
 
             return new JsonModel(
                 array(
-                    'error' => UserController::INTERNAL_ERROR_SAVE,
+                    'result' => UserController::INTERNAL_ERROR_SAVE,
                     'exception' => $exception->getMessage()
                 )
             );
         }
 
         return new JsonModel([
-            'message' => 'Usuário criado com sucesso.'
+            'result' => 'Usuário criado com sucesso.'
         ]);
     }
 
@@ -130,7 +130,7 @@ class UserController extends AbstractRestfulController
 
                 return new JsonModel(
                     array(
-                        'error' => UserController::USER_NOT_FOUND,
+                        'result' => UserController::USER_NOT_FOUND,
                     )
                 );
             }
@@ -140,7 +140,7 @@ class UserController extends AbstractRestfulController
 
             //todo verificar este validator para update talvez não sirva
             //instancia validadores dos dados
-            $userFilter = new UserValidator($data);
+            $userFilter = new UserValidator($this->entityManager, $data);
             $profileFilter = new ProfileValidator($data);
 
             //se houver erro nos dados enviados na requisição retorna mensagens de erro de cada campo específico
@@ -148,7 +148,7 @@ class UserController extends AbstractRestfulController
                 $this->getResponse()->setStatusCode(400);
                 return new JsonModel(
                     array(
-                        'error' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
+                        'result' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
                     )
                 );
             }
@@ -174,14 +174,14 @@ class UserController extends AbstractRestfulController
 
             return new JsonModel(
                 array(
-                    'error' => UserController::INTERNAL_ERROR_SAVE,
+                    'result' => UserController::INTERNAL_ERROR_SAVE,
                     'exception' => $exception->getMessage()
                 )
             );
         }
 
         return new JsonModel([
-            'message' => 'Usuário atualizado com sucesso!'
+            'result' => 'Usuário atualizado com sucesso!'
         ]);
     }
 
@@ -197,7 +197,7 @@ class UserController extends AbstractRestfulController
 
                 return new JsonModel(
                     array(
-                        'error' => UserController::USER_NOT_FOUND,
+                        'result' => UserController::USER_NOT_FOUND,
                     )
                 );
             }
@@ -214,13 +214,13 @@ class UserController extends AbstractRestfulController
 
             return new JsonModel(
                 array(
-                    'error' => 'Ocorreu um erro interno e não foi possível remover essa conta.',
+                    'result' => 'Ocorreu um erro interno e não foi possível remover essa conta.',
                     'exception' => $exception->getMessage()
                 )
             );
         }
         return new JsonModel([
-            'message' => 'Conta desativada com sucesso!'
+            'result' => 'Conta desativada com sucesso!'
         ]);
     }
 }

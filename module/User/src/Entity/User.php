@@ -33,7 +33,7 @@ class User extends Entity
     /**
      * E-mail do usuário
      *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", unique=true, nullable=false)
      *
      * @var string
      */
@@ -74,6 +74,14 @@ class User extends Entity
      * @var boolean
      */
     private $activeAccount;
+
+    /**
+     * User constructor.
+     */
+    public function __construct(){
+        $this->setCreated();
+        $this->setActiveAccount(true);
+    }
 
     /**
      * Retorna o id de identificação do usuário
@@ -161,8 +169,12 @@ class User extends Entity
      *
      * @param DateTime $created
      */
-    public function setCreated($created)
+    public function setCreated($created = null)
     {
+        if ($created === null) {
+            $created = new DateTime('now');
+        }
+
         $this->created = $created;
     }
 

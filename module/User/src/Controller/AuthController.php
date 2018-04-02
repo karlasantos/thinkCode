@@ -152,7 +152,7 @@ class AuthController extends AbstractRestfulController
 
                         return new JsonModel(
                             array(
-                                'error' => "Ocorreu um erro interno ao alterar a senha, tente novamente mais tarde.",
+                                'result' => "Ocorreu um erro interno ao alterar a senha, tente novamente mais tarde.",
                                 'exception' => $exception->getMessage()
                             )
                         );
@@ -182,10 +182,10 @@ class AuthController extends AbstractRestfulController
                     $transport->setOptions($options);
                     $transport->send($message);
 
-                    return new JsonModel(array('message' => "Uma mensagem com uma nova senha de acesso foi enviada para seu e-mail."));
+                    return new JsonModel(array('result' => "Uma mensagem com uma nova senha de acesso foi enviada para seu e-mail."));
                 } else {
                     $this->getResponse()->setStatusCode(400);
-                    return new JsonModel(array('message' => "Não foi encontrada nenhuma conta cadastrada para este e-mail."));
+                    return new JsonModel(array('result' => "Não foi encontrada nenhuma conta cadastrada para este e-mail."));
                 }
             }
         }
@@ -217,15 +217,17 @@ class AuthController extends AbstractRestfulController
                    true: requisição realizada pela API e retorno JSON
                    false: requisição realizada pelo ambiente e redireciona para a página home
                */
-            return ($apiRequest)? (new JsonModel(array('message' => 'Usuário já logado'))) : ($this->redirect()->toRoute('tcc-home'));
+            return ($apiRequest)? (new JsonModel(array('result' => 'Usuário já logado'))) : ($this->redirect()->toRoute('tcc-home'));
         }
 
         //verificar o login do usuário
         if($request->isPost()) {
             //recupera os dados da requisição
-            $data = $this->params()->fromPost();
-            //todo modificar para esta opção para aceitar json
-//            $data = (array)json_decode($request->getContent());
+            if($apiRequest) {
+                $data = (array)json_decode($request->getContent());
+            } else {
+                $data = $this->params()->fromPost();
+            }
 
             //verifica se os dados foram enviados corretamente (precaução para API)
             if(isset($data['email']) && isset($data['password'])) {
@@ -252,7 +254,7 @@ class AuthController extends AbstractRestfulController
                        true: requisição realizada pela API e retorno JSON
                        false: requisição realizada pelo ambiente e redireciona para a página home
                    */
-                    return ($apiRequest) ? (new JsonModel(array('message' => 'Login realizado com sucesso.'))) : ($this->redirect()->toRoute('tcc-home'));
+                    return ($apiRequest) ? (new JsonModel(array('result' => 'Login realizado com sucesso.'))) : ($this->redirect()->toRoute('tcc-home'));
                 } else {
                     $this->authService->clearIdentity();
 
@@ -265,7 +267,7 @@ class AuthController extends AbstractRestfulController
             }
         }
 
-        $result = !empty($messageError)? array('error' => $messageError) : array();
+        $result = !empty($messageError)? array('result' => $messageError) : array();
 
         //verifica se a requisição foi realizada como API e retorna um JSON como resposta
         if($apiRequest) {
@@ -289,6 +291,6 @@ class AuthController extends AbstractRestfulController
         //destrói a sessão do usuário
         $this->authService->clearIdentity();
 
-        return ($apiRequest)? new JsonModel(array('message' => "Logout realizado com sucesso.")) : $this->redirect()->toRoute('login');
+        return ($apiRequest)? new JsonModel(array('result' => "Logout realizado com sucesso.")) : $this->redirect()->toRoute('login');
     }
 }

@@ -7,11 +7,13 @@
 namespace User\Validation;
 
 
+use User\Entity\User;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\EmailAddress;
 use Zend\Validator\Identical;
 use Zend\Validator\NotEmpty;
 use Zend\Validator\StringLength;
+use DoctrineModule\Validator\NoObjectExists;
 
 /**
  * Valida os dados enviados na requisição de criação de Usuário
@@ -21,7 +23,7 @@ use Zend\Validator\StringLength;
  */
 class UserValidator extends InputFilter
 {
-    public function __construct($data, $createRequest = false)
+    public function __construct($entityManager, $data, $createRequest = false)
     {
         // id
         $this->add(array(
@@ -38,7 +40,7 @@ class UserValidator extends InputFilter
             'required' => true,
             'validators' => array(
                 array(
-                    'name' => 'NotEmpty',
+                    'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
                             NotEmpty::IS_EMPTY => 'Informe o e-mail',
@@ -47,12 +49,24 @@ class UserValidator extends InputFilter
                     ),
                 ),
                 array(
-                    'name' => 'EmailAddress',
+                    'name' => EmailAddress::class,
                     'options' => array(
                         'messages' => array(
                             EmailAddress::INVALID          => 'E-mail inválido',
                             EmailAddress::INVALID_FORMAT   => 'E-mail inválido',
                             EmailAddress::INVALID_HOSTNAME => 'E-mail inválido',
+                        )
+                    )
+                ),
+                array(
+                    'name' => NoObjectExists::class,
+                    'options' => array(
+                        'object_repository' => $entityManager->getRepository(
+                            User::class
+                        ),
+                        'fields' => 'email',
+                        'messages' => array(
+                            NoObjectExists::ERROR_OBJECT_FOUND => 'E-mail já cadastrado.'
                         )
                     )
                 )
@@ -69,7 +83,7 @@ class UserValidator extends InputFilter
             ),
             'validators' => array(
                 array(
-                    'name' => 'NotEmpty',
+                    'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
                             NotEmpty::IS_EMPTY => 'Informe a senha',
@@ -78,7 +92,7 @@ class UserValidator extends InputFilter
                     ),
                 ),
                 array(
-                    'name' => 'StringLength',
+                    'name' => StringLength::class,
                     'options' => array(
                         'encoding' => 'UTF-8',
                         'min' => 6,
@@ -102,7 +116,7 @@ class UserValidator extends InputFilter
             ),
             'validators' => array(
                 array(
-                    'name' => 'NotEmpty',
+                    'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
                             NotEmpty::IS_EMPTY => 'Confirme a senha',
@@ -111,7 +125,7 @@ class UserValidator extends InputFilter
                     ),
                 ),
                 array(
-                    'name' => 'Identical',
+                    'name' => Identical::class,
                     'options' => array(
                         'token' => 'password',
                         'messages' => array(
