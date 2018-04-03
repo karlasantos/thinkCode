@@ -71,7 +71,7 @@ module.exports = function ($scope, $http) {
             //todo fazer função de validação
             if($scope.registerTools.user.fullName != null) {
                 $scope.registerTools.loading = true;
-                $http.post('/api/user', $scope.registerTools.user)
+                $http.post('/api/register-user', $scope.registerTools.user)
                     .then(function onSuccess(response) {
                         // Handle success
                         var data = response.data;

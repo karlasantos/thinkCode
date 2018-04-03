@@ -6,11 +6,9 @@
 
 namespace User;
 
-use Application\Controller\Factory\ControllerFactory;
-use function PHPSTORM_META\type;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Router\Http\Method;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 /**
@@ -48,7 +46,7 @@ return [
                 'may_terminate' => true,
                 'child_routes' => [
                     'user' => [
-                        'type' => 'segment',
+                        'type' => Segment::class,
                         'options' => [
                             'route' => '[/:controller[/:action[/:id]]]',
                             'constraints' => [
@@ -100,6 +98,28 @@ return [
                     ],
                 ],
             ],
+            //rota pública para a criação de um novo usuário
+            'api-register-user' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route' => '/api/register-user',
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                    ],
+                ],
+                'may_terminate' => false,
+                'child_routes' => [
+                    'register-user' => [
+                        'type' => Method::class,
+                        'options' => [
+                            'verb' => 'post',
+                            'defaults' => [
+                                'controller' => Controller\UserController::class,
+                            ],
+                        ]
+                    ],
+                ],
+            ],
             //rotas para a API
             'api' => [
                 'type' => Literal::class,
@@ -109,7 +129,7 @@ return [
                 'may_terminate' => false,
                 'child_routes' => [
                     'tcc-user' => [
-                        'type' => 'segment',
+                        'type' => Segment::class,
                         'options' => [
                             'route' => '/user[/:controller[/:action[/:id]]]',
                             'constraints' => [
@@ -117,9 +137,9 @@ return [
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id'         => '[0-9]*',
                             ],
-                            'defaults' => array(
+                            'defaults' => [
                                 'controller' => Controller\UserController::class
-                            ),
+                            ],
                         ]
                     ],
                     'login' => [

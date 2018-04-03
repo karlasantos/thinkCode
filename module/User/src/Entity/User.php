@@ -199,7 +199,7 @@ class User extends Entity
     }
 
     /**
-     * Retorna os todos dados do usuário em formato de array
+     * Retorna todos os dados do Usuário em formato de array
      * @inheritdoc
      * @return array
      */

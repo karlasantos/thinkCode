@@ -214,7 +214,7 @@ class Profile extends Entity
     }
 
     /**
-     * Retorna os todos dados do usuário em formato de array
+     * Retorna os todos dados do Perfil de Usuário em formato de array
      * @inheritdoc
      * @return array
      */

@@ -67,6 +67,7 @@ class ComposerStaticInit947332f466d1e448ee5e236210945390
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\Console\\' => 26,
+            'SourceCode\\' => 11,
         ),
         'P' => 
         array (
@@ -280,6 +281,10 @@ class ComposerStaticInit947332f466d1e448ee5e236210945390
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'SourceCode\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/module/SourceCode/src',
         ),
         'Psr\\Log\\' => 
         array (
