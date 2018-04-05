@@ -78,7 +78,8 @@ class User extends Entity
     /**
      * User constructor.
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->setCreated();
         $this->setActiveAccount(true);
     }
@@ -167,7 +168,7 @@ class User extends Entity
     /**
      * Define a data de criação do usuário
      *
-     * @param DateTime $created
+     * @param DateTime|null $created
      */
     public function setCreated($created = null)
     {

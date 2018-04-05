@@ -36,16 +36,22 @@ class BypassCommand extends Entity
     /**
      * Nome do Comando de Desvio
      *
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(name="initial_command_name",type="string", nullable=false)
      *
      * @var string
      */
-    private $name;
+    private $initialCommandName;
+
+    /**
+     * @ORM\Column(name="terminal_command_name",type="string", nullable=true)
+     * @var
+     */
+    private $terminalCommandName;
 
     /**
      * Tipo do Comando de Desvio (Condicional/Repetição)
      *
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      *
      * @var string
      */
@@ -71,23 +77,43 @@ class BypassCommand extends Entity
     }
 
     /**
-     * Retorna o nome do comando de desvio
+     * Retorna o nome do inicial de comando de desvio
      *
      * @return string
      */
-    public function getName()
+    public function getInitialCommandName()
     {
-        return $this->name;
+        return $this->initialCommandName;
     }
 
     /**
-     * Define o nome do comando de desvio
+     * Define o nome do inicial de comando de desvio
      *
-     * @param string $name
+     * @param string $initialCommandName
      */
-    public function setName($name)
+    public function setInitialCommandName($initialCommandName)
     {
-        $this->name = $name;
+        $this->initialCommandName = $initialCommandName;
+    }
+
+    /**
+     * Retorna o nome do terminal do comando de desvio
+     *
+     * @return mixed
+     */
+    public function getTerminalCommandName()
+    {
+        return $this->terminalCommandName;
+    }
+
+    /**
+     * Define o nome do terminal do comando de desvio
+     *
+     * @param mixed $terminalCommandName
+     */
+    public function setTerminalCommandName($terminalCommandName)
+    {
+        $this->terminalCommandName = $terminalCommandName;
     }
 
     /**
@@ -139,7 +165,7 @@ class BypassCommand extends Entity
     {
         return array(
             'id'   => $this->id,
-            'name' => $this->name,
+            'name' => $this->initialCommandName,
             'type' => $this->type
         );
     }
