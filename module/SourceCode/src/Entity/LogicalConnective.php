@@ -40,7 +40,6 @@ class LogicalConnective extends Entity
      */
     private $name;
 
-
     /**
      * Uma coleção de todas as Linguagens de Programação que esse operador está inserido
      *
