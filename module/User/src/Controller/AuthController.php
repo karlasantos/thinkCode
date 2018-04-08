@@ -22,8 +22,8 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * Class AuthController
- * Classe para controlar a autenticação de usuários no sistema
- *
+ * Controller de Autenticação de usuários no sistema: responsável pelas requisições de login, logout,
+ * recuperação de senha e carregamento de views de autenticação
  * @package Application\Controller
  */
 class AuthController extends AbstractRestfulController

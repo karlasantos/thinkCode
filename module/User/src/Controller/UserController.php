@@ -21,6 +21,12 @@ use Doctrine\ORM\EntityManager;
 use Zend\View\Model\ViewModel;
 use Exception;
 
+/**
+ * Class UserController
+ * Controller de Usuário responsável por tratar as requisições de criação, atualização,
+ * deleção de usuários e carregamento de views de usuários.
+ * @package User\Controller
+ */
 class UserController extends AbstractRestfulController
 {
     protected $entityManager;
