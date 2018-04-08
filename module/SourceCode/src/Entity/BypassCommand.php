@@ -1,6 +1,7 @@
 <?php
 /**
  * TCC - Ciência da Computação, URI Santo Ângelo
+ * Orientador: Denílson Rodrigues da Silva <deniro@san.uri.br>
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
@@ -43,6 +44,8 @@ class BypassCommand extends Entity
     private $initialCommandName;
 
     /**
+     * Final do comando de desvio
+     *
      * @ORM\Column(name="terminal_command_name",type="string", nullable=true)
      * @var
      */

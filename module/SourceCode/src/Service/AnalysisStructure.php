@@ -5,10 +5,14 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Controller;
+namespace SourceCode\Service;
 
-
-class LanguageController
+/**
+ * Class AnalysisStructure
+ * Realiza a análise dos códigos fonte
+ * @package SourceCode\Service
+ */
+class AnalysisStructure
 {
 
 }

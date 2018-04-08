@@ -5,10 +5,14 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Controller;
+namespace SourceCode\Service;
 
-
-class LanguageController
+/**
+ * Class DataCollect
+ * Realiza a coleta dos dados necessários para a análise
+ * @package SourceCode\Service
+ */
+class DataCollect
 {
 
 }

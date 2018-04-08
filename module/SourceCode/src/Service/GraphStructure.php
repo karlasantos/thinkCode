@@ -5,10 +5,14 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Controller;
+namespace SourceCode\Service;
 
-
-class LanguageController
+/**
+ * Class GraphStructure
+ * Gera os dados necessários para montar o Grafo de Fluxo
+ * @package SourceCode\Service
+ */
+class GraphStructure
 {
 
 }
