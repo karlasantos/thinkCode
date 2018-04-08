@@ -1,4 +1,4 @@
-# Aplicação TCC de Ciência Computção
+# Aplicação TCC de Ciência da Computação
 
 ## Introduction
 
