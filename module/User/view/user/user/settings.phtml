@@ -1,0 +1,77 @@
+<div class="col-md-12" ng-controller="UserController" ng-init="accountTools.initData('<?=$id?>');">
+    <div class="card form">
+        <div class="card-header d-flex align-items-center">
+            <h3 class="h4"><i class="fa fa-cogs" aria-hidden="true"></i> Configurações de Conta</h3>
+        </div>
+        <div class="card-body">
+<!--            <p>Configurações de conta.</p>-->
+            <form id="settings-account-form">
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0">
+                    <div class="form-group col-md-6 p-l-0">
+                        <label for="full-name" class="form-control-label">Nome</label>
+                        <input id="full-name" type="text" placeholder="Nome" required="" class="form-control" ng-model="accountTools.user.profile.fullName">
+                    </div>
+                    <div class="form-group col-md-3 p-l-0">
+                        <label class="form-control-label">Data de Nascimento</label>
+                        <input type="text" placeholder="Data de Nascimento" required class="form-control" ng-model="accountTools.user.profile.birthday">
+                    </div>
+                    <div class="form-group col-md-3 p-l-0">
+                        <label class="form-control-label">Gênero</label>
+                        <div class="i-checks">
+                            <input id="female" type="radio" value="Feminino" name="gender" class="radio-template" checked="" ng-model="accountTools.user.profile.gender"/>
+                            <label for="female">Feminino</label>
+                        </div>
+                        <div class="i-checks">
+                            <input id="male" type="radio" value="Masculino" name="gender" class="radio-template" ng-model="accountTools.user.profile.gender"/>
+                            <label for="male">Masculino</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0">
+                    <div class="form-group col-md-6 p-l-0">
+                        <label class="form-control-label">Curso</label>
+                        <input type="text" placeholder="Curso" required class="form-control" ng-model="accountTools.user.profile.school">
+                    </div>
+                    <div class="form-group col-md-6 p-l-0">
+                        <label class="form-control-label">Email</label>
+                        <input type="email" placeholder="Email Address" required class="form-control" ng-model="accountTools.user.email">
+                    </div>
+                </div>
+
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0">
+                    <div class="col-md-12 p-l-0">
+                        <div class="form-group p-l-0">
+                            <!--                            todo colocar esse cadeado quando não selecionada a opção de alterar a senha-->
+                            <button class="btn btn-default btn-sm" ng-click="accountTools.user.changePassword = !accountTools.user.changePassword; accountTools.clearPassword()">
+                                <i class="fa fa-unlock-alt" aria-hidden="true" ng-if="accountTools.user.changePassword"></i>
+                                <i class="fa fa-lock" aria-hidden="true" ng-if="!accountTools.user.changePassword"></i> Alterar Senha
+                            </button>
+                        </div>
+                        <hr/>
+                    </div>
+                    <div class="col-md-12" ng-if="accountTools.user.changePassword">
+                        <div class="col-md-8 offset-2">
+                            <div class="form-group">
+                                <label class="form-control-label">Senha Atual</label>
+                                <input type="password" required class="form-control" ng-model="accountTools.user.oldPassword">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Nova Senha</label>
+                                <input type="password" required class="form-control" ng-model="accountTools.user.newPassword">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Repita Nova Senha</label>
+                                <input type="password" required class="form-control" ng-model="accountTools.user.passwordConfirm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary pull-right" ng-click="accountTools.update.save()">Salvar</button>
+                    <button class="btn btn-warning m-r-5 pull-right" ng-click="accountTools.cancelSettings()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

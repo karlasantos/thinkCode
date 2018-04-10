@@ -33,6 +33,12 @@ return [
                 'class' => '',
                 'route' => 'tcc-application',
             ),
+            array(
+                'label' => '<i class="fa fa-cogs" aria-hidden="true"></i> Configurações de Conta',
+                'class' => '',
+                'route' => 'tcc-user',
+                'action'=>'settings',
+            ),
         ),
     ),
     //Configurações da conexão com o DB

@@ -37,27 +37,17 @@ return [
     'router' => [
         'routes' => [
             'tcc-user' => [
-                'type' => Literal::class,
+                'type'    => Segment::class,
                 'options' => [
-                    'route' => '/user',
-                    'defaults' => array(
-                        'controller' => Controller\UserController::class,
-                    ),
-                ],
-                'may_terminate' => true,
-                'child_routes' => [
-                    'user' => [
-                        'type' => Segment::class,
-                        'options' => [
-                            'route' => '[/:controller[/:action[/:id]]]',
-                            'constraints' => [
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'         => '[0-9]*',
-                            ],
-                        ]
+                    'route'    => '/user[/:action[/:id]]',
+                    'constraints' => [
+                        'id'     => '[0-9]*',
                     ],
-                ]
+                    'defaults' => [
+                        'controller' => Controller\UserController::class,
+                        'action'     => 'index',
+                    ],
+                ],
             ],
             'login' => [
                 'type'    => Literal::class,
@@ -129,19 +119,17 @@ return [
                 ],
                 'may_terminate' => false,
                 'child_routes' => [
-                    'tcc-user' => [
-                        'type' => Segment::class,
+                    'tcc-user-api' => [
+                        'type'    => Segment::class,
                         'options' => [
-                            'route' => '/user[/:controller[/:action[/:id]]]',
+                            'route'    => '/user[/:id]',
                             'constraints' => [
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'         => '[0-9]*',
+                                'id'     => '[0-9]*',
                             ],
                             'defaults' => [
-                                'controller' => Controller\UserController::class
+                                'controller' => Controller\UserController::class,
                             ],
-                        ]
+                        ],
                     ],
                     'login' => [
                         'type'    => Literal::class,

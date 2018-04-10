@@ -35,45 +35,6 @@ class UserValidator extends InputFilter
             ),
         ));
 
-        // email
-        $this->add(array(
-            'name'     => 'email',
-            'required' => true,
-            'validators' => array(
-                array(
-                    'name' => NotEmpty::class,
-                    'options' => array(
-                        'messages' => array(
-                            NotEmpty::IS_EMPTY => 'Informe o e-mail',
-                            NotEmpty::INVALID => 'Informe o e-mail',
-                        ),
-                    ),
-                ),
-                array(
-                    'name' => EmailAddress::class,
-                    'options' => array(
-                        'messages' => array(
-                            EmailAddress::INVALID          => 'E-mail inválido',
-                            EmailAddress::INVALID_FORMAT   => 'E-mail inválido',
-                            EmailAddress::INVALID_HOSTNAME => 'E-mail inválido',
-                        )
-                    )
-                ),
-                array(
-                    'name' => NoObjectExists::class,
-                    'options' => array(
-                        'object_repository' => $entityManager->getRepository(
-                            User::class
-                        ),
-                        'fields' => 'email',
-                        'messages' => array(
-                            NoObjectExists::ERROR_OBJECT_FOUND => 'E-mail já cadastrado.'
-                        )
-                    )
-                )
-            ),
-        ));
-
         // password
         $this->add(array(
             'name'     => 'password',
@@ -144,6 +105,71 @@ class UserValidator extends InputFilter
             if($createRequest) {
                 $this->get('password')->setRequired(true);
                 $this->get('passwordConfirm')->setRequired(true);
+                // email
+                $this->add(array(
+                    'name'     => 'email',
+                    'required' => true,
+                    'validators' => array(
+                        array(
+                            'name' => NotEmpty::class,
+                            'options' => array(
+                                'messages' => array(
+                                    NotEmpty::IS_EMPTY => 'Informe o e-mail',
+                                    NotEmpty::INVALID => 'Informe o e-mail',
+                                ),
+                            ),
+                        ),
+                        array(
+                            'name' => EmailAddress::class,
+                            'options' => array(
+                                'messages' => array(
+                                    EmailAddress::INVALID          => 'E-mail inválido',
+                                    EmailAddress::INVALID_FORMAT   => 'E-mail inválido',
+                                    EmailAddress::INVALID_HOSTNAME => 'E-mail inválido',
+                                )
+                            )
+                        ),
+                        array(
+                            'name' => NoObjectExists::class,
+                            'options' => array(
+                                'object_repository' => $entityManager->getRepository(
+                                    User::class
+                                ),
+                                'fields' => 'email',
+                                'messages' => array(
+                                    NoObjectExists::ERROR_OBJECT_FOUND => 'E-mail já cadastrado.'
+                                )
+                            )
+                        )
+                    ),
+                ));
+            } else {
+                // email
+                $this->add(array(
+                    'name'     => 'email',
+                    'required' => true,
+                    'validators' => array(
+                        array(
+                            'name' => NotEmpty::class,
+                            'options' => array(
+                                'messages' => array(
+                                    NotEmpty::IS_EMPTY => 'Informe o e-mail',
+                                    NotEmpty::INVALID => 'Informe o e-mail',
+                                ),
+                            ),
+                        ),
+                        array(
+                            'name' => EmailAddress::class,
+                            'options' => array(
+                                'messages' => array(
+                                    EmailAddress::INVALID          => 'E-mail inválido',
+                                    EmailAddress::INVALID_FORMAT   => 'E-mail inválido',
+                                    EmailAddress::INVALID_HOSTNAME => 'E-mail inválido',
+                                )
+                            )
+                        ),
+                    ),
+                ));
             }
 
             $this->setData($data);

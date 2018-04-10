@@ -8,7 +8,15 @@
 namespace SourceCode\Controller;
 
 
-class LanguageController
-{
+use Doctrine\ORM\EntityManager;
+use Zend\Mvc\Controller\AbstractRestfulController;
 
+class LanguageController  extends AbstractRestfulController
+{
+    protected $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 }

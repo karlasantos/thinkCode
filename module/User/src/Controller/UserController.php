@@ -41,11 +41,12 @@ class UserController extends AbstractRestfulController
 
     public function indexAction()
     {
-//        return new JsonModel([
-//            'results' => array(),
-//        ]);
         return new ViewModel();
+    }
 
+    public function settingsAction()
+    {
+        return new ViewModel(array('id' => $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']));
     }
 
     public function getList()
@@ -55,10 +56,35 @@ class UserController extends AbstractRestfulController
         ]);
     }
 
+    /**
+     * Retorna todos os dados de um usuário através de seu id
+     *
+     * @param int $id
+     * @return JsonModel
+     */
     public function get($id)
     {
+        $id = intval($id);
+        //realiza um select no DB para obter as informação de conta do usuário
+        $user = $this->entityManager->createQueryBuilder()
+            ->select('partial u.{id, email, activeAccount, created}')
+            ->addSelect('partial profile.{id, fullName, avatar, birthday, school, gender}')
+            ->from(User::class, 'u')
+            ->leftJoin('u.profile', 'profile')
+            ->where('u = :userId')
+            ->setParameter('userId', $id)
+            ->getQuery()->getArrayResult();
+
+        if(count($user) > 0) {
+            $user = $user[0];
+            $user['created'] =  $user['created']->format('d/m/Y H:i:s');
+        } else {
+            $this->getResponse()->setStatusCode(400);
+            $user = array();
+        }
+
         return new JsonModel([
-            'result' => array(),
+            'user' => $user,
         ]);
     }
 
@@ -78,9 +104,26 @@ class UserController extends AbstractRestfulController
         //se houver erro nos dados enviados na requisição retorna mensagem de erro
         if(!$userFilter->isValid() || !$profileFilter->isValid()) {
             $this->getResponse()->setStatusCode(400);
+
+            $messages = array();
+            //monta as mensagens de erro do usuário
+            foreach ($userFilter->getMessages() as $message) {
+                if(count($message) > 0) {
+                    $messages[] = array_shift($message);
+                }
+            }
+
+            //monta as mensagens de erro do perfil
+            foreach ($profileFilter->getMessages() as $message) {
+                if(count($message) > 0) {
+                    $messages[] = array_shift($message);
+                }
+            }
+
             return new JsonModel(
                 array(
-                    'result' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
+//                    'result' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
+                    'result' => $messages
                 )
             );
         }
@@ -142,29 +185,59 @@ class UserController extends AbstractRestfulController
                 );
             }
 
+            //todo colocar verificação se está sendo acessado o mesmo usuário logado
+
             //recupera o perfil do usuário
             $profile = $user->getProfile();
 
-            //todo verificar este validator para update talvez não sirva
+            //verifica se o usuário selecionou a opção de alteração de senha e prepara os dados
+            if(isset($data['changePassword']) && $data['changePassword']) {
+                if(!password_verify($data['oldPassword'], $user->getPassword())) {
+                    $this->getResponse()->setStatusCode(400);
+
+                    return new JsonModel(
+                        array(
+                            'result' => 'Senha atual está incorreta.'
+                        )
+                    );
+                }
+
+                $data['password'] = $data['newPassword'];
+            }
+
             //instancia validadores dos dados
             $userFilter = new UserValidator($this->entityManager, $data);
-            $profileFilter = new ProfileValidator($data);
+            $profileFilter = new ProfileValidator($data['profile']);
 
             //se houver erro nos dados enviados na requisição retorna mensagens de erro de cada campo específico
             if(!$userFilter->isValid() || !$profileFilter->isValid()) {
                 $this->getResponse()->setStatusCode(400);
+
+                $messages = array();
+                //monta as mensagens de erro do usuário
+                foreach ($userFilter->getMessages() as $message) {
+                    if(count($message) > 0) {
+                        $messages[] = array_shift($message);
+                    }
+                }
+
+                //monta as mensagens de erro do perfil
+                foreach ($profileFilter->getMessages() as $message) {
+                    if(count($message) > 0) {
+                        $messages[] = array_shift($message);
+                    }
+                }
+
                 return new JsonModel(
                     array(
-                        'result' => array_merge( $userFilter->getMessages(), $profileFilter->getMessages())
+                        'result' => $messages
                     )
                 );
             }
 
             //define os dados do usuário
             $user->setEmail($userFilter->getValue('email'));
-
-            //todo verificar essa atualização de senha
-            if(!empty($userFilter->getValue('password'))) {
+            if(isset($data['changePassword']) && $data['changePassword']) {
                 $user->setPassword($userFilter->getValue('password'));
             }
 

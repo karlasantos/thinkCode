@@ -105,10 +105,10 @@ class ProfileValidator extends InputFilter
                     'name' => 'StringLength',
                     'options' => array(
                         'encoding' => 'UTF-8',
-                        'min' => 3,
+                        'min' => 2,
                         'max' => 255,
                         'messages' => array(
-                            StringLength::TOO_SHORT => 'O curso deve conter no mínimo 3 caracteres.',
+                            StringLength::TOO_SHORT => 'O curso deve conter no mínimo 2 caracteres.',
                             StringLength::TOO_LONG => 'O curso deve conter no máximo 255 caracteres.',
                         ),
                     ),

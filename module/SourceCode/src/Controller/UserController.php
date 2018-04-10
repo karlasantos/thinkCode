@@ -14,7 +14,6 @@ use User\Entity\Profile;
 use User\Entity\User;
 use User\Validation\ProfileValidator;
 use User\Validation\UserValidator;
-use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 use Doctrine\ORM\EntityManager;
@@ -28,6 +27,10 @@ class UserController extends AbstractRestfulController
     const INTERNAL_ERROR_SAVE = 'Ocorreu um erro interno e não foi possível salvar o usuário.';
     const USER_NOT_FOUND = 'Usuário não encontrado';
 
+    /**
+     * UserController constructor.
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -51,8 +54,17 @@ class UserController extends AbstractRestfulController
 
     public function get($id)
     {
+        //realiza um select no DB para obter as informação de conta do usuário
+        $user = $this->entityManager->createQueryBuilder()
+            ->select('partial u.{id, u.email, u.activeAccount, created}')
+            ->addSelect('partial profile.{id, fullName, avatar, birthday, school, gender')
+            ->from(User::class, 'u')
+            ->leftJoin('u.profile', 'profile')
+            ->where('u like :userId')
+            ->setParameter('userId', $id)->getQuery()->getArrayResult();
+
         return new JsonModel([
-            'result' => array(),
+            'result' => $user,
         ]);
     }
 
@@ -142,7 +154,7 @@ class UserController extends AbstractRestfulController
             //todo verificar este validator para update talvez não sirva
             //instancia validadores dos dados
             $userFilter = new UserValidator($this->entityManager, $data);
-            $profileFilter = new ProfileValidator($data);
+            $profileFilter = new ProfileValidator($data['profile']);
 
             //se houver erro nos dados enviados na requisição retorna mensagens de erro de cada campo específico
             if(!$userFilter->isValid() || !$profileFilter->isValid()) {

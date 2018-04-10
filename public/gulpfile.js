@@ -35,7 +35,7 @@ var rename = require('gulp-rename');
 /**
  * Minificar as imagens
  */
-const imagemin = require('gulp-imagemin');
+var imagemin = require('gulp-imagemin');
 
 /**
  * Tarefas executadas por padrão pelo comando gulp
