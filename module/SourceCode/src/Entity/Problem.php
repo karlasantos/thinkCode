@@ -8,6 +8,7 @@
 namespace SourceCode\Entity;
 
 use Application\Entity\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +59,16 @@ class Problem extends Entity
      * @var CategoryProblem
      */
     private $category;
+
+    /**
+     * Uma coleção de todos os códigos fonte submetidos para esse problema
+     *
+     * @ORM\OneToMany(targetEntity="SourceCode", mappedBy="problem")
+     * @ORM\JoinColumn(name="id", referencedColumnName="problem_id")
+     *
+     * @var ArrayCollection
+     */
+    private $sourceCodes;
 
     /**
      * Retorna o id de identificação do Problema
@@ -127,6 +138,26 @@ class Problem extends Entity
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * Retorna uma coleção com todos os códigos fonte submetidos para esse problema
+     *
+     * @return ArrayCollection
+     */
+    public function getSourceCodes()
+    {
+        return $this->sourceCodes;
+    }
+
+    /**
+     * Define uma coleção com todos os códigos fonte submetidos para esse problema
+     *
+     * @param ArrayCollection $sourceCodes
+     */
+    public function setSourceCodes($sourceCodes)
+    {
+        $this->sourceCodes = $sourceCodes;
     }
 
     /**

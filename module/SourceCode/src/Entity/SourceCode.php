@@ -72,7 +72,7 @@ class SourceCode extends Entity
     /**
      * O problema que este Código Fonte soluciona
      *
-     * @ORM\ManyToOne(targetEntity="Problem", fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="Problem", fetch="LAZY", inversedBy="sourceCodes")
      * @ORM\JoinColumn(name="problem_id", referencedColumnName="id")
      * @var Problem
      */

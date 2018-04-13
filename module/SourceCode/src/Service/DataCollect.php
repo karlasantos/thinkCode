@@ -7,6 +7,8 @@
 
 namespace SourceCode\Service;
 
+use Doctrine\ORM\EntityManager;
+
 /**
  * Class DataCollect
  * Realiza a coleta dos dados necessários para a análise
@@ -14,5 +16,11 @@ namespace SourceCode\Service;
  */
 class DataCollect
 {
+    protected $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
 }

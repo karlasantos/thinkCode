@@ -42,6 +42,24 @@ class Language extends Entity
     private $name;
 
     /**
+     * Comando de início de código da Linguagem
+     *
+     * @ORM\Column(name="start_code_structure", type="string", nullable=false)
+     *
+     * @var string
+     */
+    private $startCodeStructure;
+
+    /**
+     * Comando de fim de código da Linguagem
+     *
+     * @ORM\Column(name="end_code_structure", type="string", nullable=false)
+     *
+     * @var string
+     */
+    private $endCodeStructure;
+
+    /**
      * Uma coleção de todos os comandos de desvio da Linguagem de Programação
      *
      * @ORM\ManyToMany(targetEntity="BypassCommand", inversedBy="languages")
@@ -66,6 +84,20 @@ class Language extends Entity
      * @var ArrayCollection
      */
     private $logicalConnectives;
+
+
+    /**
+     * Uma coleção de todos os tipos de dados da Linguagem de Programação
+     *
+     * @ORM\ManyToMany(targetEntity="DataType", inversedBy="languages")
+     * @ORM\JoinTable(name="language__data_type",
+     *      joinColumns={@ORM\JoinColumn(name="data_type_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")}
+     *      )
+     *
+     * @var ArrayCollection
+     */
+    private $dataTypes;
 
     /**
      * Retorna o Id de identificação da Linguagem de Programação
@@ -95,6 +127,46 @@ class Language extends Entity
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * Retorna o comando de início de código da Linguagem
+     *
+     * @return string
+     */
+    public function getStartCodeStructure()
+    {
+        return $this->startCodeStructure;
+    }
+
+    /**
+     * Define o comando de início de código da Linguagem
+     *
+     * @param string $startCodeStructure
+     */
+    public function setStartCodeStructure($startCodeStructure)
+    {
+        $this->startCodeStructure = $startCodeStructure;
+    }
+
+    /**
+     * Retorna o comando de final de código da Linguagem
+     *
+     * @return string
+     */
+    public function getEndCodeStructure()
+    {
+        return $this->endCodeStructure;
+    }
+
+    /**
+     * Define o comando de final de código da Linguagem
+     *
+     * @param string $endCodeStructure
+     */
+    public function setEndCodeStructure($endCodeStructure)
+    {
+        $this->endCodeStructure = $endCodeStructure;
     }
 
     /**
@@ -135,6 +207,26 @@ class Language extends Entity
     public function setLogicalConnectives($logicalConnectives)
     {
         $this->logicalConnectives = $logicalConnectives;
+    }
+
+    /**
+     * Define uma coleção de todos os tipos de dados da Linguagem de Programação
+     *
+     * @return ArrayCollection
+     */
+    public function getDataTypes()
+    {
+        return $this->dataTypes;
+    }
+
+    /**
+     * Retorna uma coleção de todos os tipos de dados da Linguagem de Programação
+     *
+     * @param ArrayCollection $dataTypes
+     */
+    public function setDataTypes($dataTypes)
+    {
+        $this->dataTypes = $dataTypes;
     }
 
     /**

@@ -29,10 +29,10 @@ use Exception;
  */
 class UserController extends AbstractRestfulController
 {
-    protected $entityManager;
-
     const INTERNAL_ERROR_SAVE = 'Ocorreu um erro interno e não foi possível salvar o usuário.';
     const USER_NOT_FOUND = 'Usuário não encontrado';
+
+    protected $entityManager;
 
     public function __construct(EntityManager $entityManager)
     {

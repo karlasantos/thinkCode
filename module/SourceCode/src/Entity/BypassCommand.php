@@ -7,7 +7,6 @@
 
 namespace SourceCode\Entity;
 
-
 use Application\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +21,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class BypassCommand extends Entity
 {
+    const TYPE_CONDITIONAL = 'conditional';
+    const TYPE_LOOP = 'loop';
+
     //todo rever o nome desta classe
     /**
      * Id de identificação do Comando de Desvio
@@ -68,6 +70,16 @@ class BypassCommand extends Entity
      * @var ArrayCollection
      */
     private $languages;
+
+    /**
+     * O elemento do grafo que representa esse comando do desvio
+     *
+     * @ORM\ManyToOne(targetEntity="GraphElement", fetch="LAZY")
+     * @ORM\JoinColumn(name="graph_element_id", referencedColumnName="id")
+     *
+     * @var GraphElement
+     */
+    private $graphElement;
 
     /**
      * Retorna o Id de identificação do Comando de Desvio
@@ -157,6 +169,26 @@ class BypassCommand extends Entity
     public function setLanguages($languages)
     {
         $this->languages = $languages;
+    }
+
+    /**
+     * Retorna o elemento gráfico desse comando de desvio
+     *
+     * @return GraphElement
+     */
+    public function getGraphElement()
+    {
+        return $this->graphElement;
+    }
+
+    /**
+     * Define o elemento gráfico desse comando de desvio
+     *
+     * @param GraphElement $graphElement
+     */
+    public function setGraphElement($graphElement)
+    {
+        $this->graphElement = $graphElement;
     }
 
     /**
