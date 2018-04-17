@@ -7,11 +7,12 @@
 
 namespace SourceCode;
 
-use User\Controller\Factory\AuthControllerFactory;
+use SourceCode\Controller\Factory\LanguageControllerFactory;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 use Application\Controller\Factory\ControllerFactory;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Class Module
@@ -39,10 +40,10 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return [
             //atribui um aliases para os controllers fabricados
             'aliases' => [
-                'user' => Controller\UserController::class
+                'language' => Controller\LanguageController::class
             ],
             'factories' => [
-                Controller\UserController::class  => ControllerFactory::class,
+                Controller\LanguageController::class  => LanguageControllerFactory::class
             ],
         ];
     }
@@ -59,8 +60,10 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return [
             //atribui um aliases para os services fabricados
             'aliases' => [
+                'dataCollect' => Service\DataCollect::class
             ],
             'factories' => [
+                Service\DataCollect::class =>  ControllerFactory::class,
             ],
         ];
     }

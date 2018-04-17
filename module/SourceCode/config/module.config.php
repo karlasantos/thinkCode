@@ -42,12 +42,12 @@ return [
                     'route' => '/source-code',
                     'defaults' => array(
                         //todo colocar o controller padrão desse módulo
-                        'controller' => Controller\UserController::class,
+                        'controller' => Controller\LanguageController::class,
                     ),
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
-                    'user' => [
+                    'language' => [
                         'type' => 'segment',
                         'options' => [
                             'route' => '[/:controller[/:action[/:id]]]',

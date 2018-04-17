@@ -64,8 +64,8 @@ class Language extends Entity
      *
      * @ORM\ManyToMany(targetEntity="BypassCommand", inversedBy="languages")
      * @ORM\JoinTable(name="language__bypass_command",
-     *      joinColumns={@ORM\JoinColumn(name="bypass_command_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="bypass_command_id", referencedColumnName="id")}
      *      )
      *
      * @var ArrayCollection
@@ -77,8 +77,8 @@ class Language extends Entity
      *
      * @ORM\ManyToMany(targetEntity="LogicalConnective", inversedBy="languages")
      * @ORM\JoinTable(name="language__logical_connective",
-     *      joinColumns={@ORM\JoinColumn(name="logical_connective_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="logical_connective_id", referencedColumnName="id")}
      *      )
      *
      * @var ArrayCollection
@@ -91,13 +91,26 @@ class Language extends Entity
      *
      * @ORM\ManyToMany(targetEntity="DataType", inversedBy="languages")
      * @ORM\JoinTable(name="language__data_type",
-     *      joinColumns={@ORM\JoinColumn(name="data_type_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="data_type_id", referencedColumnName="id")}
      *      )
      *
      * @var ArrayCollection
      */
     private $dataTypes;
+
+    /**
+     * Uma coleção de todos os Caracteres Especiais da Linguagem de Programação
+     *
+     * @ORM\ManyToMany(targetEntity="SpecialCharacter", inversedBy="languages")
+     * @ORM\JoinTable(name="language__special_character",
+     *      joinColumns={@ORM\JoinColumn(name="language_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="special_character_id", referencedColumnName="id")}
+     *      )
+     *
+     * @var ArrayCollection
+     */
+    private $specialCharacters;
 
     /**
      * Retorna o Id de identificação da Linguagem de Programação
@@ -230,6 +243,26 @@ class Language extends Entity
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getSpecialCharacters()
+    {
+        return $this->specialCharacters;
+    }
+
+    /**
+     * Retorna uma coleção de todos os Caracteres Especiais da Linguagem de Programação
+     *
+     * @param ArrayCollection $specialCharacters
+     */
+    public function setSpecialCharacters($specialCharacters)
+    {
+        $this->specialCharacters = $specialCharacters;
+    }
+
+    /**
+     * Define uma coleção de todos os Caracteres Especiais da Linguagem de Programação
+     *
      * Retorna todos os dados da Linguagem de Programação em formato de array
      * @inheritdoc
      * @return array

@@ -12,6 +12,7 @@ use SourceCode\Entity\BypassCommand;
 use SourceCode\Entity\DataType;
 use SourceCode\Entity\LogicalConnective;
 use SourceCode\Entity\SourceCode;
+use SourceCode\Entity\SpecialCharacter;
 
 /**
  * Class DataCollect
@@ -71,7 +72,79 @@ class DataCollect
             ->getArrayResult();
         $dataTypes = array_column($dataTypes, 'name');
 
+        //retorna os tipos de dados da linguagem utilizada no código fonte
+        $specialCharacters = $this->entityManager->createQueryBuilder()
+            ->select('sc.id, sc.name')
+            ->from(SpecialCharacter::class, 'sc')
+            ->innerJoin('sc.languages', 'language')
+            ->where('language = :languageId')
+            ->setParameter('languageId', 1)
+            ->getQuery()
+            ->getArrayResult();
+        $specialCharacters = array_column($specialCharacters, 'name');
 
+        return $specialCharacters;
+
+    }
+
+    public function getLanguageData($languageId)
+    {
+
+        //monta a query para trazer todos os comandos de desvio da linguagem utilizada no código fonte
+        $diversionCommands = $this->entityManager->createQueryBuilder()
+            ->select('bc.id, bc.initialCommandName, bc.terminalCommandName, bc.type')
+            ->from(BypassCommand::class, 'bc')
+            ->innerJoin('bc.languages', 'language')
+            ->where('language.id = :languageId')
+            ->setParameter('languageId', $languageId);
+
+        //retorna os comandos condicionais da linguagem utilizada no código fonte
+        $conditionalCommands = $diversionCommands->andWhere('bc.type like conditional')
+            ->getQuery()
+            ->getArrayResult();
+
+        //retorna os comandos de repetição da linguagem utilizada no código fonte
+        $loopCommands = $diversionCommands->andWhere('bc.type like loop')
+            ->getQuery()
+            ->getArrayResult();
+
+        //retorna os conectivos lógicos da linguagem utilizada no código fonte
+        $logicalConnectives = $this->entityManager->createQueryBuilder()
+            ->select('lc.id, lc.name')
+            ->from(LogicalConnective::class, 'lc')
+            ->innerJoin('lc.languages', 'language')
+            ->where('language = :languageId')
+            ->setParameter('languageId', $languageId)
+            ->getQuery()
+            ->getArrayResult();
+        $logicalConnectives = array_column($logicalConnectives, 'name');
+
+        //retorna os tipos de dados da linguagem utilizada no código fonte
+        $dataTypes = $this->entityManager->createQueryBuilder()
+            ->select('dt.id, dt.name')
+            ->from(DataType::class, 'dt')
+            ->innerJoin('dt.languages', 'language')
+            ->where('language = :languageId')
+            ->setParameter('languageId', $languageId)
+            ->getQuery()
+            ->getArrayResult();
+        $dataTypes = array_column($dataTypes, 'name');
+
+        //retorna os tipos de dados da linguagem utilizada no código fonte
+        $specialCharacters = $this->entityManager->createQueryBuilder()
+            ->select('sc.id, sc.name')
+            ->from(SpecialCharacter::class, 'sc')
+            ->innerJoin('sc.languages', 'language')
+            ->where('language = :languageId')
+            ->setParameter('languageId', $languageId)
+            ->getQuery()
+            ->getArrayResult();
+        $specialCharacters = array_column($specialCharacters, 'name');
+
+        return array(
+            'diversionCommands' => $diversionCommands,
+            ''
+        )
     }
 
 }

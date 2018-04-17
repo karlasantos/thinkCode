@@ -22,7 +22,6 @@ INSERT INTO data_types(id, name, byte_size) VALUES
 (15, 'caracter'           , 1), -- tamanho com base nos da linguagem C
 (16, 'logico'             , 2); -- tamanho com base nos da linguagem C
 
-
 -- Insere o relacionamento entre os tipos de dados e as linguagens de programação
 INSERT INTO language__data_type(bypass_command_id, language_id) VALUES
 (1, 1),
@@ -41,6 +40,41 @@ INSERT INTO language__data_type(bypass_command_id, language_id) VALUES
 (14,2),
 (15,2),
 (16,2);
+
+
+
+INSERT INTO special_characters(id, name) VALUES
+(1,'('),
+(2,')'),
+(3,';'),
+(4,'='),
+(5,'+'),
+(6,'-'),
+(7,'*'),
+(8,'/'),
+(9,'%'),
+(10,'=='),
+(11,'>'),
+(12,'<'),
+(13,'!='),
+(14,'#');
+
+-- RELACIONAMENTOS DA LINGUAGEM C
+INSERT INTO language__special_character(special_character_id, language_id) VALUES
+(1,1),
+(2,1),
+(3,1),
+(4,1),
+(5,1),
+(6,1),
+(7,1),
+(8,1),
+(9,1),
+(10,1),
+(11,1),
+(12,1),
+(13,1),
+(14,1);
 
 
 -- Insere os conectivos lógicos da Linguagem C e cria os relacionamentos
