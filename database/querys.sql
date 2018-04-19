@@ -1,7 +1,7 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
 -- Insere as Linguagens
-INSERT INTO languages(id, name, start_code_structure, end_code_structure) VALUES (1, 'Linguagem C', 'int main()/int main ()', '}'), (2, 'Portugol', 'inicio', 'fim');
+INSERT INTO languages(id, name, start_code_structure, end_code_structure) VALUES (1, 'Linguagem C', 'int main()|int main ()', '}'), (2, 'Portugol', 'inicio', 'fim');
 
 -- Insere os tipos de dados
 INSERT INTO data_types(id, name, byte_size) VALUES
@@ -91,23 +91,24 @@ INSERT INTO language__logical_connective(logical_connective_id, language_id) VAL
 -- Insere os elementos gráficos de cada estrutura de desvio
 INSERT INTO graph_elements(id, name, type) VALUES
 (1, 'if'         , :TYPE_CONDITIONAL),
-(2, 'if-else'    , :TYPE_CONDITIONAL),
-(3, 'switch-case', :TYPE_CONDITIONAL),
-(4, 'for'        , :TYPE_LOOP),
-(5, 'while'      , :TYPE_LOOP),
-(6, 'do-while'   , :TYPE_LOOP);
+(2, 'else-if'    , :TYPE_CONDITIONAL),
+(3, 'if-else'    , :TYPE_CONDITIONAL),
+(4, 'switch-case', :TYPE_CONDITIONAL),
+(5, 'for'        , :TYPE_LOOP),
+(6, 'while'      , :TYPE_LOOP),
+(7, 'do-while'   , :TYPE_LOOP);
 
 -- Insere os comandos de desvio da Linguagem C e cria os relacionamentos
 INSERT INTO diversion_commands(id, initial_command_name, terminal_command_name, type, graph_element_id) VALUES
 (1, 'if'     , '}'           , :TYPE_CONDITIONAL, 1),
-(2, 'else'   , '}'           , :TYPE_CONDITIONAL, 2),
-(3, 'elseif' , '}'           , :TYPE_CONDITIONAL, 1),
-(4, 'switch' , '}'           , :TYPE_CONDITIONAL, 3),
-(5, 'case'   , 'case/default', :TYPE_CONDITIONAL, 3),
-(6, 'default', '}'           , :TYPE_CONDITIONAL, 3),
-(7, 'for'    , '}'           , :TYPE_LOOP       , 4),
-(8, 'while'  , '}'           , :TYPE_LOOP       , 5),
-(9, 'do'     , '} while'     , :TYPE_LOOP       , 6);
+(2, 'else'   , '}'           , :TYPE_CONDITIONAL, 3),
+(3, 'elseif' , '}'           , :TYPE_CONDITIONAL, 2),
+(4, 'switch' , '}'           , :TYPE_CONDITIONAL, 4),
+(5, 'case'   , 'case|default', :TYPE_CONDITIONAL, 4),
+(6, 'default', '}'           , :TYPE_CONDITIONAL, 4),
+(7, 'for'    , '}'           , :TYPE_LOOP       , 5),
+(8, 'while'  , '}'           , :TYPE_LOOP       , 6),
+(9, 'do'     , 'while'     , :TYPE_LOOP         , 7);
 INSERT INTO language__bypass_command(bypass_command_id, language_id) VALUES
 (1,1),
 (2,1),
@@ -121,14 +122,14 @@ INSERT INTO language__bypass_command(bypass_command_id, language_id) VALUES
 
 -- Insere os comandos do Portugol e cria os relacionamentos
 INSERT INTO diversion_commands(id, initial_command_name, terminal_command_name, type, graph_element_id) VALUES
-(10, 'se'       , 'senao/fimse' , :TYPE_CONDITIONAL, 1),
-(11, 'senao'    , 'fimse'       , :TYPE_CONDITIONAL, 2),
-(12, 'escolha'  , 'fimescolha'  , :TYPE_CONDITIONAL, 3),
-(13, 'caso'     , 'caso/defeito', :TYPE_CONDITIONAL, 3),
-(14, 'defeito'  , 'fimescolha'  , :TYPE_CONDITIONAL, 3),
-(15, 'para'     , 'fimpara'     , :TYPE_LOOP       , 4),
-(16, 'enquanto' , 'fimenquanto' , :TYPE_LOOP       , 5),
-(17, 'repita'   , 'ate'         , :TYPE_LOOP       , 6),
+(10, 'se'       , 'senao|fimse' , :TYPE_CONDITIONAL, 1),
+(11, 'senao'    , 'fimse'       , :TYPE_CONDITIONAL, 3), -- todo verificar e colocar o senaose
+(12, 'escolha'  , 'fimescolha'  , :TYPE_CONDITIONAL, 4),
+(13, 'caso'     , 'caso|defeito', :TYPE_CONDITIONAL, 4),
+(14, 'defeito'  , 'fimescolha'  , :TYPE_CONDITIONAL, 4),
+(15, 'para'     , 'fimpara'     , :TYPE_LOOP       , 5),
+(16, 'enquanto' , 'fimenquanto' , :TYPE_LOOP       , 6),
+(17, 'repita'   , 'ate'         , :TYPE_LOOP       , 7),
 INSERT INTO language__bypass_command(bypass_command_id, language_id) VALUES
 (10,2),
 (11,2),

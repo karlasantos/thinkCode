@@ -48,6 +48,7 @@ class DataCollect
         $lineNumber = 0;
         $previusCharacter = "";
         $previusToken = "";
+        $token = "";
 
         $this->languageData = $this->getLanguageData($language->getId());
 
@@ -58,12 +59,66 @@ class DataCollect
             //quebra a linha em um array de caracteres caracteres
             $characters = str_split($line);
 
+            //todo verificar essa opção para identificação das variáveis
+            //se a linha não contém nenhum comando de desvio marca texto e comentário comentário
+            if(!$isComment && !$this->lineContainsBypassCommand($line)) {
+                $isText = true;
+                $isComment = true;
+            }
+
+            //verifica se a linha contém a estrutura de início de código
+            if($this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure())) {
+                $removeLastKey = true;
+            }
+
+            //Percorre os caracteres de cada linha
             foreach ($characters as $character) {
-                if($isComment === false && $character === '"')
+
+                // 1 - Se não houve comentário e o caracter lido for uma aspas marca como texto
+                if(!$isComment && $character === '"')
                     $isText = true;
 
-                //TODO PAREI AQUI
-                if($isComment === false) {
+                // 2 - Se o caracter lido não estiver em um texto
+                if(!$isText) {
+                    // 2.1 - /* caracteriza início de comentário
+                    if($character === "*" && $previusCharacter === "/")
+                        $isComment = true;
+
+                    // 2.2 - */ caracteriza fim de comentário
+                    if($character === "/" && $previusCharacter === "*")
+                        $isComment = false;
+
+                    // 2.3 - // caracteriza comentário somente na linha
+                    if($character === "/" && $previusCharacter === "/")
+                        break;
+                }
+                // Armazena o caracter lido para ser usado como anterior
+                $previusCharacter = $character;
+
+                // 3. - Se não é comentário e texto o caracter é parte do código efetivo.
+                if(!$isComment && !$isText) {
+                    // 3.1 - Se o caracter for um espaço ou um caracter especial
+                    if($this->isSpecialCharacter($character) || $character === " ") {
+                        // 3.1.1 - Este caso é para tratar o ELSE IF
+                        if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
+                            //envia os tokens concatenados
+                            $this->addToken($previusToken.$token, $lineNumber);
+                        else
+                            $this->addToken($token, $lineNumber);
+
+                        // 3.1.2 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
+                        if($character === " " && !empty($token))
+                            $previusToken = $token;
+                        else if($this->isSpecialCharacter($character)) // 3.1.3 - Se for um caracter especial o tokenAnt recebe vazio
+                            $previusToken = "";
+
+                        //todo verificar como fazer este comando
+                        // 3.1.4 - Se for um abre ou fecha chaves adiciona-o na lista de comandos
+                        if($this->isTerminalBypassCommand())
+                    } else
+                        // Incrementa caracter por caracter lido a variável token
+                        $token .= $character;
+
 
                 }
             }
@@ -85,9 +140,10 @@ class DataCollect
     {
         //monta a query para trazer todos os comandos de desvio da linguagem utilizada no código fonte
         $diversionCommands = $this->entityManager->createQueryBuilder()
-            ->select('bc.id, bc.initialCommandName, bc.terminalCommandName, bc.type')
+            ->select('bc.id, bc.initialCommandName, bc.terminalCommandName, bc.type, graphElement.name as graphElement')
             ->from(BypassCommand::class, 'bc')
             ->innerJoin('bc.languages', 'language')
+            ->leftJoin('bc.graphElement', 'graphElement')
             ->where('language.id = :languageId')
             ->setParameter('languageId', $languageId);
 
@@ -163,7 +219,78 @@ class DataCollect
     }
 
     /**
-     * Informa se um token é um comando de desvio da Linguagem de Programação ou não
+     * Informa se uma linha contém comando de desvio
+     *
+     * @param $line
+     * @return bool
+     */
+    private function lineContainsBypassCommand($line)
+    {
+        //transforma o token para minúsculas
+        $line = strtolower($line);
+        foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
+            if(strpos($line, $bypassCommand['initialCommandName']) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifica se a linha contém a estrutura inicial do código
+     *
+     * @param $line
+     * @param $startCodeStructures
+     * @return bool
+     */
+    private function lineContainsStartCodeStructure($line, $startCodeStructures)
+    {
+        $startCodeStructures = explode("|", $startCodeStructures);
+        foreach ($startCodeStructures as $startCodeStructure) {
+            if(strpos($line, $startCodeStructure) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Informa se o token representa o comando de desvio "IF"
+     * @param $token
+     * @return bool
+     */
+    private function isBypassCommandIf($token)
+    {
+        //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElement');
+        //identifica o índice do elemento gráfico que representa o if nos comandos de desvio através do índice do elemento gráfico
+        $indexOfElement = array_search("if", $graphElements);
+        //obtém o nome do comando de desvio inicial que representa o if na linguagem
+        $bypassCommandIf = $this->languageData['conditionalCommands'][$indexOfElement]['initialCommandName'];
+        return $token === $bypassCommandIf;
+
+    }
+
+    /**
+     *  Informa se o token representa o comando de desvio "ELSE"
+     *
+     * @param $token
+     * @return bool
+     */
+    private function isBypassCommandElse($token)
+    {
+        //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElement');
+        //identifica o índice do elemento gráfico que representa o else nos comandos de desvio através do índice do elemento gráfico
+        $indexOfElement = array_search("if-else", $graphElements);
+        //obtém o nome do comando de desvio inicial que representa o else na linguagem
+        $bypassCommandElse = $this->languageData['conditionalCommands'][$indexOfElement]['initialCommandName'];
+        return $token === $bypassCommandElse;
+
+    }
+
+    /**
+     * Informa se o token é um comando de desvio da Linguagem de Programação ou não
      *
      * @param $token
      * @return bool
@@ -181,7 +308,7 @@ class DataCollect
     }
 
     /**
-     * Informa se um caractere é um caractere especial da Linguagem de Programação
+     * Informa se o caractere é um caractere especial da Linguagem de Programação
      *
      * @param $character
      * @return bool
@@ -194,7 +321,7 @@ class DataCollect
     }
 
     /**
-     * Adiciona um token na lista de comandos de desvio do código
+     * Adiciona o token na lista de comandos de desvio do código
      * @param $token
      * @param $lineNumber
      */
