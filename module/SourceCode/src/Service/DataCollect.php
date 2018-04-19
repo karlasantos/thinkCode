@@ -34,24 +34,42 @@ class DataCollect
         $this->codeCommands = null;
     }
 
+    /**
+     * Retira os dados dos comandos de desvio do código
+     *
+     * @param SourceCode $sourceCode
+     * @return null
+     * @throws \Exception
+     */
     public function getDataFromCode(SourceCode $sourceCode)
     {
         //todo lembrar de refatorar o código antes de chegar nesta função
-
         $language = $sourceCode->getLanguage();
         //todo verificar se esse explode está funcionando
         $codeContent = explode(PHP_EOL, $sourceCode->getContent());
+        //indica se a linha contém texto
         $isText = false;
+        //indica se a linha contém comentário
         $isComment = false;
+        //indica se o código possui a estrutura inicial de código
         $removeLastKey = false;
+        //todo verificar se essa opção será usada
         $removeKeys = false;
+        //linha corrente analisada
         $lineNumber = 0;
         $previusCharacter = "";
         $previusToken = "";
         $token = "";
 
-        $this->languageData = $this->getLanguageData($language->getId());
+        //contadores de variáveis, linhas úteis e operadores lógicos
+        $countVariables = 0;
+        $countLines = 0;
+        $countLogicalConnectives = 0;
 
+        //busca a estrutura da linguagem do banco de dados
+        $this->getLanguageData($language->getId());
+
+        //percorre as linhas do código
         foreach($codeContent as $line) {
             $lineNumber++;
             $isText = false;
@@ -70,6 +88,8 @@ class DataCollect
             if($this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure())) {
                 $removeLastKey = true;
             }
+
+            //todo verifica as variáveis e comentários
 
             //Percorre os caracteres de cada linha
             foreach ($characters as $character) {
@@ -114,21 +134,29 @@ class DataCollect
 
                         //todo verificar como fazer este comando
                         // 3.1.4 - Se for um abre ou fecha chaves adiciona-o na lista de comandos
-                        if($this->isTerminalBypassCommand())
+//                        if($this->isTerminalBypassCommand()) {
+//
+//                        }
+
+                        $token = "";
                     } else
                         // Incrementa caracter por caracter lido a variável token
                         $token .= $character;
-
-
                 }
             }
-
         }
 
-        //todo transformar o codigo em lowercase
+        //verifica se a última chave deve ser removida (chave que indica o fechamento do código)
+        if($removeLastKey && !empty($this->codeCommands))
+            array_pop($this->codeCommands);
 
-        return $this->languageData;
+        // Será adicionado um ponto no final para atender a classe ctrlAnalisaEstrutura,
+        // simbolizando o fim do vetor.
+        $this->addToken(".", 0);
 
+        //todo adicionar uma visualização do array
+
+        return $this->codeCommands;
     }
 
     /**
@@ -203,7 +231,6 @@ class DataCollect
             'specialCharacters' => $specialCharacters,
         );
     }
-
 
     /**
      * Informa se um token é um comando de desvio da Linguagem de Programação ou não
@@ -328,13 +355,13 @@ class DataCollect
     private function addToken($token, $lineNumber)
     {
         //cria a estrutura do comando de desvio do código
-        $codeByspassCommand = [
+        $codeByspassCommand = array(
             'name' => null,
             'indexReferentNode' => null, // posição do comando na lista de vértices
             'openingIndex' => null, //posição do comando reponsável pela abertura de bloco: "{"
             'initialLineNumber' => null, //número da linha de início de comando
             'endLineNumber' => null, //número da linha de final de comando
-        ];
+        );
 
         $lengthCommands = count($this->codeCommands);
         $lastIndex = $lengthCommands - 1;
@@ -367,18 +394,20 @@ class DataCollect
             array_push($this->codeCommands, $codeByspassCommand);
         }
 
+        //cria o comando de desvio
+        $codeByspassCommand['name'] = $token;
+        $codeByspassCommand['initialLineNumber'] = $lineNumber;
+
         // Se o token lido for um Comando início de desvio então deve ser armazenado na lista de comandos.
         if($this->isInitialBypassCommand($token)) {
-            //cria o comando de desvio
-            $codeByspassCommand['name'] = $token;
-            $codeByspassCommand['initialLineNumber'] = $lineNumber;
-
             //cria o comando de início de bloco
             $initialBlockCommand = $codeByspassCommand;
             $initialBlockCommand['name'] = "{";
 
             //adiciona o comando de desvio e o comando de início de bloco nos últimos índices do array de comandos de desvio do código
             array_push($this->codeCommands, $codeByspassCommand, $initialBlockCommand);
+        } else if($token === ".") { //verifica se é o caractere que indica o final da lista de comandos
+            array_push($this->codeCommands, $codeByspassCommand);
         }
     }
 

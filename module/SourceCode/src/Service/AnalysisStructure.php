@@ -6,6 +6,7 @@
  */
 
 namespace SourceCode\Service;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class AnalysisStructure
@@ -14,5 +15,22 @@ namespace SourceCode\Service;
  */
 class AnalysisStructure
 {
+    protected $entityManager;
+
+    protected $dataCollect;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        $this->dataCollect = new DataCollect($entityManager);
+    }
+
+    public function definirVertices()
+    {
+        $node = array(
+
+        );
+
+    }
 
 }
