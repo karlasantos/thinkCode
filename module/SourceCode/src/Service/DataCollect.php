@@ -13,6 +13,7 @@ use SourceCode\Entity\DataType;
 use SourceCode\Entity\LogicalConnective;
 use SourceCode\Entity\SourceCode;
 use SourceCode\Entity\SpecialCharacter;
+use SourceCode\Model\CodeBypassCommand;
 
 /**
  * Class DataCollect
@@ -354,15 +355,6 @@ class DataCollect
      */
     private function addToken($token, $lineNumber)
     {
-        //cria a estrutura do comando de desvio do código
-        $codeByspassCommand = array(
-            'name' => null,
-            'indexReferentNode' => null, // posição do comando na lista de vértices
-            'openingIndex' => null, //posição do comando reponsável pela abertura de bloco: "{"
-            'initialLineNumber' => null, //número da linha de início de comando
-            'endLineNumber' => null, //número da linha de final de comando
-        );
-
         $lengthCommands = count($this->codeCommands);
         $lastIndex = $lengthCommands - 1;
         $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
@@ -372,8 +364,8 @@ class DataCollect
         */
         if($this->isTerminalBypassCommand($token) && $lastCommand['name'] === "{") {
             //salva a linha inicial do último comando
-            $initialLineNumber = $lastCommand['initialLineNumber'];
-            $endLineNumber = $lineNumber;
+            if($lastCommand instanceof CodeBypassCommand)
+                $initialLineNumber = $lastCommand->getInitialLineNumber();
 
             //remove o último elemento da lista de comandos que seria uma chave "{"
             array_pop($this->codeCommands);
@@ -384,30 +376,39 @@ class DataCollect
             $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
 
             //define a linha inicial do comando para a linha inicial do comando "{" que foi removido
-            $lastCommand['initialLineNumber'] = $initialLineNumber;
-            $lastCommand['endLineNumber'] = $endLineNumber;
+            if($lastCommand instanceof CodeBypassCommand) {
+                $lastCommand->setInitialLineNumber($initialLineNumber);
+                $lastCommand->setEndLineNumber($lineNumber);
+            }
         } else if($this->isTerminalBypassCommand($token) && $lastCommand['name'] !== "{") { //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
             //cria o comando fechamento de bloco
-            $codeByspassCommand['name'] = "}";
-            $codeByspassCommand['initialLineNumber'] = $lineNumber;
+            $endBlockCommand = new CodeBypassCommand();
+            $endBlockCommand->setName("}");
+            $endBlockCommand->setInitialLineNumber($lineNumber);
 
-            array_push($this->codeCommands, $codeByspassCommand);
+            array_push($this->codeCommands, $endBlockCommand);
         }
-
-        //cria o comando de desvio
-        $codeByspassCommand['name'] = $token;
-        $codeByspassCommand['initialLineNumber'] = $lineNumber;
 
         // Se o token lido for um Comando início de desvio então deve ser armazenado na lista de comandos.
         if($this->isInitialBypassCommand($token)) {
+            //cria o comando de desvio
+            $codeBypassCommand = new CodeBypassCommand();
+            $codeBypassCommand->setName($token);
+            $codeBypassCommand->setInitialLineNumber($lineNumber);
+
             //cria o comando de início de bloco
-            $initialBlockCommand = $codeByspassCommand;
-            $initialBlockCommand['name'] = "{";
+            $initialBlockCommand = new CodeBypassCommand();
+            $initialBlockCommand->setName("{");
+            $initialBlockCommand->setInitialLineNumber($lineNumber);
 
             //adiciona o comando de desvio e o comando de início de bloco nos últimos índices do array de comandos de desvio do código
-            array_push($this->codeCommands, $codeByspassCommand, $initialBlockCommand);
+            array_push($this->codeCommands, $codeBypassCommand, $initialBlockCommand);
         } else if($token === ".") { //verifica se é o caractere que indica o final da lista de comandos
-            array_push($this->codeCommands, $codeByspassCommand);
+            //cria o indicador de final de comandos
+            $endCodeBypassCommand = new CodeBypassCommand();
+            $endCodeBypassCommand->setName($token);
+            $endCodeBypassCommand->setInitialLineNumber($lineNumber);
+            array_push($this->codeCommands, $endCodeBypassCommand);
         }
     }
 

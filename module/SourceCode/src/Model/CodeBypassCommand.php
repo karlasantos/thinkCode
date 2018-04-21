@@ -78,6 +78,8 @@ class CodeBypassCommand
     }
 
     /**
+     * Define a posição do comando na lista de vértices
+     *
      * @param int $indexReferentNode
      */
     public function setIndexReferentNode($indexReferentNode)
@@ -86,6 +88,8 @@ class CodeBypassCommand
     }
 
     /**
+     * Retorna a posição do comando responsável pela abertura de bloco: "{"
+     *
      * @return int
      */
     public function getOpeningIndex()
@@ -94,6 +98,8 @@ class CodeBypassCommand
     }
 
     /**
+     * Define a posição do comando responsável pela abertura de bloco: "{"
+     *
      * @param int $openingIndex
      */
     public function setOpeningIndex($openingIndex)
@@ -102,6 +108,7 @@ class CodeBypassCommand
     }
 
     /**
+     * Retorna o número da linha de início de comando
      * @return int
      */
     public function getInitialLineNumber()
@@ -110,6 +117,8 @@ class CodeBypassCommand
     }
 
     /**
+     * Define o número da linha de início de comando
+     *
      * @param int $initialLineNumber
      */
     public function setInitialLineNumber($initialLineNumber)
@@ -118,6 +127,7 @@ class CodeBypassCommand
     }
 
     /**
+     * Retorna o número da linha de final de comando
      * @return mixed
      */
     public function getEndLineNumber()
@@ -126,6 +136,8 @@ class CodeBypassCommand
     }
 
     /**
+     * Define o número da linha de final de comando
+     *
      * @param mixed $endLineNumber
      */
     public function setEndLineNumber($endLineNumber)
