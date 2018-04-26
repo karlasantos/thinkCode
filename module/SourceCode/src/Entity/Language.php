@@ -60,6 +60,24 @@ class Language extends Entity
     private $endCodeStructure;
 
     /**
+     * Nome do vértice de início de grafo de fluxo da linguagem
+     *
+     * @ORM\Column(name="start_name_vertex", type="string", nullable=false)
+     *
+     * @var string
+     */
+    private $startNameVertex;
+
+    /**
+     * Nome do vértice de final de grafo de fluxo da linguagem
+     *
+     * @ORM\Column(name="end_name_vertex", type="string", nullable=false)
+     *
+     * @var string
+     */
+    private $endNameVertex;
+
+    /**
      * Uma coleção de todos os comandos de desvio da Linguagem de Programação
      *
      * @ORM\ManyToMany(targetEntity="BypassCommand", inversedBy="languages")
@@ -180,6 +198,46 @@ class Language extends Entity
     public function setEndCodeStructure($endCodeStructure)
     {
         $this->endCodeStructure = $endCodeStructure;
+    }
+
+    /**
+     * Retorna o nome do vértice de início de grafo de fluxo da linguagem
+     *
+     * @return string
+     */
+    public function getStartNameVertex()
+    {
+        return $this->startNameVertex;
+    }
+
+    /**
+     * Define o nome do vértice de início de grafo de fluxo da linguagem
+     *
+     * @param string $startNameVertex
+     */
+    public function setStartNameVertex($startNameVertex)
+    {
+        $this->startNameVertex = $startNameVertex;
+    }
+
+    /**
+     * Retorna o nome do vértice de final de grafo de fluxo da linguagem
+     *
+     * @return string
+     */
+    public function getEndNameVertex()
+    {
+        return $this->endNameVertex;
+    }
+
+    /**
+     * Define o nome do vértice de final de grafo de fluxo da linguagem
+     *
+     * @param string $endNameVertex
+     */
+    public function setEndNameVertex($endNameVertex)
+    {
+        $this->endNameVertex = $endNameVertex;
     }
 
     /**

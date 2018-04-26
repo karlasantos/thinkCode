@@ -25,13 +25,13 @@ class CodeBypassCommand
      *
      * @var int
      */
-    private $indexReferentNode;
+    private $referentVertexIndex;
 
     /**
      * Posição do comando responsável pela abertura de bloco: "{"
      * @var int
      */
-    private $openingIndex;
+    private $openingCommandIndex;
 
     /**
      * Número da linha de início de comando
@@ -72,19 +72,19 @@ class CodeBypassCommand
      *
      * @return int
      */
-    public function getIndexReferentNode()
+    public function getReferentVertexIndex()
     {
-        return $this->indexReferentNode;
+        return $this->referentVertexIndex;
     }
 
     /**
      * Define a posição do comando na lista de vértices
      *
-     * @param int $indexReferentNode
+     * @param int $referentVertexIndex
      */
-    public function setIndexReferentNode($indexReferentNode)
+    public function setReferentVertexIndex($referentVertexIndex)
     {
-        $this->indexReferentNode = $indexReferentNode;
+        $this->referentVertexIndex = $referentVertexIndex;
     }
 
     /**
@@ -92,19 +92,19 @@ class CodeBypassCommand
      *
      * @return int
      */
-    public function getOpeningIndex()
+    public function getOpeningCommandIndex()
     {
-        return $this->openingIndex;
+        return $this->openingCommandIndex;
     }
 
     /**
      * Define a posição do comando responsável pela abertura de bloco: "{"
      *
-     * @param int $openingIndex
+     * @param int $openingCommandIndex
      */
-    public function setOpeningIndex($openingIndex)
+    public function setOpeningCommandIndex($openingCommandIndex)
     {
-        $this->openingIndex = $openingIndex;
+        $this->openingCommandIndex = $openingCommandIndex;
     }
 
     /**
@@ -143,5 +143,15 @@ class CodeBypassCommand
     public function setEndLineNumber($endLineNumber)
     {
         $this->endLineNumber = $endLineNumber;
+    }
+
+    public function toArray() {
+        return array(
+            'name' => $this->name,
+            'referentVertexIndex' => $this->referentVertexIndex,
+            'openingCommandIndex' => $this->openingCommandIndex,
+            'initialLineNumber' => $this->initialLineNumber,
+            'endLineNumber' => $this->endLineNumber,
+        );
     }
 }

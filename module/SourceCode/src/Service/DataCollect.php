@@ -70,6 +70,7 @@ class DataCollect
         //busca a estrutura da linguagem do banco de dados
         $this->getLanguageData($language->getId());
 
+//        print_r($this->languageData['specialCharacters']);
         //percorre as linhas do código
         foreach($codeContent as $line) {
             $lineNumber++;
@@ -79,16 +80,18 @@ class DataCollect
             $characters = str_split($line);
 
             //todo verificar essa opção para identificação das variáveis
-            //se a linha não contém nenhum comando de desvio marca texto e comentário comentário
-            if(!$isComment && !$this->lineContainsBypassCommand($line)) {
+            //se a linha não contém nenhum comando de desvio marca texto e comentário
+            if(!$isComment && !$this->lineContainsInitialBypassCommand($line) && !$this->lineContainsTerminalBypassCommand($line)) {
                 $isText = true;
                 $isComment = true;
             }
 
             //verifica se a linha contém a estrutura de início de código
-            if($this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure())) {
+            if($this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure()) && !$removeLastKey) {
                 $removeLastKey = true;
             }
+
+//            print_r($characters);
 
             //todo verifica as variáveis e comentários
 
@@ -116,10 +119,18 @@ class DataCollect
                 // Armazena o caracter lido para ser usado como anterior
                 $previusCharacter = $character;
 
+//                var_dump(' e: '. !$isComment && !$isText);
+
                 // 3. - Se não é comentário e texto o caracter é parte do código efetivo.
                 if(!$isComment && !$isText) {
+                    //var_dump('    character: ' .$character.'     ');
+
                     // 3.1 - Se o caracter for um espaço ou um caracter especial
                     if($this->isSpecialCharacter($character) || $character === " ") {
+                        if($this->isTerminalBypassCommand($character) && $token == "") {
+                            $token = $character;
+                        }
+
                         // 3.1.1 - Este caso é para tratar o ELSE IF
                         if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
                             //envia os tokens concatenados
@@ -145,7 +156,11 @@ class DataCollect
                         $token .= $character;
                 }
             }
+//            print_r(" | ");
         }
+
+        \Zend\Debug\Debug::dump("last key remove: ");
+        var_dump($removeLastKey);
 
         //verifica se a última chave deve ser removida (chave que indica o fechamento do código)
         if($removeLastKey && !empty($this->codeCommands))
@@ -169,7 +184,7 @@ class DataCollect
     {
         //monta a query para trazer todos os comandos de desvio da linguagem utilizada no código fonte
         $diversionCommands = $this->entityManager->createQueryBuilder()
-            ->select('bc.id, bc.initialCommandName, bc.terminalCommandName, bc.type, graphElement.name as graphElement')
+            ->select('bc.id, bc.initialCommandName, bc.terminalCommandName, bc.type, graphElement.name as graphElementName')
             ->from(BypassCommand::class, 'bc')
             ->innerJoin('bc.languages', 'language')
             ->leftJoin('bc.graphElement', 'graphElement')
@@ -177,12 +192,16 @@ class DataCollect
             ->setParameter('languageId', $languageId);
 
         //retorna os comandos condicionais da linguagem utilizada no código fonte
-        $conditionalCommands = $diversionCommands->andWhere('bc.type like conditional')
-            ->getQuery()
-            ->getArrayResult();
+        $conditionalCommands = clone $diversionCommands;
+        $conditionalCommands = $conditionalCommands->andWhere("bc.type like :conditional")
+        ->setParameter('conditional', BypassCommand::TYPE_CONDITIONAL)
+        ->getQuery()
+        ->getArrayResult();
 
         //retorna os comandos de repetição da linguagem utilizada no código fonte
-        $loopCommands = $diversionCommands->andWhere('bc.type like loop')
+        $loopCommands = clone $diversionCommands;
+        $loopCommands = $loopCommands->andWhere("bc.type like :loop")
+            ->setParameter('loop', BypassCommand::TYPE_LOOP)
             ->getQuery()
             ->getArrayResult();
 
@@ -252,12 +271,30 @@ class DataCollect
      * @param $line
      * @return bool
      */
-    private function lineContainsBypassCommand($line)
+    private function lineContainsInitialBypassCommand($line)
     {
         //transforma o token para minúsculas
         $line = strtolower($line);
         foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
             if(strpos($line, $bypassCommand['initialCommandName']) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Informa se uma linha contém comando de desvio
+     *
+     * @param $line
+     * @return bool
+     */
+    private function lineContainsTerminalBypassCommand($line)
+    {
+        //transforma o token para minúsculas
+        $line = strtolower($line);
+        foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
+            if(strpos($line, $bypassCommand['terminalCommandName']) !== false) {
                 return true;
             }
         }
@@ -290,7 +327,7 @@ class DataCollect
     private function isBypassCommandIf($token)
     {
         //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
-        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElement');
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
         //identifica o índice do elemento gráfico que representa o if nos comandos de desvio através do índice do elemento gráfico
         $indexOfElement = array_search("if", $graphElements);
         //obtém o nome do comando de desvio inicial que representa o if na linguagem
@@ -308,7 +345,7 @@ class DataCollect
     private function isBypassCommandElse($token)
     {
         //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
-        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElement');
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
         //identifica o índice do elemento gráfico que representa o else nos comandos de desvio através do índice do elemento gráfico
         $indexOfElement = array_search("if-else", $graphElements);
         //obtém o nome do comando de desvio inicial que representa o else na linguagem
@@ -328,7 +365,8 @@ class DataCollect
         //transforma o token para minúsculas
         $token = strtolower($token);
         foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
-            if(strpos($bypassCommand['terminalCommandName'], $token) !== false) {
+            $terminalCommands = explode("|", $bypassCommand['terminalCommandName']);
+            if(in_array($token, $terminalCommands)) {
                 return true;
             }
         }
@@ -355,14 +393,45 @@ class DataCollect
      */
     private function addToken($token, $lineNumber)
     {
-        $lengthCommands = count($this->codeCommands);
-        $lastIndex = $lengthCommands - 1;
+
+        \Zend\Debug\Debug::dump('########################################');
+
+        $arrayResult = array();
+        foreach ($this->codeCommands as $value) {
+            if($value instanceof CodeBypassCommand)
+                $arrayResult[] = $value->toArray();
+        }
+        \Zend\Debug\Debug::dump($arrayResult);
+        print_r("-------");
+//
+//
+        end($this->codeCommands);
+//        //$lengthCommands = count($this->codeCommands);
+//        //$lastIndex = ($lengthCommands - 1);
+        $lastIndex = key($this->codeCommands);
         $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
+
+        //print_r('length commands ' . $lengthCommands);
+        \Zend\Debug\Debug::dump('token: '. $token);
+        print_r("-------");
+
+        \Zend\Debug\Debug::dump('bypass '. $lastIndex .' instance of: ');
+        var_dump($lastCommand instanceof CodeBypassCommand);
+        var_dump("-------");
+
+        \Zend\Debug\Debug::dump('condition p/ remove { : ');
+        var_dump(($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{"));
+        print_r("-------");
+
+        \Zend\Debug\Debug::dump('is TERMINAL : ');
+        var_dump($this->isTerminalBypassCommand($token));
+        print_r("-------");
+
 
         /* - Se o token for um token de término de comando de desvio e o último da lista for um {, então remove da lista o {
            para que permaneçam na lista de vértices apenas as chaves que tiverem comandos aninhados
         */
-        if($this->isTerminalBypassCommand($token) && $lastCommand['name'] === "{") {
+        if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{") {
             //salva a linha inicial do último comando
             if($lastCommand instanceof CodeBypassCommand)
                 $initialLineNumber = $lastCommand->getInitialLineNumber();
@@ -370,17 +439,27 @@ class DataCollect
             //remove o último elemento da lista de comandos que seria uma chave "{"
             array_pop($this->codeCommands);
 
+//            $arrayResult = array();
+//            foreach ($this->codeCommands as $value) {
+//                if($value instanceof CodeBypassCommand)
+//                    $arrayResult[] = $value->toArray();
+//            }
+//            print_r($arrayResult);
+//            print_r("|                 proximo            | ");
+
             //recalcula os tamanhos e adquire o novo último comando da lista de comandos de desvio do código
-            $lengthCommands = count($this->codeCommands);
-            $lastIndex = $lengthCommands - 1;
+            end($this->codeCommands);
+            $lastIndex = key($this->codeCommands);
             $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
+
+//            print_r($lastCommand->getName());
 
             //define a linha inicial do comando para a linha inicial do comando "{" que foi removido
             if($lastCommand instanceof CodeBypassCommand) {
                 $lastCommand->setInitialLineNumber($initialLineNumber);
                 $lastCommand->setEndLineNumber($lineNumber);
             }
-        } else if($this->isTerminalBypassCommand($token) && $lastCommand['name'] !== "{") { //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
+        } else if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") { //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
             //cria o comando fechamento de bloco
             $endBlockCommand = new CodeBypassCommand();
             $endBlockCommand->setName("}");

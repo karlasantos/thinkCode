@@ -1,7 +1,8 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
 -- Insere as Linguagens
-INSERT INTO languages(id, name, start_code_structure, end_code_structure) VALUES (1, 'Linguagem C', 'int main()|int main ()', '}'), (2, 'Portugol', 'inicio', 'fim');
+INSERT INTO languages(id, name, start_code_structure, end_code_structure, start_name_vertex, end_name_vertex)
+VALUES (1, 'Linguagem C', 'int main()|int main ()', '}', 'start', 'end'), (2, 'Portugol', 'inicio', 'fim', 'inicio', 'fim');
 
 -- Insere os tipos de dados
 INSERT INTO data_types(id, name, byte_size) VALUES
@@ -23,7 +24,7 @@ INSERT INTO data_types(id, name, byte_size) VALUES
 (16, 'logico'             , 2); -- tamanho com base nos da linguagem C
 
 -- Insere o relacionamento entre os tipos de dados e as linguagens de programação
-INSERT INTO language__data_type(bypass_command_id, language_id) VALUES
+INSERT INTO language__data_type(data_type_id, language_id) VALUES
 (1, 1),
 (2, 1),
 (3, 1),
@@ -112,12 +113,12 @@ INSERT INTO diversion_commands(id, initial_command_name, terminal_command_name, 
 INSERT INTO language__bypass_command(bypass_command_id, language_id) VALUES
 (1,1),
 (2,1),
-(3,1);
-(4,1);
-(5,1);
-(6,1);
-(7,1);
-(8,1);
+(3,1),
+(4,1),
+(5,1),
+(6,1),
+(7,1),
+(8,1),
 (9,1);
 
 -- Insere os comandos do Portugol e cria os relacionamentos
