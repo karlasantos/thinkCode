@@ -146,6 +146,8 @@ class SourceCode extends Entity
      */
     public function setContent($content)
     {
+        //converte o código para caracteres minúsculos
+        $content = strtolower($content);
         $this->content = $content;
     }
 

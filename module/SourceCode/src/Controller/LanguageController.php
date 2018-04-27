@@ -38,14 +38,14 @@ class LanguageController  extends AbstractRestfulController
             $sourceCode = new SourceCode();
             if($language instanceof Language)
                 $sourceCode->setLanguage($language);
-            $sourceCode->setContent("int main() {\nint a = 1;\nif(a > 0)\n {\na++;\n}else \n{\na--;\n}\n}");
+            $sourceCode->setContent("int main() {\nint a = 1;\nif(a > 0)\n {\nif(b >0)\n{\nb=1;\n}\na++;\n}\nelse {\na--;\n}\ndo {\n}\nwhile (a > 1)\n{\n}\n}");
             $result = $this->dataCollect->getDataFromCode($sourceCode);
             $arrayResult = array();
             foreach ($result as $value) {
                 if($value instanceof CodeBypassCommand)
                     $arrayResult[] = $value->toArray();
             }
-//            die();
+            //die();
             return new JsonModel([
                 'resultsC' => array($arrayResult),
             ]);

@@ -67,7 +67,7 @@ class DataCollect
         $countLines = 0;
         $countLogicalConnectives = 0;
 
-        //busca a estrutura da linguagem do banco de dados
+        //busca a e define a estrutura da linguagem do banco de dados
         $this->getLanguageData($language->getId());
 
 //        print_r($this->languageData['specialCharacters']);
@@ -96,8 +96,7 @@ class DataCollect
             //todo verifica as variáveis e comentários
 
             //Percorre os caracteres de cada linha
-            foreach ($characters as $character) {
-
+            foreach ($characters as $keyChar => $character) {
                 // 1 - Se não houve comentário e o caracter lido for uma aspas marca como texto
                 if(!$isComment && $character === '"')
                     $isText = true;
@@ -119,15 +118,35 @@ class DataCollect
                 // Armazena o caracter lido para ser usado como anterior
                 $previusCharacter = $character;
 
-//                var_dump(' e: '. !$isComment && !$isText);
+//                \Zend\Debug\Debug::dump('################');
+//                \Zend\Debug\Debug::dump('token:'. $token .".");
+//                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
+//                \Zend\Debug\Debug::dump('character:'. $character.".");
+//                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. !$isComment && !$isText.".");
+
+//                \Zend\Debug\Debug::dump('---- TOKENS -----');
+
+//                $arrayResult = array();
+//                foreach ($this->codeCommands as $value) {
+//                    if($value instanceof CodeBypassCommand)
+//                        $arrayResult[] = $value->getName();
+//                }
+//                \Zend\Debug\Debug::dump($arrayResult);
+//                print_r("-------");
 
                 // 3. - Se não é comentário e texto o caracter é parte do código efetivo.
                 if(!$isComment && !$isText) {
+                    $teste = ($this->isSpecialCharacter($character) || $character === " ");
+//                    \Zend\Debug\Debug::dump('characterIF:'.  $teste . ".");
                     //var_dump('    character: ' .$character.'     ');
-
                     // 3.1 - Se o caracter for um espaço ou um caracter especial
                     if($this->isSpecialCharacter($character) || $character === " ") {
+
+
+                        /* Para os casos da linguagem C,
+                          que possui um caractere especial (}) como terminal de comando de desvio */
                         if($this->isTerminalBypassCommand($character) && $token == "") {
+//                            \Zend\Debug\Debug::dump(' $token = $character'.  $character . ".");
                             $token = $character;
                         }
 
@@ -159,8 +178,8 @@ class DataCollect
 //            print_r(" | ");
         }
 
-        \Zend\Debug\Debug::dump("last key remove: ");
-        var_dump($removeLastKey);
+//        \Zend\Debug\Debug::dump("last key remove: ");
+//        var_dump($removeLastKey);
 
         //verifica se a última chave deve ser removida (chave que indica o fechamento do código)
         if($removeLastKey && !empty($this->codeCommands))
@@ -394,17 +413,17 @@ class DataCollect
     private function addToken($token, $lineNumber)
     {
 
-        \Zend\Debug\Debug::dump('########################################');
+//        \Zend\Debug\Debug::dump('########################################');
+//
+//        $arrayResult = array();
+//        foreach ($this->codeCommands as $value) {
+//            if($value instanceof CodeBypassCommand)
+//                $arrayResult[] = $value->toArray();
+//        }
+//        \Zend\Debug\Debug::dump($arrayResult);
+//        print_r("-------");
 
-        $arrayResult = array();
-        foreach ($this->codeCommands as $value) {
-            if($value instanceof CodeBypassCommand)
-                $arrayResult[] = $value->toArray();
-        }
-        \Zend\Debug\Debug::dump($arrayResult);
-        print_r("-------");
-//
-//
+
         end($this->codeCommands);
 //        //$lengthCommands = count($this->codeCommands);
 //        //$lastIndex = ($lengthCommands - 1);
@@ -412,20 +431,20 @@ class DataCollect
         $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
 
         //print_r('length commands ' . $lengthCommands);
-        \Zend\Debug\Debug::dump('token: '. $token);
-        print_r("-------");
+//        \Zend\Debug\Debug::dump('token: '. $token);
+//        print_r("-------");
 
-        \Zend\Debug\Debug::dump('bypass '. $lastIndex .' instance of: ');
-        var_dump($lastCommand instanceof CodeBypassCommand);
-        var_dump("-------");
+//        \Zend\Debug\Debug::dump('bypass '. $lastIndex .' instance of: ');
+//        var_dump($lastCommand instanceof CodeBypassCommand);
+//        var_dump("-------");
 
-        \Zend\Debug\Debug::dump('condition p/ remove { : ');
-        var_dump(($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{"));
-        print_r("-------");
+//        \Zend\Debug\Debug::dump('condition p/ remove { : ');
+//        var_dump(($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{"));
+//        print_r("-------");
 
-        \Zend\Debug\Debug::dump('is TERMINAL : ');
-        var_dump($this->isTerminalBypassCommand($token));
-        print_r("-------");
+//        \Zend\Debug\Debug::dump('is TERMINAL : ');
+//        var_dump($this->isTerminalBypassCommand($token));
+//        print_r("-------");
 
 
         /* - Se o token for um token de término de comando de desvio e o último da lista for um {, então remove da lista o {
@@ -459,7 +478,8 @@ class DataCollect
                 $lastCommand->setInitialLineNumber($initialLineNumber);
                 $lastCommand->setEndLineNumber($lineNumber);
             }
-        } else if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") { //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
+            //todo modifica esse if para isTerminal && isInitial && $lastCommand['graph_element'] = do-while (colocar em uma função se necessário)
+        } else if(($this->isTerminalBypassCommand($token) && !$this->isInitialBypassCommand($token)) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") { //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
             //cria o comando fechamento de bloco
             $endBlockCommand = new CodeBypassCommand();
             $endBlockCommand->setName("}");
