@@ -62,6 +62,8 @@ class DataCollect
         $previusToken = "";
         $token = "";
         $terminalDoWhile = null;
+        $terminalSwitchCase = null;
+        $lastCommandCase = null;
         $addToken = true;
 
         //contadores de variáveis, linhas úteis e operadores lógicos
@@ -173,6 +175,20 @@ class DataCollect
                              */
                             if($this->isBypassCommandDoWhile($token) && $this->terminalBypassCommandDoWhileIsInitial()) {
                                 $terminalDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
+                            }
+
+                            //todo rever estas condições
+                            if($this->isBypassCommandSwitch($token)) {
+                                $terminalSwitchCase = $this->getCommandFromToken($token)['terminalCommandName'];
+                            }
+                            else if($terminalSwitchCase !== null && $this->isBypassCommandCaseOrDefault($token)) {
+                                $lastCommandCase = $token;
+                            }
+                            //todo fazer função para comparar o token com o terminal do switch case
+                            else if ($lastCommandCase !== null && isTerminalSwitchCase($token)) {
+                                $this->addToken($terminalSwitchCase, $lineNumber);
+                                $lastCommandCase = null;
+                                $terminalSwitchCase = null;
                             }
 
                             // 3.1.2 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
@@ -471,28 +487,62 @@ class DataCollect
         return $this->languageData['diversionCommands'][$indexOfElement];
     }
 
-    //todo parei nessa função
     /**
+     * Informa se o token é um comando de desvio switch
+     *
      * @param $token
      * @return mixed
      */
-    private function isBypassCommandSwitchCase($token)
+    private function isBypassCommandSwitch($token)
     {
-        $bypassCommand = $this->getCommandFromToken($token);
         $commandSwitchCase = array();
-        //obtém apenas os elementos gráficos dos comandos de desvio de repetição da linguagem
+        //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
         $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
-        //identifica o índice do elemento gráfico que representa o do-while nos comandos de desvio através do índice do elemento gráfico
+        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
         $indexOfElements = array_keys($graphElements, "switch-case");
+        //percorre os indíces para encontrar o comando que representa o switch
         foreach ($indexOfElements as $indexOfElement) {
+            //transforma a string de terminais de comando em array
             $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
+            //ignora os comandos que possuem mais de um terminal porque representam o case e o default
             if($terminalCommandsLength < 2) {
                 $commandSwitchCase = $this->languageData['conditionalCommands'][$indexOfElement];
                 break;
             }
         }
-        //retorna o comando de desvio que representa o do-while na linguagem
+        //retorna se o token enviado é o comando switch na linguagem
         return count($commandSwitchCase) > 0 && $token === $commandSwitchCase['initialCommandName'];
+    }
+
+    /**
+     * Informa se o token é um comando de desvio case ou default
+     *
+     * @param $token
+     * @return bool
+     */
+    private function isBypassCommandCaseOrDefault($token)
+    {
+        $isCaseOrDefault = false;
+        //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
+        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
+        $indexOfElements = array_keys($graphElements, "switch-case");
+        //percorre os indíces para encontrar o comando que representa o switch
+        foreach ($indexOfElements as $indexOfElement) {
+            //transforma a string de terminais de comando em array
+            $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
+            //ignora o comando "switch" que possui apenas um terminal
+            if($terminalCommandsLength > 1) {
+                $command = $this->languageData['conditionalCommands'][$indexOfElement];
+                //compara o nome do token com o comando
+                if($command['initialCommandName'] === $token) {
+                    $isCaseOrDefault = true;
+                    break;
+                }
+            }
+        }
+        //retorna se o token enviado é o comando switch na linguagem
+        return $isCaseOrDefault;
     }
 
     /**
