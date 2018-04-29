@@ -58,7 +58,10 @@ INSERT INTO special_characters(id, name) VALUES
 (11,'>'),
 (12,'<'),
 (13,'!='),
-(14,'#');
+(14,'#'),
+(15,'{'),
+(16,'}'),
+(17,':');
 
 -- RELACIONAMENTOS DA LINGUAGEM C
 INSERT INTO language__special_character(special_character_id, language_id) VALUES
@@ -75,7 +78,10 @@ INSERT INTO language__special_character(special_character_id, language_id) VALUE
 (11,1),
 (12,1),
 (13,1),
-(14,1);
+(14,1),
+(15,1),
+(16,1),
+(17,1);
 
 
 -- Insere os conectivos lógicos da Linguagem C e cria os relacionamentos
@@ -105,8 +111,8 @@ INSERT INTO diversion_commands(id, initial_command_name, terminal_command_name, 
 (2, 'else'   , '}'           , :TYPE_CONDITIONAL, 3),
 (3, 'elseif' , '}'           , :TYPE_CONDITIONAL, 2),
 (4, 'switch' , '}'           , :TYPE_CONDITIONAL, 4),
-(5, 'case'   , 'case|default', :TYPE_CONDITIONAL, 4),
-(6, 'default', '}'           , :TYPE_CONDITIONAL, 4),
+(5, 'case'   , 'case|default|}', :TYPE_CONDITIONAL, 4),
+(6, 'default', '}|.'           , :TYPE_CONDITIONAL, 4),
 (7, 'for'    , '}'           , :TYPE_LOOP       , 5),
 (8, 'while'  , '}'           , :TYPE_LOOP       , 6),
 (9, 'do'     , 'while'     , :TYPE_LOOP         , 7);

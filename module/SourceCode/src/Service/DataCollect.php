@@ -61,6 +61,8 @@ class DataCollect
         $previusCharacter = "";
         $previusToken = "";
         $token = "";
+        $terminalDoWhile = null;
+        $addToken = true;
 
         //contadores de variáveis, linhas úteis e operadores lógicos
         $countVariables = 0;
@@ -89,6 +91,14 @@ class DataCollect
             //verifica se a linha contém a estrutura de início de código
             if($this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure()) && !$removeLastKey) {
                 $removeLastKey = true;
+            }
+
+
+             //Verifica se a linha não possui o token de terminal do comando do do-while, que deve ser ignorado na adição
+            if(!$this->lineContainsToken($line, $terminalDoWhile)) {
+                $addToken = true;
+            } else if($this->lineContainsToken($line, ";")){
+                $addToken = false;
             }
 
 //            print_r($characters);
@@ -122,10 +132,10 @@ class DataCollect
 //                \Zend\Debug\Debug::dump('token:'. $token .".");
 //                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
 //                \Zend\Debug\Debug::dump('character:'. $character.".");
-//                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. !$isComment && !$isText.".");
-
+//                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. (string)(!$isComment && !$isText).".");
+//
 //                \Zend\Debug\Debug::dump('---- TOKENS -----');
-
+//
 //                $arrayResult = array();
 //                foreach ($this->codeCommands as $value) {
 //                    if($value instanceof CodeBypassCommand)
@@ -138,37 +148,52 @@ class DataCollect
                 if(!$isComment && !$isText) {
                     $teste = ($this->isSpecialCharacter($character) || $character === " ");
 //                    \Zend\Debug\Debug::dump('characterIF:'.  $teste . ".");
-                    //var_dump('    character: ' .$character.'     ');
                     // 3.1 - Se o caracter for um espaço ou um caracter especial
                     if($this->isSpecialCharacter($character) || $character === " ") {
+                        if($addToken) {
+                            /* Para os casos da linguagem C,
+                              que possui um caractere especial (}) como terminal de comando de desvio */
+                            if ($this->isTerminalBypassCommand($character) && $token == "") {
+//                                \Zend\Debug\Debug::dump(' $token = $character' . $character . ".");
+                                $token = $character;
+                            }
 
+                            // 3.1.1 - Este caso é para tratar o ELSE IF
+                            if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
+                                //envia os tokens concatenados
+                                $this->addToken($previusToken . $token, $lineNumber);
+                            else {
+                                $this->addToken($token, $lineNumber);
+                            }
 
-                        /* Para os casos da linguagem C,
-                          que possui um caractere especial (}) como terminal de comando de desvio */
-                        if($this->isTerminalBypassCommand($character) && $token == "") {
-//                            \Zend\Debug\Debug::dump(' $token = $character'.  $character . ".");
-                            $token = $character;
-                        }
+                            /* Verifica se o comando representado pelo token é um comando que representa o comando inicial
+                              do-while na linguagem e se seu terminal é um comando também inicial na liguagem (caso da Linguagem C)
+                              para definir uma exceção para esse comando não ser adicionado na lista de comandos de desvio do código
+                              duas vezes
+                             */
+                            if($this->isBypassCommandDoWhile($token) && $this->terminalBypassCommandDoWhileIsInitial()) {
+                                $terminalDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
+                            }
 
-                        // 3.1.1 - Este caso é para tratar o ELSE IF
-                        if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
-                            //envia os tokens concatenados
-                            $this->addToken($previusToken.$token, $lineNumber);
-                        else
-                            $this->addToken($token, $lineNumber);
+                            // 3.1.2 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
+                            if ($character === " " && !empty($token))
+                                $previusToken = $token;
+                            else if ($this->isSpecialCharacter($character)) // 3.1.3 - Se for um caracter especial o tokenAnt recebe vazio
+                                $previusToken = "";
 
-                        // 3.1.2 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
-                        if($character === " " && !empty($token))
-                            $previusToken = $token;
-                        else if($this->isSpecialCharacter($character)) // 3.1.3 - Se for um caracter especial o tokenAnt recebe vazio
-                            $previusToken = "";
-
-                        //todo verificar como fazer este comando
-                        // 3.1.4 - Se for um abre ou fecha chaves adiciona-o na lista de comandos
+                            //todo verificar como fazer este comando
+                            // 3.1.4 - Se for um abre ou fecha chaves adiciona-o na lista de comandos
 //                        if($this->isTerminalBypassCommand()) {
 //
 //                        }
-
+                        }
+                        /*se addToken for falso significa que o terminal de comando desvio foi encontrado e não deve ser adicionado,
+                          podendo ser inicializado novamente
+                        */
+                        else {
+                            $terminalDoWhile = null;
+                            $addToken = true;
+                        }
                         $token = "";
                     } else
                         // Incrementa caracter por caracter lido a variável token
@@ -310,7 +335,7 @@ class DataCollect
      */
     private function lineContainsTerminalBypassCommand($line)
     {
-        //transforma o token para minúsculas
+        //transforma a linha para minúsculas
         $line = strtolower($line);
         foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
             if(strpos($line, $bypassCommand['terminalCommandName']) !== false) {
@@ -335,6 +360,25 @@ class DataCollect
                 return true;
             }
         }
+        return false;
+    }
+
+    /**
+     * Verifica se uma determinada linha contém um determinado token
+     *
+     * @param $line
+     * @param $token
+     * @return bool
+     */
+    private function lineContainsToken($line, $token)
+    {
+        //transforma o token e a linha para minúsculas
+        $line = strtolower($line);
+        $token = strtolower($token);
+        if(strpos($line, $token) !== false) {
+            return true;
+        }
+
         return false;
     }
 
@@ -374,6 +418,84 @@ class DataCollect
     }
 
     /**
+     * Retorna todos os dados do comando de desvio do-while
+     *
+     * @return mixed
+     */
+    private function getBypassCommandDoWhile()
+    {
+        //obtém apenas os elementos gráficos dos comandos de desvio de repetição da linguagem
+        $graphElements = array_column($this->languageData['loopCommands'], 'graphElementName');
+        //identifica o índice do elemento gráfico que representa o do-while nos comandos de desvio através do índice do elemento gráfico
+        $indexOfElement = array_search("do-while", $graphElements);
+        //retorna o comando de desvio que representa o do-while na linguagem
+        return $this->languageData['loopCommands'][$indexOfElement];
+    }
+
+    /**
+     * Informa se o token é representa o comando desvio com elemento do grafo representando o do-while
+     * @param $token
+     * @return bool
+     */
+    private function isBypassCommandDoWhile($token)
+    {
+        //obtém o nome do comando de desvio inicial que representa o do-while na linguagem
+        $initialBypassCommandDoWhile = $this->getBypassCommandDoWhile()['initialCommandName'];
+        return $token === $initialBypassCommandDoWhile;
+    }
+
+    /**
+     * Verifica se o terminal do comando de desvio do-while também é um inicial de comando de desvio
+     * @return bool
+     */
+    private function terminalBypassCommandDoWhileIsInitial()
+    {
+        //obtém o nome do terminal do comando de desvio do-while na linguagem
+        $terminalBypassCommandDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
+        return $this->isInitialBypassCommand($terminalBypassCommandDoWhile);
+    }
+
+    /**
+     * Retorna todos os dados do comando de desvio de acordo com o token enviado
+     *
+     * @param $token
+     * @return mixed
+     */
+    private function getCommandFromToken($token)
+    {
+        //obtém apenas os nomes iniciais dos comandos de desvio condicionais da linguagem
+        $commandNames = array_column($this->languageData['diversionCommands'], 'initialCommandName');
+        //identifica o índice do comando que representa o token nos comandos de desvio
+        $indexOfElement = array_search($token, $commandNames);
+        //retorna o comando de desvio que representa o token na linguagem
+        return $this->languageData['diversionCommands'][$indexOfElement];
+    }
+
+    //todo parei nessa função
+    /**
+     * @param $token
+     * @return mixed
+     */
+    private function isBypassCommandSwitchCase($token)
+    {
+        $bypassCommand = $this->getCommandFromToken($token);
+        $commandSwitchCase = array();
+        //obtém apenas os elementos gráficos dos comandos de desvio de repetição da linguagem
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
+        //identifica o índice do elemento gráfico que representa o do-while nos comandos de desvio através do índice do elemento gráfico
+        $indexOfElements = array_keys($graphElements, "switch-case");
+        foreach ($indexOfElements as $indexOfElement) {
+            $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
+            if($terminalCommandsLength < 2) {
+                $commandSwitchCase = $this->languageData['conditionalCommands'][$indexOfElement];
+                break;
+            }
+        }
+        //retorna o comando de desvio que representa o do-while na linguagem
+        return count($commandSwitchCase) > 0 && $token === $commandSwitchCase['initialCommandName'];
+    }
+
+    /**
      * Informa se o token é um comando de desvio da Linguagem de Programação ou não
      *
      * @param $token
@@ -390,6 +512,29 @@ class DataCollect
             }
         }
         return false;
+    }
+
+    /**
+     * Verifica se um determinado token é o terminal de comando do último comando de desvio adicionado a lista de comandos do código
+     *
+     * @param $previusBypassCommand
+     * @param $token
+     * @return bool
+     */
+    private function isTerminalBypassCommandLastCodeCommand($previusBypassCommand, $token)
+    {
+        $terminalCommands = array();
+
+        if($previusBypassCommand instanceof CodeBypassCommand) {
+            //obtém apenas os nomes iniciais dos comandos de desvio da linguagem
+            $initialCommandNames = array_column($this->languageData['diversionCommands'], 'initialCommandName');
+            /*identifica o índice do comando de desvio que representa
+             o $previusBypassCommand nos comandos de desvio através de seu nome */
+            $indexOfElement = array_search($previusBypassCommand->getName(), $initialCommandNames);
+            //retorna o terminal do comando de desvio que representa o $previusBypassCommand na linguagem
+            $terminalCommands = explode("|", $this->languageData['diversionCommands'][$indexOfElement]['terminalCommandName']);
+        }
+        return in_array($token, $terminalCommands);
     }
 
     /**
@@ -412,74 +557,41 @@ class DataCollect
      */
     private function addToken($token, $lineNumber)
     {
-
-//        \Zend\Debug\Debug::dump('########################################');
-//
-//        $arrayResult = array();
-//        foreach ($this->codeCommands as $value) {
-//            if($value instanceof CodeBypassCommand)
-//                $arrayResult[] = $value->toArray();
-//        }
-//        \Zend\Debug\Debug::dump($arrayResult);
-//        print_r("-------");
-
-
         end($this->codeCommands);
-//        //$lengthCommands = count($this->codeCommands);
-//        //$lastIndex = ($lengthCommands - 1);
         $lastIndex = key($this->codeCommands);
         $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
+        $lastButOne = &$this->codeCommands[($lastIndex-1)];
+        $previusCommandName = null;
 
-        //print_r('length commands ' . $lengthCommands);
-//        \Zend\Debug\Debug::dump('token: '. $token);
-//        print_r("-------");
-
-//        \Zend\Debug\Debug::dump('bypass '. $lastIndex .' instance of: ');
-//        var_dump($lastCommand instanceof CodeBypassCommand);
-//        var_dump("-------");
-
-//        \Zend\Debug\Debug::dump('condition p/ remove { : ');
-//        var_dump(($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{"));
-//        print_r("-------");
-
-//        \Zend\Debug\Debug::dump('is TERMINAL : ');
-//        var_dump($this->isTerminalBypassCommand($token));
-//        print_r("-------");
-
+        if($lastCommand instanceof CodeBypassCommand)
+            $previusCommandName = $lastCommand->getName();
 
         /* - Se o token for um token de término de comando de desvio e o último da lista for um {, então remove da lista o {
            para que permaneçam na lista de vértices apenas as chaves que tiverem comandos aninhados
         */
         if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{") {
-            //salva a linha inicial do último comando
-            if($lastCommand instanceof CodeBypassCommand)
-                $initialLineNumber = $lastCommand->getInitialLineNumber();
+            if($this->isTerminalBypassCommandLastCodeCommand($lastButOne, $token)) {
+                //salva a linha inicial do último comando
+                if ($lastCommand instanceof CodeBypassCommand)
+                    $initialLineNumber = $lastCommand->getInitialLineNumber();
 
-            //remove o último elemento da lista de comandos que seria uma chave "{"
-            array_pop($this->codeCommands);
+                //remove o último elemento da lista de comandos que seria uma chave "{"
+                array_pop($this->codeCommands);
 
-//            $arrayResult = array();
-//            foreach ($this->codeCommands as $value) {
-//                if($value instanceof CodeBypassCommand)
-//                    $arrayResult[] = $value->toArray();
-//            }
-//            print_r($arrayResult);
-//            print_r("|                 proximo            | ");
+                //recalcula os tamanhos e adquire o novo último comando da lista de comandos de desvio do código
+                end($this->codeCommands);
+                $lastIndex = key($this->codeCommands);
+                $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
 
-            //recalcula os tamanhos e adquire o novo último comando da lista de comandos de desvio do código
-            end($this->codeCommands);
-            $lastIndex = key($this->codeCommands);
-            $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
-
-//            print_r($lastCommand->getName());
-
-            //define a linha inicial do comando para a linha inicial do comando "{" que foi removido
-            if($lastCommand instanceof CodeBypassCommand) {
-                $lastCommand->setInitialLineNumber($initialLineNumber);
-                $lastCommand->setEndLineNumber($lineNumber);
+                //define a linha inicial do comando para a linha inicial do comando "{" que foi removido
+                if ($lastCommand instanceof CodeBypassCommand) {
+                    $lastCommand->setInitialLineNumber($initialLineNumber);
+                    $lastCommand->setEndLineNumber($lineNumber);
+                }
             }
-            //todo modifica esse if para isTerminal && isInitial && $lastCommand['graph_element'] = do-while (colocar em uma função se necessário)
-        } else if(($this->isTerminalBypassCommand($token) && !$this->isInitialBypassCommand($token)) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") { //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
+        }
+        //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
+        else if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") {
             //cria o comando fechamento de bloco
             $endBlockCommand = new CodeBypassCommand();
             $endBlockCommand->setName("}");
