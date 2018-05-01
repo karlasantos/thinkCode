@@ -46,7 +46,7 @@ class DataCollect
     {
         //todo lembrar de refatorar o código antes de chegar nesta função
         $language = $sourceCode->getLanguage();
-        //todo verificar se esse explode está funcionando
+        //cria um array onde cada índice contém uma linha do código fonte (explode a string pelo caracter \n)
         $codeContent = explode(PHP_EOL, $sourceCode->getContent());
         //indica se a linha contém texto
         $isText = false;
@@ -54,16 +54,22 @@ class DataCollect
         $isComment = false;
         //indica se o código possui a estrutura inicial de código
         $removeLastKey = false;
-        //todo verificar se essa opção será usada
-        $removeKeys = false;
         //linha corrente analisada
         $lineNumber = 0;
+        //caracter anterior ao atual no laço de repetição de caracteres
         $previusCharacter = "";
         $previusToken = "";
+        //token a ser inserido na lista de comandos
         $token = "";
+        //armazena o token que representa o terminal do comando do-while
         $terminalDoWhile = null;
-        $terminalSwitchCase = null;
+        //armazena o token que representa o terminal do comando switch
+        $terminalSwitch = null;
+        //armazena o último comando da lista de cases do switch lido no código
         $lastCommandCase = null;
+        /* indica se um determinado token deve ser inserido na listagem de comandos do código
+           usado para casos em que um terminal de comando também é inicial de comando
+        */
         $addToken = true;
 
         //contadores de variáveis, linhas úteis e operadores lógicos
@@ -71,10 +77,9 @@ class DataCollect
         $countLines = 0;
         $countLogicalConnectives = 0;
 
-        //busca a e define a estrutura da linguagem do banco de dados
+        //busca e define a estrutura da linguagem do banco de dados
         $this->getLanguageData($language->getId());
 
-//        print_r($this->languageData['specialCharacters']);
         //percorre as linhas do código
         foreach($codeContent as $line) {
             $lineNumber++;
@@ -84,6 +89,7 @@ class DataCollect
             $characters = str_split($line);
 
             //todo verificar essa opção para identificação das variáveis
+
             //se a linha não contém nenhum comando de desvio marca texto e comentário
             if(!$isComment && !$this->lineContainsInitialBypassCommand($line) && !$this->lineContainsTerminalBypassCommand($line)) {
                 $isText = true;
@@ -95,15 +101,12 @@ class DataCollect
                 $removeLastKey = true;
             }
 
-
              //Verifica se a linha não possui o token de terminal do comando do do-while, que deve ser ignorado na adição
             if(!$this->lineContainsToken($line, $terminalDoWhile)) {
                 $addToken = true;
             } else if($this->lineContainsToken($line, ";")){
                 $addToken = false;
             }
-
-//            print_r($characters);
 
             //todo verifica as variáveis e comentários
 
@@ -135,9 +138,7 @@ class DataCollect
 //                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
 //                \Zend\Debug\Debug::dump('character:'. $character.".");
 //                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. (string)(!$isComment && !$isText).".");
-//
 //                \Zend\Debug\Debug::dump('---- TOKENS -----');
-//
 //                $arrayResult = array();
 //                foreach ($this->codeCommands as $value) {
 //                    if($value instanceof CodeBypassCommand)
@@ -146,12 +147,12 @@ class DataCollect
 //                \Zend\Debug\Debug::dump($arrayResult);
 //                print_r("-------");
 
-                // 3. - Se não é comentário e texto o caracter é parte do código efetivo.
+                // 3 - Se não é comentário e texto o caracter é parte do código efetivo.
                 if(!$isComment && !$isText) {
-                    $teste = ($this->isSpecialCharacter($character) || $character === " ");
-//                    \Zend\Debug\Debug::dump('characterIF:'.  $teste . ".");
-                    // 3.1 - Se o caracter for um espaço ou um caracter especial
+                    /* 3.1 - Se o caracter for um espaço ou um caracter especial significa
+                    que o token terminou e deve ser adicionado na lista de comandos de desvio do código */
                     if($this->isSpecialCharacter($character) || $character === " ") {
+                        // 3.1.1 - Se a ação de adição de token estiver marcada efetua a análise e a inserção do token
                         if($addToken) {
                             /* Para os casos da linguagem C,
                               que possui um caractere especial (}) como terminal de comando de desvio */
@@ -160,7 +161,7 @@ class DataCollect
                                 $token = $character;
                             }
 
-                            // 3.1.1 - Este caso é para tratar o ELSE IF
+                            // 3.1.1.1 - Este caso é para tratar o ELSE IF
                             if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
                                 //envia os tokens concatenados
                                 $this->addToken($previusToken . $token, $lineNumber);
@@ -168,7 +169,8 @@ class DataCollect
                                 $this->addToken($token, $lineNumber);
                             }
 
-                            /* Verifica se o comando representado pelo token é um comando que representa o comando inicial
+                            /* 3.1.1.2 - Tratar do-while:
+                              Verifica se o comando representado pelo token é um comando que representa o comando inicial
                               do-while na linguagem e se seu terminal é um comando também inicial na liguagem (caso da Linguagem C)
                               para definir uma exceção para esse comando não ser adicionado na lista de comandos de desvio do código
                               duas vezes
@@ -177,33 +179,33 @@ class DataCollect
                                 $terminalDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
                             }
 
-                            //todo rever estas condições
+                            /* 3.1.1.3 - Tratar switch-case */
+                            //Verifica se o comando é o token representa o switch e salva seu terminal
                             if($this->isBypassCommandSwitch($token)) {
-                                $terminalSwitchCase = $this->getCommandFromToken($token)['terminalCommandName'];
+                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
                             }
-                            else if($terminalSwitchCase !== null && $this->isBypassCommandCaseOrDefault($token)) {
+                            //se possui terminal salvo ou se o token é um case ou default salva o token case/default e o token terminal do switch
+                            else if($this->isBypassCommandCaseOrDefault($token)) {
                                 $lastCommandCase = $token;
+                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
                             }
-                            //todo fazer função para comparar o token com o terminal do switch case
-                            else if ($lastCommandCase !== null && isTerminalSwitchCase($token)) {
-                                $this->addToken($terminalSwitchCase, $lineNumber);
+                            //todo VERIFICAR ESSA CONDIÇÃO
+                            /*verifica se possui último comando case e se o token atual é o terminal do switch e adiciona o terminal do switch
+                             na lista de tokens de desvio do código */
+                            else if ($lastCommandCase !== null && $this->isTerminalSwitch($token) && $terminalSwitch !== null) {
+                                $this->addToken($terminalSwitch, $lineNumber);
                                 $lastCommandCase = null;
-                                $terminalSwitchCase = null;
+                                $terminalSwitch = null;
                             }
 
-                            // 3.1.2 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
+                            // 3.1.1.4 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
                             if ($character === " " && !empty($token))
                                 $previusToken = $token;
                             else if ($this->isSpecialCharacter($character)) // 3.1.3 - Se for um caracter especial o tokenAnt recebe vazio
                                 $previusToken = "";
 
-                            //todo verificar como fazer este comando
-                            // 3.1.4 - Se for um abre ou fecha chaves adiciona-o na lista de comandos
-//                        if($this->isTerminalBypassCommand()) {
-//
-//                        }
                         }
-                        /*se addToken for falso significa que o terminal de comando desvio foi encontrado e não deve ser adicionado,
+                        /* 3.1.2 - Se addToken for falso significa que o terminal de comando desvio foi encontrado e não deve ser adicionado,
                           podendo ser inicializado novamente
                         */
                         else {
@@ -211,12 +213,15 @@ class DataCollect
                             $addToken = true;
                         }
                         $token = "";
-                    } else
-                        // Incrementa caracter por caracter lido a variável token
+                    }
+                    /* 3.2 - Se não for um caracter especial significa que o token ainda não terminou de ser montado
+                      então incrementa caracter por caracter lido a variável token
+                    */
+                    else {
                         $token .= $character;
+                    }
                 }
             }
-//            print_r(" | ");
         }
 
 //        \Zend\Debug\Debug::dump("last key remove: ");
@@ -488,12 +493,10 @@ class DataCollect
     }
 
     /**
-     * Informa se o token é um comando de desvio switch
-     *
-     * @param $token
+     * Retorna o comando de desvio switch case
      * @return mixed
      */
-    private function isBypassCommandSwitch($token)
+    private function getBypassCommandSwitch()
     {
         $commandSwitchCase = array();
         //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
@@ -510,6 +513,18 @@ class DataCollect
                 break;
             }
         }
+        return $commandSwitchCase;
+    }
+
+    /**
+     * Informa se o token é um comando de desvio switch
+     *
+     * @param $token
+     * @return mixed
+     */
+    private function isBypassCommandSwitch($token)
+    {
+        $commandSwitchCase = $this->getBypassCommandSwitch();
         //retorna se o token enviado é o comando switch na linguagem
         return count($commandSwitchCase) > 0 && $token === $commandSwitchCase['initialCommandName'];
     }
@@ -543,6 +558,18 @@ class DataCollect
         }
         //retorna se o token enviado é o comando switch na linguagem
         return $isCaseOrDefault;
+    }
+
+    /**
+     * Retorna se o token é o terminal de comando do switch
+     *
+     * @param $token
+     * @return bool
+     */
+    private function isTerminalSwitch($token)
+    {
+        $commandSwitch = $this->getBypassCommandSwitch();
+        return $token === $commandSwitch['terminalCommandName'];
     }
 
     /**
