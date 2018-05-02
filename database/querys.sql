@@ -112,7 +112,7 @@ INSERT INTO diversion_commands(id, initial_command_name, terminal_command_name, 
 (3, 'elseif' , '}'           , :TYPE_CONDITIONAL, 2),
 (4, 'switch' , '}'           , :TYPE_CONDITIONAL, 4),
 (5, 'case'   , 'case|default|}', :TYPE_CONDITIONAL, 4),
-(6, 'default', '}|.'           , :TYPE_CONDITIONAL, 4),
+(6, 'default', '}|$'           , :TYPE_CONDITIONAL, 4),
 (7, 'for'    , '}'           , :TYPE_LOOP       , 5),
 (8, 'while'  , '}'           , :TYPE_LOOP       , 6),
 (9, 'do'     , 'while'     , :TYPE_LOOP         , 7);

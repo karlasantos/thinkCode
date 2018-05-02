@@ -28,11 +28,14 @@ class DataCollect
 
     protected $codeCommands;
 
+    protected $codeCommandsName;
+
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->languageData = null;
-        $this->codeCommands = null;
+        $this->codeCommands = array();
+        $this->codeCommands = array();
     }
 
     /**
@@ -65,6 +68,9 @@ class DataCollect
         $terminalDoWhile = null;
         //armazena o token que representa o terminal do comando switch
         $terminalSwitch = null;
+        $switchIndex = null;
+        $lengthCaseAndDefault = 0;
+        $countCaseAndDefault = 0;
         //armazena o último comando da lista de cases do switch lido no código
         $lastCommandCase = null;
         /* indica se um determinado token deve ser inserido na listagem de comandos do código
@@ -81,7 +87,7 @@ class DataCollect
         $this->getLanguageData($language->getId());
 
         //percorre as linhas do código
-        foreach($codeContent as $line) {
+        foreach($codeContent as $lineKey => $line) {
             $lineNumber++;
             $isText = false;
             $isComment = false;
@@ -108,6 +114,17 @@ class DataCollect
                 $addToken = false;
             }
 
+            //TODO COLOCAR CONDIÇÃO PARA VERIFICAR SE O TERMINAL DO SWITCH É USADO EM OUTROS COMANDOS
+            if($this->lineContainsToken($line, $this->getBypassCommandSwitch()['initialCommandName'])) {
+                //TODO MARCAR A LINHA DE FINAL DO SWITCH CASE (ÚLTIMA CHAVE)
+                for ($i = $lineKey+1; $i < count($codeContent); $i++) {
+                    if($this->lineContainsCaseOrDefault($codeContent[$i]))
+                        $lengthCaseAndDefault++;
+                    else if($this->lineContainsToken($codeContent[$i], $this->getBypassCommandSwitch()['initialCommandName']))
+                        break;
+                }
+            }
+
             //todo verifica as variáveis e comentários
 
             //Percorre os caracteres de cada linha
@@ -132,7 +149,7 @@ class DataCollect
                 }
                 // Armazena o caracter lido para ser usado como anterior
                 $previusCharacter = $character;
-
+//
 //                \Zend\Debug\Debug::dump('################');
 //                \Zend\Debug\Debug::dump('token:'. $token .".");
 //                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
@@ -188,14 +205,21 @@ class DataCollect
                             else if($this->isBypassCommandCaseOrDefault($token)) {
                                 $lastCommandCase = $token;
                                 $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
+                                $countCaseAndDefault++;
                             }
                             //todo VERIFICAR ESSA CONDIÇÃO
                             /*verifica se possui último comando case e se o token atual é o terminal do switch e adiciona o terminal do switch
                              na lista de tokens de desvio do código */
                             else if ($lastCommandCase !== null && $this->isTerminalSwitch($token) && $terminalSwitch !== null) {
-                                $this->addToken($terminalSwitch, $lineNumber);
-                                $lastCommandCase = null;
-                                $terminalSwitch = null;
+                                //verifica se a quantidade de cases e defaults do switch já foi adicionada e adiciona mais um terminal do switch
+                                if($countCaseAndDefault > 0 && $countCaseAndDefault == $lengthCaseAndDefault) {
+                                    $this->addToken($terminalSwitch, $lineNumber);
+                                    //reinicializa as variáveis de controle
+                                    $lastCommandCase = null;
+                                    $terminalSwitch = null;
+                                    $countCaseAndDefault = 0;
+                                    $lengthCaseAndDefault = 0;
+                                }
                             }
 
                             // 3.1.1.4 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
@@ -359,6 +383,7 @@ class DataCollect
         //transforma a linha para minúsculas
         $line = strtolower($line);
         foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
+            //todo rever estas condições porque um determinado comando pode conter mais de um terminal
             if(strpos($line, $bypassCommand['terminalCommandName']) !== false) {
                 return true;
             }
@@ -400,6 +425,17 @@ class DataCollect
             return true;
         }
 
+        return false;
+    }
+
+    private function lineContainsCaseOrDefault($line)
+    {
+        $commandNamesCaseDefault = $this->getInitialCommandsCaseAndDefault();
+        foreach ($commandNamesCaseDefault as $commandName) {
+            if(strpos($line, $commandName) !== false) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -530,6 +566,28 @@ class DataCollect
     }
 
     /**
+     * @return array
+     */
+    private function getInitialCommandsCaseAndDefault()
+    {
+        $commandNames = array();
+        //obtém apenas os elementos gráficos dos comandos de desvio condicionais da linguagem
+        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
+        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
+        $indexOfElements = array_keys($graphElements, "switch-case");
+        //percorre os indíces para encontrar o comando que representa o switch
+        foreach ($indexOfElements as $indexOfElement) {
+            //transforma a string de terminais de comando em array
+            $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
+            //ignora o comando "switch" que possui apenas um terminal
+            if($terminalCommandsLength > 1) {
+                $commandNames[] = $this->languageData['conditionalCommands'][$indexOfElement]['initialCommandName'];
+            }
+        }
+        return $commandNames;
+    }
+
+    /**
      * Informa se o token é um comando de desvio case ou default
      *
      * @param $token
@@ -654,6 +712,8 @@ class DataCollect
 
                 //remove o último elemento da lista de comandos que seria uma chave "{"
                 array_pop($this->codeCommands);
+                //remove do array de nomes de comandos
+                array_pop($this->codeCommandsName);
 
                 //recalcula os tamanhos e adquire o novo último comando da lista de comandos de desvio do código
                 end($this->codeCommands);
@@ -675,6 +735,7 @@ class DataCollect
             $endBlockCommand->setInitialLineNumber($lineNumber);
 
             array_push($this->codeCommands, $endBlockCommand);
+            array_push($this->codeCommandsName, "}");
         }
 
         // Se o token lido for um Comando início de desvio então deve ser armazenado na lista de comandos.
@@ -691,12 +752,14 @@ class DataCollect
 
             //adiciona o comando de desvio e o comando de início de bloco nos últimos índices do array de comandos de desvio do código
             array_push($this->codeCommands, $codeBypassCommand, $initialBlockCommand);
+            array_push($this->codeCommandsName, $token, "{");
         } else if($token === ".") { //verifica se é o caractere que indica o final da lista de comandos
             //cria o indicador de final de comandos
             $endCodeBypassCommand = new CodeBypassCommand();
             $endCodeBypassCommand->setName($token);
             $endCodeBypassCommand->setInitialLineNumber($lineNumber);
             array_push($this->codeCommands, $endCodeBypassCommand);
+            array_push($this->codeCommandsName, $token);
         }
     }
 
