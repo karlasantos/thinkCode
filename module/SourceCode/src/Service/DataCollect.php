@@ -35,7 +35,7 @@ class DataCollect
         $this->entityManager = $entityManager;
         $this->languageData = null;
         $this->codeCommands = array();
-        $this->codeCommands = array();
+        $this->codeCommandsName = array();
     }
 
     /**
@@ -48,6 +48,7 @@ class DataCollect
     public function getDataFromCode(SourceCode $sourceCode)
     {
         //todo lembrar de refatorar o código antes de chegar nesta função
+        //todo adicionar espaço no final de cada linha
         $language = $sourceCode->getLanguage();
         //cria um array onde cada índice contém uma linha do código fonte (explode a string pelo caracter \n)
         $codeContent = explode(PHP_EOL, $sourceCode->getContent());
@@ -73,6 +74,7 @@ class DataCollect
         $countCaseAndDefault = 0;
         //armazena o último comando da lista de cases do switch lido no código
         $lastCommandCase = null;
+        $lastCommandCaseIndex = null;
         /* indica se um determinado token deve ser inserido na listagem de comandos do código
            usado para casos em que um terminal de comando também é inicial de comando
         */
@@ -149,7 +151,7 @@ class DataCollect
                 }
                 // Armazena o caracter lido para ser usado como anterior
                 $previusCharacter = $character;
-//
+
 //                \Zend\Debug\Debug::dump('################');
 //                \Zend\Debug\Debug::dump('token:'. $token .".");
 //                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
@@ -178,6 +180,53 @@ class DataCollect
                                 $token = $character;
                             }
 
+                            /* 3.1.1.3 - Tratar switch-case */
+                            //Verifica se o comando é o token representa o switch e salva seu terminal
+                            if($this->isBypassCommandSwitch($token)) {
+                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
+                            }
+                            //se possui terminal salvo ou se o token é um case ou default salva o token case/default e o token terminal do switch
+                            else if($this->isBypassCommandCaseOrDefault($token)) {
+                                $lastCommandCase = $token;
+                                end($this->codeCommandsName);
+                                $lastCommandCaseIndex = key($this->codeCommandsName)+2;
+                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
+                                $countCaseAndDefault++;
+                            }
+                            //todo VERIFICAR ESSA CONDIÇÃO
+                            /*verifica se possui último comando case e se o token atual é o terminal do switch e adiciona o terminal do switch
+                             na lista de tokens de desvio do código */
+                            else if ($lastCommandCase !== null && $this->isTerminalSwitch($token) && $terminalSwitch !== null) {
+                                //verifica se a quantidade de cases e defaults do switch já foi adicionada e adiciona mais um terminal do switch
+                                if($countCaseAndDefault > 0 && $countCaseAndDefault == $lengthCaseAndDefault) {
+                                    /*retorna uma parcela do array de nomes comandos adicionados
+                                     como comando de desvio do código iniciando pelo último comando case adicionado */
+                                    $commandsAfterLastCase = array_slice($this->codeCommandsName, $lastCommandCaseIndex);
+                                    //conta as aberturas de bloco contidas nos comandos de desvio do código (usa-se "{" por padrão)
+                                    $blockOpeningLength = count(array_keys($commandsAfterLastCase, "{"));
+                                    //conta os fechamentos de bloco contidos nos comandos de desvio do código (usa-se "}" por padrão)
+                                    $blockClosureLength = count(array_keys($commandsAfterLastCase, "}"));
+//                                    \Zend\Debug\Debug::dump($commandsAfterLastCase);
+//                                    \Zend\Debug\Debug::dump('$blockOpeningLength - $blockClosureLength');
+//                                    \Zend\Debug\Debug::dump($blockOpeningLength);
+//                                    \Zend\Debug\Debug::dump($blockClosureLength);
+                                    /*se a diferença das aberturas e fechamentos de blocos for igual a 1,
+                                     indica que o um fechamento do bloco a mais para o switch deve ser adicionado,
+                                     porque o case/default pode utilizar/utiliza o mesmo terminal de comando do switch,
+                                     sendo necessária uma adição a mais */
+                                    if(($blockOpeningLength - $blockClosureLength) == 1) {
+                                        //adiciona o token de fechamento a mais
+                                        $this->addToken($terminalSwitch, $lineNumber);
+                                        //reinicializa as variáveis de controle
+                                        $lastCommandCase = null;
+                                        $lastCommandCaseIndex = null;
+                                        $terminalSwitch = null;
+                                        $countCaseAndDefault = 0;
+                                        $lengthCaseAndDefault = 0;
+                                    }
+                                }
+                            }
+
                             // 3.1.1.1 - Este caso é para tratar o ELSE IF
                             if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
                                 //envia os tokens concatenados
@@ -194,32 +243,6 @@ class DataCollect
                              */
                             if($this->isBypassCommandDoWhile($token) && $this->terminalBypassCommandDoWhileIsInitial()) {
                                 $terminalDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
-                            }
-
-                            /* 3.1.1.3 - Tratar switch-case */
-                            //Verifica se o comando é o token representa o switch e salva seu terminal
-                            if($this->isBypassCommandSwitch($token)) {
-                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
-                            }
-                            //se possui terminal salvo ou se o token é um case ou default salva o token case/default e o token terminal do switch
-                            else if($this->isBypassCommandCaseOrDefault($token)) {
-                                $lastCommandCase = $token;
-                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
-                                $countCaseAndDefault++;
-                            }
-                            //todo VERIFICAR ESSA CONDIÇÃO
-                            /*verifica se possui último comando case e se o token atual é o terminal do switch e adiciona o terminal do switch
-                             na lista de tokens de desvio do código */
-                            else if ($lastCommandCase !== null && $this->isTerminalSwitch($token) && $terminalSwitch !== null) {
-                                //verifica se a quantidade de cases e defaults do switch já foi adicionada e adiciona mais um terminal do switch
-                                if($countCaseAndDefault > 0 && $countCaseAndDefault == $lengthCaseAndDefault) {
-                                    $this->addToken($terminalSwitch, $lineNumber);
-                                    //reinicializa as variáveis de controle
-                                    $lastCommandCase = null;
-                                    $terminalSwitch = null;
-                                    $countCaseAndDefault = 0;
-                                    $lengthCaseAndDefault = 0;
-                                }
                             }
 
                             // 3.1.1.4 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
