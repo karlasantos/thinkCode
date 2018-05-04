@@ -22,20 +22,62 @@ use SourceCode\Model\CodeBypassCommand;
  */
 class DataCollect
 {
-    protected $entityManager;
+    /**
+     * Gerenciador de entidades do Doctrine
+     * @var EntityManager
+     */
+    private $entityManager;
 
-    protected $languageData;
+    /**
+     * Armazena informações da linguagem de programação do código fonte
+     * @var array
+     */
+    private $languageData;
 
-    protected $codeCommands;
+    /**
+     * Armazena os objetos dos comandos de desvio encontrados no código fonte (Class SourceCode\Model\CodeBypassCommand)
+     * @var array
+     */
+    private $codeCommands;
 
-    protected $codeCommandsName;
+    /**
+     * Armazena o nome dos comandos de desvio encontrados no código fonte
+     * @var array
+     */
+    private $codeCommandsName;
 
+    /**
+     * Quantidade de linhas úteis do código fonte
+     * @var int
+     */
+    private $usefulLineCounter;
+
+    /**
+     * Quantidade de variáveis declaradas no código fonte
+     * @var int
+     */
+    private $variableCounter;
+
+    /**
+     * Quantidade de conectivos lógicos utilizados no código fonte
+     * @var int
+     */
+    private $logicalConnectiveCounter;
+
+    /**
+     * DataCollect constructor.
+     * Inicializa todas as variáveis do service
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
-        $this->languageData = null;
-        $this->codeCommands = array();
-        $this->codeCommandsName = array();
+        $this->entityManager            = $entityManager;
+        $this->languageData             = null;
+        $this->codeCommands             = array();
+        $this->codeCommandsName         = array();
+        $this->usefulLineCounter        = 0;
+        $this->variableCounter          = 0;
+        $this->logicalConnectiveCounter = 0;
     }
 
     /**
@@ -47,8 +89,6 @@ class DataCollect
      */
     public function getDataFromCode(SourceCode $sourceCode)
     {
-        //todo lembrar de refatorar o código antes de chegar nesta função
-        //todo adicionar espaço no final de cada linha
         $language = $sourceCode->getLanguage();
         //cria um array onde cada índice contém uma linha do código fonte (explode a string pelo caracter \n)
         $codeContent = explode(PHP_EOL, $sourceCode->getContent());
@@ -65,38 +105,47 @@ class DataCollect
         $previusToken = "";
         //token a ser inserido na lista de comandos
         $token = "";
+
+        /* 0.1 - Variável para tratamento do DO-WHILE */
         //armazena o token que representa o terminal do comando do-while
         $terminalDoWhile = null;
+
+        /* 0.2 - Variáveis para tratamento do SWITCH */
         //armazena o token que representa o terminal do comando switch
         $terminalSwitch = null;
-        $switchIndex = null;
+        //quantidade de comandos case/default dentro do switch
         $lengthCaseAndDefault = 0;
+        //contador de case ou defaults já inseridos nos comandos de desvio
         $countCaseAndDefault = 0;
         //armazena o último comando da lista de cases do switch lido no código
         $lastCommandCase = null;
+        //armazena índice o último comando da lista de cases do switch lido no código
         $lastCommandCaseIndex = null;
-        /* indica se um determinado token deve ser inserido na listagem de comandos do código
+
+        /* 0.3 - Variáveis para tratamento das declarações de variáveis através dos tipos de dados */
+        //indica se uma determinada linha contém um tipo de dado
+        $lineContainsDataType = false;
+        //token de controle do tipo de dados que indica se é a declaração de uma variável
+        $dataType = "";
+
+        /* indica se um determinado token deve ser inserido na listagem de comandos de desvio do código
            usado para casos em que um terminal de comando também é inicial de comando
         */
         $addToken = true;
 
-        //contadores de variáveis, linhas úteis e operadores lógicos
-        $countVariables = 0;
-        $countLines = 0;
-        $countLogicalConnectives = 0;
-
         //busca e define a estrutura da linguagem do banco de dados
-        $this->getLanguageData($language->getId());
+        $this->searchLanguageData($language->getId());
 
         //percorre as linhas do código
         foreach($codeContent as $lineKey => $line) {
             $lineNumber++;
             $isText = false;
             $isComment = false;
+            //transforma todos os caracteres da linha em minúsculo
+            $line = strtolower($line) . " ";
+
             //quebra a linha em um array de caracteres caracteres
             $characters = str_split($line);
-
-            //todo verificar essa opção para identificação das variáveis
 
             //se a linha não contém nenhum comando de desvio marca texto e comentário
             if(!$isComment && !$this->lineContainsInitialBypassCommand($line) && !$this->lineContainsTerminalBypassCommand($line)) {
@@ -105,20 +154,27 @@ class DataCollect
             }
 
             //verifica se a linha contém a estrutura de início de código
-            if($this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure()) && !$removeLastKey) {
+            if(!$removeLastKey && $this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure())) {
                 $removeLastKey = true;
+                continue;
+            } else {
+                //identifica se a linha contém tipo de dados, isso indica que a linha contém declaração de variável
+                $lineContainsDataType = $this->lineContainsDataType($line);
             }
 
-             //Verifica se a linha não possui o token de terminal do comando do do-while, que deve ser ignorado na adição
+             /* Verifica se a linha não possui o token de terminal do comando do do-while,
+              que deve ser ignorado na adição */
             if(!$this->lineContainsToken($line, $terminalDoWhile)) {
                 $addToken = true;
-            } else if($this->lineContainsToken($line, ";")){
+            }
+            /*se a linha contém o terminal do do-while e contém ; significa que o terminal foi encontrado
+             e não deve ser adicionado como token de desvio */
+            else if($this->lineContainsToken($line, ";")){
                 $addToken = false;
             }
 
-            //TODO COLOCAR CONDIÇÃO PARA VERIFICAR SE O TERMINAL DO SWITCH É USADO EM OUTROS COMANDOS
+            // Verifica se a linha contém o comando de switch e conta os cases dentro desse switch
             if($this->lineContainsToken($line, $this->getBypassCommandSwitch()['initialCommandName'])) {
-                //TODO MARCAR A LINHA DE FINAL DO SWITCH CASE (ÚLTIMA CHAVE)
                 for ($i = $lineKey+1; $i < count($codeContent); $i++) {
                     if($this->lineContainsCaseOrDefault($codeContent[$i]))
                         $lengthCaseAndDefault++;
@@ -127,7 +183,13 @@ class DataCollect
                 }
             }
 
-            //todo verifica as variáveis e comentários
+            //se a linha não contiver um comentário incrementa o contador de linhas úteis
+            if(!$isComment) {
+                $this->usefulLineCounter++;
+            }
+
+            //acumula o número de conectivos lógicos do código
+            $this->logicalConnectiveCounter += $this->numberOfLogicalConnectivesInLine($line);
 
             //Percorre os caracteres de cada linha
             foreach ($characters as $keyChar => $character) {
@@ -149,7 +211,8 @@ class DataCollect
                     if($character === "/" && $previusCharacter === "/")
                         break;
                 }
-                // Armazena o caracter lido para ser usado como anterior
+
+                // Armazena o caracter lido anteriormente
                 $previusCharacter = $character;
 
 //                \Zend\Debug\Debug::dump('################');
@@ -228,9 +291,16 @@ class DataCollect
                             }
 
                             // 3.1.1.1 - Este caso é para tratar o ELSE IF
-                            if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token))
+                            if ($this->isBypassCommandElse($previusToken) && $this->isBypassCommandIf($token)) {
+                                //remove o comando de abertura de bloco "{"
+                                array_pop($this->codeCommands);
+                                array_pop($this->codeCommandsName);
+                                //remove o comando de desvio else
+                                array_pop($this->codeCommands);
+                                array_pop($this->codeCommandsName);
                                 //envia os tokens concatenados
                                 $this->addToken($previusToken . $token, $lineNumber);
+                            }
                             else {
                                 $this->addToken($token, $lineNumber);
                             }
@@ -245,10 +315,33 @@ class DataCollect
                                 $terminalDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
                             }
 
+                            //todo essa condição foi realizada apenas para essa linguagem e deve ser revista
+                            //todo NÃO FUNCIONA
+                            if($language->getName() == 'Linguagem C') {
+                                end($this->codeCommandsName);
+                                $lastCommandTokens = $this->codeCommandsName[key($this->codeCommandsName)-1];
+                                if($lastCommandTokens == "if") {
+//                                    \Zend\Debug\Debug::dump('------------');
+//                                    \Zend\Debug\Debug::dump('$lastCommandTokens');
+//                                    \Zend\Debug\Debug::dump($lastCommandTokens);
+//                                    \Zend\Debug\Debug::dump('condition if');
+//                                    \Zend\Debug\Debug::dump(($this->isInitialBypassCommand($lastCommandTokens) || $lastCommandTokens == "elseif" && !$this->isBypassCommandCaseOrDefault($lastCommandTokens) && !$this->isBypassCommandSwitch($lastCommandTokens) && !$this->isBypassCommandDoWhile($lastCommandTokens)) && $previusCharacter == ")" && ((isset($characters[$keyChar+1]) && $characters[$keyChar+1] !== "{") && !$this->lineContainsToken($codeContent[($lineKey+1)], "{")));
+//                                    \Zend\Debug\Debug::dump('$codeContent[($lineKey+1)]');
+//                                    \Zend\Debug\Debug::dump($codeContent[($lineKey + 1)]);
+                                }
+                                //verifica se um token de fechamento deve ser adicionado pela falta de chaves nos códigos em C
+                                if($token == $lastCommandTokens && ($this->isInitialBypassCommand($lastCommandTokens) || $lastCommandTokens == "elseif" && !$this->isBypassCommandCaseOrDefault($lastCommandTokens) && !$this->isBypassCommandSwitch($lastCommandTokens) && !$this->isBypassCommandDoWhile($lastCommandTokens)) && $previusCharacter == ")" && ((isset($characters[$keyChar+1]) && $characters[$keyChar+1] !== "{") && !$this->lineContainsToken($codeContent[($lineKey+1)], "{"))) {
+                                    $this->addToken("}", $lineNumber);
+
+                                }
+                            }
+
                             // 3.1.1.4 - salva o token anterior somente se o caracter for um espaço e se o token estiver preenchido
-                            if ($character === " " && !empty($token))
+                            if ($character === " " && !empty($token)) {
                                 $previusToken = $token;
-                            else if ($this->isSpecialCharacter($character)) // 3.1.3 - Se for um caracter especial o tokenAnt recebe vazio
+                            }
+                            // 3.1.1.5 - Se for um caracter especial o tokenAnt recebe vazio
+                            else if ($this->isSpecialCharacter($character))
                                 $previusToken = "";
 
                         }
@@ -268,6 +361,25 @@ class DataCollect
                         $token .= $character;
                     }
                 }
+
+                //verifica se a linha contém uma declaração de variável
+                if($lineContainsDataType) {
+                    /*se o caracter lido for um espaço ou caracter especial como ";"
+                     realiza a contagem de variáveis de acordo com a quantidade de vírgulas na linha
+                      - Soma-se sempre 1 porque o número de variáveis sempre será um número maior que o número de vírgulas */
+                    if($character == " " || $this->isSpecialCharacter($character)) {
+                        if(in_array($dataType, $this->languageData['dataTypes'])) {
+                            $numberOfVariablesInLine = substr_count($line, ",") + 1;
+                            $this->variableCounter += $numberOfVariablesInLine;
+                        }
+                        //depois da contagem inicializa o tipo de dados
+                        $dataType = "";
+                    }
+                    /* Se não for nenhum caracter especial apenas concatena o caracter no controle de tipo de dados */
+                    else {
+                        $dataType .= $character;
+                    }
+                }
             }
         }
 
@@ -282,6 +394,13 @@ class DataCollect
         // simbolizando o fim do vetor.
         $this->addToken(".", 0);
 
+//        \Zend\Debug\Debug::dump('$this->logicalConnectiveCounter');
+//        \Zend\Debug\Debug::dump($this->logicalConnectiveCounter);
+//        \Zend\Debug\Debug::dump('$this->usefulLineCounter');
+//        \Zend\Debug\Debug::dump($this->usefulLineCounter);
+//        \Zend\Debug\Debug::dump('$this->variableCounter');
+//        \Zend\Debug\Debug::dump($this->variableCounter);
+
         //todo adicionar uma visualização do array
 
         return $this->codeCommands;
@@ -292,7 +411,7 @@ class DataCollect
      * @param $languageId int
      * @throws \Exception
      */
-    private function getLanguageData($languageId)
+    private function searchLanguageData($languageId)
     {
         //monta a query para trazer todos os comandos de desvio da linguagem utilizada no código fonte
         $diversionCommands = $this->entityManager->createQueryBuilder()
@@ -406,9 +525,11 @@ class DataCollect
         //transforma a linha para minúsculas
         $line = strtolower($line);
         foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
-            //todo rever estas condições porque um determinado comando pode conter mais de um terminal
-            if(strpos($line, $bypassCommand['terminalCommandName']) !== false) {
-                return true;
+            $terminalCommandNames = explode("|", $bypassCommand['terminalCommandName']);
+            foreach ($terminalCommandNames as $terminalCommandName) {
+                if (strpos($line, $terminalCommandName) !== false) {
+                    return true;
+                }
             }
         }
         return false;
@@ -451,6 +572,12 @@ class DataCollect
         return false;
     }
 
+    /**
+     * Verifica se uma determinada linha contém os comandos de desvio case ou default
+     *
+     * @param $line
+     * @return bool
+     */
     private function lineContainsCaseOrDefault($line)
     {
         $commandNamesCaseDefault = $this->getInitialCommandsCaseAndDefault();
@@ -460,6 +587,38 @@ class DataCollect
             }
         }
         return false;
+    }
+
+    /**
+     * Verifica se a linha contém um tipo de dados
+     *
+     * @param $line
+     * @return bool
+     */
+    private function lineContainsDataType($line)
+    {
+        foreach ($this->languageData['dataTypes'] as $dataType) {
+            if(strpos($line, $dataType) !== false) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Verifica o número de conectivos lógicos contidos na linha
+     * @param $line
+     * @return int
+     */
+    private function numberOfLogicalConnectivesInLine($line)
+    {
+        $specialCharacterCounter = 0;
+        foreach ($this->languageData['logicalConnectives'] as $logicalConnective) {
+            if(strpos($line, $logicalConnective) !== false) {
+                $specialCharacterCounter += substr_count($line, $logicalConnective);
+            }
+        }
+        return $specialCharacterCounter;
     }
 
     /**
@@ -548,7 +707,7 @@ class DataCollect
         //identifica o índice do comando que representa o token nos comandos de desvio
         $indexOfElement = array_search($token, $commandNames);
         //retorna o comando de desvio que representa o token na linguagem
-        return $this->languageData['diversionCommands'][$indexOfElement];
+        return ($indexOfElement !== false)? $this->languageData['diversionCommands'][$indexOfElement] : array();
     }
 
     /**
@@ -786,4 +945,63 @@ class DataCollect
         }
     }
 
+    /**
+     * Retorna todos os dados da Linguagem de Programação utilizada no código fonte
+     *
+     * @return array
+     */
+    public function getLanguageData()
+    {
+        return $this->languageData;
+    }
+
+    /**
+     * Retorna uma array de objetos dos comandos de desvio contidos no código
+     *
+     * @return array
+     */
+    public function getCodeCommands()
+    {
+        return $this->codeCommands;
+    }
+
+    /**
+     * Retorna um array com os nomes dos comandos de desvio contidos no código
+     *
+     * @return array
+     */
+    public function getCodeCommandsName()
+    {
+        return $this->codeCommandsName;
+    }
+
+    /**
+     * Retorna a quantidade de linhas úteis do código
+     *
+     * @return int
+     */
+    public function getUsefulLineCounter()
+    {
+        return $this->usefulLineCounter;
+    }
+
+    /**
+     * Retorna a quantidade de variáveis declaradas no código
+     *
+     * @return int
+     */
+    public function getVariableCounter()
+    {
+        return $this->variableCounter;
+    }
+
+    /**
+     * Retorna a quantidade de conectivos lógicos utilizados no código
+     *
+     * @return int
+     */
+    public function getLogicalConnectiveCounter()
+    {
+        return $this->logicalConnectiveCounter;
+    }
 }

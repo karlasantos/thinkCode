@@ -78,6 +78,14 @@ class Language extends Entity
     private $endNameVertex;
 
     /**
+     * Indica se os terminais de comando podem ser opcionais na linguagem
+     *
+     *
+     * @var
+     */
+    private $optionalTerminalCommand;
+
+    /**
      * Uma coleção de todos os comandos de desvio da Linguagem de Programação
      *
      * @ORM\ManyToMany(targetEntity="BypassCommand", inversedBy="languages")
