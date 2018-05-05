@@ -36,6 +36,13 @@ class Vertex
     private $leftVertexIndex;
 
     /**
+     * Armazena os índices dos vértices que tem ligação com o vértice
+     *
+     * @var array
+     */
+    private $relationsVertexIndex;
+
+    /**
      * Coordenada x do vértice na tela
      *
      * @var int
@@ -228,5 +235,19 @@ class Vertex
     public function setEndLineNumber($endLineNumber)
     {
         $this->endLineNumber = $endLineNumber;
+    }
+
+    public function toArray() {
+        return array(
+            'name'                 => $this->name,
+            'rightVertexIndex'     => $this->rightVertexIndex,
+            'leftVertexIndex'      => $this->leftVertexIndex,
+            'relationsVertexIndex' => $this->relationsVertexIndex,
+            'x'                    => $this->x,
+            'y'                    => $this->y,
+            'openingVertexIndex'   => $this->openingVertexIndex,
+            'initialLineNumber'    => $this->initialLineNumber,
+            'endLineNumber'        => $this->endLineNumber,
+        );
     }
 }

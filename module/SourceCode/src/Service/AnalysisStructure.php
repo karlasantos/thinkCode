@@ -7,6 +7,7 @@
 
 namespace SourceCode\Service;
 use Doctrine\ORM\EntityManager;
+use SourceCode\Entity\Language;
 use SourceCode\Entity\SourceCode;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
@@ -24,71 +25,125 @@ class AnalysisStructure
 
     protected $vertices;
 
+    protected $dataCollectService;
+
+    protected $languageEntity;
+
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
         $this->vertices = array();
+        $this->dataCollectService = new DataCollect($this->entityManager);
+        $this->languageEntity = null;
     }
 
     /**
      * @param SourceCode $sourceCode
+     * @return array
      * @throws \Exception
      */
     public function setVertices(SourceCode $sourceCode)
     {
-        $language = $sourceCode->getLanguage();
+        $this->languageEntity = $sourceCode->getLanguage();
         //todo verificar se deve ser colocado um try catch
         //1. Realiza a extração das estruturas de desvio
-        $dataCollectService = new DataCollect($this->entityManager);
-        $this->codeCommands = $dataCollectService->getDataFromCode($sourceCode);
+        $this->codeCommands = $this->dataCollectService->getDataFromCode($sourceCode);
 
+//        \Zend\Debug\Debug::dump( $this->codeCommands );
+//        die();
         //2. Cria o vértice de início de código
         $startCodeVertex = new Vertex();
-        $startCodeVertex->setName($language->getStartNameVertex());
+        $startCodeVertex->setName($this->languageEntity->getStartNameVertex());
         array_push($this->vertices, $startCodeVertex);
 
         $bypassController = new CodeBypassCommand();
 
         /*3. Percorre a Lista de Comandos de Desvio criada pelo service DataCollect */
         foreach ($this->codeCommands as $key => $codeCommand) {
-            /* 2.1 Se o comando for abre chaves, será localizado o seu fecha chaves,
-               setando o atributo RefAbertura do fecha chaves com a posição
-               do comando anterior ao abre chaves */
-            if($codeCommand->getName() === "{") {
-                $endBlockIndex = $this->findsBlockEnd($key);
-                $bypassController = &$this->codeCommands[$endBlockIndex]; //adquire o comando por referência
-                $bypassController->setOpeningCommandIndex(($key-1));
-            }
-            /*2.2 Se o comando for um fecha chaves, cria-se o vértice do tipo END*/
-            else if ($codeCommand->getName() === "}") {
-                $endVertex = new Vertex();
-                //retorna o comando de abertura desse bloco
-                $openingVertex = $this->codeCommands[$codeCommand->getOpeningCommandIndex()];
-                /* O Nome do Vértice vai ser o nome correspondente ao final da estrutura do código da linguagem
-                  + o nome do comando que abre o bloco */
-                $endVertex->setName($language->getEndCodeStructure().$openingVertex->getName());
-                // Armazena no vértice END o índice do vértice que abre o bloco
-                $endVertex->setOpeningVertexIndex($openingVertex->getReferentVertexIndex());
-                array_push($this->vertices, $endVertex);
-                // Informa qual vértice o comando pertence
-                $this->codeCommands[$key]->setReferentVertexIndex((count($this->vertices)-1));
-            }
-            /* 2.3 Neste momento um comando é transformado em um vértice */
-            else if($codeCommand->getName() !== ".") {
-                //Cria o vértice
-                $commandVertex = new Vertex();
-                $commandVertex->setName($codeCommand->getName());
-                $commandVertex->setInitialLineNumber($codeCommand->getInitialLineNumber());
-                $commandVertex->setEndLineNumber($codeCommand->getEndLineNumber());
-                array_push($this->vertices, $commandVertex);
+            if($codeCommand instanceof CodeBypassCommand) {
+                /* 2.1 Se o comando for abre chaves, será localizado o seu fecha chaves,
+                   setando o atributo RefAbertura do fecha chaves com a posição
+                   do comando anterior ao abre chaves */
+                if ($codeCommand->getName() === "{") {
+                    $startBlockIndex = $this->findsBlockEnd($key);
+                    $bypassController = &$this->codeCommands[$startBlockIndex]; //adquire o comando por referência
+                    $bypassController->setOpeningCommandIndex(($key - 1));
+                } /*2.2 Se o comando for um fecha chaves, cria-se o vértice do tipo END*/
+                else if ($codeCommand->getName() === "}") {
+                    $endVertex = new Vertex();
+                    //retorna o comando de abertura desse bloco
+                    $openingVertex = $this->codeCommands[$codeCommand->getOpeningCommandIndex()];
+                    /* O Nome do Vértice vai ser o nome correspondente ao final da estrutura do código da linguagem
+                      + o nome do comando que abre o bloco */
+                    $endVertex->setName($this->languageEntity->getEndNameVertex() . $openingVertex->getName());
+                    // Armazena no vértice END o índice do vértice que abre o bloco
+                    $endVertex->setOpeningVertexIndex($openingVertex->getReferentVertexIndex());
+                    array_push($this->vertices, $endVertex);
+                    end($this->vertices);
+                    // Informa qual vértice o comando pertence
+                    $this->codeCommands[$key]->setReferentVertexIndex(key($this->vertices));
+                } /* 2.3 Neste momento um comando é transformado em um vértice */
+                else if ($codeCommand->getName() !== ".") {
+                    //Cria o vértice
+                    $commandVertex = new Vertex();
+                    $commandVertex->setName($codeCommand->getName());
+                    $commandVertex->setInitialLineNumber($codeCommand->getInitialLineNumber());
+                    $commandVertex->setEndLineNumber($codeCommand->getEndLineNumber());
+                    array_push($this->vertices, $commandVertex);
+                    end($this->vertices);
+                    $this->codeCommands[$key]->setReferentVertexIndex(key($this->vertices));
 
-                //todo realizar verificações de if-then, do while e case aqui
+                    //Cria-se o vértice do tipo END para os comandos que não possuem abertura e fechamento de bloco
+                    if ($this->codeCommands[$key + 1] instanceof CodeBypassCommand &&
+                        $this->codeCommands[$key + 1]->getName() !== "{" &&
+                        !$this->dataCollectService->isInitialBypassCommandElse($codeCommand->getName()) &&
+                        !$this->dataCollectService->isInitialBypassCommandElseIf($codeCommand->getName())) {
+                        end($this->vertices);
+                        $endKeyVertex = key($this->vertices);
 
+                        if ($this->dataCollectService->isInitialBypassCommandIf($codeCommand->getName())) {
+                            $thenVertex = new Vertex();
+                            $thenVertex->setName("then");
+                            $thenVertex->setOpeningVertexIndex($endKeyVertex);
+                            array_push($this->vertices, $thenVertex);
+                        }
+
+                        $endVertex = new Vertex();
+                        /* O Nome do Vértice vai ser o nome correspondente ao final da estrutura do código da linguagem
+                            + o nome do comando que abre o bloco */
+                        $endVertex->setName($this->languageEntity->getEndNameVertex() . $codeCommand->getName());
+                        $endVertex->setOpeningVertexIndex($endKeyVertex);
+                        array_push($this->vertices, $endVertex);
+                    }
+                    //todo realizar verificações de if-then, do while e case aqui
+                }
             }
         }
 
+        /*3 Cria o vértice de ENDCODE */
+        $endCodeVertex = new Vertex();
+        $endCodeVertex->setName($this->languageEntity->getEndNameVertex());
+        array_push($this->vertices, $endCodeVertex);
+
+        return $this->vertices;
     }
 
+    public function setEdges(Language $language)
+    {
+        //armazenam as posições dos vértices de destino na lista de vértices
+        $right = -1;
+        $left = -1;
+
+        foreach ($this->vertices as $key => $vertex) {
+            //todo parar aqui
+            if($vertex->getName() === $language->getStartNameVertex()                      ||
+               $this->dataCollectService->isInitialBypassCommandIf($vertex->getName())     ||
+               $this->dataCollectService->isInitialBypassCommandFor($vertex->getName())    ||
+               $this->dataCollectService->isInitialBypassCommandWhile($vertex->getName())  ||
+
+            )
+        }
+    }
     /**
      * Indica se o vértice presente em um determinado índice possui dentro em seu bloco de comandos outros vértices
      * @param $index int
@@ -108,7 +163,7 @@ class AnalysisStructure
     }
 
     /**
-     * Localiza a posição de fechamento de bloco (} criado por um {)
+     * Localiza a posição de fechamento de bloco (}) criado por uma abertura de bloco ({)
      * @param $blockStartIndex
      * @return int
      */
@@ -135,4 +190,13 @@ class AnalysisStructure
     }
 
 
+    private function isEndVertex($vetexName)
+    {
+        return strpos($vetexName, $this->languageEntity->getEndNameVertex());
+    }
+
+    private function removeEndVertexPrefix($vertexName)
+    {
+        return str_replace($this->languageEntity->getEndNameVertex(), "", $vertexName);
+    }
 }
