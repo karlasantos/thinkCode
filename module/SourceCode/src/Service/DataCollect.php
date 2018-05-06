@@ -29,10 +29,11 @@ class DataCollect
     private $entityManager;
 
     /**
-     * Armazena informações da linguagem de programação do código fonte
-     * @var array
+     * Serviço responsável pelos dados da linguagem
+     *
+     * @var Language
      */
-    private $languageData;
+    private $languageService;
 
     /**
      * Armazena os objetos dos comandos de desvio encontrados no código fonte (Class SourceCode\Model\CodeBypassCommand)
@@ -72,12 +73,72 @@ class DataCollect
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager            = $entityManager;
-        $this->languageData             = null;
         $this->codeCommands             = array();
         $this->codeCommandsName         = array();
         $this->usefulLineCounter        = 0;
         $this->variableCounter          = 0;
         $this->logicalConnectiveCounter = 0;
+        $this->languageService = new Language($entityManager);
+    }
+
+    /**
+     * Retorna uma array de objetos dos comandos de desvio contidos no código
+     *
+     * @return array
+     */
+    public function getCodeCommands()
+    {
+        return $this->codeCommands;
+    }
+
+    /**
+     * Retorna um array com os nomes dos comandos de desvio contidos no código
+     *
+     * @return array
+     */
+    public function getCodeCommandsName()
+    {
+        return $this->codeCommandsName;
+    }
+
+    /**
+     * Retorna a quantidade de linhas úteis do código
+     *
+     * @return int
+     */
+    public function getUsefulLineCounter()
+    {
+        return $this->usefulLineCounter;
+    }
+
+    /**
+     * Retorna a quantidade de variáveis declaradas no código
+     *
+     * @return int
+     */
+    public function getVariableCounter()
+    {
+        return $this->variableCounter;
+    }
+
+    /**
+     * Retorna a quantidade de conectivos lógicos utilizados no código
+     *
+     * @return int
+     */
+    public function getLogicalConnectiveCounter()
+    {
+        return $this->logicalConnectiveCounter;
+    }
+
+    /**
+     * Retorna o Language Service
+     *
+     * @return Language
+     */
+    public function getLanguageService()
+    {
+        return $this->languageService;
     }
 
     /**
@@ -133,8 +194,8 @@ class DataCollect
         */
         $addToken = true;
 
-        //busca e define a estrutura da linguagem do banco de dados
-        $this->searchLanguageData($language->getId());
+        //busca e define os elementos da linguagem do banco de dados
+        $this->languageService->searchElementsOfLanguage($language->getId());
 
         //percorre as linhas do código
         foreach($codeContent as $lineKey => $line) {
@@ -154,7 +215,7 @@ class DataCollect
             }
 
             //verifica se a linha contém a estrutura de início de código
-            if(!$removeLastKey && $this->lineContainsStartCodeStructure($line, $language->getStartCodeStructure())) {
+            if(!$removeLastKey && $this->lineContainsInitialCodeStructure($line, $language->getInitialCodeStructure())) {
                 $removeLastKey = true;
                 continue;
             } else {
@@ -174,11 +235,11 @@ class DataCollect
             }
 
             // Verifica se a linha contém o comando de switch e conta os cases dentro desse switch
-            if($this->lineContainsToken($line, $this->getBypassCommandSwitch()['initialCommandName'])) {
+            if($this->lineContainsToken($line, $this->languageService->getBypassCommandSwitch()['initialCommandName'])) {
                 for ($i = $lineKey+1; $i < count($codeContent); $i++) {
                     if($this->lineContainsInitialBypassCommandCaseOrDefault($codeContent[$i]))
                         $lengthCaseAndDefault++;
-                    else if($this->lineContainsToken($codeContent[$i], $this->getBypassCommandSwitch()['initialCommandName']))
+                    else if($this->lineContainsToken($codeContent[$i], $this->languageService->getBypassCommandSwitch()['initialCommandName']))
                         break;
                 }
             }
@@ -233,33 +294,33 @@ class DataCollect
                 if(!$isComment && !$isText) {
                     /* 3.1 - Se o caracter for um espaço ou um caracter especial significa
                     que o token terminou e deve ser adicionado na lista de comandos de desvio do código */
-                    if($this->isSpecialCharacter($character) || $character === " ") {
+                    if($this->languageService->isSpecialCharacter($character) || $character === " ") {
                         // 3.1.1 - Se a ação de adição de token estiver marcada efetua a análise e a inserção do token
                         if($addToken) {
                             /* Para os casos da linguagem C,
                               que possui um caractere especial (}) como terminal de comando de desvio */
-                            if ($this->isTerminalBypassCommand($character) && $token == "") {
+                            if ($this->languageService->isTerminalBypassCommand($character) && $token == "") {
 //                                \Zend\Debug\Debug::dump(' $token = $character' . $character . ".");
                                 $token = $character;
                             }
 
                             /* 3.1.1.3 - Tratar switch-case */
                             //Verifica se o comando é o token representa o switch e salva seu terminal
-                            if($this->isInitialBypassCommandSwitch($token)) {
-                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
+                            if($this->languageService->isInitialBypassCommandSwitch($token)) {
+                                $terminalSwitch = $this->languageService->getBypassCommandSwitch()['terminalCommandName'];
                             }
                             //se possui terminal salvo ou se o token é um case ou default salva o token case/default e o token terminal do switch
-                            else if($this->isInitialBypassCommandCaseOrDefault($token)) {
+                            else if($this->languageService->isInitialBypassCommandCaseOrDefault($token)) {
                                 $lastCommandCase = $token;
                                 end($this->codeCommandsName);
                                 $lastCommandCaseIndex = key($this->codeCommandsName)+2;
-                                $terminalSwitch = $this->getBypassCommandSwitch()['terminalCommandName'];
+                                $terminalSwitch = $this->languageService->getBypassCommandSwitch()['terminalCommandName'];
                                 $countCaseAndDefault++;
                             }
                             //todo VERIFICAR ESSA CONDIÇÃO
                             /*verifica se possui último comando case e se o token atual é o terminal do switch e adiciona o terminal do switch
                              na lista de tokens de desvio do código */
-                            else if ($lastCommandCase !== null && $this->isTerminalBypassCommandSwitch($token) && $terminalSwitch !== null) {
+                            else if ($lastCommandCase !== null && $this->languageService->isTerminalBypassCommandSwitch($token) && $terminalSwitch !== null) {
                                 //verifica se a quantidade de cases e defaults do switch já foi adicionada e adiciona mais um terminal do switch
                                 if($countCaseAndDefault > 0 && $countCaseAndDefault == $lengthCaseAndDefault) {
                                     /*retorna uma parcela do array de nomes comandos adicionados
@@ -290,14 +351,15 @@ class DataCollect
                                 }
                             }
 
-                            // 3.1.1.1 - Este caso é para tratar o ELSE IF
-                            if ($this->isInitialBypassCommandElse($previusToken) && $this->isInitialBypassCommandIf($token)) {
+                            // 3.1.1.1 - Este caso é para tratar o ELSE IF da Linguagem C
+                            if ($this->languageService->isInitialBypassCommandElse($previusToken) && $this->languageService->isInitialBypassCommandIf($token) && $language->getName() == "Linguagem C") {
                                 //remove o comando de abertura de bloco "{"
                                 array_pop($this->codeCommands);
                                 array_pop($this->codeCommandsName);
                                 //remove o comando de desvio else
                                 array_pop($this->codeCommands);
                                 array_pop($this->codeCommandsName);
+
                                 //envia os tokens concatenados
                                 $this->addToken($previusToken . $token, $lineNumber);
                             }
@@ -311,8 +373,8 @@ class DataCollect
                               para definir uma exceção para esse comando não ser adicionado na lista de comandos de desvio do código
                               duas vezes
                              */
-                            if($this->isInitialBypassCommandDoWhile($token) && $this->terminalBypassCommandDoWhileIsAlsoInitial()) {
-                                $terminalDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
+                            if($this->languageService->isInitialBypassCommandDoWhile($token) && $this->languageService->terminalBypassCommandDoWhileIsAlsoInitial()) {
+                                $terminalDoWhile = $this->languageService->getBypassCommandDoWhile()['terminalCommandName'];
                             }
 
                             //todo essa condição foi realizada apenas para essa linguagem e deve ser revista
@@ -341,7 +403,7 @@ class DataCollect
                                 $previusToken = $token;
                             }
                             // 3.1.1.5 - Se for um caracter especial o tokenAnt recebe vazio
-                            else if ($this->isSpecialCharacter($character))
+                            else if ($this->languageService->isSpecialCharacter($character))
                                 $previusToken = "";
 
                         }
@@ -367,8 +429,8 @@ class DataCollect
                     /*se o caracter lido for um espaço ou caracter especial como ";"
                      realiza a contagem de variáveis de acordo com a quantidade de vírgulas na linha
                       - Soma-se sempre 1 porque o número de variáveis sempre será um número maior que o número de vírgulas */
-                    if($character == " " || $this->isSpecialCharacter($character)) {
-                        if(in_array($dataType, $this->languageData['dataTypes'])) {
+                    if($character == " " || $this->languageService->isSpecialCharacter($character)) {
+                        if(in_array($dataType, $this->languageService->getElementsOfLanguage()['dataTypes'])) {
                             $numberOfVariablesInLine = substr_count($line, ",") + 1;
                             $this->variableCounter += $numberOfVariablesInLine;
                         }
@@ -407,96 +469,6 @@ class DataCollect
     }
 
     /**
-     * Retorna os dados de uma linguagem de programação salva através de seu id
-     * @param $languageId int
-     * @throws \Exception
-     */
-    private function searchLanguageData($languageId)
-    {
-        //monta a query para trazer todos os comandos de desvio da linguagem utilizada no código fonte
-        $diversionCommands = $this->entityManager->createQueryBuilder()
-            ->select('bc.id, bc.initialCommandName, bc.terminalCommandName, bc.type, graphElement.name as graphElementName')
-            ->from(BypassCommand::class, 'bc')
-            ->innerJoin('bc.languages', 'language')
-            ->leftJoin('bc.graphElement', 'graphElement')
-            ->where('language.id = :languageId')
-            ->setParameter('languageId', $languageId);
-
-        //retorna os comandos condicionais da linguagem utilizada no código fonte
-        $conditionalCommands = clone $diversionCommands;
-        $conditionalCommands = $conditionalCommands->andWhere("bc.type like :conditional")
-        ->setParameter('conditional', BypassCommand::TYPE_CONDITIONAL)
-        ->getQuery()
-        ->getArrayResult();
-
-        //retorna os comandos de repetição da linguagem utilizada no código fonte
-        $loopCommands = clone $diversionCommands;
-        $loopCommands = $loopCommands->andWhere("bc.type like :loop")
-            ->setParameter('loop', BypassCommand::TYPE_LOOP)
-            ->getQuery()
-            ->getArrayResult();
-
-        //retorna os conectivos lógicos da linguagem utilizada no código fonte
-        $logicalConnectives = $this->entityManager->createQueryBuilder()
-            ->select('lc.id, lc.name')
-            ->from(LogicalConnective::class, 'lc')
-            ->innerJoin('lc.languages', 'language')
-            ->where('language = :languageId')
-            ->setParameter('languageId', $languageId)
-            ->getQuery()
-            ->getArrayResult();
-        $logicalConnectives = array_column($logicalConnectives, 'name');
-
-        //retorna os tipos de dados da linguagem utilizada no código fonte
-        $dataTypes = $this->entityManager->createQueryBuilder()
-            ->select('dt.id, dt.name')
-            ->from(DataType::class, 'dt')
-            ->innerJoin('dt.languages', 'language')
-            ->where('language = :languageId')
-            ->setParameter('languageId', $languageId)
-            ->getQuery()
-            ->getArrayResult();
-        $dataTypes = array_column($dataTypes, 'name');
-
-        //retorna os tipos de dados da linguagem utilizada no código fonte
-        $specialCharacters = $this->entityManager->createQueryBuilder()
-            ->select('sc.id, sc.name')
-            ->from(SpecialCharacter::class, 'sc')
-            ->innerJoin('sc.languages', 'language')
-            ->where('language = :languageId')
-            ->setParameter('languageId', $languageId)
-            ->getQuery()
-            ->getArrayResult();
-        $specialCharacters = array_column($specialCharacters, 'name');
-
-        if(count($conditionalCommands) < 1 || count($loopCommands) < 1 || count($logicalConnectives) < 1 || count($dataTypes) < 1 || count($specialCharacters) < 1) {
-            throw new \Exception('Erro ao carregar os dados da Linguagem de Programação');
-        }
-
-        $this->languageData = array(
-            'diversionCommands' => array_merge($conditionalCommands, $loopCommands),
-            'conditionalCommands' => $conditionalCommands,
-            'loopCommands' => $loopCommands,
-            'logicalConnectives' => $logicalConnectives,
-            'dataTypes' => $dataTypes,
-            'specialCharacters' => $specialCharacters,
-        );
-    }
-
-    /**
-     * Informa se um token é um comando de desvio da Linguagem de Programação ou não
-     *
-     * @param $token
-     * @return bool
-     */
-    private function isInitialBypassCommand($token)
-    {
-        //transforma o token para minúsculas
-        $token = strtolower($token);
-        return in_array($token, array_column($this->languageData['diversionCommands'], 'initialCommandName'));
-    }
-
-    /**
      * Informa se uma linha contém comando de desvio
      *
      * @param $line
@@ -506,7 +478,7 @@ class DataCollect
     {
         //transforma o token para minúsculas
         $line = strtolower($line);
-        foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
+        foreach ($this->languageService->getElementsOfLanguage()['diversionCommands'] as $bypassCommand) {
             if(strpos($line, $bypassCommand['initialCommandName']) !== false) {
                 return true;
             }
@@ -524,7 +496,7 @@ class DataCollect
     {
         //transforma a linha para minúsculas
         $line = strtolower($line);
-        foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
+        foreach ($this->languageService->getElementsOfLanguage()['diversionCommands'] as $bypassCommand) {
             $terminalCommandNames = explode("|", $bypassCommand['terminalCommandName']);
             foreach ($terminalCommandNames as $terminalCommandName) {
                 if (strpos($line, $terminalCommandName) !== false) {
@@ -539,14 +511,14 @@ class DataCollect
      * Verifica se a linha contém a estrutura inicial do código
      *
      * @param $line
-     * @param $startCodeStructures
+     * @param $initialCodeStructures
      * @return bool
      */
-    private function lineContainsStartCodeStructure($line, $startCodeStructures)
+    private function lineContainsInitialCodeStructure($line, $initialCodeStructures)
     {
-        $startCodeStructures = explode("|", $startCodeStructures);
-        foreach ($startCodeStructures as $startCodeStructure) {
-            if(strpos($line, $startCodeStructure) !== false) {
+        $initialCodeStructures = explode("|", $initialCodeStructures);
+        foreach ($initialCodeStructures as $initialCodeStructure) {
+            if(strpos($line, $initialCodeStructure) !== false) {
                 return true;
             }
         }
@@ -580,7 +552,7 @@ class DataCollect
      */
     private function lineContainsInitialBypassCommandCaseOrDefault($line)
     {
-        $commandNamesCaseDefault = $this->getInitialBypassCommandsCaseAndDefault();
+        $commandNamesCaseDefault = $this->languageService->getInitialBypassCommandsCaseAndDefault();
         foreach ($commandNamesCaseDefault as $commandName) {
             if(strpos($line, $commandName) !== false) {
                 return true;
@@ -597,7 +569,7 @@ class DataCollect
      */
     private function lineContainsDataType($line)
     {
-        foreach ($this->languageData['dataTypes'] as $dataType) {
+        foreach ($this->languageService->getElementsOfLanguage()['dataTypes'] as $dataType) {
             if(strpos($line, $dataType) !== false) {
                 return true;
             }
@@ -613,297 +585,12 @@ class DataCollect
     private function numberOfLogicalConnectivesInLine($line)
     {
         $specialCharacterCounter = 0;
-        foreach ($this->languageData['logicalConnectives'] as $logicalConnective) {
+        foreach ($this->languageService->getElementsOfLanguage()['logicalConnectives'] as $logicalConnective) {
             if(strpos($line, $logicalConnective) !== false) {
                 $specialCharacterCounter += substr_count($line, $logicalConnective);
             }
         }
         return $specialCharacterCounter;
-    }
-
-    /**
-     * Retorna o index de um comando de desvio condicional através do nome de seu elemento gráfico
-     *
-     * @param $graphElementName
-     * @return array
-     */
-    private function indexOfConditionalBypassCommand($graphElementName)
-    {
-        //obtém apenas os elementos gráficos dos comandos de desvio de repetição da linguagem
-        $graphElements = array_column($this->languageData['conditionalCommands'], 'graphElementName');
-        /* identifica o índice do elemento gráfico que representa
-          o nome do elemento nos comandos de desvio através do índice do elemento gráfico */
-        return array_keys($graphElementName, $graphElements);
-    }
-
-    /**
-     * Retorna o index de um comando de desvio de repetição através do nome de seu elemento gráfico
-     *
-     * @param $graphElementName
-     * @return false|int|string
-     */
-    private function indexOfLoopBypassCommand($graphElementName)
-    {
-        //obtém apenas os elementos gráficos dos comandos de desvio de repetição da linguagem
-        $graphElements = array_column($this->languageData['loopCommands'], 'graphElementName');
-        //identifica o índice do elemento gráfico que representa o do-while nos comandos de desvio através do índice do elemento gráfico
-        return array_search($graphElementName, $graphElements);
-    }
-
-    /**
-     * Retorna o comando de desvio if da linguagem em formato de array
-     * @return mixed
-     */
-    private function getBypassCommandIf()
-    {
-        //identifica o índice do comando de desvio que representa o if
-        $indexOfElement = $this->indexOfConditionalBypassCommand("if")[0];
-        //obtém o nome do comando de desvio inicial que representa o if na linguagem
-        return $this->languageData['conditionalCommands'][$indexOfElement];
-    }
-
-    /**
-     * Informa se o token representa o comando de desvio "IF"
-     * @param $token
-     * @return bool
-     */
-    public function isInitialBypassCommandIf($token)
-    {
-        $bypassCommandIf = $this->getBypassCommandIf()['initialCommandName'];
-        return $token === $bypassCommandIf;
-
-    }
-
-    /**
-     * Retorna o comando de desvio else da linguagem em formato de array
-     *
-     * @return mixed
-     */
-    private function getBypassCommandElse()
-    {
-        //identifica o índice do elemento gráfico que representa o else nos comandos de desvio
-        $indexOfElement = $this->indexOfConditionalBypassCommand("if-else")[0];
-        //obtém o nome do comando de desvio inicial que representa o else na linguagem
-        return $this->languageData['conditionalCommands'][$indexOfElement];
-    }
-
-    /**
-     *  Informa se o token representa o comando de desvio "ELSE"
-     *
-     * @param $token
-     * @return bool
-     */
-    public function isInitialBypassCommandElse($token)
-    {
-        $bypassCommandElse = $this->getBypassCommandElse()['initialCommandName'];
-        return $token === $bypassCommandElse;
-
-    }
-
-    /**
-     * Verifica se determinado token é o comando de desvio elfseif (junção de comandos else seguido de if)
-     *
-     * @param $token
-     * @return bool
-     */
-    public function isInitialBypassCommandElseIf($token)
-    {
-        $bypassCommandElse = $this->getBypassCommandElse()['initialCommandName'];
-        $bypassCommandIf = $this->getBypassCommandIf()['initialCommandName'];
-        $bypassCommandElseIf = $bypassCommandElse . $bypassCommandIf;
-        return $token === $bypassCommandElseIf;
-    }
-
-    /**
-     * Retorna todos os dados do comando de desvio do-while da linguagem
-     *
-     * @return mixed
-     */
-    private function getBypassCommandDoWhile()
-    {
-        //adquire o índice do elemento do-while
-        $indexOfElement = $this->indexOfLoopBypassCommand("do-while");
-        //retorna o comando de desvio que representa o do-while na linguagem
-        return $this->languageData['loopCommands'][$indexOfElement];
-    }
-
-    /**
-     * Informa se o token é representa o comando desvio com elemento do grafo representando o do-while
-     * @param $token
-     * @return bool
-     */
-    public function isInitialBypassCommandDoWhile($token)
-    {
-        //obtém o nome do comando de desvio inicial que representa o do-while na linguagem
-        $initialBypassCommandDoWhile = $this->getBypassCommandDoWhile()['initialCommandName'];
-        return $token === $initialBypassCommandDoWhile;
-    }
-
-    /**
-     * Informa se o token é um comando de desvio for
-     *
-     * @param $token
-     * @return bool
-     */
-    public function isInitialBypassCommandFor($token)
-    {
-        //adquire o índice do elemento do-while
-        $indexOfElement = $this->indexOfLoopBypassCommand("for");
-        //retorna o comando de desvio que representa o do-while na linguagem
-        return $token === $this->languageData['loopCommands'][$indexOfElement]['initialCommandName'];
-    }
-
-    /**
-     * Informa se o token é um comando de desvio while
-     *
-     * @param $token
-     * @return bool
-     */
-    public function isInitialBypassCommandWhile($token)
-    {
-        //adquire o índice do elemento do-while
-        $indexOfElement = $this->indexOfLoopBypassCommand("while");
-        //retorna o comando de desvio que representa o do-while na linguagem
-        return $token === $this->languageData['loopCommands'][$indexOfElement]['initialCommandName'];
-    }
-
-    /**
-     * Verifica se o terminal do comando de desvio do-while também é um inicial de comando de desvio
-     * @return bool
-     */
-    private function terminalBypassCommandDoWhileIsAlsoInitial()
-    {
-        //obtém o nome do terminal do comando de desvio do-while na linguagem
-        $terminalBypassCommandDoWhile = $this->getBypassCommandDoWhile()['terminalCommandName'];
-        return $this->isInitialBypassCommand($terminalBypassCommandDoWhile);
-    }
-
-    /**
-     * Retorna todos os dados do comando de desvio de acordo com o token enviado
-     *
-     * @param $token
-     * @return mixed
-     */
-    private function getBypassCommandFromToken($token)
-    {
-        //obtém apenas os nomes iniciais dos comandos de desvio condicionais da linguagem
-        $commandNames = array_column($this->languageData['diversionCommands'], 'initialCommandName');
-        //identifica o índice do comando que representa o token nos comandos de desvio
-        $indexOfElement = array_search($token, $commandNames);
-        //retorna o comando de desvio que representa o token na linguagem
-        return ($indexOfElement !== false)? $this->languageData['diversionCommands'][$indexOfElement] : array();
-    }
-
-    /**
-     * Retorna o comando de desvio switch case
-     * @return mixed
-     */
-    private function getBypassCommandSwitch()
-    {
-        $commandSwitchCase = array();
-        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
-        $indexOfElements = $this->indexOfConditionalBypassCommand("switch-case");
-        //percorre os indíces para encontrar o comando que representa o switch
-        foreach ($indexOfElements as $indexOfElement) {
-            //transforma a string de terminais de comando em array
-            $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
-            //ignora os comandos que possuem mais de um terminal porque representam o case e o default
-            if($terminalCommandsLength < 2) {
-                $commandSwitchCase = $this->languageData['conditionalCommands'][$indexOfElement];
-                break;
-            }
-        }
-        return $commandSwitchCase;
-    }
-
-    /**
-     * Informa se o token é um comando de desvio switch
-     *
-     * @param $token
-     * @return mixed
-     */
-    private function isInitialBypassCommandSwitch($token)
-    {
-        $commandSwitchCase = $this->getBypassCommandSwitch();
-        //retorna se o token enviado é o comando switch na linguagem
-        return count($commandSwitchCase) > 0 && $token === $commandSwitchCase['initialCommandName'];
-    }
-
-    /**
-     * @return array
-     */
-    private function getInitialBypassCommandsCaseAndDefault()
-    {
-        $commandNames = array();
-        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
-        $indexOfElements = $this->indexOfConditionalBypassCommand("switch-case");
-        //percorre os indíces para encontrar o comando que representa o switch
-        foreach ($indexOfElements as $indexOfElement) {
-            //transforma a string de terminais de comando em array
-            $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
-            //ignora o comando "switch" que possui apenas um terminal
-            if($terminalCommandsLength > 1) {
-                $commandNames[] = $this->languageData['conditionalCommands'][$indexOfElement]['initialCommandName'];
-            }
-        }
-        return $commandNames;
-    }
-
-    /**
-     * Informa se o token é um comando de desvio case ou default
-     *
-     * @param $token
-     * @return bool
-     */
-    private function isInitialBypassCommandCaseOrDefault($token)
-    {
-        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
-        $indexOfElements = $this->indexOfConditionalBypassCommand("switch-case");
-        //percorre os indíces para encontrar o comando que representa o switch
-        foreach ($indexOfElements as $indexOfElement) {
-            //transforma a string de terminais de comando em array
-            $terminalCommandsLength =  count(explode("|", $this->languageData['conditionalCommands'][$indexOfElement]['terminalCommandName']));
-            //ignora o comando "switch" que possui apenas um terminal
-            if($terminalCommandsLength > 1) {
-                $command = $this->languageData['conditionalCommands'][$indexOfElement];
-                //compara o nome do token com o comando
-                if($command['initialCommandName'] === $token) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Retorna se o token é o terminal de comando do switch
-     *
-     * @param $token
-     * @return bool
-     */
-    private function isTerminalBypassCommandSwitch($token)
-    {
-        $commandSwitch = $this->getBypassCommandSwitch();
-        return $token === $commandSwitch['terminalCommandName'];
-    }
-
-    /**
-     * Informa se o token é um comando de desvio da Linguagem de Programação ou não
-     *
-     * @param $token
-     * @return bool
-     */
-    private function isTerminalBypassCommand($token)
-    {
-        //transforma o token para minúsculas
-        $token = strtolower($token);
-        foreach ($this->languageData['diversionCommands'] as $bypassCommand) {
-            $terminalCommands = explode("|", $bypassCommand['terminalCommandName']);
-            if(in_array($token, $terminalCommands)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -919,27 +606,14 @@ class DataCollect
 
         if($previusBypassCommand instanceof CodeBypassCommand) {
             //obtém apenas os nomes iniciais dos comandos de desvio da linguagem
-            $initialCommandNames = array_column($this->languageData['diversionCommands'], 'initialCommandName');
+            $initialCommandNames = array_column($this->languageService->getElementsOfLanguage()['diversionCommands'], 'initialCommandName');
             /*identifica o índice do comando de desvio que representa
              o $previusBypassCommand nos comandos de desvio através de seu nome */
             $indexOfElement = array_search($previusBypassCommand->getName(), $initialCommandNames);
             //retorna o terminal do comando de desvio que representa o $previusBypassCommand na linguagem
-            $terminalCommands = explode("|", $this->languageData['diversionCommands'][$indexOfElement]['terminalCommandName']);
+            $terminalCommands = explode("|", $this->languageService->getElementsOfLanguage()['diversionCommands'][$indexOfElement]['terminalCommandName']);
         }
         return in_array($token, $terminalCommands);
-    }
-
-    /**
-     * Informa se o caractere é um caractere especial da Linguagem de Programação
-     *
-     * @param $character
-     * @return bool
-     */
-    private function isSpecialCharacter($character)
-    {
-        //transforma o token para minúsculas
-        $character = strtolower($character);
-        return in_array($character, $this->languageData['specialCharacters']);
     }
 
     /**
@@ -961,7 +635,7 @@ class DataCollect
         /* - Se o token for um token de término de comando de desvio e o último da lista for um {, então remove da lista o {
            para que permaneçam na lista de vértices apenas as chaves que tiverem comandos aninhados
         */
-        if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{") {
+        if($this->languageService->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{") {
             if($this->isTerminalBypassCommandLastCodeCommand($lastButOne, $token)) {
                 //salva a linha inicial do último comando
                 if ($lastCommand instanceof CodeBypassCommand)
@@ -985,7 +659,7 @@ class DataCollect
             }
         }
         //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
-        else if($this->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") {
+        else if($this->languageService->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") {
             //cria o comando fechamento de bloco
             $endBlockCommand = new CodeBypassCommand();
             $endBlockCommand->setName("}");
@@ -996,7 +670,7 @@ class DataCollect
         }
 
         // Se o token lido for um Comando início de desvio então deve ser armazenado na lista de comandos.
-        if($this->isInitialBypassCommand($token)) {
+        if($this->languageService->isInitialBypassCommand($token)) {
             //cria o comando de desvio
             $codeBypassCommand = new CodeBypassCommand();
             $codeBypassCommand->setName($token);
@@ -1018,65 +692,5 @@ class DataCollect
             array_push($this->codeCommands, $endCodeBypassCommand);
             array_push($this->codeCommandsName, $token);
         }
-    }
-
-    /**
-     * Retorna todos os dados da Linguagem de Programação utilizada no código fonte
-     *
-     * @return array
-     */
-    public function getLanguageData()
-    {
-        return $this->languageData;
-    }
-
-    /**
-     * Retorna uma array de objetos dos comandos de desvio contidos no código
-     *
-     * @return array
-     */
-    public function getCodeCommands()
-    {
-        return $this->codeCommands;
-    }
-
-    /**
-     * Retorna um array com os nomes dos comandos de desvio contidos no código
-     *
-     * @return array
-     */
-    public function getCodeCommandsName()
-    {
-        return $this->codeCommandsName;
-    }
-
-    /**
-     * Retorna a quantidade de linhas úteis do código
-     *
-     * @return int
-     */
-    public function getUsefulLineCounter()
-    {
-        return $this->usefulLineCounter;
-    }
-
-    /**
-     * Retorna a quantidade de variáveis declaradas no código
-     *
-     * @return int
-     */
-    public function getVariableCounter()
-    {
-        return $this->variableCounter;
-    }
-
-    /**
-     * Retorna a quantidade de conectivos lógicos utilizados no código
-     *
-     * @return int
-     */
-    public function getLogicalConnectiveCounter()
-    {
-        return $this->logicalConnectiveCounter;
     }
 }

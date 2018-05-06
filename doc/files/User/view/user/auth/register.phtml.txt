@@ -1,0 +1,55 @@
+<div class="form d-flex align-items-center" ng-controller="AuthController">
+    <div class="content">
+        <div class="row m-b-15">
+            <div class="col-md-5"></div>
+            <div class="col-md-4">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw" ng-if="registerTools.loading" title="Alterando a senha..."></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-dismissible m-b-15 text-center" role="alert" ng-class="{'alert-danger': registerTools.result.error != null, 'alert-info': registerTools.result.success != null}" ng-if="(registerTools.result.success != null || registerTools.result.error != null) && !registerTools.hideAlert">
+            <button type="button" class="close p-t-5 p-r-5 p-b-0 p-l-5" ng-click="registerTools.hideAlert = true">&times;</button>
+            <strong ng-if="registerTools.result.success != null">{{registerTools.result.success}} Efetue o <a href="/login" class="signup">Login</a></strong>
+            <strong ng-if="registerTools.result.error != null">{{registerTools.result.error}}</strong>
+        </div>
+        <form id="register-form">
+            <div class="form-group">
+                <input id="fullName" type="text" name="fullName" required class="input-material" ng-model="registerTools.user.fullName"/>
+                <label for="fullName" class="label-material">Nome</label>
+            </div>
+            <!-- editar os tipos destes inputs -->
+            <div class="form-group">
+                <input id="birthday" type="text" name="birthday" required class="input-material"  ng-model="registerTools.user.birthday"/>
+                <label for="birthday" class="label-material">Data de nascimento</label>
+            </div>
+            <div class="form-group">
+                <input id="school" type="text" name="school" required class="input-material"  ng-model="registerTools.user.school"/>
+                <label for="school" class="label-material">Curso</label>
+            </div>
+            <div class="form-group"> <!-- colocar checkbox -->
+                <label for="register-gender" class="label-material m-t-0">Gênero</label>
+                <div class="i-inline-checks m-r-10 m-l-15">
+                    <input id="female" type="radio" value="Feminino" name="gender" class="radio-template" checked="" ng-model="registerTools.user.gender"/>
+                    <label for="female">Feminino</label>
+                </div>
+                <div class="i-inline-checks">
+                    <input id="male" type="radio" value="Masculino" name="gender" class="radio-template" ng-model="registerTools.user.gender"/>
+                    <label for="male">Masculino</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="email" type="email" name="email" required class="input-material" ng-model="registerTools.user.email"/>
+                <label for="email" class="label-material">E-mail</label>
+            </div>
+            <div class="form-group">
+                <input id="password" type="password" name="password" required class="input-material" ng-model="registerTools.user.password"/>
+                <label for="password" class="label-material">Senha</label>
+            </div>
+            <div class="form-group">
+                <input id="passwordConfirm" type="password" name="passwordConfirm" required class="input-material" ng-model="registerTools.user.passwordConfirm"/>
+                <label for="passwordConfirm" class="label-material">Repita a Senha</label>
+            </div>
+            <button id="register" class="btn btn-primary" ng-click="registerTools.createUser()" ng-disabled="registerTools.loading">Cadastrar</button>
+        </form><small>Já possui uma conta? </small><a href="/login" class="signup">Login</a>
+    </div>
+</div>

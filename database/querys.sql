@@ -1,8 +1,8 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
 -- Insere as Linguagens
-INSERT INTO languages(id, name, start_code_structure, end_code_structure, start_name_vertex, end_name_vertex)
-VALUES (1, 'Linguagem C', 'int main()|int main ()', '}', 'start', 'end'), (2, 'Portugol', 'inicio', 'fim', 'inicio', 'fim');
+INSERT INTO languages(id, name, initial_code_structure, end_code_structure, initial_vertex_name, end_vertex_name, if_then_name_vertex)
+VALUES (1, 'Linguagem C', 'int main()|int main ()', '}', 'start', 'end', 'then'), (2, 'Portugol', 'inicio', 'fim', 'inicio', 'fim', 'entao');
 
 -- Insere os tipos de dados
 INSERT INTO data_types(id, name, byte_size) VALUES

@@ -44,11 +44,11 @@ class Language extends Entity
     /**
      * Comando de início de código da Linguagem
      *
-     * @ORM\Column(name="start_code_structure", type="string", nullable=false)
+     * @ORM\Column(name="initial_code_structure", type="string", nullable=false)
      *
      * @var string
      */
-    private $startCodeStructure;
+    private $initialCodeStructure;
 
     /**
      * Comando de fim de código da Linguagem
@@ -62,28 +62,29 @@ class Language extends Entity
     /**
      * Nome do vértice de início de grafo de fluxo da linguagem
      *
-     * @ORM\Column(name="start_name_vertex", type="string", nullable=false)
+     * @ORM\Column(name="initial_vertex_name", type="string", nullable=false)
      *
      * @var string
      */
-    private $startNameVertex;
+    private $initialVertexName;
 
     /**
      * Nome do vértice de final de grafo de fluxo da linguagem
      *
-     * @ORM\Column(name="end_name_vertex", type="string", nullable=false)
+     * @ORM\Column(name="end_vertex_name", type="string", nullable=false)
      *
      * @var string
      */
-    private $endNameVertex;
+    private $endVertexName;
 
     /**
-     * Indica se os terminais de comando podem ser opcionais na linguagem
+     * Nome do vértice then do comando de desvio if
      *
+     * @ORM\Column(name="if_then_name_vertex", type="string", nullable=false, options={"default": "then"})
      *
-     * @var
+     * @var string
      */
-    private $optionalTerminalCommand;
+    private $ifThenNameVertex;
 
     /**
      * Uma coleção de todos os comandos de desvio da Linguagem de Programação
@@ -173,19 +174,19 @@ class Language extends Entity
      *
      * @return string
      */
-    public function getStartCodeStructure()
+    public function getInitialCodeStructure()
     {
-        return $this->startCodeStructure;
+        return $this->initialCodeStructure;
     }
 
     /**
      * Define o comando de início de código da Linguagem
      *
-     * @param string $startCodeStructure
+     * @param string $initialCodeStructure
      */
-    public function setStartCodeStructure($startCodeStructure)
+    public function setInitialCodeStructure($initialCodeStructure)
     {
-        $this->startCodeStructure = $startCodeStructure;
+        $this->initialCodeStructure = $initialCodeStructure;
     }
 
     /**
@@ -213,19 +214,19 @@ class Language extends Entity
      *
      * @return string
      */
-    public function getStartNameVertex()
+    public function getInitialVertexName()
     {
-        return $this->startNameVertex;
+        return $this->initialVertexName;
     }
 
     /**
      * Define o nome do vértice de início de grafo de fluxo da linguagem
      *
-     * @param string $startNameVertex
+     * @param string $initialVertexName
      */
-    public function setStartNameVertex($startNameVertex)
+    public function setInitialVertexName($initialVertexName)
     {
-        $this->startNameVertex = $startNameVertex;
+        $this->initialVertexName = $initialVertexName;
     }
 
     /**
@@ -233,19 +234,39 @@ class Language extends Entity
      *
      * @return string
      */
-    public function getEndNameVertex()
+    public function getEndVertexName()
     {
-        return $this->endNameVertex;
+        return $this->endVertexName;
     }
 
     /**
      * Define o nome do vértice de final de grafo de fluxo da linguagem
      *
-     * @param string $endNameVertex
+     * @param string $endVertexName
      */
-    public function setEndNameVertex($endNameVertex)
+    public function setEndVertexName($endVertexName)
     {
-        $this->endNameVertex = $endNameVertex;
+        $this->endVertexName = $endVertexName;
+    }
+
+    /**
+     * Retorna o nome do vértice then do comando de desvio if
+     *
+     * @return string
+     */
+    public function getIfThenNameVertex()
+    {
+        return $this->ifThenNameVertex;
+    }
+
+    /**
+     * Define o nome do vértice then do comando de desvio if
+     *
+     * @param string $ifThenNameVertex
+     */
+    public function setIfThenNameVertex($ifThenNameVertex)
+    {
+        $this->ifThenNameVertex = $ifThenNameVertex;
     }
 
     /**

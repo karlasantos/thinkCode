@@ -5,6 +5,7 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 namespace SourceCode\Model;
+use SourceCode\Entity\BypassCommand;
 
 /**
  * Classe que armazena o comando de desvio pertencente ao código fonte
@@ -46,6 +47,13 @@ class CodeBypassCommand
      * @var
      */
     private $endLineNumber;
+
+    /**
+     * Comando de desvio correspondente na linguagem
+     *
+     * @var BypassCommand
+     */
+    private $bypassCommandLanguage;
 
     /**
      * Retorna o nome do comando de desvio
@@ -143,6 +151,26 @@ class CodeBypassCommand
     public function setEndLineNumber($endLineNumber)
     {
         $this->endLineNumber = $endLineNumber;
+    }
+
+    /**
+     * Retorna o comando de desvio correspondente na linguagem
+     *
+     * @return BypassCommand
+     */
+    public function getBypassCommandLanguage()
+    {
+        return $this->bypassCommandLanguage;
+    }
+
+    /**
+     * Define o comando de desvio correspondente na linguagem
+     *
+     * @param BypassCommand $bypassCommandLanguage
+     */
+    public function setBypassCommandLanguage($bypassCommandLanguage)
+    {
+        $this->bypassCommandLanguage = $bypassCommandLanguage;
     }
 
     public function toArray() {
