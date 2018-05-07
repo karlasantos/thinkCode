@@ -40,7 +40,7 @@ class Vertex
      *
      * @var array
      */
-    private $relationsVertexIndex;
+    private $moreVertexIndexes;
 
     /**
      * Coordenada x do vértice na tela
@@ -135,6 +135,22 @@ class Vertex
     public function setLeftVertexIndex($leftVertexIndex)
     {
         $this->leftVertexIndex = $leftVertexIndex;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMoreVertexIndexes()
+    {
+        return $this->moreVertexIndexes;
+    }
+
+    /**
+     * @param array $moreVertexIndexes
+     */
+    public function setMoreVertexIndexes($moreVertexIndexes)
+    {
+        $this->moreVertexIndexes = $moreVertexIndexes;
     }
 
     /**
@@ -242,7 +258,7 @@ class Vertex
             'name'                 => $this->name,
             'rightVertexIndex'     => $this->rightVertexIndex,
             'leftVertexIndex'      => $this->leftVertexIndex,
-            'relationsVertexIndex' => $this->relationsVertexIndex,
+            'moreVertexIndexes' => $this->moreVertexIndexes,
             'x'                    => $this->x,
             'y'                    => $this->y,
             'openingVertexIndex'   => $this->openingVertexIndex,

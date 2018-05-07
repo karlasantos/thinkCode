@@ -38,6 +38,8 @@ class AnalysisStructure
     }
 
     /**
+     * Gera os vértices do grafo de fluxo
+     *
      * @param SourceCode $sourceCode
      * @return array
      * @throws \Exception
@@ -72,9 +74,9 @@ class AnalysisStructure
                 }
                 /*2.2 Se o comando for um fecha chaves, cria-se o vértice do tipo END*/
                 else if ($codeCommand->getName() === "}") {
-                    $endBypassCommandVertex = new Vertex();
                     //retorna o comando de abertura desse bloco
                     $openingVertex = $this->codeCommands[$codeCommand->getOpeningCommandIndex()];
+                    $endBypassCommandVertex = new Vertex();
                     /* O Nome do Vértice vai ser o nome correspondente ao final da estrutura do código da linguagem
                       + o nome do comando que abre o bloco */
                     $endBypassCommandVertex->setName($this->languageEntity->getEndVertexName() . $openingVertex->getName());
@@ -99,7 +101,8 @@ class AnalysisStructure
                     if ($this->codeCommands[$key + 1] instanceof CodeBypassCommand &&
                         $this->codeCommands[$key + 1]->getName() !== "{" &&
                         !$languageService->isInitialBypassCommandElse($codeCommand->getName())//) {
-                        && !$languageService->isInitialBypassCommandElseIf($codeCommand->getName())) {
+                        && !$languageService->isInitialBypassCommandElseIf($codeCommand->getName())
+                        && !$languageService->isInitialBypassCommandCaseOrDefault($codeCommand->getName())) {
 
                         end($this->vertices);
                         $endKeyVertex = key($this->vertices);
@@ -134,27 +137,37 @@ class AnalysisStructure
         return $this->vertices;
     }
 
+    /**
+     * Gera as arestas e armazena essas ligações entre vértices na listagem de vértices
+     *
+     * @param Language $language
+     * @return array
+     */
     public function setEdges(Language $language)
     {
         $languageService = $this->dataCollectService->getLanguageService();
         //armazenam as posições dos vértices de destino na lista de vértices
         $right = -1;
         $left = -1;
+        $endSwitchIndex = -1;
+        $commandsCaseDefaultSwitchIndexes = array();
 
         foreach ($this->vertices as $key => $vertex) {
-            $vertexName = $this->removeEndVertexPrefix($vertex->getName());
             /*1. Os vértices de INÍCIO DE ESTRUTURA, IF, FOR e seus vértices de FIM sempre vão se ligar
                 ao próximo vértice pela sua esquerda*/
-            if($vertexName === $language->getInitialVertexName()                ||
+            if($vertex->getName() === $language->getInitialVertexName()       ||
                $languageService->isInitialBypassCommandIf($vertex->getName()) ||
-               $languageService->isInitialBypassCommandFor($vertexName)       ||
-               $languageService->isInitialBypassCommandWhile($vertexName)
+               $languageService->isInitialBypassCommandFor($vertex->getName())||
+               $languageService->isInitialBypassCommandWhile($vertex->getName()) ||
+               $languageService->isInitialBypassCommandDoWhile($this->removeEndVertexPrefix($vertex->getName())) ||
+               $vertex->getName() === $language->getEndVertexName().$languageService->getBypassCommandSwitch()['initialCommandName']
             ) {
                 $left = $key + 1;
             }
 
             /* 2. O Vértice IF vai se ligar pela sua direita ao vértice que localiza-se
-                  após o seu ENDIF correspondente. Ex.: IF ENDIF ELSE, IF = Esq. -> ENDIF | Dir. -> ELSE*/
+                  após o seu ENDIF se esse vértice for um ELSE ou ELSEIF.
+            Ex.: IF ENDIF ELSE, IF = Esq. -> ENDIF | Dir. -> ELSE*/
             if ($languageService->isInitialBypassCommandIf($vertex->getName()))
             {
                 /* 2.1 Através do atributo OpeningVertexIndex localizado no ENDIF é possível localizar
@@ -163,7 +176,10 @@ class AnalysisStructure
                     //todo colocar para caso de implementar then
                     //if($vertex2->getName() !== $this->languageEntity->getIfThenNameVertex() && $vertex2->getOpeningVertexIndex() === $key) {
                     if($vertex2->getOpeningVertexIndex() === $key) {
-                        $right = $key2 + 1;
+                        if($this->vertices[$key2+1] instanceof Vertex && (
+                            $languageService->isInitialBypassCommandElseIf($this->vertices[$key2+1]->getName()) ||
+                            $languageService->isInitialBypassCommandElse($this->vertices[$key2+1]->getName())))
+                            $right = $key2 + 1;
                         break;
                     }
                 }
@@ -180,7 +196,7 @@ class AnalysisStructure
                     if($languageService->isInitialBypassCommandElseIf($vertex->getName())) {
                         foreach($this->vertices as $key2 => $vertex2) {
                             if($vertex2->getOpeningVertexIndex() === $key) {
-                                if(!$this->vertices[$key2 + 1]->getName() === $this->languageEntity->getEndVertexName())
+                                if(!$this->vertices[$key2 + 1]->getName() === $language->getEndVertexName())
                                     $right = $key2 + 1;
                                 break;
                             }
@@ -192,9 +208,8 @@ class AnalysisStructure
                 else {
                     /* 3.2.1 Este trecho trata a situação em que o ELSE IF não tem logo após o ELSE*/
                     if ($languageService->isInitialBypassCommandElseIf($vertex->getName())) {
-                        if (!$this->vertices[$key + 1]->getName() === $this->languageEntity->getEndVertexName())
+                        if (!$this->vertices[$key + 1]->getName() === $language->getEndVertexName())
                             $right = $key + 1;
-                        break;
                     }
                     /* 3.2.2 Este trecho procura o ENDIF no qual o ELSE ou ELSEIF deve se ligar pela esquerda
                        Percorre até o inicio da lista de vertices */
@@ -215,13 +230,14 @@ class AnalysisStructure
             else if($vertex->getName() === ($language->getEndVertexName().$languageService->getInitialBypassCommandElseIf()) ||
                     $vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandElse()['initialCommandName']))
             {
-                /* Percorre do vértice até ao início da lista de vértices*/
-                for($i = $key; $i <= 0; $i--) {
+                /* 4.1 Percorre do vértice até ao início da lista de vértices*/
+                for($i = $key; $i >= 0; $i--) {
+                    /*4.1.1 Se encontrar um vértice que feche o bloco marca a ligação a esquerda */
                     if($this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName']) {
                         $left = $i;
                         break;
                     }
-                    /* Se encontrar um vértice que feche o bloco, o for deve pular o bloco, indo para o inicio dele*/
+                    /*4.1.2 Se encontrar um vértice que feche o bloco, o for deve pular o bloco, indo para o inicio dele*/
                     if($this->vertices[$i]->getOpenningVertexIndex() !== 0) {
                         $i = $this->vertices[$i]->getOpenningVertexIndex();
                     }
@@ -229,14 +245,13 @@ class AnalysisStructure
             }
             /* 5. Os vértice de ENDIF liga-se a esquerda ao vértice posterior a ele, caso não seja um ELSE OU ELSEIF */
             else if($vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName'])) {
-                /*Percorre a lista de vértices*/
+                /* 5.1 Percorre a lista de vértices*/
                 for($i = ($key+1); $i < count($this->vertices); $i++) {
-                    /* Se encontrar um ELSEIF ou ELSE, verificar se abre bloco, se abrir o for deve pular o bloco*/
-                    if($languageService->isInitialBypassCommandElseIf($this->vertices[$i]->geName()) ||
-                       $languageService->isInitialBypassCommandElse($this->vertices[$i]->geName())) {
-                        /* Verifica se o vértice lido abre um bloco*/
+                    /*5.1.1 Se encontrar um ELSEIF ou ELSE, verificar se abre bloco, se abrir o for deve pular o bloco*/
+                    if($this->vertices[$i] instanceof Vertex && $languageService->isInitialBypassCommandElseIf($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandElse($this->vertices[$i]->getName())) {
+                        /*5.1.1.1 Verifica se o vértice lido abre um bloco*/
                         if($this->containsBlockOpening($i)) {
-                            /* Se abrir bloco, deve ser localizado o fim do bloco e atribuido o fim do bloco
+                            /*5.1.1.1.2 Se abrir bloco, deve ser localizado o fim do bloco e atribuido o fim do bloco
                                 a contagem do for.*/
                             for($j = $i; $j < count($this->vertices); $j++) {
                                 if($this->vertices[$j]->getOpeningVertexIndex() === $i) {
@@ -246,31 +261,106 @@ class AnalysisStructure
                             }
                         }
                     }
-                    /* O Próximo Vértice que não for ELSEIF nem ELSE é o vértice que o ENDIF vai se ligar pela esquerda */
+                    /* 5.1.2 O Próximo Vértice que não for ELSEIF nem ELSE é o vértice que o ENDIF vai se ligar pela esquerda */
                     else {
                         $left = $i;
                         break;
                     }
                 }
             }
-            /* 6. O vértice ENDFOR e o ENDWHILE ligam-se pela direita ao seu vértice de abertura.*/
-            else if($vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandFor()['initialCommandName']) ||
-                    $vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandWhile()['initialCommandName'])) {
+            /* 6. O vértice FOR e o WHILE ligam-se pela direita ao vértice após o seu vértice de fechamento.*/
+            else if($languageService->isInitialBypassCommandWhile($vertex->getName()) || $languageService->isInitialBypassCommandFor($vertex->getName())) {
+                /* 6.1 Percorre os vértices até encontrar o vértice END do FOR ou do WHILE */
+                for($i = $key; $i < count($this->vertices); $i++) {
+                    /* 6.1.1 Marca a ligação pela direita do vértice WHILE/FOR com o vértice após o seu END */
+                    if($this->vertices[$i]->getName() === $language->getEndVertexName().$vertex->getName()) {
+                        $right = $i+1;
+                        break;
+                    }
+                }
+            }
+            /* 7. O vértice ENDFOR, ENDWHILE e ENDDO ligam-se pela direita ao seu vértice de abertura.*/
+            else if($vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandFor()['initialCommandName']) || $vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandWhile()['initialCommandName']) || $vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandDoWhile()['initialCommandName'])) {
                 $right = $vertex->getOpeningVertexIndex();
             }
+            /* 8. O vértice SWITCH possuirá mais ligações do que direita e esquerda,
+            assim suas ligações são realizadas por um array de índices de seus cases/default*/
+            else if($languageService->isInitialBypassCommandSwitch($vertex->getName())) {
+                $commandsCaseDefaultSwitchIndexes = array();
+                $endSwitchIndex = null;
+                /* 8.1 Percorre todos os vértices após o SWITCH e antes de seu ENDSWITCH*/
+                for ($i = ($key + 1); $i < count($this->vertices); $i++) {
+                    //8.1.1 passa o índice desse vértice se representar o comando CASE ou DEFAULT
+                    if($languageService->isInitialBypassCommandCaseOrDefault($this->vertices[$i]->getName())) {
+                        $commandsCaseDefaultSwitchIndexes[] = $i;
+                    }
 
-            //todo adicionar CASE E DO
+                    //8.1.2 salva o índice de vértice de FIM do SWITCH
+                    if($this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandSwitch()['initialCommandName']) {
+                        $endSwitchIndex = $i;
+                        break;
+                    }
+                }
 
-            /* 7. Seta o objeto da Lista informando a posição dos vértices a qual eles vão se ligar*/
+                //define as ligações do SWITCH
+                $this->vertices[$key]->setMoreVertexIndexes($commandsCaseDefaultSwitchIndexes);
+            }
+            /* 9. Os vértices de CASE ou DEFAULT  e ENDCASE ou ENDDEFAULT (quando existirem, em caso de blocos)
+               devem ser ligar pela esquerda ao FIM do SWITCH */
+            else if($languageService->isInitialBypassCommandCaseOrDefault($this->removeEndVertexPrefix($vertex->getName()))) {
+                $containsEndCase = false;
+                //9.1 verifica e marca se o CASE/DEFAULT possui ENDCASE/ENDDEFAULT
+                if(in_array($key, $commandsCaseDefaultSwitchIndexes)) {
+                    // 9.1.1 Percorre até o final ou até encontrar um END
+                    for ($i = ($key + 1); $i < count($this->vertices); $i++) {
+                        //passa o índice desse vértice se representar o comando CASE ou DEFAULT
+                        if ($this->vertices[$i]->getOpeningVertexIndex() === $key) {
+                            $containsEndCase = true;
+                            break;
+                        }
+                    }
+                }
+
+                //9.2 se ele não contiver ENDCASE/ENDDEFAULT a sua ligação a esquerda será vértice do ENDSWITCH
+                if(!$containsEndCase)
+                    $left = $endSwitchIndex;
+                //9.3 se contiver ENDCASE/ENDDEFAULT sua ligação a esquerda será com o próximo vértice
+                else
+                    $left = $key+1;
+            }
+
+            /* 10. Seta o objeto da Lista informando a posição dos vértices a qual eles vão se ligar*/
             $this->vertices[$key]->setRightVertexIndex($right);
-            $this->vertices[$key]->setLefttVertexIndex($left);
+            $this->vertices[$key]->setLeftVertexIndex($left);
 
             //inicializa novamente os índices de ligação
             $right = -1;
             $left = -1;
 
         }
+
+
+        //todo retorno temporário
+        return $this->vertices;
     }
+
+    /**
+     * Define as coordenadas de cada vértice no grafo de fluxo
+     *
+     * @param Language $language
+     */
+    public function setCoordinates(Language $language)
+    {
+        $languageService = $this->dataCollectService->getLanguageService();
+        /* INTERVALO X e Y: os espaços entre um vértice e outro será definido nessas variáveis.*/
+        $distanceX = 65;
+        $distanceY = 35;
+
+        /* COORDENADA X e Y: os valores de X e Y serão armazenados nessas variáveis.*/
+        $coordintateX = 0;
+        $coordintateY = 0;
+    }
+
     /**
      * Indica se o vértice presente em um determinado índice possui dentro em seu bloco de comandos outros vértices
      * @param $index int
@@ -282,7 +372,7 @@ class AnalysisStructure
         foreach ($this->codeCommands as $key => $codeCommand) {
             /* Encontra qual é o comando referente ao index vértice que está sendo verificado e
                verifica se o próximo comando após esse vértice é de abertura de bloco */
-            if($codeCommand->getReferentVertexIndex() == $index && $this->codeCommands[($key+1)]->getName() == "{") {
+            if($codeCommand instanceof CodeBypassCommand && $codeCommand->getReferentVertexIndex() == $index && $this->codeCommands[($key+1)]->getName() == "{") {
                 return true;
             }
         }

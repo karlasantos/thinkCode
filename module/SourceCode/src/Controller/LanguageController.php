@@ -109,10 +109,40 @@ class LanguageController  extends AbstractRestfulController
             \n}
            
             }");
+            $sourceCode->setContent("int main() {
+            \nswitch (b) 
+            \n{
+                \ncase 1:
+                    if () {
+                    }
+                   \nbreak;
+                case 2:
+            \n}
+            }");
+            $sourceCode->setContent("int main() {
+            \ndo
+            \n{
+                
+            \n} while (b > 0);
+            }");
+            $sourceCode->setContent("int main() {
+            \nwhile (b > 0)
+            \n{
+                
+            \n}
+            }");
+            $sourceCode->setContent("int main() {
+            \nfor (b > 0)
+            \n{
+                if () {
+                } 
+            \n}
+            }");
 //            $result = $this->dataCollect->getDataFromCode($sourceCode);
 
             //estrutura de analise
             $result = $analysis->setVertices($sourceCode);
+            $result = $analysis->setEdges($sourceCode->getLanguage());
             $arrayResult = array();
             foreach ($result as $value) {
                 if($value instanceof Vertex)
@@ -121,7 +151,7 @@ class LanguageController  extends AbstractRestfulController
 //                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
 //                        'lineNumber' => $value->getEndLineNumber()
 //                    ];
-                    $arrayResult[] = $value->getName();
+                    $arrayResult[] = $value->toArray();
             }
 //            die();
             return new JsonModel([
