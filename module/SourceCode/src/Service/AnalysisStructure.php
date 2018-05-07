@@ -170,7 +170,8 @@ class AnalysisStructure
             }
             /* 3. Os vértices ELSEIF e ELSE ligam-se pela esquerda ao ENDIF quando não abrem bloco
                e ligam-se pela direita ao próximo vértice se houver.*/
-            else if($languageService->isInitialBypassCommandElse($vertex->getName()) || $languageService->isInitialBypassCommandElseIf($vertex->getName())) {
+            else if($languageService->isInitialBypassCommandElse($vertex->getName()) ||
+                    $languageService->isInitialBypassCommandElseIf($vertex->getName())) {
                 /* 3.1 Se o ELSEIF ou ELSE abrirem bloco, ligam-se pela esquerda ao próximo vértice.*/
                 if($this->containsBlockOpening($key)) {
                     $left = $key + 1;
@@ -195,16 +196,78 @@ class AnalysisStructure
                             $right = $key + 1;
                         break;
                     }
-                    //todo PAREI AQUI
                     /* 3.2.2 Este trecho procura o ENDIF no qual o ELSE ou ELSEIF deve se ligar pela esquerda
                        Percorre até o inicio da lista de vertices */
                     for ($i = $key - 1; $i >= 0; $i--) {
                         /* Se encontrar um ENDELSEIF, pular para o seu vertice de abertura*/
-
+                        if($this->vertices[$i]->getName() === ($language->getEndVertexName().$languageService->getInitialBypassCommandElseIf())) {
+                            $i = $this->vertices[$i]->getOpenningVertexIndex();
+                        }
+                        /* O Primeiro ENDIF que encontrar será o relacionado ao ELSE ou ELSEIF em questão*/
+                        if($this->vertices[$i]->getName() === ($language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName'])) {
+                            $left = $i;
+                            break;
+                        }
                     }
                 }
             }
+            /* 4. Os vértices ENDELSEIF e ENDELSE vão se ligar pela esquerda ao vértice ENDIF */
+            else if($vertex->getName() === ($language->getEndVertexName().$languageService->getInitialBypassCommandElseIf()) ||
+                    $vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandElse()['initialCommandName']))
+            {
+                /* Percorre do vértice até ao início da lista de vértices*/
+                for($i = $key; $i <= 0; $i--) {
+                    if($this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName']) {
+                        $left = $i;
+                        break;
+                    }
+                    /* Se encontrar um vértice que feche o bloco, o for deve pular o bloco, indo para o inicio dele*/
+                    if($this->vertices[$i]->getOpenningVertexIndex() !== 0) {
+                        $i = $this->vertices[$i]->getOpenningVertexIndex();
+                    }
+                }
+            }
+            /* 5. Os vértice de ENDIF liga-se a esquerda ao vértice posterior a ele, caso não seja um ELSE OU ELSEIF */
+            else if($vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName'])) {
+                /*Percorre a lista de vértices*/
+                for($i = ($key+1); $i < count($this->vertices); $i++) {
+                    /* Se encontrar um ELSEIF ou ELSE, verificar se abre bloco, se abrir o for deve pular o bloco*/
+                    if($languageService->isInitialBypassCommandElseIf($this->vertices[$i]->geName()) ||
+                       $languageService->isInitialBypassCommandElse($this->vertices[$i]->geName())) {
+                        /* Verifica se o vértice lido abre um bloco*/
+                        if($this->containsBlockOpening($i)) {
+                            /* Se abrir bloco, deve ser localizado o fim do bloco e atribuido o fim do bloco
+                                a contagem do for.*/
+                            for($j = $i; $j < count($this->vertices); $j++) {
+                                if($this->vertices[$j]->getOpeningVertexIndex() === $i) {
+                                    $i = $j;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    /* O Próximo Vértice que não for ELSEIF nem ELSE é o vértice que o ENDIF vai se ligar pela esquerda */
+                    else {
+                        $left = $i;
+                        break;
+                    }
+                }
+            }
+            /* 6. O vértice ENDFOR e o ENDWHILE ligam-se pela direita ao seu vértice de abertura.*/
+            else if($vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandFor()['initialCommandName']) ||
+                    $vertex->getName() === ($language->getEndVertexName().$languageService->getBypassCommandWhile()['initialCommandName'])) {
+                $right = $vertex->getOpeningVertexIndex();
+            }
 
+            //todo adicionar CASE E DO
+
+            /* 7. Seta o objeto da Lista informando a posição dos vértices a qual eles vão se ligar*/
+            $this->vertices[$key]->setRightVertexIndex($right);
+            $this->vertices[$key]->setLefttVertexIndex($left);
+
+            //inicializa novamente os índices de ligação
+            $right = -1;
+            $left = -1;
 
         }
     }

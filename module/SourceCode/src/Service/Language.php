@@ -178,7 +178,7 @@ class Language
      * Retorna o comando de desvio if da linguagem em formato de array
      * @return mixed
      */
-    private function getBypassCommandIf()
+    public function getBypassCommandIf()
     {
         //identifica o índice do comando de desvio que representa o if
         $indexOfElement = $this->indexOfConditionalBypassCommand("if")[0];
@@ -203,7 +203,7 @@ class Language
      *
      * @return mixed
      */
-    private function getBypassCommandElse()
+    public function getBypassCommandElse()
     {
         //identifica o índice do elemento gráfico que representa o else nos comandos de desvio
         $indexOfElement = $this->indexOfConditionalBypassCommand("if-else")[0];
@@ -224,6 +224,13 @@ class Language
 
     }
 
+    public function getInitialBypassCommandElseIf()
+    {
+        $bypassCommandElse = $this->getBypassCommandElse()['initialCommandName'];
+        $bypassCommandIf = $this->getBypassCommandIf()['initialCommandName'];
+        return ($bypassCommandElse . $bypassCommandIf);
+    }
+
     /**
      * Verifica se determinado token é o comando de desvio elfseif (junção de comandos else seguido de if)
      *
@@ -232,9 +239,7 @@ class Language
      */
     public function isInitialBypassCommandElseIf($token)
     {
-        $bypassCommandElse = $this->getBypassCommandElse()['initialCommandName'];
-        $bypassCommandIf = $this->getBypassCommandIf()['initialCommandName'];
-        $bypassCommandElseIf = $bypassCommandElse . $bypassCommandIf;
+        $bypassCommandElseIf = $this->getInitialBypassCommandElseIf();
         return $token === $bypassCommandElseIf;
     }
 
@@ -426,4 +431,31 @@ class Language
         $character = strtolower($character);
         return in_array($character, $this->elementsOfLanguage['specialCharacters']);
     }
+
+    /**
+     * Retorna todos os dados do comando de desvio for da linguagem
+     *
+     * @return mixed
+     */
+    public function getBypassCommandFor()
+    {
+        //adquire o índice do elemento for
+        $indexOfElement = $this->indexOfLoopBypassCommand("for");
+        //retorna o comando de desvio que representa o for na linguagem
+        return $this->elementsOfLanguage['loopCommands'][$indexOfElement];
+    }
+
+    /**
+     * Retorna todos os dados do comando de desvio for da linguagem
+     *
+     * @return mixed
+     */
+    public function getBypassCommandWhile()
+    {
+        //adquire o índice do elemento while
+        $indexOfElement = $this->indexOfLoopBypassCommand("while");
+        //retorna o comando de desvio que representa o while na linguagem
+        return $this->elementsOfLanguage['loopCommands'][$indexOfElement];
+    }
+
 }
