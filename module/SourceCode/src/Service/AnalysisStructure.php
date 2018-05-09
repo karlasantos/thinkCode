@@ -192,11 +192,11 @@ class AnalysisStructure
                 if($this->containsBlockOpening($key)) {
                     $left = $key + 1;
 
-                    /* 3.1.1 Este trecho trata a situação em que o ELSE IF não tem um ELSE logo após*/
+                    /* 3.1.1 Este trecho trata a situação em que o ELSEIF tem um ELSE ou ELSEIF logo após*/
                     if($languageService->isInitialBypassCommandElseIf($vertex->getName())) {
                         foreach($this->vertices as $key2 => $vertex2) {
                             if($vertex2->getOpeningVertexIndex() === $key) {
-                                if(!$this->vertices[$key2 + 1]->getName() === $language->getEndVertexName())
+                                if(($languageService->isInitialBypassCommandElse($this->vertices[$key2 + 1]->getName()) || $languageService->isInitialBypassCommandElseIf($this->vertices[$key2 + 1]->getName())))
                                     $right = $key2 + 1;
                                 break;
                             }
@@ -206,9 +206,9 @@ class AnalysisStructure
                 /* 3.2 Se o ELSEIF ou ELSE não abrirem bloco, ligam-se pela esquerda ao ENDIF e pela direita
                     ao próximo vértice.*/
                 else {
-                    /* 3.2.1 Este trecho trata a situação em que o ELSE IF não tem logo após o ELSE*/
+                    /* 3.2.1 Este trecho trata a situação em que o ELSE IF tem logo após um ELSE ou ELSEIF */
                     if ($languageService->isInitialBypassCommandElseIf($vertex->getName())) {
-                        if (!$this->vertices[$key + 1]->getName() === $language->getEndVertexName())
+                        if ($languageService->isInitialBypassCommandElse($this->vertices[$key + 1]->getName()) || $languageService->isInitialBypassCommandElseIf($this->vertices[$key + 1]->getName()))
                             $right = $key + 1;
                     }
                     /* 3.2.2 Este trecho procura o ENDIF no qual o ELSE ou ELSEIF deve se ligar pela esquerda
@@ -216,7 +216,7 @@ class AnalysisStructure
                     for ($i = $key - 1; $i >= 0; $i--) {
                         /* Se encontrar um ENDELSEIF, pular para o seu vertice de abertura*/
                         if($this->vertices[$i]->getName() === ($language->getEndVertexName().$languageService->getInitialBypassCommandElseIf())) {
-                            $i = $this->vertices[$i]->getOpenningVertexIndex();
+                            $i = $this->vertices[$i]->getOpeningVertexIndex();
                         }
                         /* O Primeiro ENDIF que encontrar será o relacionado ao ELSE ou ELSEIF em questão*/
                         if($this->vertices[$i]->getName() === ($language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName'])) {
@@ -238,8 +238,8 @@ class AnalysisStructure
                         break;
                     }
                     /*4.1.2 Se encontrar um vértice que feche o bloco, o for deve pular o bloco, indo para o inicio dele*/
-                    if($this->vertices[$i]->getOpenningVertexIndex() !== 0) {
-                        $i = $this->vertices[$i]->getOpenningVertexIndex();
+                    if($this->vertices[$i]->getOpeningVertexIndex() !== 0) {
+                        $i = $this->vertices[$i]->getOpeningVertexIndex();
                     }
                 }
             }

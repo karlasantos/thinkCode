@@ -132,11 +132,14 @@ class LanguageController  extends AbstractRestfulController
             \n}
             }");
             $sourceCode->setContent("int main() {
-            \nfor (b > 0)
-            \n{
-                if () {
-                } 
-            \n}
+                
+                    if {
+                    } else if {
+                       for () {
+                       }
+                    } else {
+                    }
+                    
             }");
 //            $result = $this->dataCollect->getDataFromCode($sourceCode);
 
