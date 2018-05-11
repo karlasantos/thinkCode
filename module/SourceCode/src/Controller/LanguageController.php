@@ -8,6 +8,7 @@
 namespace SourceCode\Controller;
 
 
+use Application\Controller\RestfulController;
 use Doctrine\ORM\EntityManager;
 use SourceCode\Entity\Language;
 use SourceCode\Entity\SourceCode;
@@ -18,10 +19,8 @@ use SourceCode\Service\DataCollect;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
-class LanguageController  extends AbstractRestfulController
+class LanguageController extends RestfulController
 {
-    protected $entityManager;
-
     /**
      * @var DataCollect
      */

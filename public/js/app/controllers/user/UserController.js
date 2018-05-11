@@ -15,11 +15,9 @@ module.exports = function ($scope, $http, SweetAlert) {
             },
         },
 
-        initData: function(id) {
-            console.log(id);
+        initData: function(id)
+        {
             if(id != null) {
-                console.log('no if');
-
                 $http.get('/api/user/' + id)
                     .then(function onSuccess(response) {
                         $scope.accountTools.user = response.data.user;
@@ -34,7 +32,8 @@ module.exports = function ($scope, $http, SweetAlert) {
         update: {
             loading: false,
 
-            save: function () {
+            save: function ()
+            {
                 //todo fazer função de validação
                 if ($scope.accountTools.user.id != null) {
                     $scope.accountTools.loading = true;
@@ -61,13 +60,15 @@ module.exports = function ($scope, $http, SweetAlert) {
             },
         },
 
-        clearPassword: function () {
+        clearPassword: function ()
+        {
             $scope.accountTools.user.oldPassword = null;
             $scope.accountTools.user.newPassword = null;
             $scope.accountTools.user.passwordConfirm = null;
         },
 
-        cancelSettings: function () {
+        cancelSettings: function ()
+        {
             window.location.href = '/home';
         }
     }

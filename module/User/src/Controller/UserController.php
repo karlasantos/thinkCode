@@ -7,6 +7,7 @@
 
 namespace User\Controller;
 
+use Application\Controller\RestfulController;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
@@ -27,16 +28,14 @@ use Exception;
  * deleção de usuários e carregamento de views de usuários.
  * @package User\Controller
  */
-class UserController extends AbstractRestfulController
+class UserController extends RestfulController
 {
     const INTERNAL_ERROR_SAVE = 'Ocorreu um erro interno e não foi possível salvar o usuário.';
     const USER_NOT_FOUND = 'Usuário não encontrado';
 
-    protected $entityManager;
-
     public function __construct(EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
     }
 
     public function indexAction()

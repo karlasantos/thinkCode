@@ -40,10 +40,14 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return [
             //atribui um aliases para os controllers fabricados
             'aliases' => [
-                'language' => Controller\LanguageController::class
+                'language' => Controller\LanguageController::class,
+                'problem' => Controller\ProblemController::class,
+                'source-code' => Controller\SourceCodeController::class,
             ],
             'factories' => [
-                Controller\LanguageController::class  => LanguageControllerFactory::class
+                Controller\ProblemController::class    => ControllerFactory::class,
+                Controller\SourceCodeController::class => ControllerFactory::class,
+                Controller\LanguageController::class   => LanguageControllerFactory::class,
             ],
         ];
     }

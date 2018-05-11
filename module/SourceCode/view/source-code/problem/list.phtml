@@ -1,0 +1,32 @@
+<div class="col-md-12 p-t-5 p-r-4 p-l-4" ng-controller="ProblemController">
+    <style>
+        .table thead th {
+            text-align: justify;
+        }
+    </style>
+    <div class="card form">
+        <div class="card-header d-flex align-items-center">
+            <h3><i class="fa fa-lightbulb-o m-r-5" aria-hidden="true"></i> Problemas</h3>
+        </div>
+        <div class="card-body">
+            <table ng-table="problemsListTools.tableParams" class="table table-hover" show-filter="false">
+                <tbody class="clickable" ng-repeat="problem in $data" ng-click="problemsListTools.changeSelection(problem);">
+                    <tr ng-class="{'table-active': problem.$selected}">
+                        <td title="''" width="5%">
+                            <i class="fa fa-check text-success" aria-hidden="true" ng-if="problem.resolved"></i>
+                        </td>
+                        <td title="'#'">
+                            {{problem.id}}
+                        </td>
+                        <td title="'Título'" filter="{ title: 'text'}" sortable="'title'">
+                            {{problem.title}}
+                        </td>
+                        <td title="'Categoria'" filter="{ title: 'text'}" sortable="'categoryName'">
+                            {{problem.categoryName}}
+                        </td>
+                    </tr>
+                <tbody ng-repeat="client in $data" ng-dblclick="openModal('/pessoa/cliente/save/'+client.id, 'modal-form-add-person')" ng-click="changeSelection(client)" class="clickable" ng-init="aux=false" style="border-top:0!important">
+            </table>
+        </div>
+    </div>
+</div>

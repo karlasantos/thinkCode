@@ -7,6 +7,7 @@
 
 namespace User\Controller;
 
+use Application\Controller\RestfulController;
 use Exception;
 use User\Entity\User;
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
@@ -26,15 +27,8 @@ use Doctrine\ORM\EntityManager;
  * recuperação de senha e carregamento de views de autenticação
  * @package Application\Controller
  */
-class AuthController extends AbstractRestfulController
+class AuthController extends RestfulController
 {
-    /**
-     * Gerenciador de entidades do Doctrine
-     *
-     * @var EntityManager
-     */
-    private $entityManager;
-
     /**
      * Serviço de autenticação
      *
@@ -59,7 +53,7 @@ class AuthController extends AbstractRestfulController
      */
     public function __construct(EntityManager $entityManager, AuthenticationServiceInterface $authService)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($entityManager);
         $this->authService = $authService;
     }
 

@@ -29,9 +29,10 @@ return [
                 'route' => 'tcc-home',
             ),
             array(
-                'label' => '<i class="icon-interface-windows"></i> Sistema',
+                'label' => '<i class="fa fa-lightbulb-o" aria-hidden="true"></i> Problemas',
                 'class' => '',
-                'route' => 'tcc-application',
+                'route' => 'tcc-problem',
+                'action'=>'list',
             ),
             array(
                 'label' => '<i class="fa fa-cogs" aria-hidden="true"></i> Configurações de Conta',

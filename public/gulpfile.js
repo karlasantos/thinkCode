@@ -32,6 +32,9 @@ var browserify = require('gulp-browserify');
  */
 var rename = require('gulp-rename');
 
+
+var importCss = require('gulp-import-css');
+
 /**
  * Minificar as imagens
  */
@@ -40,16 +43,26 @@ var imagemin = require('gulp-imagemin');
 /**
  * Tarefas executadas por padrão pelo comando gulp
  */
-gulp.task('default', ['minify-css', 'minify-js', 'minify-img', 'minify-angular', 'watch']);
+gulp.task('default', ['minify-css', 'minify-js', 'minify-img', 'minify-angular', 'watch', 'import-sweetalert']);
 
 /**
  * Minificar os CSS do projeto e concatenar em um arquivo
  */
 gulp.task('minify-css', function() {
     return gulp.src('css/*.css') //define o local dos arquivos para minificar
+        .pipe(importCss())
         .pipe(concat('all.min.css')) //concatena todos os min.css em um arquivo
         .pipe(cssc()) //minifica os arquivos
         .pipe(gulp.dest('css/minify')); //define o destino
+});
+
+/**
+ * Importar sweetAlert
+ */
+gulp.task('import-sweetalert', function() {
+    return gulp.src('css/sweetalert/*.css') //define o local dos arquivos para minificar
+        .pipe(importCss())
+        .pipe(gulp.dest('css/sweetalert/import')); //define o destino
 });
 
 /**

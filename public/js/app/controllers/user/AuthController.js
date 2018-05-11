@@ -10,7 +10,8 @@ module.exports = function ($scope, $http) {
         hideAlert: false,
         loading: false,
 
-        recoverPassword: function () {
+        recoverPassword: function ()
+        {
             //todo fazer função de validação
             if ($scope.recoverPasswordTools.model != null) {
                 $scope.recoverPasswordTools.loading = true;
@@ -67,7 +68,8 @@ module.exports = function ($scope, $http) {
         hideAlert: false,
         loading: false,
 
-        createUser: function () {
+        createUser: function ()
+        {
             //todo fazer função de validação
             if($scope.registerTools.user.fullName != null) {
                 $scope.registerTools.loading = true;

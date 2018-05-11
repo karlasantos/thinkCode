@@ -60,6 +60,19 @@ return [
                     ],
                 ]
             ],
+            'tcc-problem' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/problem[/:action[/:id]]',
+                    'constraints' => [
+                        'id'     => '[0-9]*',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ProblemController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             //rotas para a API
             'api' => [
                 'type' => Literal::class,
@@ -79,9 +92,21 @@ return [
                             ],
                             'defaults' => [
                                 //todo colocar o controller padrão desse módulo
-                                'controller' => Controller\UserController::class
+                                'controller' => Controller\LanguageController::class
                             ],
                         ]
+                    ],
+                    'tcc-problem-api' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/problem[/:id]',
+                            'constraints' => [
+                                'id'     => '[0-9]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\ProblemController::class,
+                            ],
+                        ],
                     ],
                 ]
             ]
