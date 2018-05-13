@@ -78,16 +78,6 @@ class User extends Entity
     private $activeAccount;
 
     /**
-     * Linguagem padrão de programação desse usuário
-     *
-     * @ORM\ManyToOne(targetEntity="SourceCode\Entity\Language", fetch="LAZY")
-     * @ORM\JoinColumn(name="default_language_id", referencedColumnName="id")
-     *
-     * @var Language
-     */
-    private $defaultLanguage;
-
-    /**
      * User constructor.
      */
     public function __construct()
@@ -209,26 +199,6 @@ class User extends Entity
     public function setActiveAccount($activeAccount)
     {
         $this->activeAccount = $activeAccount;
-    }
-
-    /**
-     * Retorna a Linguagem padrão de programação desse usuário
-     *
-     * @return Language
-     */
-    public function getDefaultLanguage()
-    {
-        return $this->defaultLanguage;
-    }
-
-    /**
-     * Define a Linguagem padrão de programação desse usuário
-     *
-     * @param Language $defaultLanguage
-     */
-    public function setDefaultLanguage($defaultLanguage)
-    {
-        $this->defaultLanguage = $defaultLanguage;
     }
 
     /**

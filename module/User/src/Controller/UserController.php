@@ -11,6 +11,7 @@ use Application\Controller\RestfulController;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\TransactionRequiredException;
+use SourceCode\Entity\Language;
 use User\Entity\Profile;
 use User\Entity\User;
 use User\Validation\ProfileValidator;
@@ -66,24 +67,25 @@ class UserController extends RestfulController
         $id = intval($id);
         //realiza um select no DB para obter as informação de conta do usuário
         $user = $this->entityManager->createQueryBuilder()
-            ->select('partial u.{id, email, activeAccount, created}')
+            ->select('partial u.{id, email, activeAccount, created}, partial defaultLanguage.{id, name}')
             ->addSelect('partial profile.{id, fullName, avatar, birthday, school, gender}')
             ->from(User::class, 'u')
             ->leftJoin('u.profile', 'profile')
+            ->leftJoin('profile.defaultLanguage', 'defaultLanguage')
             ->where('u = :userId')
             ->setParameter('userId', $id)
             ->getQuery()->getArrayResult();
-
         if(count($user) > 0) {
             $user = $user[0];
             $user['created'] =  $user['created']->format('d/m/Y H:i:s');
+            $user['profile']['defaultLanguageId'] =  $user['profile']['defaultLanguage']['id'];
         } else {
             $this->getResponse()->setStatusCode(400);
             $user = array();
         }
 
         return new JsonModel([
-            'user' => $user,
+            'result' => $user,
         ]);
     }
 
@@ -242,6 +244,13 @@ class UserController extends RestfulController
 
             //define os dados do perfil
             $profile->setData($profileFilter->getValues());
+
+            //define a linguagem de preferência no envio de soluções
+            if(isset($data['profile']['defaultLanguageId'])) {
+                $language = $this->entityManager->find(Language::class, $data['profile']['defaultLanguageId']);
+                if($language instanceof Language)
+                    $profile->setDefaultLanguage($language);
+            }
 
             //persiste os dados no DB
             $this->entityManager->persist($profile);

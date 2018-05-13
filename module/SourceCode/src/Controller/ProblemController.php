@@ -11,28 +11,45 @@ namespace SourceCode\Controller;
 use Application\Controller\RestfulController;
 use Application\Entity\OrderTemplate;
 use SourceCode\Entity\Problem;
-use Zend\Mvc\Controller\AbstractRestfulController;
-use Doctrine\ORM\EntityManager;
+use User\Entity\User;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class ProblemController
+ * Controler dos problemas cadastrados, responsável pelo detalhamento de um problema e pela listagem de todos os problemas
+ * @package SourceCode\Controller
+ */
 class ProblemController extends RestfulController
 {
     const PROBLEM_NOT_FOUND = 'Problema não encontrado.';
 
+    /**
+     * Retorna a interface de visualização da listagem dos problemas
+     *
+     * @return ViewModel
+     */
     public function listAction()
     {
         return new ViewModel();
     }
 
+    /**
+     * Retorna a interface de visualização de um problema específico
+     * @return ViewModel
+     */
     public function viewAction()
     {
         $id  = $this->params()->fromQuery('id');
         return new ViewModel(array('id' => $id));
     }
 
+    /**
+     * Retorna todos os problemas cadastrados
+     * @return mixed|JsonModel
+     */
     public function getList()
     {
         //página selecionada
@@ -78,15 +95,23 @@ class ProblemController extends RestfulController
 
         return new JsonModel(
             array(
-                'problems' => (array) $paginator->getCurrentItems(),
+                'results' => (array) $paginator->getCurrentItems(),
                 'total' => $total
             )
         );
     }
 
+    /**
+     * Retorna os dados de um problema específico
+     *
+     * @param mixed $id
+     * @return mixed|JsonModel
+     */
     public function get($id)
     {
         $id = intval($id);
+        $session = $this->params()->fromQuery('session');
+
         try {
             $problem = $this->entityManager->createQueryBuilder()
                 ->select('problem.id, problem.title, problem.description, cat.name AS categoryName, cat.description AS categoryDescription')
@@ -96,7 +121,18 @@ class ProblemController extends RestfulController
                 ->setParameter('problemId', $id)
                 ->getQuery()
                 ->getSingleResult();
+
+            //verifica se o atributo para buscar as informações de linguagem padrão foram inseridos
+            if($session) {
+                $user = $this->entityManager->find(User::class,  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
+                if($user instanceof User) {
+                    $language = $user->getProfile()->getDefaultLanguage();
+                    $problem['language'] = ['id' => $language->getId(), 'name' => $language->getName()];
+                    $problem['languageId'] = $problem['language']['id'];
+                }
+            }
         } catch (\Exception $exception) {
+            $this->getResponse()->setStatusCode(400);
             return new JsonModel(
                 array(
                     'result' => ProblemController::PROBLEM_NOT_FOUND,
@@ -106,7 +142,7 @@ class ProblemController extends RestfulController
         }
         return new JsonModel(
             array(
-                'problem' => $problem
+                'result' => $problem
             )
         );
     }

@@ -99,7 +99,7 @@ return [
                     'tcc-problem-api' => [
                         'type'    => Segment::class,
                         'options' => [
-                            'route'    => '/problem[/:id]',
+                            'route'    => '/source-code/problem[/:id]',
                             'constraints' => [
                                 'id'     => '[0-9]*',
                             ],

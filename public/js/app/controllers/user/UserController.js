@@ -1,4 +1,4 @@
-module.exports = function ($scope, $http, SweetAlert) {
+module.exports = function ($scope, $http, SweetAlert, $timeout, $q, $log) {
     $scope.accountTools = {
         user: {
             id: null,
@@ -15,14 +15,49 @@ module.exports = function ($scope, $http, SweetAlert) {
             },
         },
 
+        searchLanguage: null,
+        // list of `state` value/display objects
+        languages        : null,
+
+        // ******************************
+        // Internal methods
+        // ******************************
+
+        /**
+         * Search for languages... use $timeout to simulate
+         * remote dataservice call.
+         */
+        querySearchLanguage: function(query) {
+            var address, request;
+            if(query) {
+                address = '/api/source-code/language' + ('?search='+query.toLowerCase());
+            }
+            else {
+                address = '/api/source-code/language'
+            }
+
+            console.log(query);
+            request = $http.get(address);
+            return request.then(function onSuccess(response) {
+                return response.data.results;
+            }, function onError(response) {
+                return [];
+            });
+        },
+
+        selectedLanguageChange: function(language) {
+            $scope.accountTools.user.profile.defaultLanguageId = language.id;
+        },
+
         initData: function(id)
         {
             if(id != null) {
                 $http.get('/api/user/' + id)
                     .then(function onSuccess(response) {
-                        $scope.accountTools.user = response.data.user;
+                        $scope.accountTools.user = response.data.result;
                         $scope.accountTools.changePassword = false;
                         $scope.accountTools.clearPassword();
+                        $scope.accountTools.languages = $scope.accountTools.querySearchLanguage(null);
                     }, function onError(response) {
                         $scope.accountTools.user = null;
                     });

@@ -1,4 +1,4 @@
-module.exports = function ($scope, $http, SweetAlert, NgTableParams) {
+module.exports = function ($scope, $http, NgTableParams) {
     $scope.problemsListTools = {
         lastSelected: null,
 
@@ -8,7 +8,7 @@ module.exports = function ($scope, $http, SweetAlert, NgTableParams) {
                     var paramPageCount = params.url(),
                     sorting = params.sorting(),
                     paramsUrl = [];
-                    var address = '/api/problem/';
+                    var address = '/api/source-code/problem';
 
                     if(paramPageCount.page !== undefined)
                         paramsUrl.push('page=' + paramPageCount.page);
@@ -25,7 +25,7 @@ module.exports = function ($scope, $http, SweetAlert, NgTableParams) {
                     return $http.get(address)
                         .then(function onSuccess(response) {
                             params.total(response.data.total);
-                            return response.data.problems;
+                            return response.data.results;
                         }, function onError(response) {
                             params.total(0);
                             return [];
@@ -36,7 +36,7 @@ module.exports = function ($scope, $http, SweetAlert, NgTableParams) {
 
         select: function(item)
         {
-            window.location.href = '/problem/view/?id='+item.id;
+            window.location.href = '/problem/view?id='+item.id;
         },
 
         changeSelection: function(item)
@@ -72,9 +72,9 @@ module.exports = function ($scope, $http, SweetAlert, NgTableParams) {
         initData: function(id)
         {
             if(id != null) {
-                $http.get('/api/problem/' + id)
+                $http.get('/api/source-code/problem/' + id)
                     .then(function onSuccess(response) {
-                        $scope.problemSelectedTools.problem = response.data.problem;
+                        $scope.problemSelectedTools.problem = response.data.result;
                     }, function onError(response) {
                         $scope.problemSelectedTools.problem = null;
                     });

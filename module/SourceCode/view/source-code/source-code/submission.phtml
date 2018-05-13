@@ -1,4 +1,4 @@
-<div class="col-md-12 p-t-5 p-r-4 p-l-4">
+<div class="col-md-12 p-t-5 p-r-4 p-l-4" ng-controller="SourceCodeController" ng-init="submissionTools.initData('<?=$problemId?>');">
     <style>
         .side-navbar ul.list-unstyled li:nth-child(2) a {
             background: #eef5f9;
@@ -6,20 +6,41 @@
     </style>
     <div class="card form">
         <div class="card-header align-items-center">
-            <h3 class="text-center">TITULO DO PROBLEMA</h3>
-            <h5 class="text-center text-blue font-weight-normal"> CATEGORIA DO PROBLEMA</h5>
+            <h3 class="text-center">{{submissionTools.problem.title}}</h3>
+            <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.categoryName}}</h5>
         </div>
         <div class="card-body">
             <form id="submission-form">
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0">
+                    <div class="col-md-8">
+                        <label for="source-code" class="form-control-label m-b-5">Insira sua solução</label>
+                    </div>
+                    <div class="col-md-4 p-l-0 m-b-5">
+                        <md-autocomplete
+                                md-no-cache="false"
+                                md-selected-item="submissionTools.problem.language"
+                                md-search-text="submissionTools.searchLanguage"
+                                md-selected-item-change="submissionTools.selectedLanguageChange(language)"
+                                md-items="language in submissionTools.querySearchLanguage(submissionTools.searchLanguage)"
+                                md-item-text="language.name"
+                                md-min-length="0"
+                                md-delay="150"
+                                placeholder="Linguagem">
+                            <md-item-template>
+                                <span md-highlight-text="submissionTools.searchLanguage">{{language.name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Nenhuma linguagem "{{submissionTools.searchLanguage}}" foi encontrada.
+                            </md-not-found>
+                        </md-autocomplete>
+                    </div>
                     <div class="form-group col-md-12 p-l-0">
-                        <label for="source-code" class="form-control-label">Insira sua solução</label>
                         <textarea id="source-code" type="text" rows="50" required=""  class="lined" cols="110"></textarea>
                     </div>
                 </div>
             </form>
             <div class="form-group">
-                <button class="btn btn-success pull-right" ng-click=""><i class="fa fa-upload" aria-hidden="true"></i> Enviar Solução</button>
+                <button class="btn btn-success pull-right" ng-click=""><i class="fa fa-play-circle" aria-hidden="true"></i> Analisar Solução</button>
             </div>
         </div>
     </div>

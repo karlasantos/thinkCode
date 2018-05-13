@@ -9,6 +9,7 @@ namespace User\Entity;
 
 use Application\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use SourceCode\Entity\Language;
 
 /**
  * Class Profile
@@ -83,6 +84,16 @@ class Profile extends Entity
      * @var User
      */
     private $user;
+
+    /**
+     * Linguagem padrão de programação desse usuário
+     *
+     * @ORM\ManyToOne(targetEntity="SourceCode\Entity\Language", fetch="LAZY")
+     * @ORM\JoinColumn(name="default_language_id", referencedColumnName="id")
+     *
+     * @var Language
+     */
+    private $defaultLanguage;
 
     /**
      * Retorna o id de identificação do perfil
@@ -212,6 +223,26 @@ class Profile extends Entity
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * Retorna a Linguagem padrão de programação desse usuário
+     *
+     * @return Language
+     */
+    public function getDefaultLanguage()
+    {
+        return $this->defaultLanguage;
+    }
+
+    /**
+     * Define a Linguagem padrão de programação desse usuário
+     *
+     * @param Language $defaultLanguage
+     */
+    public function setDefaultLanguage($defaultLanguage)
+    {
+        $this->defaultLanguage = $defaultLanguage;
     }
 
     /**

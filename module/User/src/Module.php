@@ -44,7 +44,6 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
 
                 //pega a requisição acessada pelo nome da rota
                 $routeName = $match->getMatchedRouteName();
-
                 if($authService->hasIdentity()) {
                     //se usuário logado apenas retorna
                     return;

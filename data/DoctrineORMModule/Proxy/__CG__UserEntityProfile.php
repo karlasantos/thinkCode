@@ -74,10 +74,10 @@ class Profile extends \User\Entity\Profile implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'id', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'fullName', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'avatar', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'birthday', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'school', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'gender', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'user'];
+            return ['__isInitialized__', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'id', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'fullName', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'avatar', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'birthday', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'school', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'gender', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'user', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'defaultLanguage'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'id', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'fullName', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'avatar', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'birthday', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'school', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'gender', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'user'];
+        return ['__isInitialized__', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'id', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'fullName', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'avatar', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'birthday', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'school', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'gender', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'user', '' . "\0" . 'User\\Entity\\Profile' . "\0" . 'defaultLanguage'];
     }
 
     /**
@@ -328,6 +328,28 @@ class Profile extends \User\Entity\Profile implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUser', [$user]);
 
         return parent::setUser($user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDefaultLanguage()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDefaultLanguage', []);
+
+        return parent::getDefaultLanguage();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDefaultLanguage($defaultLanguage)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDefaultLanguage', [$defaultLanguage]);
+
+        return parent::setDefaultLanguage($defaultLanguage);
     }
 
     /**
