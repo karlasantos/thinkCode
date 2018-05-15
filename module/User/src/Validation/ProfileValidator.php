@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: karla
- * Date: 22/03/18
- * Time: 14:44
+ * TCC - Ciência da Computação, URI Santo Ângelo
+ * Orientador: Denílson Rodrigues da Silva <deniro@san.uri.br>
+ * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
 namespace User\Validation;

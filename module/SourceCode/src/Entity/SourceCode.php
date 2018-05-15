@@ -35,15 +35,6 @@ class SourceCode extends Entity
     private $id;
 
     /**
-     * Nome do arquivo do Código Fonte
-     *
-     * @ORM\Column(name="file_name", type="string", nullable=false)
-     *
-     * @var string
-     */
-    private $fileName;
-
-    /**
      * Conteúdo do arquivo do Código Fonte
      *
      * @ORM\Column(type="text", nullable=false)
@@ -111,24 +102,6 @@ class SourceCode extends Entity
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Define o nome de arquivo do Código Fonte
-     * @return string
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-
-    /**
-     * Retorna o nome de arquivo do Código Fonte
-     * @param string $fileName
-     */
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
     }
 
     /**
@@ -255,7 +228,6 @@ class SourceCode extends Entity
     {
         return array(
             'id'             => $this->id,
-            'fileName'       => $this->fileName,
             'content'        => $this->content,
             'submissionDate' => $this->submissionDate->format('d-m-Y H:i:s'),
             'referential'    => $this->referential,

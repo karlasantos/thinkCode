@@ -8,6 +8,8 @@
 namespace SourceCode;
 
 use SourceCode\Controller\Factory\LanguageControllerFactory;
+use SourceCode\Controller\Factory\SourceCodeControllerFactory;
+use SourceCode\Controller\SourceCodeController;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ControllerProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
@@ -40,14 +42,14 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         return [
             //atribui um aliases para os controllers fabricados
             'aliases' => [
-                'language' => Controller\LanguageController::class,
-                'problem' => Controller\ProblemController::class,
+                'language'    => Controller\LanguageController::class,
+                'problem'     => Controller\ProblemController::class,
                 'source-code' => Controller\SourceCodeController::class,
             ],
             'factories' => [
+                Controller\LanguageController::class   => ControllerFactory::class,
                 Controller\ProblemController::class    => ControllerFactory::class,
-                Controller\SourceCodeController::class => ControllerFactory::class,
-                Controller\LanguageController::class   => LanguageControllerFactory::class,
+                Controller\SourceCodeController::class => SourceCodeControllerFactory::class,
             ],
         ];
     }
