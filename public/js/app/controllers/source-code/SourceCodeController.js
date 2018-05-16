@@ -66,6 +66,8 @@ module.exports = function ($scope, $http, SweetAlert) {
                 SweetAlert.swal("Atenção", "Informe a Linguagem de Programação do Código.", "error");
             }
 
+            //todo enviar o Id do código para a análise de similaridade na requisição
+
             $http.post('/api/source-code/source-code', $scope.submissionTools.submissionData)
                 .then(function onSuccess(response) {
 

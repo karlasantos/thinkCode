@@ -244,6 +244,8 @@ class SourceCodeController extends RestfulController
                 $sourceCode->setProblem($problem);
 
             $sourceCode->setSubmissionDate();
+
+            //todo enviar o id do código a ser comparado no $data da requisição
             \Zend\Debug\Debug::dump(strpos($sourceCode->getContent(), PHP_EOL));
             die();
             $this->entityManager->persist($sourceCode);

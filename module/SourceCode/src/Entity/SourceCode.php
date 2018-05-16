@@ -88,6 +88,16 @@ class SourceCode extends Entity
     private $user;
 
     /**
+     * Resultados da Análise do Código
+     *
+     * @ORM\OneToOne(targetEntity="AnalysisResults", inversedBy="sourceCode", fetch="LAZY")
+     * @ORM\JoinColumn(name="analysis_results_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     *
+     * @var AnalysisResults
+     */
+    private $analysisResults;
+
+    /**
      * SourceCode constructor
      */
     public function __construct()
@@ -217,6 +227,26 @@ class SourceCode extends Entity
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * Retorna o resultados da análise do código fonte
+     *
+     * @return AnalysisResults
+     */
+    public function getAnalysisResults()
+    {
+        return $this->analysisResults;
+    }
+
+    /**
+     *  Define os resultados da análise do código fonte
+     *
+     * @param AnalysisResults $analysisResults
+     */
+    public function setAnalysisResults($analysisResults)
+    {
+        $this->analysisResults = $analysisResults;
     }
 
     /**

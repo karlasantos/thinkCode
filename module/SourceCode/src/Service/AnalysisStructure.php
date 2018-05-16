@@ -359,6 +359,56 @@ class AnalysisStructure
         /* COORDENADA X e Y: os valores de X e Y serão armazenados nessas variáveis.*/
         $coordintateX = 0;
         $coordintateY = 0;
+
+        $Y_big   = 0;
+        $valueIF = 0;
+        $aux         = 0;
+        $count        = 0;
+        $countTotal   = 0;
+        $countBig   = 0;
+
+        /* Definindo a posição do vértice INICIO*/
+        $this->vertices[0]->setX(10);
+        $this->vertices[0]->setY(50);
+
+        foreach ($this->vertices as $key => $vertex) {
+            /* 1. Análise dos vértices ELSE e ELSEIF*/
+            if($languageService->isInitialBypassCommandElse($vertex->getName()) || $languageService->isInitialBypassCommandElseIf($vertex->getName())) {
+                $Y_big   = 0;
+                for($i = 0; $i < count($this->vertices); $i++) {
+                    if($this->vertices[$i]->getRightVertexIndex() === $key) {
+                        /* Se o vértice encontrado abrir bloco*/
+                        if($this->containsBlockOpening($key)) {
+                            /* Percorre até o fim do bloco desse vértice encontrado*/
+                            for($j = $i; $j < count($this->vertices); $j++) {
+                                if($i == $this->vertices[$j]->getOpeningVertexIndex())
+                                    break;
+                                /* Verifica no bloco quem tem o maior Y*/
+                                if($this->vertices[$j]->getY() > $Y_big) {
+                                    $Y_big = $this->vertices[$j]->getY();
+                                    /* Se o vértice analisado não abrir bloco, o valor de X será o mesmo
+                                    do vértice que possuir maior Y dentro do bloco.
+                                    Senão será incrementado um intervalo de X.*/
+                                    if(!$this->containsBlockOpening($key))
+                                        $coordintateX = $this->vertices[$j]->getX();
+                                    else
+                                        $coordintateX = $this->vertices[$i]->getX() + $distanceX;
+
+                                    /* O valor de Y será o maior Y do bloco + o dobro do intervalo de Y*/
+                                    $coordintateY = $this->vertices[$j]->getY() + ($distanceY*2);
+                                }
+                            }
+                        }
+                        /* Se o vértice encontrado não abrir bloco, o valor de X e Y será o incremento de seus intervalos*/
+                        else {
+                            $coordintateX = $this->vertices[$i]->getX() + $distanceX;
+                            $coordintateY = $this->vertices[$i]->getY() + $distanceY;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     /**
