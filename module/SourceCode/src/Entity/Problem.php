@@ -60,6 +60,7 @@ class Problem extends Entity
      */
     private $category;
 
+    //@todo rever se continuar usando esse array collection
     /**
      * Uma coleção de todos os códigos fonte submetidos para esse problema
      *
@@ -69,6 +70,16 @@ class Problem extends Entity
      * @var ArrayCollection
      */
     private $sourceCodes;
+
+    /**
+     * Uma coleção o Rank de usuários que resolveram esse problema
+     *
+     * @ORM\OneToMany(targetEntity="Rank", mappedBy="problem")
+     * @ORM\JoinColumn(name="id", referencedColumnName="problem_id")
+     *
+     * @var ArrayCollection
+     */
+    private $rank;
 
     /**
      * Retorna o id de identificação do Problema
@@ -158,6 +169,26 @@ class Problem extends Entity
     public function setSourceCodes($sourceCodes)
     {
         $this->sourceCodes = $sourceCodes;
+    }
+
+    /**
+     * Retorna o Rank de usuários que resolveram esse problema
+     *
+     * @return ArrayCollection
+     */
+    public function getRank()
+    {
+        return $this->rank;
+    }
+
+    /**
+     * Define o Rank de usuários que resolveram esse problema
+     *
+     * @param ArrayCollection $rank
+     */
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
     }
 
     /**

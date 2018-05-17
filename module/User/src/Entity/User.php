@@ -8,6 +8,7 @@
 namespace User\Entity;
 
 use Application\Entity\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 use SourceCode\Entity\Language;
@@ -76,6 +77,16 @@ class User extends Entity
      * @var boolean
      */
     private $activeAccount;
+
+    /**
+     * Uma coleção das colocações desse usuário nos Ranks
+     *
+     * @ORM\OneToMany(targetEntity="SourceCode\Entity\Rank", mappedBy="user")
+     * @ORM\JoinColumn(name="id", referencedColumnName="user_id")
+     *
+     * @var ArrayCollection
+     */
+    private $rankings;
 
     /**
      * User constructor.
@@ -199,6 +210,26 @@ class User extends Entity
     public function setActiveAccount($activeAccount)
     {
         $this->activeAccount = $activeAccount;
+    }
+
+    /**
+     * Retorna as colocações que esse usuário está em cada questão
+     *
+     * @return ArrayCollection
+     */
+    public function getRankings()
+    {
+        return $this->rankings;
+    }
+
+    /**
+     * Define as colocações que esse usuário está em cada questão
+     *
+     * @param ArrayCollection $rankings
+     */
+    public function setRankings($rankings)
+    {
+        $this->rankings = $rankings;
     }
 
     /**

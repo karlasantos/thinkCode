@@ -115,16 +115,6 @@ class AnalysisResults extends Entity
     }
 
     /**
-     * Define o Id de identificação da Análise
-     *
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * Retorna o código fonte que a análise pertence
      *
      * @return SourceCode
@@ -305,8 +295,8 @@ class AnalysisResults extends Entity
     }
 
     /**
-     * Método abstrato que retorna os dados dos Resultados da Análise em formato de array
-     * @return mixed
+     * Método retorna os dados dos Resultados da Análise em formato de array
+     * @return array
      */
     public function toArray()
     {

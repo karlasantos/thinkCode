@@ -176,9 +176,9 @@ class AnalysisStructure
                     //todo colocar para caso de implementar then
                     //if($vertex2->getName() !== $this->languageEntity->getIfThenNameVertex() && $vertex2->getOpeningVertexIndex() === $key) {
                     if($vertex2->getOpeningVertexIndex() === $key) {
-                        if($this->vertices[$key2+1] instanceof Vertex && (
-                            $languageService->isInitialBypassCommandElseIf($this->vertices[$key2+1]->getName()) ||
-                            $languageService->isInitialBypassCommandElse($this->vertices[$key2+1]->getName())))
+//                        if($this->vertices[$key2+1] instanceof Vertex && (
+//                            $languageService->isInitialBypassCommandElseIf($this->vertices[$key2+1]->getName()) ||
+//                            $languageService->isInitialBypassCommandElse($this->vertices[$key2+1]->getName())))
                             $right = $key2 + 1;
                         break;
                     }
@@ -357,8 +357,8 @@ class AnalysisStructure
         $distanceY = 35;
 
         /* COORDENADA X e Y: os valores de X e Y serão armazenados nessas variáveis.*/
-        $coordintateX = 0;
-        $coordintateY = 0;
+        $coordinateX = 0;
+        $coordinateY = 0;
 
         $Y_big   = 0;
         $valueIF = 0;
@@ -366,19 +366,21 @@ class AnalysisStructure
         $count        = 0;
         $countTotal   = 0;
         $countBig   = 0;
+        $vertexOpening = 0;
+        $isEnd = false;
 
         /* Definindo a posição do vértice INICIO*/
         $this->vertices[0]->setX(10);
         $this->vertices[0]->setY(50);
 
-        foreach ($this->vertices as $key => $vertex) {
+        for($key = 1; $key < count($this->vertices); $key++) {
             /* 1. Análise dos vértices ELSE e ELSEIF*/
-            if($languageService->isInitialBypassCommandElse($vertex->getName()) || $languageService->isInitialBypassCommandElseIf($vertex->getName())) {
+            if($languageService->isInitialBypassCommandElse($this->vertices[$key]->getName()) || $languageService->isInitialBypassCommandElseIf($this->vertices[$key]->getName())) {
                 $Y_big   = 0;
                 for($i = 0; $i < count($this->vertices); $i++) {
                     if($this->vertices[$i]->getRightVertexIndex() === $key) {
                         /* Se o vértice encontrado abrir bloco*/
-                        if($this->containsBlockOpening($key)) {
+                        if($this->containsBlockOpening($i)) {
                             /* Percorre até o fim do bloco desse vértice encontrado*/
                             for($j = $i; $j < count($this->vertices); $j++) {
                                 if($i == $this->vertices[$j]->getOpeningVertexIndex())
@@ -390,25 +392,190 @@ class AnalysisStructure
                                     do vértice que possuir maior Y dentro do bloco.
                                     Senão será incrementado um intervalo de X.*/
                                     if(!$this->containsBlockOpening($key))
-                                        $coordintateX = $this->vertices[$j]->getX();
+                                        $coordinateX = $this->vertices[$j]->getX();
                                     else
-                                        $coordintateX = $this->vertices[$i]->getX() + $distanceX;
+                                        $coordinateX = $this->vertices[$i]->getX() + $distanceX;
 
                                     /* O valor de Y será o maior Y do bloco + o dobro do intervalo de Y*/
-                                    $coordintateY = $this->vertices[$j]->getY() + ($distanceY*2);
+                                    $coordinateY = $this->vertices[$j]->getY() + ($distanceY*2);
                                 }
                             }
                         }
                         /* Se o vértice encontrado não abrir bloco, o valor de X e Y será o incremento de seus intervalos*/
                         else {
-                            $coordintateX = $this->vertices[$i]->getX() + $distanceX;
-                            $coordintateY = $this->vertices[$i]->getY() + $distanceY;
+                            $coordinateX = $this->vertices[$i]->getX() + $distanceX;
+                            $coordinateY = $this->vertices[$i]->getY() + $distanceY;
                         }
                         break;
                     }
                 }
+                $Y_big   = 0;
             }
+
+            /* 2. Trecho responsável por definir o X e Y do ENDIF*/
+            else if ($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName']) {
+                $valueIF = 0;
+                $count = 0;
+                $countTotal = 0;
+                $countBig = 0;
+
+                /* 2.1. Localiza o valor de X do vértice que se liga ao ENDIF pela Esquerda
+                   e que seja um IF ou um bloco do IF*/
+                for ($i = 0; $i < $key; $i++) {
+                    //verifica qual vértice e qual a coordenada do vértice que se liga a direita do ENDIF
+                    if($this->vertices[$i]->getLeftVertexIndex() == $key) {
+                        $valueIF = $this->vertices[$i]->getX();
+                        break;
+                    }
+                    //verifica se o comando se liga a direita e se é um FOR ou WHILE e insere a distância do ENDFOR/ENDWHILE no valor
+                    else if($this->vertices[$i]->getRightVertexIndex() == $key && ($languageService->isInitialBypassCommandFor($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandWhile($this->vertices[$i]->getName()))) {
+                        for($j = 0; $j < count($this->vertices); $j++) {
+                            if($this->vertices[$j]->getOpeningVertexIndex() == $i) {
+                                $valueIF = $this->vertices[$j]->getX();
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                /* 2.2. Aux recebe o valor de X do vértice de abertura do ENDIF*/
+                $aux = $this->vertices[($this->vertices[$key]->getOpeningVertexIndex())]->getX();
+
+                /* 2.3. Compara se o valorIF é maior que o contMaior*/
+                if ($valueIF > $countBig){
+                    $countBig = $valueIF;
+                }
+
+                /* 2.4. Se após o ENDIF tiver um ELSEIF ou ELSE*/
+                if($languageService->isInitialBypassCommandElseIf($this->vertices[$key+1]->getName()) || $languageService->isInitialBypassCommandElse($this->vertices[$key+1]->getName())) {
+                    /* Percorre do ENDIF até o final da Lista de Vértices*/
+                    for ($j = $key+1; $j < count($this->vertices); $j++) {
+                        /* Aux vai ser incrementado a cada comando encontrado*/
+                        $aux += $distanceX;
+
+                        /* Esse FOR vai pular qualquer bloco criado por ELSEIF ou ELSE */
+                        for($k = $j; $k < count($this->vertices); $k++) {
+                            if($this->vertices[$k]->getOpeningVertexIndex() == $j) {
+                                /* Esse cont armazena o número de vértices contido no bloco criado*/
+                                $count = $k - $j;
+                                /* j = l faz com que o for externo pule o bloco*/
+                                $j = $k;
+                                break;
+                            }
+                        }
+
+                        /* countTotal vai calcular o valor de X ao final do comando analisado*/
+                        $countTotal = $aux + ($count * $distanceX);
+
+                        /* Aqui é definido o maior valor de X encontrado*/
+                        if ($countTotal > $countBig){
+                            $countBig = $countTotal;
+                        }
+
+                        $countTotal = 0;
+                        $count = 0;
+
+                        /* Critério de saída do FOR, onde é o ultimo vertice a se ligar ao ENDIF*/
+                        if($this->vertices[$j]->getLeftVertexIndex() == $key && ($languageService->isInitialBypassCommandElse($this->vertices[$j]->getName()) || $this->vertices[$j]->getName() == $language->getEndVertexName().$languageService->getBypassCommandElse()['initialCommandName'])) {
+                            break;
+                        }
+                    }
+                }
+
+                /* 2.5. O valor de X do ENDIF será o maior valor de X encontrado mais o intervalo de X*/
+                $coordinateX = $countBig + $distanceX;
+                $aux = 0;
+
+                /* 2.6. Localiza o vértice de abertura do ENDIF*/
+                $vertexOpening = $this->vertices[$key]->getOpeningVertexIndex();
+
+                /* 2.7. Se após o ENDIF houver um ELSEIF ou ELSE, a coordenadaY será o mesmo do vértice de abertura*/
+                if($languageService->isInitialBypassCommandElseIf($this->vertices[$key+1]->getName()) || $languageService->isInitialBypassCommandElse($this->vertices[$key+1]->getName()))
+                    $coordinateY = $this->vertices[$vertexOpening]->getY();
+                /* Senão a coordenadaY será o valor do Y do vértice de abertura mais o intervaloY*/
+                else {
+                    $coordinateY = $this->vertices[$vertexOpening]->getY() + $distanceY;
+                    $coordinateX = $this->vertices[$key-1]->getX() + $distanceX;
+                }
+            }
+
+            /* 3 Trata os ENDELSE e ENDELSEIF*/
+            else if($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getInitialBypassCommandElseIf() || $this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandElse()['initialCommandName']) {
+                $vertexOpening = $this->vertices[$key]->getOpeningVertexIndex();
+                $coordinateY = $this->vertices[$vertexOpening]->getY();
+                $coordinateX = $this->vertices[$key-1]->getX() + $distanceX;
+            }
+
+            /* . Trecho responsável por definir X e Y dos demais vértices*/
+            else {
+                /* Percorre a Lista de Vértices*/
+                for ($i = 0; $i < count($this->vertices); $i++) {
+                    /* Encontra o vértice que liga-se a esquerda do vértice analisado*/
+                    if($this->vertices[$i]->getLeftVertexIndex() == $key) {
+                        /* ===> Se for um IF que abre bloco e sem ELSE IF e ELSE assume outro valor para Y*/
+
+                        /* .1 TRECHO DE CÓDIGO QUE DEFINE O VALOR DE Y PARA VÉRTICES QUE FICAM DENTRO DE UM IF SEM ELSE
+                                Se esse vértice encontrado for um IF*/
+                        if($languageService->isInitialBypassCommandIf($this->vertices[$i]->getName())) {
+                            /* Percorre a lista de vértices a procura do vértice que possui o IF como vértice de abertura*/
+                            for($j = 0; $j < count($this->vertices); $j++) {
+                                if($this->vertices[$j]->getOpeningVertexIndex() == $i) {
+                                    /* Se esse IF analisado não possuir um ELSEIF ou ELSE, então o valor de Y será o valor do Y do IF + o intervalo*/
+                                    if (!$languageService->isInitialBypassCommandElseIf($this->vertices[$j+1]->getName()) && !$languageService->isInitialBypassCommandElse($this->vertices[$j+1]->getName())) {
+                                        $coordinateY = $this->vertices[$i]->getY() + $distanceY;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        /* Se o comando é FOR ou WHILE */
+                        if($languageService->isInitialBypassCommandFor($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandWhile($this->vertices[$i]->getName())) {
+                            $coordinateY = $this->vertices[$i]->getY() + $distanceY;
+                        }
+
+//                        //Se o comando é um ENDFOR
+                        if($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandFor()['initialCommandName'] || $this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandWhile()['initialCommandName']) {
+//                        if(strpos($this->vertices[$key]->getName(), $language->getEndVertexName()) !== false && $this->vertices[$key]->getName() !== $language->getEndVertexName()) {
+                            $coordinateY = $this->vertices[($this->vertices[$key]->getOpeningVertexIndex())]->getY();
+                        }
+
+                        /* .2 A coordenadaX será o valor de X do vértice de origem*/
+                        $coordinateX = $this->vertices[$i]->getX() + $distanceX;
+
+                        /* Se o Y ainda não foi definido, ele será o mesmo Y do vértice de origem*/
+                        if($coordinateY == 0)
+                            $coordinateY = $this->vertices[$i]->getY();
+                        break;
+                    }
+                    //verifica se o comando se liga a direita e se é um FOR ou WHILE e insere a distância do ENDFOR/ENDWHILE no valor
+                    else if($this->vertices[$i]->getRightVertexIndex() == $key && ($languageService->isInitialBypassCommandFor($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandWhile($this->vertices[$i]->getName()))) {
+                        for($j = 0; $j < count($this->vertices); $j++) {
+                            if($this->vertices[$j]->getOpeningVertexIndex() == $i) {
+                                $coordinateX = $this->vertices[$j]->getX() + $distanceX;
+                                $coordinateY = $this->vertices[$j]->getY();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+
+                    /* Caso do if sem else e sem else if*/
+                    if(!$languageService->isInitialBypassCommandElseIf($this->vertices[$key]->getName()) && !$languageService->isInitialBypassCommandElse($this->vertices[$key]->getName()) && $this->vertices[$i]->getRightVertexIndex() == $key && $languageService->isInitialBypassCommandIf($this->vertices[$i]->getName())) {
+                        $coordinateY = $this->vertices[$i]->getY();
+                    }
+                }
+            }
+
+            $this->vertices[$key]->setX($coordinateX);
+            $this->vertices[$key]->setY($coordinateY);
+
+            $coordinateX = 0;
+            $coordinateY = 0;
         }
+
+        //todo retorno temporário
+        return $this->vertices;
     }
 
     /**

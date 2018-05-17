@@ -66,6 +66,7 @@ class SourceCodeController extends RestfulController
 
     public function getList()
     {
+        //die("teste");
         try {
             $analysis = new AnalysisStructure($this->entityManager);
             $language = $this->entityManager->find(Language::class, 1);
@@ -172,11 +173,22 @@ class SourceCodeController extends RestfulController
                     }
                     
             }");
+            $sourceCode->setContent("int main() {
+                
+                    if {
+                        for () {
+                        }
+                    } else {
+                    }
+                   
+                    
+            }");
 //            $result = $this->dataCollect->getDataFromCode($sourceCode);
 
             //estrutura de analise
             $result = $analysis->setVertices($sourceCode);
             $result = $analysis->setEdges($sourceCode->getLanguage());
+            $result = $analysis->setCoordinates($sourceCode->getLanguage());
             $arrayResult = array();
             foreach ($result as $value) {
                 if($value instanceof Vertex)
@@ -187,7 +199,7 @@ class SourceCodeController extends RestfulController
 //                    ];
                     $arrayResult[] = $value->toArray();
             }
-//            die();
+            //die();
             return new JsonModel([
                 'resultsC' => array($arrayResult),
             ]);
