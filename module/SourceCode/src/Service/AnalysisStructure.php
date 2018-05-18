@@ -392,7 +392,7 @@ class AnalysisStructure
                                     do vértice que possuir maior Y dentro do bloco.
                                     Senão será incrementado um intervalo de X.*/
                                     if(!$this->containsBlockOpening($key))
-                                        $coordinateX = $this->vertices[$j]->getX();
+                                        $coordinateX = $this->vertices[$j]->getX() + $distanceX;
                                     else
                                         $coordinateX = $this->vertices[$i]->getX() + $distanceX;
 
@@ -530,12 +530,12 @@ class AnalysisStructure
                         }
 
                         /* Se o comando é FOR ou WHILE */
-                        if($languageService->isInitialBypassCommandFor($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandWhile($this->vertices[$i]->getName())) {
+                        if($languageService->isInitialBypassCommandFor($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandWhile($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandDoWhile($this->vertices[$i]->getName())) {
                             $coordinateY = $this->vertices[$i]->getY() + $distanceY;
                         }
 
 //                        //Se o comando é um ENDFOR
-                        if($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandFor()['initialCommandName'] || $this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandWhile()['initialCommandName']) {
+                        if($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandFor()['initialCommandName'] || $this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandWhile()['initialCommandName'] || $this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandDoWhile()['initialCommandName']) {
 //                        if(strpos($this->vertices[$key]->getName(), $language->getEndVertexName()) !== false && $this->vertices[$key]->getName() !== $language->getEndVertexName()) {
                             $coordinateY = $this->vertices[($this->vertices[$key]->getOpeningVertexIndex())]->getY();
                         }
@@ -550,12 +550,18 @@ class AnalysisStructure
                     }
                     //verifica se o comando se liga a direita e se é um FOR ou WHILE e insere a distância do ENDFOR/ENDWHILE no valor
                     else if($this->vertices[$i]->getRightVertexIndex() == $key && ($languageService->isInitialBypassCommandFor($this->vertices[$i]->getName()) || $languageService->isInitialBypassCommandWhile($this->vertices[$i]->getName()))) {
-                        for($j = 0; $j < count($this->vertices); $j++) {
-                            if($this->vertices[$j]->getOpeningVertexIndex() == $i) {
+                        for ($j = 0; $j < count($this->vertices); $j++) {
+                            if ($this->vertices[$j]->getOpeningVertexIndex() == $i) {
                                 $coordinateX = $this->vertices[$j]->getX() + $distanceX;
-                                $coordinateY = $this->vertices[$j]->getY();
                                 break;
                             }
+                        }
+
+                        if ($this->vertices[$key]->getName() != $language->getEndVertexName() . $languageService->getBypassCommandFor()['initialCommandName'] && $this->vertices[$key]->getName() != $language->getEndVertexName() . $languageService->getBypassCommandWhile()['initialCommandName'] && $this->vertices[$key]->getName() != $language->getEndVertexName() . $languageService->getBypassCommandDoWhile()['initialCommandName']) {
+                            $coordinateY = $this->vertices[$j]->getY();
+                        }
+                        else {
+                            $coordinateY = $this->vertices[$this->vertices[$key]->getOpeningVertexIndex()]->getY();
                         }
                         break;
                     }

@@ -14,6 +14,7 @@ use Exception;
 use SourceCode\Entity\Language;
 use SourceCode\Entity\Problem;
 use SourceCode\Entity\SourceCode;
+use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
 use SourceCode\Service\AnalysisStructure;
 use SourceCode\Service\DataCollect;
@@ -173,31 +174,36 @@ class SourceCodeController extends RestfulController
                     }
                     
             }");
-            $sourceCode->setContent("int main() {
-                
-                    if {
-                        for () {
-                        }
-                    } else {
-                    }
-                   
-                    
+            $sourceCode->setContent("
+            int main() {\n
+                if {\n
+                   do { \n
+                      while { \n
+                        if {\n
+                        }\n
+                        else {\n
+                        }\n
+                      } \n
+                   } while ();\n
+                } \n
             }");
-//            $result = $this->dataCollect->getDataFromCode($sourceCode);
+            $result = $this->dataCollect->getDataFromCode($sourceCode);
 
             //estrutura de analise
             $result = $analysis->setVertices($sourceCode);
             $result = $analysis->setEdges($sourceCode->getLanguage());
             $result = $analysis->setCoordinates($sourceCode->getLanguage());
             $arrayResult = array();
-            foreach ($result as $value) {
+            foreach ($result as $key => $value) {
                 if($value instanceof Vertex)
 //                    $valor = [
 //                        'name' => $value->getName(),
 //                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
 //                        'lineNumber' => $value->getEndLineNumber()
 //                    ];
-                    $arrayResult[] = $value->toArray();
+                    $setValue = $value->toArray();
+                    $setValue['id'] = $key;
+                    $arrayResult[] = $setValue;
             }
             //die();
             return new JsonModel([

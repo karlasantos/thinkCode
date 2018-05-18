@@ -217,11 +217,14 @@ class DataCollect
             //verifica se a linha contém a estrutura de início de código
             if(!$removeLastKey && $this->lineContainsInitialCodeStructure($line, $language->getInitialCodeStructure())) {
                 $removeLastKey = true;
+//                \Zend\Debug\Debug::dump("remove last key IF:");
+//                \Zend\Debug\Debug::dump($removeLastKey);
                 continue;
             } else {
                 //identifica se a linha contém tipo de dados, isso indica que a linha contém declaração de variável
                 $lineContainsDataType = $this->lineContainsDataType($line);
             }
+//            print_r("-------------------------------------------------------------------------------------------------");
 
              /* Verifica se a linha não possui o token de terminal do comando do do-while,
               que deve ser ignorado na adição */
@@ -232,6 +235,8 @@ class DataCollect
              e não deve ser adicionado como token de desvio */
             else if($this->lineContainsToken($line, ";")){
                 $addToken = false;
+            } else {
+                $addToken = true;
             }
 
             // Verifica se a linha contém o comando de switch e conta os cases dentro desse switch
@@ -281,6 +286,7 @@ class DataCollect
 //                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
 //                \Zend\Debug\Debug::dump('character:'. $character.".");
 //                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. (string)(!$isComment && !$isText).".");
+//                \Zend\Debug\Debug::dump('ADD TOKEN:'. $addToken);
 //                \Zend\Debug\Debug::dump('---- TOKENS -----');
 //                $arrayResult = array();
 //                foreach ($this->codeCommands as $value) {
@@ -288,7 +294,6 @@ class DataCollect
 //                        $arrayResult[] = $value->getName();
 //                }
 //                \Zend\Debug\Debug::dump($arrayResult);
-//                print_r("-------");
 
                 // 3 - Se não é comentário e texto o caracter é parte do código efetivo.
                 if(!$isComment && !$isText) {
@@ -410,7 +415,8 @@ class DataCollect
                         /* 3.1.2 - Se addToken for falso significa que o terminal de comando desvio foi encontrado e não deve ser adicionado,
                           podendo ser inicializado novamente
                         */
-                        else {
+                        else if ($token === $terminalDoWhile && !empty($terminalDoWhile)) {
+                            $this->addTokenTerminalDoWhile($lineNumber);
                             $terminalDoWhile = null;
                             $addToken = true;
                         }
@@ -449,8 +455,10 @@ class DataCollect
 //        var_dump($removeLastKey);
 
         //verifica se a última chave deve ser removida (chave que indica o fechamento do código)
-        if($removeLastKey && !empty($this->codeCommands))
+        if($removeLastKey && !empty($this->codeCommands)) {
             array_pop($this->codeCommands);
+            array_pop($this->codeCommandsName);
+        }
 
         // Será adicionado um ponto no final para atender a classe ctrlAnalisaEstrutura,
         // simbolizando o fim do vetor.
@@ -600,7 +608,7 @@ class DataCollect
      * @param $token
      * @return bool
      */
-    private function isTerminalBypassCommandLastCodeCommand($previusBypassCommand, $token)
+    private function isTerminalBypassCommandLastCodeCommand(CodeBypassCommand $previusBypassCommand, $token)
     {
         $terminalCommands = array();
 
@@ -636,7 +644,7 @@ class DataCollect
            para que permaneçam na lista de vértices apenas as chaves que tiverem comandos aninhados
         */
         if($this->languageService->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{") {
-            if($this->isTerminalBypassCommandLastCodeCommand($lastButOne, $token)) {
+            if($this->isTerminalBypassCommandLastCodeCommand($lastButOne, $token) && (!$this->languageService->isInitialBypassCommandDoWhile($lastButOne->getName()) || ($this->languageService->isInitialBypassCommandDoWhile($lastButOne->getName()) && !$this->languageService->terminalBypassCommandDoWhileIsAlsoInitial()))) {
                 //salva a linha inicial do último comando
                 if ($lastCommand instanceof CodeBypassCommand)
                     $initialLineNumber = $lastCommand->getInitialLineNumber();
@@ -691,6 +699,46 @@ class DataCollect
             $endCodeBypassCommand->setInitialLineNumber($lineNumber);
             array_push($this->codeCommands, $endCodeBypassCommand);
             array_push($this->codeCommandsName, $token);
+        }
+    }
+
+    private function addTokenTerminalDoWhile($lineNumber) {
+        end($this->codeCommands);
+        $lastIndex = key($this->codeCommands);
+        $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
+        $initialLineNumber = null;
+
+        /* - Se o token for um token de término de comando de desvio e o último da lista for um {, então remove da lista o {
+           para que permaneçam na lista de vértices apenas as chaves que tiverem comandos aninhados
+        */
+        if($lastCommand instanceof CodeBypassCommand && $lastCommand->getName() === "{") {
+            //salva a linha inicial do último comando
+            if ($lastCommand instanceof CodeBypassCommand)
+                $initialLineNumber = $lastCommand->getInitialLineNumber();
+
+            //remove o último elemento da lista de comandos que seria uma chave "{"
+            array_pop($this->codeCommands);
+            //remove do array de nomes de comandos
+            array_pop($this->codeCommandsName);
+
+            //recalcula os tamanhos e adquire o novo último comando da lista de comandos de desvio do código
+            end($this->codeCommands);
+            $lastIndex = key($this->codeCommands);
+            $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
+
+            //define a linha inicial do comando para a linha inicial do comando "{" que foi removido
+            if ($lastCommand instanceof CodeBypassCommand) {
+                $lastCommand->setInitialLineNumber($initialLineNumber);
+                $lastCommand->setEndLineNumber($lineNumber);
+            }
+        } else {
+            //cria o comando fechamento de bloco
+            $endBlockCommand = new CodeBypassCommand();
+            $endBlockCommand->setName("}");
+            $endBlockCommand->setInitialLineNumber($lineNumber);
+
+            array_push($this->codeCommands, $endBlockCommand);
+            array_push($this->codeCommandsName, "}");
         }
     }
 }
