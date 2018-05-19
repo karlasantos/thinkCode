@@ -372,7 +372,7 @@ class Language
     {
         //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
         $indexOfElements = $this->indexOfConditionalBypassCommand("switch-case");
-        //percorre os indíces para encontrar o comando que representa o switch
+        //percorre os indíces para encontrar o comando que representa o case e default
         foreach ($indexOfElements as $indexOfElement) {
             //transforma a string de terminais de comando em array
             $terminalCommandsLength =  count(explode("|", $this->elementsOfLanguage['conditionalCommands'][$indexOfElement]['terminalCommandName']));
@@ -386,6 +386,25 @@ class Language
             }
         }
         return false;
+    }
+
+    public function isInitialBypassCommandDefault($token)
+    {
+        $commandName = null;
+        //identifica o índice dos elementos gráficos que representam o switch-case nos comandos de desvio através dos índices dos elementos gráficos
+        $indexOfElements = $this->indexOfConditionalBypassCommand("switch-case");
+        //percorre os indíces para encontrar o comando que representa o default
+        foreach ($indexOfElements as $indexOfElement) {
+            //transforma a string de terminais de comando em array
+            $terminalCommandsLength =  count(explode("|", $this->elementsOfLanguage['conditionalCommands'][$indexOfElement]['terminalCommandName']));
+            //ignora o comando "switch" que possui apenas um terminal
+            if($terminalCommandsLength == 2) {
+                $commandName = $this->elementsOfLanguage['conditionalCommands'][$indexOfElement]['initialCommandName'];
+                break;
+            }
+        }
+
+        return $token == $commandName;
     }
 
     /**

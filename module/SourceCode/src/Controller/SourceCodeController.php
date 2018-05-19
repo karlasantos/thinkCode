@@ -18,6 +18,7 @@ use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
 use SourceCode\Service\AnalysisStructure;
 use SourceCode\Service\DataCollect;
+use SourceCode\Service\GraphStructure;
 use SourceCode\Validation\SourceCodeValidator;
 use User\Entity\User;
 use Zend\View\Model\JsonModel;
@@ -69,7 +70,7 @@ class SourceCodeController extends RestfulController
     {
         //die("teste");
         try {
-            $analysis = new AnalysisStructure($this->entityManager);
+            $analysis = new GraphStructure($this->entityManager);
             $language = $this->entityManager->find(Language::class, 1);
             $sourceCode = new SourceCode();
             if($language instanceof Language)
@@ -152,41 +153,41 @@ class SourceCodeController extends RestfulController
                 case 2:
             \n}
             }");
-            $sourceCode->setContent("int main() {
-            \ndo
-            \n{
-                
-            \n} while (b > 0);
-            }");
-            $sourceCode->setContent("int main() {
-            \nwhile (b > 0)
-            \n{
-                
-            \n}
-            }");
-            $sourceCode->setContent("int main() {
-                
-                    if {
-                    } else if {
-                       for () {
-                       }
-                    } else {
-                    }
-                    
-            }");
-            $sourceCode->setContent("
-            int main() {\n
-                if {\n
-                   do { \n
-                      while { \n
-                        if {\n
-                        }\n
-                        else {\n
-                        }\n
-                      } \n
-                   } while ();\n
-                } \n
-            }");
+//            $sourceCode->setContent("int main() {
+//            \ndo
+//            \n{
+//
+//            \n} while (b > 0);
+//            }");
+//            $sourceCode->setContent("int main() {
+//            \nwhile (b > 0)
+//            \n{
+//
+//            \n}
+//            }");
+//            $sourceCode->setContent("int main() {
+//
+//                    if {
+//                    } else if {
+//                       for () {
+//                       }
+//                    } else {
+//                    }
+//
+//            }");
+//            $sourceCode->setContent("
+//            int main() {\n
+//                if {\n
+//                   do { \n
+//                      while { \n
+//                        if {\n
+//                        }\n
+//                        else {\n
+//                        }\n
+//                      } \n
+//                   } while ();\n
+//                } \n
+//            }");
             $result = $this->dataCollect->getDataFromCode($sourceCode);
 
             //estrutura de analise
