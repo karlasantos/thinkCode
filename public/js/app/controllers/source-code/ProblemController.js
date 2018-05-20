@@ -65,7 +65,7 @@ module.exports = function ($scope, $http, NgTableParams) {
             id: null,
             title: null,
             description: null,
-            categoryName: null,
+            category: {},
             resolved: false,
         },
 

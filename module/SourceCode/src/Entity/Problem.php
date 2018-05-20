@@ -76,6 +76,7 @@ class Problem extends Entity
      *
      * @ORM\OneToMany(targetEntity="Rank", mappedBy="problem")
      * @ORM\JoinColumn(name="id", referencedColumnName="problem_id")
+     * @ORM\OrderBy({"ranking" = "ASC"})
      *
      * @var ArrayCollection
      */

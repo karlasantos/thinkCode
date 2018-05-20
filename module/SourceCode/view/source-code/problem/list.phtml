@@ -12,8 +12,8 @@
             <table ng-table="problemsListTools.tableParams" class="table table-hover" show-filter="false">
                 <tbody class="clickable" ng-repeat="problem in $data" ng-click="problemsListTools.changeSelection(problem);">
                     <tr ng-class="{'table-active': problem.$selected}">
-                        <td title="''" width="5%">
-                            <i class="fa fa-check text-success" aria-hidden="true" ng-if="problem.resolved"></i>
+                        <td width="5%">
+                            <i class="fa fa-check text-success" aria-hidden="true" ng-if="problem.resolved" title="Enviado"></i>
                         </td>
                         <td title="'#'">
                             {{problem.id}}
@@ -22,10 +22,10 @@
                             {{problem.title}}
                         </td>
                         <td title="'Categoria'" filter="{ title: 'text'}" sortable="'categoryName'">
-                            {{problem.categoryName}}
+                            {{problem.category.name}}
                         </td>
                     </tr>
-                <tbody ng-repeat="client in $data" ng-dblclick="openModal('/pessoa/cliente/save/'+client.id, 'modal-form-add-person')" ng-click="changeSelection(client)" class="clickable" ng-init="aux=false" style="border-top:0!important">
+                </tbody>
             </table>
         </div>
     </div>

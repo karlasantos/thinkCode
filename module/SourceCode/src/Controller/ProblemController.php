@@ -10,7 +10,10 @@ namespace SourceCode\Controller;
 
 use Application\Controller\RestfulController;
 use Application\Entity\OrderTemplate;
+use Doctrine\ORM\Query\Expr\OrderBy;
+use Exception;
 use SourceCode\Entity\Problem;
+use SourceCode\Service\SourceCode;
 use User\Entity\User;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
@@ -58,6 +61,7 @@ class ProblemController extends RestfulController
         $count = $this->params()->fromQuery('count');
         //ordenador
         $sort  = $this->params()->fromQuery('sort');
+        $userSourceCodesIds = array();
 
         //prepara o template de ordenação
         $order = new OrderTemplate();
@@ -70,16 +74,25 @@ class ProblemController extends RestfulController
         $order->setParamsFromRoute($sort);
 
         $problems = $this->entityManager->createQueryBuilder()
-                    ->select('problem.id, problem.title, cat.name AS categoryName')
-                    ->from(Problem::class, 'problem')
-                    ->leftJoin('problem.category', 'cat')
-                    ->orderBy($order->getField(), $order->getMode())
-                    ->getQuery()
-                    ->getArrayResult();
+                        ->select('partial problem.{id, title}, partial cat.{id, name}')
+                        ->from(Problem::class, 'problem')
+                        ->leftJoin('problem.category', 'cat')
+                        ->orderBy($order->getField(), $order->getMode())
+                        ->getQuery()
+                        ->getArrayResult();
+
+        try {
+            if (isset($_SESSION['Zend_Auth']->getArrayCopy()['storage'])) {
+                $sourceCodeService = new SourceCode($this->entityManager);
+                $userSourceCodesIds = $sourceCodeService->getUserSourceCodesSimple($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
+            }
+        } catch (Exception $exception) {
+
+        }
 
         foreach ($problems as $key => $problem) {
             //organizar conforme o usuário logado
-            $problems[$key]['resolved'] = false;
+            $problems[$key]['resolved'] = in_array($problem['id'], $userSourceCodesIds);
         }
 
         $total      = count($problems);
@@ -111,27 +124,40 @@ class ProblemController extends RestfulController
     {
         $id = intval($id);
         $session = $this->params()->fromQuery('session');
+        $userSourceCodesIds = array();
 
         try {
             $problem = $this->entityManager->createQueryBuilder()
-                ->select('problem.id, problem.title, problem.description, cat.name AS categoryName, cat.description AS categoryDescription')
+                ->select('partial problem.{id, title, description}')
+                ->addSelect('partial cat.{id, name, description}, rank, partial user.{id}, partial profile.{id, fullName}')
                 ->from(Problem::class, 'problem')
                 ->leftJoin('problem.category', 'cat')
+                ->leftJoin('problem.rank', 'rank')
+                ->leftJoin('rank.user', 'user')
+                ->leftJoin('user.profile', 'profile')
                 ->where('problem.id = :problemId')
                 ->setParameter('problemId', $id)
                 ->getQuery()
-                ->getSingleResult();
+                ->getArrayResult();
 
             //verifica se o atributo para buscar as informações de linguagem padrão foram inseridos
-            if($session) {
-                $user = $this->entityManager->find(User::class,  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
-                if($user instanceof User) {
-                    $language = $user->getProfile()->getDefaultLanguage();
-                    $problem['language'] = ['id' => $language->getId(), 'name' => $language->getName()];
-                    $problem['languageId'] = $problem['language']['id'];
+            if(count($problem) > 0) {
+                if ($session) {
+                    $user = $this->entityManager->find(User::class, $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
+                    if ($user instanceof User) {
+                        $language = $user->getProfile()->getDefaultLanguage();
+                        $problem[0]['language'] = ['id' => $language->getId(), 'name' => $language->getName()];
+                        $problem[0]['languageId'] = $problem['language']['id'];
+                    }
                 }
+
+                $sourceCodeService = new SourceCode($this->entityManager);
+                $userSourceCodesIds = $sourceCodeService->getUserSourceCodesSimple($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
+                $problem[0]['resolved'] = in_array($problem[0]['id'], $userSourceCodesIds);
+            } else {
+                throw new Exception(ProblemController::PROBLEM_NOT_FOUND);
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->getResponse()->setStatusCode(400);
             return new JsonModel(
                 array(
@@ -142,7 +168,7 @@ class ProblemController extends RestfulController
         }
         return new JsonModel(
             array(
-                'result' => $problem
+                'result' => $problem[0]
             )
         );
     }

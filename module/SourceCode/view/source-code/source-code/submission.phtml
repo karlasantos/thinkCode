@@ -7,15 +7,15 @@
     <div class="card form">
         <div class="card-header align-items-center">
             <h3 class="text-center">{{submissionTools.problem.title}}</h3>
-            <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.categoryName}}</h5>
+            <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.category.name}}</h5>
         </div>
         <div class="card-body">
             <form id="submission-form">
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
-                    <div class="col-md-8">
+                    <div class="col-md-3">
                         <label for="source-code" class="form-control-label m-b-5">Insira sua solução</label>
                     </div>
-                    <div class="col-md-4 p-l-0 m-b-5">
+                    <div class="col-md-3 p-l-0 m-b-5">
                         <md-autocomplete
                                 md-no-cache="false"
                                 md-selected-item="submissionTools.problem.language"
@@ -34,8 +34,42 @@
                             </md-not-found>
                         </md-autocomplete>
                     </div>
-                    <div class="form-group col-md-12 p-l-0">
-                        <textarea ng-model="submissionTools.submissionData.content" id="source-code" type="text" rows="22" required=""  class="lined" cols="110"></textarea>
+                </div>
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                    <div class="form-group col-md-6 p-l-0">
+                        <textarea ng-model="submissionTools.submissionData.content" id="source-code" type="text" rows="28" required=""  class="lined" cols="55"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="text-center"> Rank de soluções
+                            <span class="dropdown inline">
+                                <button type="button" id="closeCard2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;  background: #0e90d2; border: none;"><i class="fa fa-info"></i></button>
+                                <div aria-labelledby="closeCard2" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                                    <p>Seleciona uma das soluções do ranking para realizar a comparação dos códigos fonte.</p>
+                                </div>
+                            </span>
+                        </h5>
+                        <table class="table table-hover table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Posição</th>
+                                    <th>Usuário</th>
+                                </tr>
+                            </thead>
+                            <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
+                                <tr>
+                                    <td width="6%">
+                                        <input id="checkbox{{$index}}" type="checkbox" value="" checked="" class="checkbox-template" ng-click="submissionTools.changeComparison($index, !ranking.selected);" ng-model="ranking.selected"/>
+                                    </td>
+                                    <td title="Posição">
+                                        {{ranking.ranking}}
+                                    </td>
+                                    <td title="Usuário">
+                                        {{ranking.user.profile.fullName}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </form>

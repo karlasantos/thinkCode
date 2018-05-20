@@ -6,11 +6,36 @@
     </style>
     <div class="card form">
         <div class="card-header align-items-center">
-            <h3 class="text-center"> {{problemSelectedTools.problem.title}} <i class="fa fa-check text-success" aria-hidden="true" ng-if="problemSelectedTools.problem.resolved"></i></h3>
-            <h5 class="text-center text-blue font-weight-normal"> {{problemSelectedTools.problem.categoryName}}</h5>
+            <h3 class="text-center"> {{problemSelectedTools.problem.title}} <i class="fa fa-check text-success" aria-hidden="true" ng-if="problemSelectedTools.problem.resolved" title="Enviado"></i></h3>
+            <h5 class="text-center text-blue font-weight-normal"> {{problemSelectedTools.problem.category.name}}</h5>
         </div>
-        <div class="card-body text-center">
-            <p>{{problemSelectedTools.problem.description}}</p>
+        <div class="card-body">
+            <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                <div class="col-md-6 text-justify">
+                    <p>{{problemSelectedTools.problem.description}}</p>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-center"> Rank de soluções</h5>
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Usuário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="ranking in problemSelectedTools.problem.rank">
+                                <td title="Posição">
+                                    {{ranking.ranking}}
+                                </td>
+                                <td title="Usuário">
+                                    {{ranking.user.profile.fullName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="form-group">
                 <button class="btn btn-success pull-right" ng-click="problemSelectedTools.submitProblem()"><i class="fa fa-upload" aria-hidden="true"></i> Enviar Solução</button>
             </div>

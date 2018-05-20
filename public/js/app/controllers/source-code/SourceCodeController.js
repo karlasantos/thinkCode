@@ -31,7 +31,8 @@ module.exports = function ($scope, $http, SweetAlert) {
          * @param query string parâmetro de pesquisa
          * @returns {*}
          */
-        querySearchLanguage: function(query) {
+        querySearchLanguage: function(query)
+        {
             var address, request;
             if(query) {
                 address = '/api/source-code/language' + ('?search='+query.toLowerCase());
@@ -52,16 +53,34 @@ module.exports = function ($scope, $http, SweetAlert) {
          * Seleciona a linguagem de programação do código
          * @param language array de dados da linguagem de programação
          */
-        selectedLanguageChange: function(language) {
+        selectedLanguageChange: function(language)
+        {
             if(language != null)
                 $scope.submissionTools.submissionData.languageId = language.id;
             else
                 $scope.submissionTools.submissionData.languageId = null;
         },
+
+        changeComparison: function (index, value)
+        {
+            var oldSelected = $scope.submissionTools.problem.rank.filter(function (rankingObj) {
+                return rankingObj.selected != undefined && rankingObj.selected === true;
+            });
+            oldSelected = (oldSelected.length > 0)? oldSelected[0] : null;
+
+            if(oldSelected != null) {
+                oldSelected.selected = false;
+            }
+
+            $scope.submissionTools.problem.rank[index].selected = value;
+            $scope.submissionTools.submissionData.userCompareId = $scope.submissionTools.problem.rank[index].user.id;
+        },
+
         /**
          * Realiza a submissão do código fonte
          */
-        submitSourceCode: function () {
+        submitSourceCode: function ()
+        {
             if($scope.submissionTools.submissionData.languageId == null) {
                 SweetAlert.swal("Atenção", "Informe a Linguagem de Programação do Código.", "error");
             }
