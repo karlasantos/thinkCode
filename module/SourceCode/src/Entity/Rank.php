@@ -60,6 +60,15 @@ class Rank extends Entity
     private $ranking;
 
     /**
+     * Armazena a média da análise do código fonte de usuário
+     *
+     * @ORM\Column(name="analysis_mean", type="float", nullable=false)
+     *
+     * @var float
+     */
+    private $analysisMean;
+
+    /**
      * Retorna o id de identificação do Rank
      *
      * @return int
@@ -127,6 +136,26 @@ class Rank extends Entity
     public function setRanking($ranking)
     {
         $this->ranking = $ranking;
+    }
+
+    /**
+     * Retorna a média da análise do código fonte desse usuário
+     *
+     * @return float
+     */
+    public function getAnalysisMean()
+    {
+        return $this->analysisMean;
+    }
+
+    /**
+     * Define a média da análise do código fonte desse usuário
+     *
+     * @param float $analysisMean
+     */
+    public function setAnalysisMean($analysisMean)
+    {
+        $this->analysisMean = $analysisMean;
     }
 
     /**

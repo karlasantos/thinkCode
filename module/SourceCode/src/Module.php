@@ -49,7 +49,7 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
             'factories' => [
                 Controller\LanguageController::class   => ControllerFactory::class,
                 Controller\ProblemController::class    => ControllerFactory::class,
-                Controller\SourceCodeController::class => SourceCodeControllerFactory::class,
+                Controller\SourceCodeController::class => ControllerFactory::class,
             ],
         ];
     }
@@ -65,12 +65,12 @@ class Module implements ConfigProviderInterface, ServiceProviderInterface, Contr
         //Assinatura e fabricação dos services
         return [
             //atribui um aliases para os services fabricados
-            'aliases' => [
-                'dataCollect' => Service\DataCollect::class
-            ],
-            'factories' => [
-                Service\DataCollect::class =>  ControllerFactory::class,
-            ],
+//            'aliases' => [
+//                'dataCollect' => Service\DataCollect::class
+//            ],
+//            'factories' => [
+//                Service\DataCollect::class =>  ControllerFactory::class,
+//            ],
         ];
     }
 }

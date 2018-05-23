@@ -85,20 +85,31 @@ module.exports = function ($scope, $http, SweetAlert) {
                 SweetAlert.swal("Atenção", "Informe a Linguagem de Programação do Código.", "error");
             }
 
-            //todo enviar o Id do código para a análise de similaridade na requisição
-
             $http.post('/api/source-code/source-code', $scope.submissionTools.submissionData)
                 .then(function onSuccess(response) {
+                    $scope.resultAnalysisTools.initData(response.data, $scope.submissionTools.problem.id);
+                    $scope.resultAnalysisTools.showAnalysis = true;
 
                 }, function onError(response) {
                     var data = response.data;
                     if (data != null) {
                         //todo tratar melhor esses errors, fazer um service para isso
-                        $scope.accountTools.update.loading = false;
                         SweetAlert.swal("Erro", data.result, "error");
-                        console.log($scope.accountTools.update.result);
                     }
                 });
         }
     };
+
+    $scope.resultAnalysisTools = {
+        analysisSourceCodeSubject: {},
+        analysisSourceCodeSystem: {},
+        showAnalysis: true,
+
+        initData: function (data, problemId) {
+            $scope.resultAnalysisTools.analysisSourceCodeSubject = data.result.sourceCodeUser;
+            $scope.resultAnalysisTools.analysisSourceCodeSystem = data.result.sourceCodeSystem;
+            //retorna os novos dados do problema
+            $scope.submissionTools.initData(problemId);
+        },
+    }
 };

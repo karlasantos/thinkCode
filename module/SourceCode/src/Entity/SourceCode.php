@@ -52,13 +52,13 @@ class SourceCode extends Entity
      */
     private $submissionDate;
 
-    /**
-     * Indica se esse código fonte é referencial ou não
-     *
-     * @ORM\Column(type="boolean", nullable=false, options={"default": false})
-     * @var boolean
-     */
-    private $referential;
+//    /**
+//     * Indica se esse código fonte é referencial ou não
+//     *
+//     * @ORM\Column(type="boolean", nullable=false, options={"default": false})
+//     * @var boolean
+//     */
+//    private $referential;
 
     /**
      * O problema que este Código Fonte soluciona
@@ -156,23 +156,23 @@ class SourceCode extends Entity
         $this->submissionDate = $submissionDate;
     }
 
-    /**
-     * Retorna se o Código Fonte é referencial ou não
-     * @return bool
-     */
-    public function isReferential()
-    {
-        return $this->referential;
-    }
-
-    /**
-     * Define se o Código Fonte é referencial ou não
-     * @param bool $referential
-     */
-    public function setReferential($referential)
-    {
-        $this->referential = $referential;
-    }
+//    /**
+//     * Retorna se o Código Fonte é referencial ou não
+//     * @return bool
+//     */
+//    public function isReferential()
+//    {
+//        return $this->referential;
+//    }
+//
+//    /**
+//     * Define se o Código Fonte é referencial ou não
+//     * @param bool $referential
+//     */
+//    public function setReferential($referential)
+//    {
+//        $this->referential = $referential;
+//    }
 
     /**
      * Retorna o problema que este Código Fonte soluciona

@@ -38,7 +38,7 @@ class Language
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->elementsOfLanguage  = $entityManager;
+        $this->elementsOfLanguage  = null;
     }
 
     /**

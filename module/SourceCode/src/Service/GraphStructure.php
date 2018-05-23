@@ -11,6 +11,7 @@ use SourceCode\Entity\Language;
 use SourceCode\Entity\SourceCode;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
+use SourceCode\Service\Language as LanguageService;
 
 /**
  * Class GraphStructure
@@ -27,36 +28,52 @@ class GraphStructure
 
     protected $dataCollectService;
 
-    protected $languageEntity;
-
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, DataCollect $dataCollectService)
     {
         $this->entityManager = $entityManager;
         $this->vertices = array();
-        $this->dataCollectService = new DataCollect($this->entityManager);
-        $this->languageEntity = null;
+        $this->dataCollectService = $dataCollectService;
+    }
+
+    /**
+     * @param SourceCode $sourceCode
+     * @return array
+     * @throws \Exception
+     */
+    public function setGraphData(SourceCode $sourceCode)
+    {
+        $language = $sourceCode->getLanguage();
+
+        //1. Adquire as estruturas de desvio definidas no DataCollect
+        $this->codeCommands = $this->dataCollectService->getCodeCommands();
+
+        //define os vértices
+        $this->setVertices($language);
+
+        //define as arestas
+        $this->setEdges($language);
+
+        //define as coordenadas
+        $this->setCoordinates($language);
+
+        //retorna os vértices com todos os dados
+        return $this->vertices;
     }
 
     /**
      * Gera os vértices do grafo de fluxo
      *
-     * @param SourceCode $sourceCode
-     * @return array
+     * @param Language $language
      * @throws \Exception
      */
-    public function setVertices(SourceCode $sourceCode)
+    private function setVertices(Language $language)
     {
-        $this->languageEntity = $sourceCode->getLanguage();
-        //todo verificar se deve ser colocado um try catch
-        //1. Realiza a extração das estruturas de desvio
-        $this->codeCommands = $this->dataCollectService->getDataFromCode($sourceCode);
-
         //salva o language service para não utilizar sempre o método get
         $languageService = $this->dataCollectService->getLanguageService();
 
         //2. Cria o vértice de início de código
         $initialVertex = new Vertex();
-        $initialVertex->setName($this->languageEntity->getInitialVertexName());
+        $initialVertex->setName($language->getInitialVertexName());
         array_push($this->vertices, $initialVertex);
 
         $bypassController = new CodeBypassCommand();
@@ -79,7 +96,7 @@ class GraphStructure
                     $endBypassCommandVertex = new Vertex();
                     /* O Nome do Vértice vai ser o nome correspondente ao final da estrutura do código da linguagem
                       + o nome do comando que abre o bloco */
-                    $endBypassCommandVertex->setName($this->languageEntity->getEndVertexName() . $openingVertex->getName());
+                    $endBypassCommandVertex->setName($language->getEndVertexName() . $openingVertex->getName());
                     // Armazena no vértice END o índice do vértice que abre o bloco
                     $endBypassCommandVertex->setOpeningVertexIndex($openingVertex->getReferentVertexIndex());
                     array_push($this->vertices, $endBypassCommandVertex);
@@ -111,7 +128,7 @@ class GraphStructure
 //                        //se o comando for IF ou ELSE IF cria o vértice THEN
 //                        if ($languageService->isInitialBypassCommandIf($codeCommand->getName()) || $languageService->isInitialBypassCommandElseIf($codeCommand->getName())) {
 //                            $thenVertex = new Vertex();
-//                            $thenVertex->setName($this->languageEntity->getIfThenNameVertex());
+//                            $thenVertex->setName($language->getIfThenNameVertex());
 //                            $thenVertex->setOpeningVertexIndex($endKeyVertex);
 //                            array_push($this->vertices, $thenVertex);
 //                        }
@@ -121,7 +138,7 @@ class GraphStructure
                         $endBypassCommandVertex = new Vertex();
                         /* O Nome do Vértice vai ser o nome correspondente ao final da estrutura do código da linguagem
                             + o nome do comando que abre o bloco */
-                        $endBypassCommandVertex->setName($this->languageEntity->getEndVertexName() . $codeCommand->getName());
+                        $endBypassCommandVertex->setName($language->getEndVertexName() . $codeCommand->getName());
                         $endBypassCommandVertex->setOpeningVertexIndex($endKeyVertex);
                         array_push($this->vertices, $endBypassCommandVertex);
                     }
@@ -131,10 +148,8 @@ class GraphStructure
 
         /*3 Cria o vértice de ENDCODE */
         $endVertex = new Vertex();
-        $endVertex->setName($this->languageEntity->getEndVertexName());
+        $endVertex->setName($language->getEndVertexName());
         array_push($this->vertices, $endVertex);
-
-        return $this->vertices;
     }
 
     /**
@@ -143,7 +158,7 @@ class GraphStructure
      * @param Language $language
      * @return array
      */
-    public function setEdges(Language $language)
+    private function setEdges(Language $language)
     {
         $languageService = $this->dataCollectService->getLanguageService();
         //armazenam as posições dos vértices de destino na lista de vértices
@@ -159,7 +174,7 @@ class GraphStructure
                 $languageService->isInitialBypassCommandIf($vertex->getName()) ||
                 $languageService->isInitialBypassCommandFor($vertex->getName())||
                 $languageService->isInitialBypassCommandWhile($vertex->getName()) ||
-                $languageService->isInitialBypassCommandDoWhile($this->removeEndVertexPrefix($vertex->getName())) ||
+                $languageService->isInitialBypassCommandDoWhile($this->removeEndVertexPrefix($vertex->getName(), $language)) ||
                 $vertex->getName() === $language->getEndVertexName().$languageService->getBypassCommandSwitch()['initialCommandName']
             ) {
                 $left = $key + 1;
@@ -174,7 +189,7 @@ class GraphStructure
                      onde termina o bloco criado pelo IF*/
                 foreach($this->vertices as $key2 => $vertex2) {
                     //todo colocar para caso de implementar then
-                    //if($vertex2->getName() !== $this->languageEntity->getIfThenNameVertex() && $vertex2->getOpeningVertexIndex() === $key) {
+                    //if($vertex2->getName() !== $language->getIfThenNameVertex() && $vertex2->getOpeningVertexIndex() === $key) {
                     if($vertex2->getOpeningVertexIndex() === $key) {
 //                        if($this->vertices[$key2+1] instanceof Vertex && (
 //                            $languageService->isInitialBypassCommandElseIf($this->vertices[$key2+1]->getName()) ||
@@ -318,7 +333,7 @@ class GraphStructure
             }
             /* 9. Os vértices de CASE ou DEFAULT  e ENDCASE ou ENDDEFAULT (quando existirem, em caso de blocos)
                devem ser ligar pela esquerda ao FIM do SWITCH */
-            else if($languageService->isInitialBypassCommandCaseOrDefault($this->removeEndVertexPrefix($vertex->getName()))) {
+            else if($languageService->isInitialBypassCommandCaseOrDefault($this->removeEndVertexPrefix($vertex->getName(), $language))) {
                 $containsEndCase = false;
                 //9.1 verifica e marca se o CASE/DEFAULT possui ENDCASE/ENDDEFAULT
                 if(in_array($key, $commandsCaseDefaultSwitchIndexes)) {
@@ -349,10 +364,6 @@ class GraphStructure
             $left = -1;
 
         }
-
-
-        //todo retorno temporário
-        return $this->vertices;
     }
 
     /**
@@ -360,7 +371,7 @@ class GraphStructure
      *
      * @param Language $language
      */
-    public function setCoordinates(Language $language)
+    private function setCoordinates(Language $language)
     {
         $languageService = $this->dataCollectService->getLanguageService();
         /* INTERVALO X e Y: os espaços entre um vértice e outro será definido nessas variáveis.*/
@@ -649,9 +660,6 @@ class GraphStructure
             $coordinateX = 0;
             $coordinateY = 0;
         }
-
-        //todo retorno temporário
-        return $this->vertices;
     }
 
     /**
@@ -701,8 +709,15 @@ class GraphStructure
         return $result;
     }
 
-    private function removeEndVertexPrefix($vertexName)
+    /**
+     * Remove o prefixo END dos vértices de final de bloco
+     *
+     * @param $vertexName
+     * @param Language $language
+     * @return mixed
+     */
+    private function removeEndVertexPrefix($vertexName, Language $language)
     {
-        return str_replace($this->languageEntity->getEndVertexName(), "", $vertexName);
+        return str_replace($language->getEndVertexName(), "", $vertexName);
     }
 }

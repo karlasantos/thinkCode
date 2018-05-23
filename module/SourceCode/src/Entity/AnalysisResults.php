@@ -9,7 +9,10 @@ namespace SourceCode\Entity;
 
 
 use Application\Entity\Entity;
+use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Json\Json;
+use Zend\View\Model\JsonModel;
 
 /**
  * Class AnalysisResults
@@ -103,6 +106,24 @@ class AnalysisResults extends Entity
      * @var integer
      */
     private $cyclomaticComplexity;
+
+    /**
+     * Armazena o JSON do Grafo de Fluxo do código fonte
+     *
+     * @ORM\Column(type="json_array", nullable=false)
+     *
+     * @var string
+     */
+    private $graph;
+
+    /**
+     * Armazena a média aritmética das análises
+     *
+     * @ORM\Column(name="arithmetic_mean", type="float", nullable=false)
+     *
+     * @var float
+     */
+    private $arithmeticMean;
 
     /**
      * Retorna o Id de identificação da Análise
@@ -295,6 +316,52 @@ class AnalysisResults extends Entity
     }
 
     /**
+     * Retorna o grafo do código fonte em formato JSON
+     *
+     * @return string
+     */
+    public function getGraph()
+    {
+        return $this->graph;
+    }
+
+    /**
+     * Define o grafo do código fonte em formato JSON
+     *
+     * @param string $graph
+     */
+    public function setGraph($graph)
+    {
+        $this->graph = $graph;
+    }
+
+    /**
+     * Retorna a média aritmética das análises
+     *
+     * @return float
+     */
+    public function getArithmeticMean()
+    {
+        return $this->arithmeticMean;
+    }
+
+    /**
+     * Define a média aritmética das análises
+     *
+     */
+    public function setArithmeticMean()
+    {
+        $this->arithmeticMean = round(($this->numberUsefulLines +
+                                $this->numberVariables +
+                                $this->numberLogicalConnectives +
+                                $this->numberDiversionCommands +
+                                $this->numberRegionsGraph +
+                                $this->numberEdgesGraph +
+                                $this->numberVertexGraph +
+                                $this->cyclomaticComplexity)/8, 3);
+    }
+
+    /**
      * Método retorna os dados dos Resultados da Análise em formato de array
      * @return array
      */
@@ -310,6 +377,8 @@ class AnalysisResults extends Entity
             'numberEdgesGraph'         => $this->numberEdgesGraph,
             'numberVertexGraph'        => $this->numberVertexGraph,
             'cyclomaticComplexity'     => $this->cyclomaticComplexity,
+            'arithmeticMean'           => $this->arithmeticMean,
+            'graph'                    => (array)json_decode($this->graph),
         );
     }
 }

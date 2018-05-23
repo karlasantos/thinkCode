@@ -14,6 +14,7 @@ use SourceCode\Entity\LogicalConnective;
 use SourceCode\Entity\SourceCode;
 use SourceCode\Entity\SpecialCharacter;
 use SourceCode\Model\CodeBypassCommand;
+use SourceCode\Service\Language as LanguageService;
 
 /**
  * Class DataCollect
@@ -31,7 +32,7 @@ class DataCollect
     /**
      * Serviço responsável pelos dados da linguagem
      *
-     * @var Language
+     * @var LanguageService
      */
     private $languageService;
 
@@ -69,8 +70,9 @@ class DataCollect
      * DataCollect constructor.
      * Inicializa todas as variáveis do service
      * @param EntityManager $entityManager
+     * @param LanguageService $languageService
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, LanguageService $languageService)
     {
         $this->entityManager            = $entityManager;
         $this->codeCommands             = array();
@@ -78,7 +80,7 @@ class DataCollect
         $this->usefulLineCounter        = 0;
         $this->variableCounter          = 0;
         $this->logicalConnectiveCounter = 0;
-        $this->languageService = new Language($entityManager);
+        $this->languageService = $languageService;
     }
 
     /**
@@ -134,7 +136,7 @@ class DataCollect
     /**
      * Retorna o Language Service
      *
-     * @return Language
+     * @return LanguageService
      */
     public function getLanguageService()
     {
@@ -193,9 +195,6 @@ class DataCollect
            usado para casos em que um terminal de comando também é inicial de comando
         */
         $addToken = true;
-
-        //busca e define os elementos da linguagem do banco de dados
-        $this->languageService->searchElementsOfLanguage($language->getId());
 
         //percorre as linhas do código
         foreach($codeContent as $lineKey => $line) {
@@ -702,6 +701,10 @@ class DataCollect
         }
     }
 
+    /**
+     * Adiciona o token de terminal de comando Do While
+     * @param $lineNumber
+     */
     private function addTokenTerminalDoWhile($lineNumber) {
         end($this->codeCommands);
         $lastIndex = key($this->codeCommands);

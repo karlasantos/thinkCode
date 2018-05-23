@@ -9,6 +9,7 @@ namespace SourceCode\Controller;
 
 
 use Application\Controller\RestfulController;
+use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use SourceCode\Entity\Language;
@@ -20,9 +21,12 @@ use SourceCode\Service\AnalysisStructure;
 use SourceCode\Service\DataCollect;
 use SourceCode\Service\GraphStructure;
 use SourceCode\Validation\SourceCodeValidator;
+use Symfony\Component\Debug\Tests\FatalErrorHandler\UndefinedMethodFatalErrorHandlerTest;
+use User\Controller\UserController;
 use User\Entity\User;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use SourceCode\Service\Language as LanguageService;
 
 /**
  * Class SourceCodeController
@@ -32,28 +36,14 @@ use Zend\View\Model\ViewModel;
 class SourceCodeController extends RestfulController
 {
     /**
-     * Service de coleta de dados do código fonte
-     *
-     * @var DataCollect
-     */
-    private $dataCollect;
-
-    /**
-     * @var AnalysisStructure
-     */
-    private $analyses;
-
-    /**
      * Construtor da classe
      * SourceCodeController constructor.
      * @param EntityManager $entityManager
      * @param DataCollect $dataCollect
      */
-    public function __construct(EntityManager $entityManager, DataCollect $dataCollect)
+    public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
-        //todo colocar analyses
-        $this->dataCollect = $dataCollect;
     }
 
     /**
@@ -70,11 +60,17 @@ class SourceCodeController extends RestfulController
     {
         //die("teste");
         try {
-            $analysis = new GraphStructure($this->entityManager);
-            $language = $this->entityManager->find(Language::class, 1);
             $sourceCode = new SourceCode();
+            $language = $this->entityManager->find(Language::class, 1);
             if($language instanceof Language)
                 $sourceCode->setLanguage($language);
+
+            $languageService = new \SourceCode\Service\Language($this->entityManager);
+            //busca e define os elementos da linguagem do banco de dados
+            $languageService->searchElementsOfLanguage($language->getId());
+            $dataCollect = new DataCollect($this->entityManager, $languageService);
+            $analysis = new GraphStructure($this->entityManager, $dataCollect);
+
             $sourceCode->setContent("int main() {
             \nint a = 1, c;
             \nfloat b = 0;
@@ -188,12 +184,30 @@ class SourceCodeController extends RestfulController
 //                   } while ();\n
 //                } \n
 //            }");
-            $result = $this->dataCollect->getDataFromCode($sourceCode);
+            $result = $dataCollect->getDataFromCode($sourceCode);
+            $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
+            $user = $this->entityManager->find(User::class, $userId);
+            $problem = $this->entityManager->find(Problem::class, 1);
 
             //estrutura de analise
-            $result = $analysis->setVertices($sourceCode);
-            $result = $analysis->setEdges($sourceCode->getLanguage());
-            $result = $analysis->setCoordinates($sourceCode->getLanguage());
+            $result = $analysis->setGraphData($sourceCode);
+            $analysisStructures = new AnalysisStructure($this->entityManager, $languageService, $result, $dataCollect);
+            $resultObject = $analysisStructures->calculateCyclomaticComplexity($sourceCode);
+            //como salvar em formato JSON
+            $graphJSON = $analysisStructures->generateJsonGraph($sourceCode);
+
+            $sourceCode->setUser($user);
+            $sourceCode->setAnalysisResults($resultObject);
+            $sourceCode->setProblem($problem);
+//            $sourceCode->setReferential(false);
+            $this->entityManager->persist($sourceCode);
+            $this->entityManager->persist($resultObject);
+//            $this->entityManager->flush();
+
+            //como retornar em formato JSON
+            return new JsonModel((array)json_decode($resultObject->getGraph()));
+
+            die();
             $arrayResult = array();
             foreach ($result as $key => $value) {
                 if($value instanceof Vertex)
@@ -223,6 +237,7 @@ class SourceCodeController extends RestfulController
 
     public function create($data)
     {
+        $analysisResultsSystem = array();
         $sourceCode = new SourceCode();
         $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
 
@@ -249,30 +264,96 @@ class SourceCodeController extends RestfulController
         $sourceCode->setData($sourceCodeFilter->getValues());
 
         try {
+            $this->entityManager->beginTransaction();
+
             $user = $this->entityManager->find(User::class, $userId);
             $language = $this->entityManager->find(Language::class, $sourceCodeFilter->getValue('languageId'));
             $problem = $this->entityManager->find(Problem::class, $sourceCodeFilter->getValue('problemId'));
 
-            if($user instanceof User)
-                $sourceCode->setUser($user);
+            if(!$user instanceof User)
+                throw new Exception(UserController::USER_NOT_FOUND);
 
-            if($language instanceof Language)
-                $sourceCode->setLanguage($language);
 
-            if($problem instanceof Problem)
-                $sourceCode->setProblem($problem);
+            if(!$language instanceof Language)
+                throw new Exception("Linguagem de programação não encontrada");
 
-            $sourceCode->setSubmissionDate();
 
-            //todo enviar o id do código a ser comparado no $data da requisição
-            \Zend\Debug\Debug::dump(strpos($sourceCode->getContent(), PHP_EOL));
-            die();
+            if(!$problem instanceof Problem)
+                throw new Exception("Problema não encontrado");
+
+            $sourceCode->setLanguage($language);
+            $sourceCode->setProblem($problem);
+            $sourceCode->setUser($user);
             $this->entityManager->persist($sourceCode);
-            $this->entityManager->flush();
-        } catch (Exception $exception) {
 
+            //serviço da linguagem
+            $languageService = new LanguageService($this->entityManager);
+            //busca e define os elementos da linguagem do banco de dados
+            $languageService->searchElementsOfLanguage($language->getId());
+
+            //serviço de coleta de dados do código fonte
+            $dataCollect = new DataCollect($this->entityManager, $languageService);
+            //retira os comandos de desvio do código fonte
+            $codeComands = $dataCollect->getDataFromCode($sourceCode);
+
+            //instancia o serviço de geração da estrutura do grafo e
+            $graphStructure = new GraphStructure($this->entityManager, $dataCollect);
+            //define os dados do grafo de fluxo e retorna um array de vértices com dados de arestas e coordenadas
+            $vertices = $graphStructure->setGraphData($sourceCode);
+
+            //serviço de construção da análise
+            $analysisStructure = new AnalysisStructure($this->entityManager, $languageService, $vertices, $dataCollect);
+            //calcula a complexidade ciclomática
+            $analysisResults = $analysisStructure->calculateCyclomaticComplexity($sourceCode);
+            //define o grafo de fluxo em formato JSON da API Cytoscape
+            $analysisStructure->generateJsonGraph($sourceCode);
+
+            //persiste os dados da análise
+            $this->entityManager->persist($analysisResults);
+            $sourceCode->setAnalysisResults($analysisResults);
+
+            $this->entityManager->flush();
+            $this->entityManager->commit();
+
+            //retorna os dados da análise do código do usuário em formato de array
+            $analysisResultsReturn = $analysisResults->toArray();
+
+            if(isset($data['userCompareId']) && !empty($data['userCompareId'])) {
+                $sourceCodeSystem = $this->entityManager->getRepository(SourceCode::class)->findOneBy(
+                    array(
+                        'problem' => $problem->getId(),
+                        'user'    => $data['userCompareId']
+                    )
+                );
+
+                if(!$sourceCodeSystem instanceof SourceCode)
+                    throw new Exception("O código selecionado para comparação não foi encontrado.");
+
+                //retorna o resultado da análise do código fonte selecionado pelo usuário
+                $analysisResultsSystem = $sourceCodeSystem->getAnalysisResults()->toArray();
+            }
+
+            $results = array(
+                'result' => array(
+                    'sourceCodeUser' => array(
+                        'analysisResults' => $analysisResultsReturn,
+                        'content' => $sourceCode->getContent()
+                    ),
+                    'sourceCodeSystem' => array(
+                        'analysisResults' => $analysisResultsSystem,
+                        'userCompareId' => (isset($data['userCompareId']) && !empty($data['userCompareId']))? $data['userCompareId'] : null,
+                    ),
+                )
+            );
+
+            //todo definir o ranking
+        } catch (Exception $exception) {
+            $this->getResponse()->setStatusCode(400);
+            $results = array(
+                'result' => $exception->getMessage(),
+            );
         }
 
-        return parent::create($data); // TODO: Change the autogenerated stub
+        return new JsonModel($results);
     }
 }
