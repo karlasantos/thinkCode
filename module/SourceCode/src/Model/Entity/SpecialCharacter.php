@@ -6,13 +6,13 @@
  * Time: 15:47
  */
 
-namespace SourceCode\Entity;
+namespace SourceCode\Model\Entity;
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
-use User\Entity\User;
+use User\Model\Entity\User;
 
 
 /**
@@ -21,7 +21,7 @@ use User\Entity\User;
  *
  * @ORM\Entity
  * @ORM\Table(name="special_characters")
- * @package SourceCode\Entity
+ * @package SourceCode\Model\Entity
  */
 class SpecialCharacter extends Entity
 {

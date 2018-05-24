@@ -9,7 +9,7 @@ namespace User\Controller;
 
 use Application\Controller\RestfulController;
 use Exception;
-use User\Entity\User;
+use User\Model\Entity\User;
 use Zend\Authentication\Adapter\DbTable\CallbackCheckAdapter;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController;

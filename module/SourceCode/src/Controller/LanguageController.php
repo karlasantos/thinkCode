@@ -10,8 +10,8 @@ namespace SourceCode\Controller;
 
 use Application\Controller\RestfulController;
 use Doctrine\ORM\EntityManager;
-use SourceCode\Entity\Language;
-use SourceCode\Entity\SourceCode;
+use SourceCode\Model\Entity\Language;
+use SourceCode\Model\Entity\SourceCode;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
 use SourceCode\Service\AnalysisStructure;

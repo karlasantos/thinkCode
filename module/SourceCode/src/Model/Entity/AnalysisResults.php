@@ -5,10 +5,10 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Entity;
+namespace SourceCode\Model\Entity;
 
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Json\Json;
@@ -20,7 +20,7 @@ use Zend\View\Model\JsonModel;
  *
  * @ORM\Entity
  * @ORM\Table(name="analysis_results")
- * @package SourceCode\Entity
+ * @package SourceCode\Model\Entity
  */
 class AnalysisResults extends Entity
 {

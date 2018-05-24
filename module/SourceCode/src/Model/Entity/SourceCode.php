@@ -5,13 +5,13 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Entity;
+namespace SourceCode\Model\Entity;
 
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
-use User\Entity\User;
+use User\Model\Entity\User;
 
 /**
  * Class SourceCode
@@ -19,7 +19,7 @@ use User\Entity\User;
  *
  * @ORM\Entity
  * @ORM\Table(name="source_codes")
- * @package SourceCode\Entity
+ * @package SourceCode\Model\Entity
  */
 class SourceCode extends Entity
 {
@@ -81,7 +81,7 @@ class SourceCode extends Entity
     /**
      * O usuário dono deste Código Fonte
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\User", fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="User\Model\Entity\User", fetch="LAZY")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @var User
      */
@@ -96,6 +96,14 @@ class SourceCode extends Entity
      * @var AnalysisResults
      */
     private $analysisResults;
+
+    /**
+     * A colocação desse código fonte
+     *
+     * @ORM\OneToOne(targetEntity="Rank", mappedBy="sourceCode", cascade={"persist", "remove"})
+     * @var Rank
+     */
+    private $ranking;
 
     /**
      * SourceCode constructor
@@ -250,6 +258,26 @@ class SourceCode extends Entity
     }
 
     /**
+     * Retorna a colocação desse código fonte
+     *
+     * @return Rank
+     */
+    public function getRanking()
+    {
+        return $this->ranking;
+    }
+
+    /**
+     * Define a colocação desse código fonte
+     *
+     * @param Rank $ranking
+     */
+    public function setRanking($ranking)
+    {
+        $this->ranking = $ranking;
+    }
+
+    /**
      * Retorna todos os dados do Código Fonte em formato de array
      * @inheritdoc
      * @return array
@@ -260,7 +288,7 @@ class SourceCode extends Entity
             'id'             => $this->id,
             'content'        => $this->content,
             'submissionDate' => $this->submissionDate->format('d-m-Y H:i:s'),
-            'referential'    => $this->referential,
+//            'referential'    => $this->referential,
             'problem'        => $this->problem->toArray()
         );
     }

@@ -9,12 +9,11 @@ namespace SourceCode\Controller;
 
 
 use Application\Controller\RestfulController;
-use Application\Entity\OrderTemplate;
-use Doctrine\ORM\Query\Expr\OrderBy;
+use Application\Model\Entity\OrderTemplate;
 use Exception;
-use SourceCode\Entity\Problem;
-use SourceCode\Service\SourceCode;
-use User\Entity\User;
+use SourceCode\Model\Entity\Problem;
+use SourceCode\Model\Entity\SourceCode as SourceCodeEntity;
+use User\Model\Entity\User;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Paginator\Paginator;
 use Zend\View\Model\JsonModel;
@@ -83,8 +82,7 @@ class ProblemController extends RestfulController
 
         try {
             if (isset($_SESSION['Zend_Auth']->getArrayCopy()['storage'])) {
-                $sourceCodeService = new SourceCode($this->entityManager);
-                $userSourceCodesIds = $sourceCodeService->getUserSourceCodesSimple($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
+                $userSourceCodesIds = $this->getUserProblemsResolved($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
             }
         } catch (Exception $exception) {
 
@@ -129,11 +127,12 @@ class ProblemController extends RestfulController
         try {
             $problem = $this->entityManager->createQueryBuilder()
                 ->select('partial problem.{id, title, description}')
-                ->addSelect('partial cat.{id, name, description}, rank, partial user.{id}, partial profile.{id, fullName}')
+                ->addSelect('partial cat.{id, name, description}, rank, partial user.{id}, partial profile.{id, fullName}, partial sc.{id}')
                 ->from(Problem::class, 'problem')
                 ->leftJoin('problem.category', 'cat')
                 ->leftJoin('problem.rank', 'rank')
-                ->leftJoin('rank.user', 'user')
+                ->leftJoin('rank.sourceCode', 'sc')
+                ->leftJoin('sc.user', 'user')
                 ->leftJoin('user.profile', 'profile')
                 ->where('problem.id = :problemId')
                 ->setParameter('problemId', $id)
@@ -151,9 +150,9 @@ class ProblemController extends RestfulController
                     }
                 }
 
-                $sourceCodeService = new SourceCode($this->entityManager);
-                $userSourceCodesIds = $sourceCodeService->getUserSourceCodesSimple($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
-                $problem[0]['resolved'] = in_array($problem[0]['id'], $userSourceCodesIds);
+                $problemResolved = $this->getProblemResolved($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'], $problem[0]['id']);
+                $problem[0]['resolved'] = (count($problemResolved) > 0);
+                $problem[0]['ranking'] = $problemResolved['ranking'];
             } else {
                 throw new Exception(ProblemController::PROBLEM_NOT_FOUND);
             }
@@ -171,5 +170,59 @@ class ProblemController extends RestfulController
                 'result' => $problem[0]
             )
         );
+    }
+
+    /**
+     * Retorna os ids dos problemas resulvidos por um usuário através de deu id
+     *
+     * @param $userId
+     * @return array
+     */
+    private function getUserProblemsResolved($userId)
+    {
+        $result = array();
+
+        $sourceCodes = $this->entityManager->createQueryBuilder()
+            ->select('sc.id, problem.id as problemId, rank.ranking')
+            ->from(SourceCodeEntity::class, 'sc')
+            ->leftJoin('sc.problem','problem')
+            ->leftJoin('sc.ranking','rank')
+            ->where('sc.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getArrayResult();
+
+        if(count($sourceCodes) > 0)
+            $result = array_column($sourceCodes, 'problemId');
+        return $result;
+    }
+
+    /**
+     * Retorna os dados do problema resolvido pelo usuário
+     *
+     * @param $userId
+     * @param $problemId
+     * @return array
+     */
+    private function getProblemResolved($userId, $problemId)
+    {
+        $result = array();
+
+        $resolved = $this->entityManager->createQueryBuilder()
+            ->select('sc.id, problem.id as problemId, rank.ranking')
+            ->from(SourceCodeEntity::class, 'sc')
+            ->leftJoin('sc.problem','problem')
+            ->leftJoin('sc.ranking','rank')
+            ->where('sc.user = :userId')
+            ->andWhere('sc.problem = :problemId')
+            ->setParameter('userId', $userId)
+            ->setParameter('problemId', $problemId)
+            ->getQuery()
+            ->getArrayResult();
+
+        if(count($resolved) > 0)
+            $result = $resolved[0];
+
+        return $result;
     }
 }

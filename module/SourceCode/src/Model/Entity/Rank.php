@@ -5,12 +5,12 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Entity;
+namespace SourceCode\Model\Entity;
 
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
-use User\Entity\User;
+use User\Model\Entity\User;
 
 /**
  * Class Rank
@@ -18,7 +18,7 @@ use User\Entity\User;
  *
  * @ORM\Entity
  * @ORM\Table(name="rank")
- * @package SourceCode\Entity
+ * @package SourceCode\Model\Entity
  */
 class Rank extends Entity
 {
@@ -42,19 +42,29 @@ class Rank extends Entity
      */
     private $problem;
 
+//    /**
+//     * O usuário que está neste Rank
+//     *
+//     * @ORM\ManyToOne(targetEntity="User\Model\Entity\User", fetch="LAZY", inversedBy="rankings")
+//     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+//     * @var User
+//     */
+//    private $user;
+
+    //todo mudar para nullable=false
     /**
-     * O usuário que está neste Rank
+     * O código fonte que está neste Rank
      *
-     * @ORM\ManyToOne(targetEntity="User\Entity\User", fetch="LAZY", inversedBy="rankings")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @var User
+     * @ORM\OneToOne(targetEntity="SourceCode", fetch="LAZY", inversedBy="ranking")
+     * @ORM\JoinColumn(name="source_code_id", referencedColumnName="id", nullable=true)
+     * @var SourceCode
      */
-    private $user;
+    private $sourceCode;
 
     /**
      * Colocação do usuário no rank da questão
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      * @var integer
      */
     private $ranking;
@@ -98,25 +108,25 @@ class Rank extends Entity
         $this->problem = $problem;
     }
 
-    /**
-     * Retorna o Usuário que o Rank pertence
-     *
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Define o Usuário que o Rank pertence
-     *
-     * @param User $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
+//    /**
+//     * Retorna o Usuário que o Rank pertence
+//     *
+//     * @return User
+//     */
+//    public function getUser()
+//    {
+//        return $this->user;
+//    }
+//
+//    /**
+//     * Define o Usuário que o Rank pertence
+//     *
+//     * @param User $user
+//     */
+//    public function setUser($user)
+//    {
+//        $this->user = $user;
+//    }
 
     /**
      * Retorna a posição do Usuário no Rank daquela questão
@@ -156,6 +166,26 @@ class Rank extends Entity
     public function setAnalysisMean($analysisMean)
     {
         $this->analysisMean = $analysisMean;
+    }
+
+    /**
+     * Retorna o Código fonte desse rank
+     *
+     * @return SourceCode
+     */
+    public function getSourceCode()
+    {
+        return $this->sourceCode;
+    }
+
+    /**
+     * Define o Código fonte desse rank
+     *
+     * @param SourceCode $sourceCode
+     */
+    public function setSourceCode($sourceCode)
+    {
+        $this->sourceCode = $sourceCode;
     }
 
     /**

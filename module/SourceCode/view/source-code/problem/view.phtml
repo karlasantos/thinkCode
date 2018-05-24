@@ -5,9 +5,22 @@
         }
     </style>
     <div class="card form">
-        <div class="card-header align-items-center">
-            <h3 class="text-center"> {{problemSelectedTools.problem.title}} <i class="fa fa-check text-success" aria-hidden="true" ng-if="problemSelectedTools.problem.resolved" title="Enviado"></i></h3>
-            <h5 class="text-center text-blue font-weight-normal"> {{problemSelectedTools.problem.category.name}}</h5>
+        <div class="card-header align-items-center p-b-0">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Problema {{problemSelectedTools.problem.id}}</h5>
+                </div>
+                <div class="col-md-6 text-center">
+                    <h3 class="text-center"> {{problemSelectedTools.problem.title}} <i class="fa fa-check text-success" aria-hidden="true" ng-if="problemSelectedTools.problem.resolved" title="Enviado"></i></h3>
+                    <h5 class="text-center text-blue font-weight-normal"> {{problemSelectedTools.problem.category.name}}</h5>
+                </div>
+                <div class="col-md-3 text-right p-r-20" ng-if="problemSelectedTools.problem.ranking">
+                    <h3 title="Posição da sua solução no ranking do problema">
+                        <i class="fa fa-trophy text-warning fa-2x" aria-hidden="true"></i>
+                        {{problemSelectedTools.problem.ranking}}
+                    </h3>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
@@ -21,6 +34,7 @@
                             <tr>
                                 <th>Posição</th>
                                 <th>Usuário</th>
+                                <th>Média</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -29,7 +43,10 @@
                                     {{ranking.ranking}}
                                 </td>
                                 <td title="Usuário">
-                                    {{ranking.user.profile.fullName}}
+                                    {{ranking.sourceCode.user.profile.fullName}}
+                                </td>
+                                <td title="Média">
+                                    {{ranking.analysisMean}}
                                 </td>
                             </tr>
                         </tbody>

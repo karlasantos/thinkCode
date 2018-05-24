@@ -8,11 +8,11 @@
 namespace SourceCode\Service;
 
 use Doctrine\ORM\EntityManager;
-use SourceCode\Entity\BypassCommand;
-use SourceCode\Entity\DataType;
-use SourceCode\Entity\LogicalConnective;
-use SourceCode\Entity\SourceCode;
-use SourceCode\Entity\SpecialCharacter;
+use SourceCode\Model\Entity\BypassCommand;
+use SourceCode\Model\Entity\DataType;
+use SourceCode\Model\Entity\LogicalConnective;
+use SourceCode\Model\Entity\SourceCode;
+use SourceCode\Model\Entity\SpecialCharacter;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Service\Language as LanguageService;
 

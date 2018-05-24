@@ -5,7 +5,7 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace Application\Entity;
+namespace Application\Model\Entity;
 
 
 use Doctrine\ORM\EntityManager;
@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityManager;
 /**
  * Class Entity
  * @abstract
- * @package Application\Entity
+ * @package Application\Model\Entity
  */
 abstract class Entity
 {

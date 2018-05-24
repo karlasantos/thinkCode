@@ -23,12 +23,12 @@ return [
                 'class' => AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [
-                    __DIR__ . '/../src/Entity'
+                    __DIR__ . '/../src/Model/Entity'
                 ],
             ],
             'orm_default' => [
                 'drivers' => [
-                    __NAMESPACE__ . '\Entity' => 'user_annotation_driver'
+                    __NAMESPACE__ . '\Model\Entity' => 'user_annotation_driver'
                 ],
             ],
         ],

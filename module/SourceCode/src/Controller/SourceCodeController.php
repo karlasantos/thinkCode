@@ -12,18 +12,19 @@ use Application\Controller\RestfulController;
 use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\ORM\EntityManager;
 use Exception;
-use SourceCode\Entity\Language;
-use SourceCode\Entity\Problem;
-use SourceCode\Entity\SourceCode;
+use SourceCode\Model\Entity\Language;
+use SourceCode\Model\Entity\Problem;
+use SourceCode\Model\Entity\SourceCode;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
 use SourceCode\Service\AnalysisStructure;
 use SourceCode\Service\DataCollect;
 use SourceCode\Service\GraphStructure;
+use SourceCode\Service\Rank;
 use SourceCode\Validation\SourceCodeValidator;
 use Symfony\Component\Debug\Tests\FatalErrorHandler\UndefinedMethodFatalErrorHandlerTest;
 use User\Controller\UserController;
-use User\Entity\User;
+use User\Model\Entity\User;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 use SourceCode\Service\Language as LanguageService;
@@ -333,11 +334,21 @@ class SourceCodeController extends RestfulController
                 $analysisResultsSystem = $sourceCodeSystem->getAnalysisResults()->toArray();
             }
 
+            $dataRank = [
+                'problemId' => $sourceCode->getProblem()->getId(),
+                'sourceCodeId' => $sourceCode->getId(),
+                'analysisMean' => $analysisResults->getArithmeticMean(),
+            ];
+
+            $rankService = new Rank($this->entityManager);
+            $ranking = $rankService->updateRank($dataRank, $sourceCode);
+
             $results = array(
                 'result' => array(
                     'sourceCodeUser' => array(
                         'analysisResults' => $analysisResultsReturn,
-                        'content' => $sourceCode->getContent()
+                        'content' => $sourceCode->getContent(),
+                        'ranking' => $ranking,
                     ),
                     'sourceCodeSystem' => array(
                         'analysisResults' => $analysisResultsSystem,
@@ -346,7 +357,7 @@ class SourceCodeController extends RestfulController
                 )
             );
 
-            //todo definir o ranking
+
         } catch (Exception $exception) {
             $this->getResponse()->setStatusCode(400);
             $results = array(

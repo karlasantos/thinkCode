@@ -5,18 +5,18 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace User\Entity;
+namespace User\Model\Entity;
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
-use SourceCode\Entity\Language;
+use SourceCode\Model\Entity\Language;
 
 /**
  * Class Profile
  *
  * @ORM\Entity
  * @ORM\Table(name="profiles")
- * @package User\Entity
+ * @package User\Model\Entity
  */
 class Profile extends Entity
 {
@@ -88,7 +88,7 @@ class Profile extends Entity
     /**
      * Linguagem padrão de programação desse usuário
      *
-     * @ORM\ManyToOne(targetEntity="SourceCode\Entity\Language", fetch="LAZY")
+     * @ORM\ManyToOne(targetEntity="SourceCode\Model\Entity\Language", fetch="LAZY")
      * @ORM\JoinColumn(name="default_language_id", referencedColumnName="id")
      *
      * @var Language

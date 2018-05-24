@@ -5,7 +5,7 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace Application\Entity;
+namespace Application\Model\Entity;
 
 /*
 $order = new OrderTemplate;

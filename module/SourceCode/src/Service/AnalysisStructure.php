@@ -7,10 +7,10 @@
 
 namespace SourceCode\Service;
 use Doctrine\ORM\EntityManager;
-use SourceCode\Entity\AnalysisResults;
+use SourceCode\Model\Entity\AnalysisResults;
 use SourceCode\Model\Vertex;
 use SourceCode\Service\Language as LanguageService;
-use SourceCode\Entity\SourceCode as SourceCodeEntity;
+use SourceCode\Model\Entity\SourceCode as SourceCodeEntity;
 
 /**
  * Class AnalysisStructure

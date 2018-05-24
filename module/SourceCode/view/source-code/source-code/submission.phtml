@@ -3,11 +3,32 @@
         .side-navbar ul.list-unstyled li:nth-child(2) a {
             background: #eef5f9;
         }
+
+        #cy {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 20;
+        }
     </style>
     <div class="card form">
-        <div class="card-header align-items-center">
-            <h3 class="text-center">{{submissionTools.problem.title}}</h3>
-            <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.category.name}}</h5>
+<!--        <div id="cy"></div>-->
+
+        <div class="card-header align-items-center p-b-0 p-t-5">
+            <div class="row">
+                <div class="col-md-3"><h5>Submissão Problema {{submissionTools.problem.id}}</h5></div>
+                <div class="col-md-6 text-center"><h3>{{submissionTools.problem.title}}</h3>
+                    <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.category.name}}</h5>
+                </div>
+                <div class="col-md-3 text-right p-r-20">
+                    <h3 title="Posição da sua solução no ranking do problema" ng-if="submissionTools.problem.ranking">
+                        <i class="fa fa-trophy text-warning fa-2x" aria-hidden="true"></i>
+                        {{submissionTools.problem.ranking}}
+                    </h3>
+                </div>
+            </div>
         </div>
         <div class="card-body" ng-if="!resultAnalysisTools.showAnalysis">
             <form id="submission-form">
@@ -54,6 +75,7 @@
                                     <th>#</th>
                                     <th>Posição</th>
                                     <th>Usuário</th>
+                                    <th>Média</th>
                                 </tr>
                             </thead>
                             <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
@@ -65,7 +87,10 @@
                                         {{ranking.ranking}}
                                     </td>
                                     <td title="Usuário">
-                                        {{ranking.user.profile.fullName}}
+                                        {{ranking.sourceCode.user.profile.fullName}}
+                                    </td>
+                                    <td title="Média">
+                                        {{ranking.analysisMean}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -79,6 +104,48 @@
         </div>
         <div class="card-body" ng-if="resultAnalysisTools.showAnalysis">
             <form id="analysis-form">
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                    <div class="col-md-8">
+                        <cytoscape id="user-graph" graph-options="options" graph-elements="elements" graph-layout="layout" graph-style="style" graph-ready="cy_graph_ready"></cytoscape>
+                    </div>
+                    <div class="col-md-4 bg-danger">
+                        <ul class="list-unstyled">
+                            <li>Média da Solução: {{}}</li>
+                            <li>Complexidade Ciclomática: {{}}</li>
+                            <li>Nº de Linhas úteis: {{}}</li>
+                            <li>Nº de Variáveis: {{}}</li>
+                            <li>Nº de Comandos de Desvio: {{}}</li>
+                            <li>Nº de Conectivos Lógicos: {{}}</li>
+                            <li>Nº de Regiões do Grafo: {{}}</li>
+                            <li>Nº de Vértices do Grafo: {{}}</li>
+                            <li>Nº de Arestas do Grafo: {{}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group row p-t-5 p-b-0 p-l-0 p-r-0 m-b-0">
+                    <div class="col-md-8 bg-info">
+<!--                        <cytoscape id="another-user-graph" graph-options="options" graph-elements="elements" graph-layout="layout" graph-style="style" graph-ready="cy_graph_ready"></cytoscape>-->
+                    </div>
+                    <div class="col-md-4 bg-danger">
+                        <ul class="list-unstyled">
+                            <li>Média da Solução: {{}}</li>
+                            <li>Complexidade Ciclomática: {{}}</li>
+                            <li>Nº de Linhas úteis: {{}}</li>
+                            <li>Nº de Variáveis: {{}}</li>
+                            <li>Nº de Comandos de Desvio: {{}}</li>
+                            <li>Nº de Conectivos Lógicos: {{}}</li>
+                            <li>Nº de Regiões do Grafo: {{}}</li>
+                            <li>Nº de Vértices do Grafo: {{}}</li>
+                            <li>Nº de Arestas do Grafo: {{}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                    <div class="form-group col-md-6 p-l-0">
+                        <label for="source-code" class="form-control-label m-b-5">Sua solução</label>
+                        <textarea ng-model="resultAnalysisTools.analysisSourceCodeSubject.content" id="source-code" type="text" rows="28" required=""  class="lined" cols="55"></textarea>
+                    </div>
+                </div>
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
                     <div class="col-md-12">
                         <h5 class="text-center"> Rank de soluções
@@ -95,6 +162,7 @@
                                 <th>#</th>
                                 <th>Posição</th>
                                 <th>Usuário</th>
+                                <th>Média</th>
                             </tr>
                             </thead>
                             <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
@@ -106,20 +174,94 @@
                                     {{ranking.ranking}}
                                 </td>
                                 <td title="Usuário">
-                                    {{ranking.user.profile.fullName}}
+                                    {{ranking.sourceCode.user.profile.fullName}}
+                                </td>
+                                <td title="Média">
+                                    {{ranking.analysisMean}}
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
-                    <div class="form-group col-md-6 p-l-0">
-                        <label for="source-code" class="form-control-label m-b-5">Sua solução</label>
-                        <textarea ng-model="resultAnalysisTools.analysisSourceCodeSubject.content" id="source-code" type="text" rows="28" required=""  class="lined" cols="55"></textarea>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    // cytoscape({
+    //     container: document.getElementById('cy'),
+    //
+    //     layout: {
+    //         name: 'cose',
+    //         padding: 10
+    //     },
+    //
+    //     style: cytoscape.stylesheet()
+    //         .selector('node')
+    //         .css({
+    //             'shape': 'data(faveShape)',
+    //             'width': 'mapData(weight, 40, 80, 20, 60)',
+    //             'content': 'data(name)',
+    //             'text-valign': 'center',
+    //             'text-outline-width': 2,
+    //             'text-outline-color': 'data(faveColor)',
+    //             'background-color': 'data(faveColor)',
+    //             'color': '#fff'
+    //         })
+    //         .selector(':selected')
+    //         .css({
+    //             'border-width': 3,
+    //             'border-color': '#333'
+    //         })
+    //         .selector('edge')
+    //         .css({
+    //             'curve-style': 'bezier',
+    //             'opacity': 0.666,
+    //             'width': 'mapData(strength, 70, 100, 2, 6)',
+    //             'target-arrow-shape': 'triangle',
+    //             'source-arrow-shape': 'circle',
+    //             'line-color': 'data(faveColor)',
+    //             'source-arrow-color': 'data(faveColor)',
+    //             'target-arrow-color': 'data(faveColor)'
+    //         })
+    //         .selector('edge.questionable')
+    //         .css({
+    //             'line-style': 'dotted',
+    //             'target-arrow-shape': 'diamond'
+    //         })
+    //         .selector('.faded')
+    //         .css({
+    //             'opacity': 0.25,
+    //             'text-opacity': 0
+    //         }),
+    //
+    //     elements: {
+    //         nodes: [
+    //             { data: { id: 'j', name: 'Jerry', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' } },
+    //             { data: { id: 'e', name: 'Elaine', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
+    //             { data: { id: 'k', name: 'Kramer', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
+    //             { data: { id: 'g', name: 'George', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } }
+    //         ],
+    //         edges: [
+    //             { data: { source: 'j', target: 'e', faveColor: '#6FB1FC', strength: 90 } },
+    //             { data: { source: 'j', target: 'k', faveColor: '#6FB1FC', strength: 70 } },
+    //             { data: { source: 'j', target: 'g', faveColor: '#6FB1FC', strength: 80 } },
+    //
+    //             { data: { source: 'e', target: 'j', faveColor: '#EDA1ED', strength: 95 } },
+    //             { data: { source: 'e', target: 'k', faveColor: '#EDA1ED', strength: 60 }, classes: 'questionable' },
+    //
+    //             { data: { source: 'k', target: 'j', faveColor: '#86B342', strength: 100 } },
+    //             { data: { source: 'k', target: 'e', faveColor: '#86B342', strength: 100 } },
+    //             { data: { source: 'k', target: 'g', faveColor: '#86B342', strength: 100 } },
+    //
+    //             { data: { source: 'g', target: 'j', faveColor: '#F5A45D', strength: 90 } }
+    //         ]
+    //     },
+    //
+    //     ready: function(){
+    //         window.cy = this;
+    //     }
+    // });
+</script>

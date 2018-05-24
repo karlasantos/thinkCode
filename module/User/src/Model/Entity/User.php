@@ -5,20 +5,20 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace User\Entity;
+namespace User\Model\Entity;
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
-use SourceCode\Entity\Language;
+use SourceCode\Model\Entity\Language;
 
 /**
  * Class User
  *
  * @ORM\Entity
  * @ORM\Table(name="users")
- * @package User\Entity
+ * @package User\Model\Entity
  */
 class User extends Entity
 {
@@ -78,15 +78,15 @@ class User extends Entity
      */
     private $activeAccount;
 
-    /**
-     * Uma coleção das colocações desse usuário nos Ranks
-     *
-     * @ORM\OneToMany(targetEntity="SourceCode\Entity\Rank", mappedBy="user")
-     * @ORM\JoinColumn(name="id", referencedColumnName="user_id")
-     *
-     * @var ArrayCollection
-     */
-    private $rankings;
+//    /**
+//     * Uma coleção das colocações desse usuário nos Ranks
+//     *
+//     * @ORM\OneToMany(targetEntity="SourceCode\Model\Entity\Rank", mappedBy="user")
+//     * @ORM\JoinColumn(name="id", referencedColumnName="user_id")
+//     *
+//     * @var ArrayCollection
+//     */
+//    private $rankings;
 
     /**
      * User constructor.
@@ -212,25 +212,25 @@ class User extends Entity
         $this->activeAccount = $activeAccount;
     }
 
-    /**
-     * Retorna as colocações que esse usuário está em cada questão
-     *
-     * @return ArrayCollection
-     */
-    public function getRankings()
-    {
-        return $this->rankings;
-    }
-
-    /**
-     * Define as colocações que esse usuário está em cada questão
-     *
-     * @param ArrayCollection $rankings
-     */
-    public function setRankings($rankings)
-    {
-        $this->rankings = $rankings;
-    }
+//    /**
+//     * Retorna as colocações que esse usuário está em cada questão
+//     *
+//     * @return ArrayCollection
+//     */
+//    public function getRankings()
+//    {
+//        return $this->rankings;
+//    }
+//
+//    /**
+//     * Define as colocações que esse usuário está em cada questão
+//     *
+//     * @param ArrayCollection $rankings
+//     */
+//    public function setRankings($rankings)
+//    {
+//        $this->rankings = $rankings;
+//    }
 
     /**
      * Retorna todos os dados do Usuário em formato de array

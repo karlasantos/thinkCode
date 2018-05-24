@@ -5,9 +5,9 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Entity;
+namespace SourceCode\Model\Entity;
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="problems")
- * @package SourceCode\Entity
+ * @package SourceCode\Model\Entity
  */
 class Problem extends Entity
 {

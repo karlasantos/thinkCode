@@ -5,10 +5,10 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Entity;
+namespace SourceCode\Model\Entity;
 
 
-use Application\Entity\Entity;
+use Application\Model\Entity\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Entity
  * @ORM\Table(name="categories_problem")
- * @package SourceCode\Entity
+ * @package SourceCode\Model\Entity
  */
 class CategoryProblem extends Entity
 {

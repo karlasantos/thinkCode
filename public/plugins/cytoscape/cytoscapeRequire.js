@@ -1,0 +1,1 @@
+require('cytoscape/dist/cytoscape');

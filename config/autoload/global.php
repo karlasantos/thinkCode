@@ -14,7 +14,7 @@
 use Doctrine\DBAL\Driver\PDOPgSql\Driver;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\EntityManager;
-use User\Entity\User;
+use User\Model\Entity\User;
 use Zend\Navigation\Service\DefaultNavigationFactory;
 
 return [
@@ -63,13 +63,13 @@ return [
                     'class' => AnnotationDriver::class,
                     'cache' => 'array',
                     'paths' => [
-                        __DIR__ . '/../../module/Application/src/Entity',
+                        __DIR__ . '/../../module/Application/src/Model/Entity',
                     ],
                 ],
                 'orm_default' => [
                     'drivers' => [
                         // register `my_annotation_driver` for any entity under namespace `My\Namespace`
-                        __NAMESPACE__ . '\Entity' => 'my_annotation_driver'
+                        __NAMESPACE__ . '\Model\Entity' => 'my_annotation_driver'
                     ]
                 ]
             ],

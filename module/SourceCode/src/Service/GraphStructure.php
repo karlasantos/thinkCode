@@ -7,8 +7,8 @@
 
 namespace SourceCode\Service;
 use Doctrine\ORM\EntityManager;
-use SourceCode\Entity\Language;
-use SourceCode\Entity\SourceCode;
+use SourceCode\Model\Entity\Language;
+use SourceCode\Model\Entity\SourceCode;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Model\Vertex;
 use SourceCode\Service\Language as LanguageService;

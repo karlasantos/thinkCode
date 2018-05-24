@@ -83,6 +83,15 @@ gulp.task('minify-js', function () {
         .pipe(gulp.dest('js/minify')); //define o destino
 });
 
+gulp.task('minify-cytoscape', function () {
+    gulp.src('plugins/cytoscape/*.js') //define o local dos arquivos para minificar
+        .pipe(browserify()) //concatena todos os min.js em um arquivo
+        // .pipe(uglify())
+        .pipe(rename('cytoscape.min.js')) //minifica os arquivos
+        .pipe(gulp.dest('js/minify')); //define o destino
+});
+
+
 /**
  * Minificar os códigos com angular
  */

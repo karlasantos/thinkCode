@@ -5,7 +5,7 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 namespace SourceCode\Model;
-use SourceCode\Entity\BypassCommand;
+use SourceCode\Model\Entity\BypassCommand;
 
 /**
  * Classe que armazena o comando de desvio pertencente ao código fonte

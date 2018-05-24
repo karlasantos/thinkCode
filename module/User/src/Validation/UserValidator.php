@@ -8,7 +8,7 @@
 namespace User\Validation;
 
 
-use User\Entity\User;
+use User\Model\Entity\User;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\EmailAddress;
 use Zend\Validator\Identical;

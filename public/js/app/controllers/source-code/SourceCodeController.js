@@ -1,4 +1,45 @@
-module.exports = function ($scope, $http, SweetAlert) {
+module.exports = function ($scope, $http, SweetAlert, cytoData) {
+    $scope.options = { //See http://js.cytoscape.org/#core/initialisation for core options
+        textureOnViewport:true,
+        pixelRatio: 'auto',
+        motionBlur: false,
+        hideEdgesOnViewport:true
+    };
+
+    $scope.layout = {name: 'grid'}   //See http://js.cytoscape.org/#collection/layout for available layouts and options
+
+    $scope.cy_graph_ready = function(evt){
+        console.log('graph ready to be interacted with: ', evt);
+    };
+
+    $scope.elements = {
+        n1:{
+            group: 'nodes',
+            data:{} //Data property mandatory for all elements
+        },
+        n2:{
+            group: 'nodes',
+            data:{}
+        },
+        e1:{
+            group:'edges',
+            data:{
+                target: 'n1',  //Source and Target mandatory for edges.
+                source: 'n2'
+            }
+        }
+    };
+    $scope.style = [ // See http://js.cytoscape.org/#style for style formatting and options.
+        {
+            selector: 'node',
+            style: {
+                'shape': 'ellipse',
+                'border-width': 0,
+                'background-color': 'blue'
+            }
+        }
+    ];
+
     $scope.submissionTools = {
         submissionData: {
             content: null,
