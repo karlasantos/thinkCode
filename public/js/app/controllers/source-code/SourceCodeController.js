@@ -6,14 +6,14 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
         hideEdgesOnViewport:true
     };
 
-    $scope.layout = {name: 'cose', padding: 50};   //See http://js.cytoscape.org/#collection/layout for available layouts and options
+    $scope.layout = {name: 'cose', padding: 65};   //See http://js.cytoscape.org/#collection/layout for available layouts and options
 
     $scope.cy_graph_ready = function(evt){
         console.log('graph ready to be interacted with: ', evt);
     };
 
     $scope.elements = {
-        j: { group:'nodes', data: { id: 'j', name: 'Jerry', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' }, position: {x: 10, y:50} },
+        j: { group:'nodes', data: { id: 'j', name: 'Jerry', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' }, position: {x: 50, y:50} },
         e: { group:'nodes', data: { id: 'e', name: 'Elaine', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
         k: { group:'nodes', data: { id: 'k', name: 'Kramer', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
         g: { group:'nodes', data: { id: 'g', name: 'George', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } },
