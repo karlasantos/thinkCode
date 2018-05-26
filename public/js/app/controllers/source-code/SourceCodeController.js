@@ -12,37 +12,39 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
         console.log('graph ready to be interacted with: ', evt);
     };
 
-    $scope.elements = {
-        j: { group:'nodes', data: { id: 'j', name: 'Jerry', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' }, position: {x: 50, y:50} },
-        e: { group:'nodes', data: { id: 'e', name: 'Elaine', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
-        k: { group:'nodes', data: { id: 'k', name: 'Kramer', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
-        g: { group:'nodes', data: { id: 'g', name: 'George', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } },
+    $scope.elements = [
+         { group:'nodes', data: { id: 'j', name: 'Jerry'}, position: {x: 50, y:50} },
+        { group:'nodes', data: { id: 'e', name: 'Elaine'}, position: {x: 180, y:50}  },
+        { group:'nodes', data: { id: 'k', name: 'Kramer'}, position: {x: 310, y:115}},
+        { group:'nodes', data: { id: 'g', name: 'ENDSWITCH'}, position: {x: 440, y:50} },
 
-        e1: { group:'edges', data: { source: 'j', target: 'e', faveColor: '#6FB1FC', strength: 90 } },
-        e2: { group:'edges', data: { source: 'j', target: 'k', faveColor: '#6FB1FC', strength: 70 } },
-        e3: { group:'edges', data: { source: 'j', target: 'g', faveColor: '#6FB1FC', strength: 80 } },
+         { group:'edges', data: { source: 'j', target: 'e', strength: 90} },
+         { group:'edges', data: { source: 'j', target: 'k', strength: 90} },
+         { group:'edges', data: { source: 'j', target: 'g', strength: 90} },
 
-        e4: { group:'edges', data: { source: 'e', target: 'j', faveColor: '#EDA1ED', strength: 95 } },
-        e5: { group:'edges', data: { source: 'e', target: 'k', faveColor: '#EDA1ED', strength: 60 }, classes: 'questionable' },
+         { group:'edges', data: { source: 'e', target: 'j', strength: 90} },
+         { group:'edges', data: { source: 'e', target: 'k', strength: 90}},
 
-        e6: { group:'edges', data: { source: 'k', target: 'j', faveColor: '#86B342', strength: 100 } },
-        e7: { group:'edges', data: { source: 'k', target: 'e', faveColor: '#86B342', strength: 100 } },
-        e8: { group:'edges', data: { source: 'k', target: 'g', faveColor: '#86B342', strength: 100 } },
+         { group:'edges', data: { source: 'k', target: 'j', strength: 90 } },
+         { group:'edges', data: { source: 'k', target: 'e', strength: 90 } },
+         { group:'edges', data: { source: 'k', target: 'g', strength: 90 } },
 
-        e9: { group:'edges', data: { source: 'g', target: 'j', faveColor: '#F5A45D', strength: 90 } }
-    };
+         { group:'edges', data: { source: 'g', target: 'j', strength: 90} }
+    ];
 
     $scope.style = [ // See http://js.cytoscape.org/#style for style formatting and options.
         {
             selector: 'node',
             style: {
-                'shape': 'data(faveShape)',
-                'width': 'mapData(weight, 40, 80, 20, 60)',
+                'shape': 'ellipse',
+                'width': '100',
+                'height': '45',
                 'content': 'data(name)',
                 'text-valign': 'center',
                 'text-outline-width': 2,
-                'text-outline-color': 'data(faveColor)',
-                'background-color': 'data(faveColor)',
+                'text-outline-color': '#6FB1FC',
+                'text-transform': 'uppercase',
+                'background-color': '#6FB1FC',
                 'color': '#fff'
             }
         },
@@ -60,17 +62,9 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
                 'opacity': 0.666,
                 'width': 'mapData(strength, 70, 100, 2, 6)',
                 'target-arrow-shape': 'triangle',
-                'source-arrow-shape': 'circle',
-                'line-color': 'data(faveColor)',
-                'source-arrow-color': 'data(faveColor)',
-                'target-arrow-color': 'data(faveColor)'
-            }
-        },
-        {
-            selector: 'edge.questionable',
-            style: {
-                'line-style': 'dotted',
-                'target-arrow-shape': 'diamond'
+                'line-color': '#6FB1FC',
+                'source-arrow-color': '#6FB1FC',
+                'target-arrow-color': '#6FB1FC'
             }
         },
         {

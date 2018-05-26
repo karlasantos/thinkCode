@@ -93,8 +93,6 @@ class AnalysisStructure
                     'data' => [
                         'id' => ($key+1),
                         'name' => $vertex->getName(),
-                        'faveColor' => '#6FB1FC',
-                        'faveShape' =>  'ellipse',
                     ],
                     'position' => [
                         'x' => $vertex->getX(),
@@ -108,13 +106,14 @@ class AnalysisStructure
                         $idEdge = ($vertex->getInitialLineNumber())? $vertex->getInitialLineNumber() . (($vertex->getEndLineNumber())? "..." . $vertex->getEndLineNumber() : '') : '';
                     }
 
-                    $edgesJson[] = [
+                    $edgesJson[] = array(
                         'group' => 'edges',
-                        'id' => $idEdge,
-                        'source' => ($key+1),
-                        'target' => $vertex->getRightVertexIndex()+1,
-                        'faveColor' => '#6FB1FC',
-                    ];
+                        'data' => array(
+                            'id' => $idEdge,
+                            'source' => ($key+1),
+                            'target' => $vertex->getRightVertexIndex()+1,
+                        )
+                    );
                 }
 
                 if($vertex->getLeftVertexIndex() != -1) {
@@ -124,33 +123,32 @@ class AnalysisStructure
                         $idEdge = ($vertex->getInitialLineNumber())? $vertex->getInitialLineNumber() . (($vertex->getEndLineNumber())? "..." . $vertex->getEndLineNumber() : '') : '';
                     }
 
-                    $edgesJson[] = [
+                    $edgesJson[] = array(
                         'group' => 'edges',
-                        'id' => $idEdge,
-                        'source' => ($key+1),
-                        'target' => $vertex->getLeftVertexIndex()+1,
-                        'faveColor' => '#6FB1FC',
-                    ];
+                        'data' => array(
+                            'id' => $idEdge,
+                            'source' => ($key+1),
+                            'target' => $vertex->getLeftVertexIndex()+1,
+                        )
+                    );
                 }
 
                 if(count($vertex->getMoreVertexIndexes()) > 0) {
                     foreach ($vertex->getMoreVertexIndexes() as $index) {
-                        $edgesJson[] = [
+                        $edgesJson[] = array(
                             'group' => 'edges',
-                            'source' => ($key+1),
-                            'target' => $index+1,
-                            'faveColor' => '#6FB1FC',
-                        ];
+                            'data' => array(
+                                'source' => ($key+1),
+                                'target' => $index+1,
+                            )
+                        );
                     }
                 }
             }
         }
 
         $elements = array(
-            'elements' => array(
-                'nodes' => $verticesJson,
-                'edges' => $edgesJson
-            ),
+            'elements' => array($verticesJson, $edgesJson),
         );
 
         //decodifica e salva o Grafo JSON da análise

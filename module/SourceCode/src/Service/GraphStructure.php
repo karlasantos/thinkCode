@@ -375,8 +375,8 @@ class GraphStructure
     {
         $languageService = $this->dataCollectService->getLanguageService();
         /* INTERVALO X e Y: os espaços entre um vértice e outro será definido nessas variáveis.*/
-        $distanceX = 65;
-        $distanceY = 35;
+        $distanceX = 80;
+        $distanceY = 50;
 
         /* COORDENADA X e Y: os valores de X e Y serão armazenados nessas variáveis.*/
         $coordinateX = 0;
@@ -392,7 +392,7 @@ class GraphStructure
         $isEnd = false;
 
         /* Definindo a posição do vértice INICIO*/
-        $this->vertices[0]->setX(10);
+        $this->vertices[0]->setX(50);
         $this->vertices[0]->setY(50);
 
         for($key = 1; $key < count($this->vertices); $key++) {
