@@ -3,18 +3,9 @@
         .side-navbar ul.list-unstyled li:nth-child(2) a {
             background: #eef5f9;
         }
-
-        #user-graph {
-            height: 100%;
-            width: 100%;
-            position: relative;
-            left: 0;
-            top: 0;
-            z-index: 20;
-        }
     </style>
     <div class="card form">
-<!--        <div id="cy"></div>-->
+        <!-- Título do problema -->
         <div class="card-header align-items-center p-b-0 p-t-5">
             <div class="row">
                 <div class="col-md-3"><h5>Submissão Problema {{submissionTools.problem.id}}</h5></div>
@@ -22,13 +13,17 @@
                     <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.category.name}}</h5>
                 </div>
                 <div class="col-md-3 text-right p-r-20">
-                    <h3 title="Posição da sua solução no ranking do problema" ng-if="submissionTools.problem.ranking">
+                    <h3 title="Posição da sua solução no ranking do problema." ng-if="submissionTools.problem.ranking">
                         <i class="fa fa-trophy text-warning fa-2x" aria-hidden="true"></i>
                         {{submissionTools.problem.ranking}}
+                        <button ng-if="resultAnalysisTools.showAnalysis" type="button" title="Visualizar Rank completo desse problema." class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-rank">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
                     </h3>
                 </div>
             </div>
         </div>
+        <!-- Content para submissão -->
         <div class="card-body" ng-if="!resultAnalysisTools.showAnalysis">
             <form id="submission-form">
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
@@ -57,14 +52,14 @@
                 </div>
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
                     <div class="form-group col-md-6 p-l-0">
-                        <textarea ng-model="submissionTools.submissionData.content" id="source-code" type="text" rows="28" required=""  class="lined" cols="55"></textarea>
+                        <textarea ng-model="submissionTools.submissionData.content" id="source-code" type="text" rows="28" required="" class="source-code"></textarea>
                     </div>
                     <div class="col-md-6">
                         <h5 class="text-center"> Rank de soluções
                             <span class="dropdown inline">
                                 <button type="button" id="closeCard2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;  background: #0e90d2; border: none;"><i class="fa fa-info"></i></button>
                                 <div aria-labelledby="closeCard2" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
-                                    <p>Seleciona uma das soluções do ranking para realizar a comparação dos códigos fonte.</p>
+                                    <p>Selecione uma das soluções do ranking para realizar a comparação dos códigos fonte.</p>
                                 </div>
                             </span>
                         </h5>
@@ -78,9 +73,9 @@
                                 </tr>
                             </thead>
                             <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
-                                <tr>
+                                <tr ng-class="{'bg-success-light': ranking.sourceCode.user.id == '<?=$this->identity()->getId()?>'}">
                                     <td width="6%">
-                                        <input id="checkbox{{$index}}" type="checkbox" value="" checked="" class="checkbox-template" ng-click="submissionTools.changeComparison($index, !ranking.selected);" ng-model="ranking.selected"/>
+                                        <input id="checkbox{{$index}}" type="checkbox" value="" checked="" class="checkbox-template" ng-click="submissionTools.changeComparison($index, !ranking.selected);" ng-model="ranking.selected" ng-show="ranking.sourceCode.user.id != '<?=$this->identity()->getId()?>'"/>
                                     </td>
                                     <td title="Posição">
                                         {{ranking.ranking}}
@@ -101,166 +96,126 @@
                 <button class="btn btn-success pull-right" ng-click="submissionTools.submitSourceCode();"><i class="fa fa-play-circle" aria-hidden="true"></i> Analisar Solução</button>
             </div>
         </div>
-        <div class="card-body" ng-if="resultAnalysisTools.showAnalysis">
+
+        <!-- Content para visualização de resultados da análise -->
+        <div class="card-body p-t-2" ng-if="resultAnalysisTools.showAnalysis">
             <form id="analysis-form">
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
-                    <div class="col-md-8">
-                        <cytoscape id="user-graph" graph-options="options" graph-elements="elements" graph-layout="layout" graph-style="style" graph-ready="cy_graph_ready" style="width: 50%"></cytoscape>
-                    </div>
-                    <div class="col-md-4 bg-danger">
-                        <ul class="list-unstyled">
-                            <li>Média da Solução: {{}}</li>
-                            <li>Complexidade Ciclomática: {{}}</li>
-                            <li>Nº de Linhas úteis: {{}}</li>
-                            <li>Nº de Variáveis: {{}}</li>
-                            <li>Nº de Comandos de Desvio: {{}}</li>
-                            <li>Nº de Conectivos Lógicos: {{}}</li>
-                            <li>Nº de Regiões do Grafo: {{}}</li>
-                            <li>Nº de Vértices do Grafo: {{}}</li>
-                            <li>Nº de Arestas do Grafo: {{}}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="form-group row p-t-5 p-b-0 p-l-0 p-r-0 m-b-0">
-                    <div class="col-md-8 bg-info">
-<!--                        <cytoscape id="another-user-graph" graph-options="options" graph-elements="elements" graph-layout="layout" graph-style="style" graph-ready="cy_graph_ready"></cytoscape>-->
-                    </div>
-                    <div class="col-md-4 bg-danger">
-                        <ul class="list-unstyled">
-                            <li>Média da Solução: {{}}</li>
-                            <li>Complexidade Ciclomática: {{}}</li>
-                            <li>Nº de Linhas úteis: {{}}</li>
-                            <li>Nº de Variáveis: {{}}</li>
-                            <li>Nº de Comandos de Desvio: {{}}</li>
-                            <li>Nº de Conectivos Lógicos: {{}}</li>
-                            <li>Nº de Regiões do Grafo: {{}}</li>
-                            <li>Nº de Vértices do Grafo: {{}}</li>
-                            <li>Nº de Arestas do Grafo: {{}}</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
-                    <div class="form-group col-md-6 p-l-0">
-                        <label for="source-code" class="form-control-label m-b-5">Sua solução</label>
-                        <textarea ng-model="resultAnalysisTools.analysisSourceCodeSubject.content" id="source-code" type="text" rows="28" required=""  class="lined" cols="55"></textarea>
-                    </div>
-                </div>
-                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
                     <div class="col-md-12">
-                        <h5 class="text-center"> Rank de soluções
-                            <span class="dropdown inline">
-                                <button type="button" id="closeCard2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;  background: #0e90d2; border: none;"><i class="fa fa-info"></i></button>
-                                <div aria-labelledby="closeCard2" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
-                                    <p>Seleciona uma das soluções do ranking para realizar a comparação dos códigos fonte.</p>
-                                </div>
-                            </span>
-                        </h5>
-                        <table class="table table-hover table-bordered table-sm">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Posição</th>
-                                <th>Usuário</th>
-                                <th>Média</th>
-                            </tr>
-                            </thead>
-                            <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
-                            <tr>
-                                <td width="6%">
-                                    <input id="checkbox{{$index}}" type="checkbox" value="" checked="" class="checkbox-template" ng-click="submissionTools.changeComparison($index, !ranking.selected);" ng-model="ranking.selected"/>
-                                </td>
-                                <td title="Posição">
-                                    {{ranking.ranking}}
-                                </td>
-                                <td title="Usuário">
-                                    {{ranking.sourceCode.user.profile.fullName}}
-                                </td>
-                                <td title="Média">
-                                    {{ranking.analysisMean}}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <h4>Seus Resultados</h4>
+                        <button type="button" title="Visualizar código fonte inserido" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#view-source-code">
+                            <i class="fa fa-eye" aria-hidden="true"></i> Código Fonte
+                        </button>
+                    </div>
+                    <div class="col-md-8" style="height: 280px">
+                        <cytoscape id="user-graph" graph-options="resultAnalysisTools.options" graph-elements="resultAnalysisTools.analysisSourceCodeSubject.graph.elements" graph-layout="resultAnalysisTools.layout" graph-style="resultAnalysisTools.style" graph-ready="resultAnalysisTools.cy_graph_ready" style="width: 100%"></cytoscape>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li>Média da Solução: {{resultAnalysisTools.analysisSourceCodeSubject.arithmeticMean}}</li>
+                            <li>Complexidade Ciclomática: {{resultAnalysisTools.analysisSourceCodeSubject.cyclomaticComplexity}}</li>
+                            <li>Nº de Linhas úteis: {{resultAnalysisTools.analysisSourceCodeSubject.numberUsefulLines}}</li>
+                            <li>Nº de Variáveis: {{resultAnalysisTools.analysisSourceCodeSubject.numberVariables}}</li>
+                            <li>Nº de Comandos de Desvio: {{resultAnalysisTools.analysisSourceCodeSubject.numberDiversionCommands}}</li>
+                            <li>Nº de Conectivos Lógicos: {{resultAnalysisTools.analysisSourceCodeSubject.numberLogicalConnectives}}</li>
+                            <li>Nº de Regiões do Grafo: {{resultAnalysisTools.analysisSourceCodeSubject.numberRegionsGraph}}</li>
+                            <li>Nº de Vértices do Grafo: {{resultAnalysisTools.analysisSourceCodeSubject.numberVertexGraph}}</li>
+                            <li>Nº de Arestas do Grafo: {{resultAnalysisTools.analysisSourceCodeSubject.numberEdgesGraph}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0" ng-if="resultAnalysisTools.analysisSourceCodeSystem.length > 0">
+                    <div class="col-md-12">
+                        <h4>Resultados do {{resultAnalysisTools.analysisSourceCodeSystem.userCompare}}</h4>
+                    </div>
+                    <div class="col-md-8" style="height: 280px">
+                        <cytoscape id="another-user-graph" graph-options="resultAnalysisTools.options" graph-elements="resultAnalysisTools.analysisSourceCodeSystem.graph.elements" graph-layout="resultAnalysisTools.layout" graph-style="resultAnalysisTools.style" graph-ready="resultAnalysisTools.cy_graph_ready" style="width: 100%"></cytoscape>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li>Média da Solução: {{resultAnalysisTools.analysisSourceCodeSystem.arithmeticMean}}</li>
+                            <li>Complexidade Ciclomática: {{resultAnalysisTools.analysisSourceCodeSystem.cyclomaticComplexity}}</li>
+                            <li>Nº de Linhas úteis: {{resultAnalysisTools.analysisSourceCodeSystem.numberUsefulLines}}</li>
+                            <li>Nº de Variáveis: {{resultAnalysisTools.analysisSourceCodeSystem.numberVariables}}</li>
+                            <li>Nº de Comandos de Desvio: {{resultAnalysisTools.analysisSourceCodeSystem.numberDiversionCommands}}</li>
+                            <li>Nº de Conectivos Lógicos: {{resultAnalysisTools.analysisSourceCodeSystem.numberLogicalConnectives}}</li>
+                            <li>Nº de Regiões do Grafo: {{resultAnalysisTools.analysisSourceCodeSystem.numberRegionsGraph}}</li>
+                            <li>Nº de Vértices do Grafo: {{resultAnalysisTools.analysisSourceCodeSystem.numberVertexGraph}}</li>
+                            <li>Nº de Arestas do Grafo: {{resultAnalysisTools.analysisSourceCodeSystem.numberEdgesGraph}}</li>
+                        </ul>
                     </div>
                 </div>
             </form>
         </div>
+
+        <!-- Modal visualização código fonte -->
+        <div style="z-index: 9999999" class="modal fade" id="view-source-code" tabindex="-1" role="dialog" aria-labelledby="viewSCTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewSCTitle">Código Fonte</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea ng-model="resultAnalysisTools.analysisSourceCodeSubject.content" id="source-code-view" type="text" rows="28" ng-disabled="true" class="source-code"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal visualizacao rank -->
+        <div style="z-index: 9999999" class="modal fade" id="modal-rank" tabindex="-1" role="dialog" aria-labelledby="modalRankTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalRankTitle">Rank de Soluções</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                            <div class="col-md-12">
+                                <table class="table table-hover table-bordered table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th>Posição</th>
+                                        <th>Usuário</th>
+                                        <th>Média</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
+                                    <tr ng-class="{'bg-success-light': ranking.sourceCode.user.id == '<?=$this->identity()->getId()?>'}">
+                                        <td title="Posição">
+                                            {{ranking.ranking}}
+                                        </td>
+                                        <td title="Usuário">
+                                            {{ranking.sourceCode.user.profile.fullName}}
+                                        </td>
+                                        <td title="Média">
+                                            {{ranking.analysisMean}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<script>
-    // cytoscape({
-    //     container: document.getElementById('cy'),
-    //
-    //     layout: {
-    //         name: 'cose',
-    //         padding: 10
-    //     },
-    //
-    //     style: cytoscape.stylesheet()
-    //         .selector('node')
-    //         .css({
-    //             'shape': 'data(faveShape)',
-    //             'width': 'mapData(weight, 40, 80, 20, 60)',
-    //             'content': 'data(name)',
-    //             'text-valign': 'center',
-    //             'text-outline-width': 2,
-    //             'text-outline-color': 'data(faveColor)',
-    //             'background-color': 'data(faveColor)',
-    //             'color': '#fff'
-    //         })
-    //         .selector(':selected')
-    //         .css({
-    //             'border-width': 3,
-    //             'border-color': '#333'
-    //         })
-    //         .selector('edge')
-    //         .css({
-    //             'curve-style': 'bezier',
-    //             'opacity': 0.666,
-    //             'width': 'mapData(strength, 70, 100, 2, 6)',
-    //             'target-arrow-shape': 'triangle',
-    //             'source-arrow-shape': 'circle',
-    //             'line-color': 'data(faveColor)',
-    //             'source-arrow-color': 'data(faveColor)',
-    //             'target-arrow-color': 'data(faveColor)'
-    //         })
-    //         .selector('edge.questionable')
-    //         .css({
-    //             'line-style': 'dotted',
-    //             'target-arrow-shape': 'diamond'
-    //         })
-    //         .selector('.faded')
-    //         .css({
-    //             'opacity': 0.25,
-    //             'text-opacity': 0
-    //         }),
-    //
-    //     elements: {
-    //         nodes: [
-    //             { data: { id: 'j', name: 'Jerry', weight: 65, faveColor: '#6FB1FC', faveShape: 'triangle' } },
-    //             { data: { id: 'e', name: 'Elaine', weight: 45, faveColor: '#EDA1ED', faveShape: 'ellipse' } },
-    //             { data: { id: 'k', name: 'Kramer', weight: 75, faveColor: '#86B342', faveShape: 'octagon' } },
-    //             { data: { id: 'g', name: 'George', weight: 70, faveColor: '#F5A45D', faveShape: 'rectangle' } }
-    //         ],
-    //         edges: [
-    //             { data: { source: 'j', target: 'e', faveColor: '#6FB1FC', strength: 90 } },
-    //             { data: { source: 'j', target: 'k', faveColor: '#6FB1FC', strength: 70 } },
-    //             { data: { source: 'j', target: 'g', faveColor: '#6FB1FC', strength: 80 } },
-    //
-    //             { data: { source: 'e', target: 'j', faveColor: '#EDA1ED', strength: 95 } },
-    //             { data: { source: 'e', target: 'k', faveColor: '#EDA1ED', strength: 60 }, classes: 'questionable' },
-    //
-    //             { data: { source: 'k', target: 'j', faveColor: '#86B342', strength: 100 } },
-    //             { data: { source: 'k', target: 'e', faveColor: '#86B342', strength: 100 } },
-    //             { data: { source: 'k', target: 'g', faveColor: '#86B342', strength: 100 } },
-    //
-    //             { data: { source: 'g', target: 'j', faveColor: '#F5A45D', strength: 90 } }
-    //         ]
-    //     },
-    //
-    //     ready: function(){
-    //         window.cy = this;
-    //     }
-    // });
-</script>

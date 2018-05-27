@@ -62,7 +62,7 @@ class SourceCodeController extends RestfulController
         //die("teste");
         try {
             $sourceCode = new SourceCode();
-            $language = $this->entityManager->find(Language::class, 1);
+            $language = $this->entityManager->find(Language::class, 2);
             if($language instanceof Language)
                 $sourceCode->setLanguage($language);
 
@@ -72,84 +72,74 @@ class SourceCodeController extends RestfulController
             $dataCollect = new DataCollect($this->entityManager, $languageService);
             $analysis = new GraphStructure($this->entityManager, $dataCollect);
 
-            $sourceCode->setContent("int main() {
-            \nint a = 1, c;
-            \nfloat b = 0;
-            \nif(a > 0 || b == 0)
-            \n {
-               \nif(b >0)
-               \n{
-                  \nb=1;
-               \n}
-               \na++;
-            \n}
-            \n//teste
-            \nelse {
-               \na--;
-            \n}
-            \ndo {
-                \nif() 
-                \n{
-                \n}
-            \n}
-            \nwhile (a > 1 && a == 2);
-            \nswitch (a) 
-            \n{
-                \ncase 1:
-                   \nif (a)
-                   \n{
-                   \n}
-                  \nbreak;
-                \ncase 2: 
-                  \nif 
-                  \n{
-                  \n}
-                  \nbreak; 
-                \ndefault:
-                  \nif () 
-                  \n{
-                  \n}
-                  \nelse 
-                  \n{
-                      \nif ()
-                  \n}
-            \n}
-            \nfor(i=0; i<3; i++)
-            \n{
-            \n}
-            \nswitch (b) 
-            \n{
-                \ncase 1:
-                   \nbreak;
-            \n}
-            \n}");
-
-            $sourceCode->setContent("int main() {
-            \nint a = 1, c;
-            \nfloat b = 0;
-            \nif(a > 0 || b == 0)
-            \n {
-               \nif(b >0)
-               \n{
-                  \nb=1;
-               \n}
-               \na++;
-            \n}
-            \nelse 
-               \nif () {
-            \n}
-           
-            }");
-            $sourceCode->setContent("int main() {
-            \nswitch (b) 
-            \n{
-                \ncase 1:
-                    if () {
-                    }
-                   \nbreak;
-                case 2:
-            \n}
-            }");
+//            $sourceCode->setContent("int main() {
+//            \nint a = 1, c;
+//            \nfloat b = 0;
+//            \nif(a > 0 || b == 0)
+//            \n {
+//               \nif(b >0)
+//               \n{
+//                  \nb=1;
+//               \n}
+//               \na++;
+//            \n}
+//            \n//teste
+//            \nelse {
+//               \na--;
+//            \n}
+//            \ndo {
+//                \nif()
+//                \n{
+//                \n}
+//            \n}
+//            \nwhile (a > 1 && a == 2);
+//            \nswitch (a)
+//            \n{
+//                \ncase 1:
+//                   \nif (a)
+//                   \n{
+//                   \n}
+//                  \nbreak;
+//                \ncase 2:
+//                  \nif
+//                  \n{
+//                  \n}
+//                  \nbreak;
+//                \ndefault:
+//                  \nif ()
+//                  \n{
+//                  \n}
+//                  \nelse
+//                  \n{
+//                      \nif ()
+//                  \n}
+//            \n}
+//            \nfor(i=0; i<3; i++)
+//            \n{
+//            \n}
+//            \nswitch (b)
+//            \n{
+//                \ncase 1:
+//                   \nbreak;
+//            \n}
+//            \n}");
+//
+//            $sourceCode->setContent("int main() {
+//            \nint a = 1, c;
+//            \nfloat b = 0;
+//            \nif(a > 0 || b == 0)
+//            \n {
+//               \nif(b >0)
+//               \n{
+//                  \nb=1;
+//               \n}
+//               \na++;
+//            \n}
+//            \nelse
+//               \nif () {
+//            \n}
+//
+//            }");
 //            $sourceCode->setContent("int main() {
 //            \ndo
 //            \n{
@@ -185,41 +175,51 @@ class SourceCodeController extends RestfulController
 //                   } while ();\n
 //                } \n
 //            }");
+            $sourceCode->setContent("inicio
+                \ninteiro n,fat
+                \nfat<-1
+                \nler n
+                \nenquanto (n>=1) faz
+                    \nfat<-fat*n
+                    \nn<-n-1
+                \nfimenquanto
+            \nfim ");
             $result = $dataCollect->getDataFromCode($sourceCode);
-            $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
-            $user = $this->entityManager->find(User::class, $userId);
-            $problem = $this->entityManager->find(Problem::class, 1);
+//            $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
+//            $user = $this->entityManager->find(User::class, $userId);
+//            $problem = $this->entityManager->find(Problem::class, 1);
 
             //estrutura de analise
-            $result = $analysis->setGraphData($sourceCode);
-            $analysisStructures = new AnalysisStructure($this->entityManager, $languageService, $result, $dataCollect);
-            $resultObject = $analysisStructures->calculateCyclomaticComplexity($sourceCode);
+//            $result = $analysis->setGraphData($sourceCode);
+//            $analysisStructures = new AnalysisStructure($this->entityManager, $languageService, $result, $dataCollect);
+//            $resultObject = $analysisStructures->calculateCyclomaticComplexity($sourceCode);
             //como salvar em formato JSON
-            $graphJSON = $analysisStructures->generateJsonGraph($sourceCode);
+//            $graphJSON = $analysisStructures->generateJsonGraph($sourceCode);
 
-            $sourceCode->setUser($user);
-            $sourceCode->setAnalysisResults($resultObject);
-            $sourceCode->setProblem($problem);
+//            $sourceCode->setUser($user);
+//            $sourceCode->setAnalysisResults($resultObject);
+//            $sourceCode->setProblem($problem);
 //            $sourceCode->setReferential(false);
-            $this->entityManager->persist($sourceCode);
-            $this->entityManager->persist($resultObject);
+//            $this->entityManager->persist($sourceCode);
+//            $this->entityManager->persist($resultObject);
 //            $this->entityManager->flush();
 
             //como retornar em formato JSON
-            return new JsonModel((array)json_decode($resultObject->getGraph()));
+//            return new JsonModel((array)json_decode($resultObject->getGraph()));
 
-            die();
             $arrayResult = array();
             foreach ($result as $key => $value) {
-                if($value instanceof Vertex)
+                if ($value instanceof CodeBypassCommand) {
 //                    $valor = [
 //                        'name' => $value->getName(),
 //                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
 //                        'lineNumber' => $value->getEndLineNumber()
 //                    ];
-                    $setValue = $value->toArray();
-                    $setValue['id'] = $key;
-                    $arrayResult[] = $setValue;
+//                    $setValue = $value->toArray();
+//                    $setValue['id'] = $key;
+//                    $arrayResult[] = $setValue;
+                    $arrayResult[] = $value->getName();
+                }
             }
             //die();
             return new JsonModel([
@@ -239,8 +239,8 @@ class SourceCodeController extends RestfulController
     public function create($data)
     {
         $analysisResultsSystem = array();
-        $sourceCode = new SourceCode();
         $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
+        $sourceCodeSystem = null;
 
         $sourceCodeFilter = new SourceCodeValidator($data);
 
@@ -262,9 +262,22 @@ class SourceCodeController extends RestfulController
             );
         }
 
-        $sourceCode->setData($sourceCodeFilter->getValues());
-
         try {
+
+            //busca o código fonte já inserido pelo usuário para atualizar os dados
+            $sourceCode = $this->entityManager->getRepository(SourceCode::class)->findOneBy(
+                array(
+                    'user' => $userId,
+                    'problem' => $sourceCodeFilter->getValue('problemId')
+                )
+            );
+
+            //se não tiver nenhum código fonte, insere um novo
+            if(!$sourceCode instanceof SourceCode) {
+                $sourceCode = new SourceCode();
+            }
+
+            $sourceCode->setData($sourceCodeFilter->getValues());
             $this->entityManager->beginTransaction();
 
             $user = $this->entityManager->find(User::class, $userId);
@@ -319,13 +332,8 @@ class SourceCodeController extends RestfulController
             //retorna os dados da análise do código do usuário em formato de array
             $analysisResultsReturn = $analysisResults->toArray();
 
-            if(isset($data['userCompareId']) && !empty($data['userCompareId'])) {
-                $sourceCodeSystem = $this->entityManager->getRepository(SourceCode::class)->findOneBy(
-                    array(
-                        'problem' => $problem->getId(),
-                        'user'    => $data['userCompareId']
-                    )
-                );
+            if(isset($data['sourceCodeCompareId']) && !empty($data['sourceCodeCompareId'])) {
+                $sourceCodeSystem = $this->entityManager->find(SourceCode::class, $data['sourceCodeCompareId']);
 
                 if(!$sourceCodeSystem instanceof SourceCode)
                     throw new Exception("O código selecionado para comparação não foi encontrado.");
@@ -343,17 +351,16 @@ class SourceCodeController extends RestfulController
             $rankService = new Rank($this->entityManager);
             $ranking = $rankService->updateRank($dataRank, $sourceCode);
 
+            $analysisResultsReturn['content'] = $sourceCode->getContent();
+            $analysisResultsReturn['ranking'] = $ranking;
+
+            $analysisResultsSystem['userCompareId'] = ($sourceCodeSystem instanceof SourceCode)? $sourceCodeSystem->getUser()->getId() : null;
+            $analysisResultsSystem['userCompare'] = ($sourceCodeSystem instanceof SourceCode)? $sourceCodeSystem->getUser()->getProfile()->getFullName() : null;
+
             $results = array(
                 'result' => array(
-                    'sourceCodeUser' => array(
-                        'analysisResults' => $analysisResultsReturn,
-                        'content' => $sourceCode->getContent(),
-                        'ranking' => $ranking,
-                    ),
-                    'sourceCodeSystem' => array(
-                        'analysisResults' => $analysisResultsSystem,
-                        'userCompareId' => (isset($data['userCompareId']) && !empty($data['userCompareId']))? $data['userCompareId'] : null,
-                    ),
+                    'sourceCodeUser' => $analysisResultsReturn,
+                    'sourceCodeSystem' => $analysisResultsSystem,
                 )
             );
 

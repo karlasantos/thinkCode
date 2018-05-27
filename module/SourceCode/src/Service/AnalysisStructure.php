@@ -148,7 +148,7 @@ class AnalysisStructure
         }
 
         $elements = array(
-            'elements' => array($verticesJson, $edgesJson),
+            'elements' => array_merge($verticesJson, $edgesJson),
         );
 
         //decodifica e salva o Grafo JSON da análise

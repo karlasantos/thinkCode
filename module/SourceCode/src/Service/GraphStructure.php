@@ -375,7 +375,7 @@ class GraphStructure
     {
         $languageService = $this->dataCollectService->getLanguageService();
         /* INTERVALO X e Y: os espaços entre um vértice e outro será definido nessas variáveis.*/
-        $distanceX = 80;
+        $distanceX = 120;
         $distanceY = 50;
 
         /* COORDENADA X e Y: os valores de X e Y serão armazenados nessas variáveis.*/

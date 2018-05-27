@@ -15,6 +15,7 @@ use SourceCode\Model\Entity\SourceCode;
 use SourceCode\Model\Entity\SpecialCharacter;
 use SourceCode\Model\CodeBypassCommand;
 use SourceCode\Service\Language as LanguageService;
+use SourceCode\Model\Entity\Language as LanguageEntity;
 
 /**
  * Class DataCollect
@@ -208,7 +209,7 @@ class DataCollect
             $characters = str_split($line);
 
             //se a linha não contém nenhum comando de desvio marca texto e comentário
-            if(!$isComment && !$this->lineContainsInitialBypassCommand($line) && !$this->lineContainsTerminalBypassCommand($line)) {
+            if(!$isComment && !$this->lineContainsInitialBypassCommand($line) && !$this->lineContainsTerminalBypassCommand($line) && strpos($line, $language->getEndCodeStructure()) === false) {
                 $isText = true;
                 $isComment = true;
             }
@@ -280,19 +281,19 @@ class DataCollect
                 // Armazena o caracter lido anteriormente
                 $previusCharacter = $character;
 
-//                \Zend\Debug\Debug::dump('################');
-//                \Zend\Debug\Debug::dump('token:'. $token .".");
-//                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
-//                \Zend\Debug\Debug::dump('character:'. $character.".");
-//                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. (string)(!$isComment && !$isText).".");
-//                \Zend\Debug\Debug::dump('ADD TOKEN:'. $addToken);
-//                \Zend\Debug\Debug::dump('---- TOKENS -----');
-//                $arrayResult = array();
-//                foreach ($this->codeCommands as $value) {
-//                    if($value instanceof CodeBypassCommand)
-//                        $arrayResult[] = $value->getName();
-//                }
-//                \Zend\Debug\Debug::dump($arrayResult);
+                \Zend\Debug\Debug::dump('################');
+                \Zend\Debug\Debug::dump('token:'. $token .".");
+                \Zend\Debug\Debug::dump(array_slice($characters, 0, ($keyChar+1)));
+                \Zend\Debug\Debug::dump('character:'. $character.".");
+                \Zend\Debug\Debug::dump('!TEXT && !COMMENT:'. (string)(!$isComment && !$isText).".");
+                \Zend\Debug\Debug::dump('ADD TOKEN:'. $addToken);
+                \Zend\Debug\Debug::dump('---- TOKENS -----');
+                $arrayResult = array();
+                foreach ($this->codeCommands as $value) {
+                    if($value instanceof CodeBypassCommand)
+                        $arrayResult[] = $value->getName();
+                }
+                \Zend\Debug\Debug::dump($arrayResult);
 
                 // 3 - Se não é comentário e texto o caracter é parte do código efetivo.
                 if(!$isComment && !$isText) {
@@ -304,7 +305,7 @@ class DataCollect
                             /* Para os casos da linguagem C,
                               que possui um caractere especial (}) como terminal de comando de desvio */
                             if ($this->languageService->isTerminalBypassCommand($character) && $token == "") {
-//                                \Zend\Debug\Debug::dump(' $token = $character' . $character . ".");
+                                \Zend\Debug\Debug::dump(' $token = $character' . $character . ".");
                                 $token = $character;
                             }
 
@@ -453,6 +454,14 @@ class DataCollect
 //        \Zend\Debug\Debug::dump("last key remove: ");
 //        var_dump($removeLastKey);
 
+        \Zend\Debug\Debug::dump('---- TOKENS -----');
+        $arrayResult = array();
+        foreach ($this->codeCommands as $value) {
+            if($value instanceof CodeBypassCommand)
+                $arrayResult[] = $value->getName();
+        }
+        \Zend\Debug\Debug::dump($arrayResult);
+
         //verifica se a última chave deve ser removida (chave que indica o fechamento do código)
         if($removeLastKey && !empty($this->codeCommands)) {
             array_pop($this->codeCommands);
@@ -462,6 +471,14 @@ class DataCollect
         // Será adicionado um ponto no final para atender a classe ctrlAnalisaEstrutura,
         // simbolizando o fim do vetor.
         $this->addToken(".", 0);
+
+        \Zend\Debug\Debug::dump('---- TOKENS -----');
+        $arrayResult = array();
+        foreach ($this->codeCommands as $value) {
+            if($value instanceof CodeBypassCommand)
+                $arrayResult[] = $value->getName();
+        }
+        \Zend\Debug\Debug::dump($arrayResult);
 
 //        \Zend\Debug\Debug::dump('$this->logicalConnectiveCounter');
 //        \Zend\Debug\Debug::dump($this->logicalConnectiveCounter);
@@ -583,7 +600,6 @@ class DataCollect
         }
         return false;
     }
-
     /**
      * Verifica o número de conectivos lógicos contidos na linha
      * @param $line
@@ -630,6 +646,8 @@ class DataCollect
      */
     private function addToken($token, $lineNumber)
     {
+        \Zend\Debug\Debug::dump('addToken: '.$token);
+
         end($this->codeCommands);
         $lastIndex = key($this->codeCommands);
         $lastCommand = &$this->codeCommands[$lastIndex]; //retorno por referência
@@ -666,7 +684,7 @@ class DataCollect
             }
         }
         //se token for um término de comando de desvio e o anterior for diferente de "{" adiciona o fechamento de bloco
-        else if($this->languageService->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") {
+        else if(($this->languageService->isTerminalBypassCommand($token) && $lastCommand instanceof CodeBypassCommand && $lastCommand->getName() !== "{") || ($token == $this->languageService->getEndCodeStructure() && !$this->languageService->isTerminalBypassCommand($this->languageService->getEndCodeStructure()))) {
             //cria o comando fechamento de bloco
             $endBlockCommand = new CodeBypassCommand();
             $endBlockCommand->setName("}");

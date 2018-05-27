@@ -1,81 +1,4 @@
 module.exports = function ($scope, $http, SweetAlert, cytoData) {
-    $scope.options = { //See http://js.cytoscape.org/#core/initialisation for core options
-        textureOnViewport:true,
-        pixelRatio: 'auto',
-        motionBlur: false,
-        hideEdgesOnViewport:true
-    };
-
-    $scope.layout = {name: 'cose', padding: 65};   //See http://js.cytoscape.org/#collection/layout for available layouts and options
-
-    $scope.cy_graph_ready = function(evt){
-        console.log('graph ready to be interacted with: ', evt);
-    };
-
-    $scope.elements = [
-         { group:'nodes', data: { id: 'j', name: 'Jerry'}, position: {x: 50, y:50} },
-        { group:'nodes', data: { id: 'e', name: 'Elaine'}, position: {x: 180, y:50}  },
-        { group:'nodes', data: { id: 'k', name: 'Kramer'}, position: {x: 310, y:115}},
-        { group:'nodes', data: { id: 'g', name: 'ENDSWITCH'}, position: {x: 440, y:50} },
-
-         { group:'edges', data: { source: 'j', target: 'e', strength: 90} },
-         { group:'edges', data: { source: 'j', target: 'k', strength: 90} },
-         { group:'edges', data: { source: 'j', target: 'g', strength: 90} },
-
-         { group:'edges', data: { source: 'e', target: 'j', strength: 90} },
-         { group:'edges', data: { source: 'e', target: 'k', strength: 90}},
-
-         { group:'edges', data: { source: 'k', target: 'j', strength: 90 } },
-         { group:'edges', data: { source: 'k', target: 'e', strength: 90 } },
-         { group:'edges', data: { source: 'k', target: 'g', strength: 90 } },
-
-         { group:'edges', data: { source: 'g', target: 'j', strength: 90} }
-    ];
-
-    $scope.style = [ // See http://js.cytoscape.org/#style for style formatting and options.
-        {
-            selector: 'node',
-            style: {
-                'shape': 'ellipse',
-                'width': '100',
-                'height': '45',
-                'content': 'data(name)',
-                'text-valign': 'center',
-                'text-outline-width': 2,
-                'text-outline-color': '#6FB1FC',
-                'text-transform': 'uppercase',
-                'background-color': '#6FB1FC',
-                'color': '#fff'
-            }
-        },
-        {
-            selector: 'selected',
-            style: {
-                'border-width': 3,
-                'border-color': '#333'
-            }
-        },
-        {
-            selector: 'edge',
-            style: {
-                'curve-style': 'bezier',
-                'opacity': 0.666,
-                'width': 'mapData(strength, 70, 100, 2, 6)',
-                'target-arrow-shape': 'triangle',
-                'line-color': '#6FB1FC',
-                'source-arrow-color': '#6FB1FC',
-                'target-arrow-color': '#6FB1FC'
-            }
-        },
-        {
-            selector: '.faded',
-            style: {
-                'opacity': 0.25,
-                'text-opacity': 0
-            }
-        }
-    ];
-
     $scope.submissionTools = {
         submissionData: {
             content: null,
@@ -85,7 +8,6 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
         problem: [],
         code: null,
         searchLanguage: null,
-        // list of `state` value/display objects
         languages        : null,
         /**
          * Inicializa os dados da submissão
@@ -140,8 +62,11 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
 
         changeComparison: function (index, value)
         {
+            $scope.submissionTools.submissionData.userCompareId = null;
+            $scope.submissionTools.submissionData.sourceCodeCompareId = null;
+
             var oldSelected = $scope.submissionTools.problem.rank.filter(function (rankingObj) {
-                return rankingObj.selected != undefined && rankingObj.selected === true;
+                return rankingObj.selected !== undefined && rankingObj.selected === true;
             });
             oldSelected = (oldSelected.length > 0)? oldSelected[0] : null;
 
@@ -150,7 +75,8 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
             }
 
             $scope.submissionTools.problem.rank[index].selected = value;
-            $scope.submissionTools.submissionData.userCompareId = $scope.submissionTools.problem.rank[index].user.id;
+            $scope.submissionTools.submissionData.userCompareId = $scope.submissionTools.problem.rank[index].sourceCode.user.id;
+            $scope.submissionTools.submissionData.sourceCodeCompareId = $scope.submissionTools.problem.rank[index].sourceCode.id;
         },
 
         /**
@@ -167,6 +93,7 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
                     $scope.resultAnalysisTools.initData(response.data, $scope.submissionTools.problem.id);
                     $scope.resultAnalysisTools.showAnalysis = true;
 
+
                 }, function onError(response) {
                     var data = response.data;
                     if (data != null) {
@@ -180,7 +107,64 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
     $scope.resultAnalysisTools = {
         analysisSourceCodeSubject: {},
         analysisSourceCodeSystem: {},
-        showAnalysis: true,
+        showAnalysis: false,
+
+        //configurações dos grafos
+        options: {
+            fit: true,
+            textureOnViewport:true,
+            pixelRatio: 'auto',
+            motionBlur: false,
+            hideEdgesOnViewport:true,
+            avoidOverlap: true,
+        },
+
+        //layout dos grafos
+        layout: {name: 'cose', padding: 65},
+
+        cy_graph_ready: function(evt){
+            console.log('graph ready to be interacted with: ', evt);
+        },
+
+        style: [
+            //configurações para os vértices
+            {
+                selector: 'node',
+                style: {
+                    'shape': 'ellipse',
+                    'width': '100',
+                    'height': '45',
+                    'content': 'data(name)',
+                    'text-valign': 'center',
+                    'text-outline-width': 2,
+                    'text-outline-color': '#6FB1FC',
+                    'text-transform': 'uppercase',
+                    'background-color': '#6FB1FC',
+                    'color': '#fff'
+                }
+            },
+            //configurações dos nós selecionados
+            {
+                selector: ':selected',
+                style: {
+                    'border-width': 3,
+                    'border-color': '#333'
+                }
+            },
+            //configurações das arestas
+            {
+                selector: 'edge',
+                style: {
+                    'curve-style': 'bezier',
+                    'opacity': 0.666,
+                    'width': '5',
+                    'target-arrow-shape': 'triangle',
+                    'line-color': '#6FB1FC',
+                    'source-arrow-color': '#6FB1FC',
+                    'target-arrow-color': '#6FB1FC'
+                }
+            },
+        ],
 
         initData: function (data, problemId) {
             $scope.resultAnalysisTools.analysisSourceCodeSubject = data.result.sourceCodeUser;

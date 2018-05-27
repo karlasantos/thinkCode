@@ -14,6 +14,7 @@ use SourceCode\Model\Entity\BypassCommand;
 use SourceCode\Model\Entity\DataType;
 use SourceCode\Model\Entity\LogicalConnective;
 use SourceCode\Model\Entity\SpecialCharacter;
+use SourceCode\Model\Entity\Language as LanguageEntity;
 
 class Language
 {
@@ -106,7 +107,9 @@ class Language
             ->getArrayResult();
         $specialCharacters = array_column($specialCharacters, 'name');
 
-        if(count($conditionalCommands) < 1 || count($loopCommands) < 1 || count($logicalConnectives) < 1 || count($dataTypes) < 1 || count($specialCharacters) < 1) {
+        $language = $this->entityManager->find(LanguageEntity::class, $languageId);
+
+        if(count($conditionalCommands) < 1 || count($loopCommands) < 1 || count($logicalConnectives) < 1 || count($dataTypes) < 1 || count($specialCharacters) < 1 || !$language instanceof LanguageEntity) {
             throw new \Exception('Erro ao carregar os dados da Linguagem de Programação');
         }
 
@@ -117,6 +120,8 @@ class Language
             'logicalConnectives' => $logicalConnectives,
             'dataTypes' => $dataTypes,
             'specialCharacters' => $specialCharacters,
+            'initialCodeStructure' => $language->getInitialCodeStructure(),
+            'endCodeStructure' => $language->getEndCodeStructure(),
         );
 
         return $this->elementsOfLanguage;
@@ -477,4 +482,13 @@ class Language
         return $this->elementsOfLanguage['loopCommands'][$indexOfElement];
     }
 
+    /**
+     * Retorna a estrutura final do código fonte
+     *
+     * @return mixed
+     */
+    public function getEndCodeStructure()
+    {
+        return $this->elementsOfLanguage['endCodeStructure'];
+    }
 }

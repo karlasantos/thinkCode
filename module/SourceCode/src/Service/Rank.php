@@ -38,11 +38,22 @@ class Rank
     public function updateRank($data, SourceCodeEntity $sourceCode)
     {
         $rankFilter = new RankValidator($data);
-        $newRank = new RankEntity();
+
+        //obtém o rank do usuário caso ele já tenha inserido um código e edita esse rank
+        $newRank = $this->entityManager->getRepository(RankEntity::class)->findOneBy(
+            array(
+                'problem' => $rankFilter->getValue('problemId'),
+                'sourceCode' => $sourceCode->getId()
+            )
+        );
+
+        //se não tiver inserido nenhum cria um rank para o usuário
+        if(!$newRank instanceof RankEntity) {
+            $newRank = new RankEntity();
+        }
+
         $newRank->setData($rankFilter->getValues());
         $newRank->setSourceCode($sourceCode);
-        $sourceCode->setRanking($newRank);
-        $this->entityManager->persist($sourceCode);
 
         //busca o problema
         $problem = $this->entityManager->find(Problem::class, $rankFilter->getValue('problemId'));
@@ -52,6 +63,9 @@ class Rank
             $newRank->setProblem($problem);
         else
             throw new Exception("Inconsistência de problemas do código fonte e do rank.");
+
+        $sourceCode->setRanking($newRank);
+        $this->entityManager->persist($sourceCode);
 
         //monta a query para buscar todos os dados do rank atual
         $qb = $this->entityManager->createQueryBuilder()
@@ -92,7 +106,8 @@ class Rank
                     $this->entityManager->persist($rank);
                 }
 
-                if($rankSaved['userId'] == $rank->getSourceCode()->getUser()->getId()) {
+                //salva o ranking do código inserido pelo usuário para retornar
+                if($rankSaved['userId'] == $newRank->getSourceCode()->getUser()->getId()) {
                     $ranking = $key+1;
                 }
             }
