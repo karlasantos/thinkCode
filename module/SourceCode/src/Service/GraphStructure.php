@@ -288,7 +288,7 @@ class GraphStructure
                 /* 6.1 Percorre os vértices até encontrar o vértice END do FOR ou do WHILE */
                 for($i = $key; $i < count($this->vertices); $i++) {
                     /* 6.1.1 Marca a ligação pela direita do vértice WHILE/FOR com o vértice após o seu END */
-                    if($this->vertices[$i]->getName() === $language->getEndVertexName().$vertex->getName()) {
+                    if($this->vertices[$i]->getOpeningVertexIndex() == $key && $this->vertices[$i]->getName() === $language->getEndVertexName().$vertex->getName()) {
                         $right = $i+1;
                         break;
                     }
@@ -317,7 +317,7 @@ class GraphStructure
                     }
 
                     //8.1.2 salva o índice de vértice de FIM do SWITCH
-                    if($this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandSwitch()['initialCommandName']) {
+                    if($this->vertices[$i]->getOpeningVertexIndex() == $key && $this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandSwitch()['initialCommandName']) {
                         $endSwitchIndex = $i;
 
                         if(!$commandDefault) {
@@ -660,6 +660,23 @@ class GraphStructure
             $coordinateX = 0;
             $coordinateY = 0;
         }
+
+//        $arrayResult = array();
+//        foreach ($this->vertices as $key => $value) {
+//            if ($value instanceof Vertex) {
+////                    $valor = [
+////                        'name' => $value->getName(),
+////                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
+////                        'lineNumber' => $value->getEndLineNumber()
+////                    ];
+////                    $setValue = $value->toArray();
+////                    $setValue['id'] = $key;
+////                    $arrayResult[] = $setValue;
+//                $arrayResult[] = $value->toArray();
+//            }
+//        }
+//        \Zend\Debug\Debug::dump($arrayResult);
+
     }
 
     /**

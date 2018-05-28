@@ -11,6 +11,7 @@ namespace SourceCode\Controller;
 use Application\Controller\RestfulController;
 use Application\Model\Entity\OrderTemplate;
 use Exception;
+use SourceCode\Model\Entity\Language;
 use SourceCode\Model\Entity\Problem;
 use SourceCode\Model\Entity\SourceCode as SourceCodeEntity;
 use User\Model\Entity\User;
@@ -145,6 +146,7 @@ class ProblemController extends RestfulController
                     $user = $this->entityManager->find(User::class, $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
                     if ($user instanceof User) {
                         $language = $user->getProfile()->getDefaultLanguage();
+                        if($language instanceof Language)
                         $problem[0]['language'] = ['id' => $language->getId(), 'name' => $language->getName()];
                         $problem[0]['languageId'] = $problem['language']['id'];
                     }
@@ -152,7 +154,7 @@ class ProblemController extends RestfulController
 
                 $problemResolved = $this->getProblemResolved($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'], $problem[0]['id']);
                 $problem[0]['resolved'] = (count($problemResolved) > 0);
-                $problem[0]['ranking'] = $problemResolved['ranking'];
+                $problem[0]['ranking'] = (isset($problemResolved['ranking']))? $problemResolved['ranking'] : null;
             } else {
                 throw new Exception(ProblemController::PROBLEM_NOT_FOUND);
             }

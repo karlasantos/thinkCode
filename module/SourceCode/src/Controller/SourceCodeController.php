@@ -62,7 +62,7 @@ class SourceCodeController extends RestfulController
         //die("teste");
         try {
             $sourceCode = new SourceCode();
-            $language = $this->entityManager->find(Language::class, 2);
+            $language = $this->entityManager->find(Language::class, 1);
             if($language instanceof Language)
                 $sourceCode->setLanguage($language);
 
@@ -184,13 +184,45 @@ class SourceCodeController extends RestfulController
                     \nn<-n-1
                 \nfimenquanto
             \nfim ");
+            $sourceCode->setContent("int main () {\n
+                int a[5],b[5],uni[10],i,inte[5],x,c,a2[5],d=0,cont=0,aux=0;\n
+                for (i=0;i<5;i++) {\n
+                    scanf (\"%d\", &a[i]);\n
+                }\n
+                for (i=0;i<5;i++) {\n
+                    scanf (\"%d\", &b[i]);\n
+                }\n
+                for (i=0;i<5;i++) {\n
+                    uni[i]=0;\n
+                    inte[i]=0;\n
+                }		\n
+                for (i=0;i<5;i++) {\n
+                        for (x=0;x<5;x++) {\n
+                              if (a[i]==b[x]) {\n
+                                inte[i]=a[i];\n 
+                        cont=cont+1;\n
+                            }\n
+                        }\n
+                    }\n
+            
+                printf (\"\n\");\n
+                for (i=0;i<cont;i++) {\n
+                    for (c=0;c<5;c++) {\n
+                            if (inte[i]==a[c]) {\n
+                                a2[d]=c;\n
+                                d=d+1;\n
+                            }\n
+                        }\n
+                    }\n
+                return 0;\n
+            }");
             $result = $dataCollect->getDataFromCode($sourceCode);
 //            $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
 //            $user = $this->entityManager->find(User::class, $userId);
 //            $problem = $this->entityManager->find(Problem::class, 1);
 
             //estrutura de analise
-//            $result = $analysis->setGraphData($sourceCode);
+            $result = $analysis->setGraphData($sourceCode);
 //            $analysisStructures = new AnalysisStructure($this->entityManager, $languageService, $result, $dataCollect);
 //            $resultObject = $analysisStructures->calculateCyclomaticComplexity($sourceCode);
             //como salvar em formato JSON
@@ -209,7 +241,7 @@ class SourceCodeController extends RestfulController
 
             $arrayResult = array();
             foreach ($result as $key => $value) {
-                if ($value instanceof CodeBypassCommand) {
+                if ($value instanceof Vertex) {
 //                    $valor = [
 //                        'name' => $value->getName(),
 //                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
@@ -221,7 +253,7 @@ class SourceCodeController extends RestfulController
                     $arrayResult[] = $value->getName();
                 }
             }
-            //die();
+//            die();
             return new JsonModel([
                 'resultsC' => array($arrayResult),
             ]);
@@ -279,7 +311,6 @@ class SourceCodeController extends RestfulController
 
             $sourceCode->setData($sourceCodeFilter->getValues());
             $this->entityManager->beginTransaction();
-
             $user = $this->entityManager->find(User::class, $userId);
             $language = $this->entityManager->find(Language::class, $sourceCodeFilter->getValue('languageId'));
             $problem = $this->entityManager->find(Problem::class, $sourceCodeFilter->getValue('problemId'));

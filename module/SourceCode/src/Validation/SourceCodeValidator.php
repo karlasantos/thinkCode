@@ -68,7 +68,6 @@ class SourceCodeValidator extends InputFilter
             'name'     => 'content',
             'required' => true,
             'filters'  => array(
-                array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
             ),
             'validators' => array(

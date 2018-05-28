@@ -91,7 +91,7 @@ class AnalysisStructure
                 $verticesJson[$key] = [
                     'group' => 'nodes',
                     'data' => [
-                        'id' => ($key+1),
+                        'id' => ($key),
                         'name' => $vertex->getName(),
                     ],
                     'position' => [
@@ -103,15 +103,15 @@ class AnalysisStructure
                 if($vertex->getRightVertexIndex() != -1) {
                     $target = $this->vertices[$vertex->getRightVertexIndex()];
                     if($target instanceof Vertex && $target->getName() == $language->getEndVertexName().$vertex->getName()) {
-                        $idEdge = ($vertex->getInitialLineNumber())? $vertex->getInitialLineNumber() . (($vertex->getEndLineNumber())? "..." . $vertex->getEndLineNumber() : '') : '';
+                        $idEdge = ($vertex->getInitialLineNumber())? $vertex->getInitialLineNumber() . (($vertex->getEndLineNumber())? "..." . $vertex->getEndLineNumber() : '.') : '.';
                     }
 
                     $edgesJson[] = array(
                         'group' => 'edges',
                         'data' => array(
                             'id' => $idEdge,
-                            'source' => ($key+1),
-                            'target' => $vertex->getRightVertexIndex()+1,
+                            'source' => ($key),
+                            'target' => $vertex->getRightVertexIndex(),
                         )
                     );
                 }
@@ -120,15 +120,15 @@ class AnalysisStructure
                     $idEdge = null;
                     $target = $this->vertices[$vertex->getLeftVertexIndex()];
                     if($target instanceof Vertex && $target->getName() == $language->getEndVertexName().$vertex->getName()) {
-                        $idEdge = ($vertex->getInitialLineNumber())? $vertex->getInitialLineNumber() . (($vertex->getEndLineNumber())? "..." . $vertex->getEndLineNumber() : '') : '';
+                        $idEdge = ($vertex->getInitialLineNumber())? $vertex->getInitialLineNumber() . (($vertex->getEndLineNumber())? "..." . $vertex->getEndLineNumber() : '.') : '.';
                     }
 
                     $edgesJson[] = array(
                         'group' => 'edges',
                         'data' => array(
                             'id' => $idEdge,
-                            'source' => ($key+1),
-                            'target' => $vertex->getLeftVertexIndex()+1,
+                            'source' => ($key),
+                            'target' => $vertex->getLeftVertexIndex(),
                         )
                     );
                 }
@@ -138,18 +138,41 @@ class AnalysisStructure
                         $edgesJson[] = array(
                             'group' => 'edges',
                             'data' => array(
-                                'source' => ($key+1),
-                                'target' => $index+1,
+                                'id' => null,
+                                'source' => ($key),
+                                'target' => $index,
                             )
                         );
                     }
                 }
             }
         }
+//        print_r('---------------------------');
+//        $arrayResult = array();
+//        foreach ($this->vertices as $key => $value) {
+//            if ($value instanceof Vertex) {
+////                    $valor = [
+////                        'name' => $value->getName(),
+////                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
+////                        'lineNumber' => $value->getEndLineNumber()
+////                    ];
+////                    $setValue = $value->toArray();
+////                    $setValue['id'] = $key;
+////                    $arrayResult[] = $setValue;
+//                $arrayResult[] = $value->toArray();
+//            }
+//        }
+//        \Zend\Debug\Debug::dump($arrayResult);
+//
+//        \Zend\Debug\Debug::dump('elements');
+
 
         $elements = array(
             'elements' => array_merge($verticesJson, $edgesJson),
         );
+//        \Zend\Debug\Debug::dump($elements);
+//        die();
+
 
         //decodifica e salva o Grafo JSON da análise
         $this->analysisResults->setGraph(json_encode($elements));
