@@ -1,0 +1,160 @@
+<div class="col-md-12 p-t-5 p-r-4 p-l-4" ng-controller="SourceCodeController" ng-init="resultViewTools.initData('<?=$problemId?>');">
+    <style>
+        .side-navbar ul.list-unstyled li:nth-child(2) a {
+            background: #eef5f9;
+        }
+    </style>
+    <div class="card form">
+        <!-- Título do problema -->
+        <div class="card-header align-items-center p-b-0 p-t-5">
+            <div class="row">
+                <div class="col-md-3"><h5>Resultados Problema {{submissionTools.problem.id}}</h5></div>
+                <div class="col-md-6 text-center"><h3>{{submissionTools.problem.title}}</h3>
+                    <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.category.name}}</h5>
+                </div>
+                <div class="col-md-3 text-right p-r-20">
+                    <h3 title="Posição da sua solução no ranking do problema." ng-if="submissionTools.problem.ranking">
+                        <i class="fa fa-trophy text-warning fa-2x" aria-hidden="true"></i>
+                        {{submissionTools.problem.ranking}}
+                        <button type="button" title="Visualizar Rank completo desse problema." class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-rank">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content para visualização de resultados da análise -->
+        <div class="card-body p-t-2">
+            <form id="analysis-form">
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                    <div class="col-md-12">
+                        <h4>Seus Resultados</h4>
+                        <button type="button" title="Visualizar código fonte inserido" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#view-source-code">
+                            <i class="fa fa-eye" aria-hidden="true"></i> Código Fonte
+                        </button>
+                    </div>
+                    <div class="col-md-8" style="height: 280px">
+                        <cytoscape id="user-graph" graph-options="resultViewTools.options" graph-elements="resultViewTools.analysisSourceCodeSubject.graph.elements" graph-layout="resultViewTools.layout" graph-style="resultViewTools.style" graph-ready="resultViewTools.cy_graph_ready" style="width: 100%"></cytoscape>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li>Média da Solução
+                                <span class="dropdown inline">
+                                    <button type="button" class="button-info" id="closeCard2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
+                                    <div aria-labelledby="closeCard2" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                                        <p>Média aritmética da sua solução, define sua posição no Rank e indica a complexidade do seu código de acordo com os recursos utilizados.</p>
+                                    </div>
+                                </span>: {{resultViewTools.analysisSourceCodeSubject.arithmeticMean}}</li>
+                            <li>Complexidade Ciclomática
+                                <span class="dropdown inline">
+                                    <button type="button" class="button-info" id="closeCard3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
+                                    <div aria-labelledby="closeCard3" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                                        <p>Esse valor indica a complexidade do código desenvolvido, quanto maior for este número maior é a complexidade do seu código.</p>
+                                    </div>
+                                </span>: {{resultViewTools.analysisSourceCodeSubject.cyclomaticComplexity}}</li>
+                            <li>Nº de Linhas úteis: {{resultViewTools.analysisSourceCodeSubject.numberUsefulLines}}</li>
+                            <li>Nº de Variáveis: {{resultViewTools.analysisSourceCodeSubject.numberVariables}}</li>
+                            <li>Nº de Comandos de Desvio: {{resultViewTools.analysisSourceCodeSubject.numberDiversionCommands}}</li>
+                            <li>Nº de Conectivos Lógicos: {{resultViewTools.analysisSourceCodeSubject.numberLogicalConnectives}}</li>
+                            <li>Nº de Regiões do Grafo: {{resultViewTools.analysisSourceCodeSubject.numberRegionsGraph}}</li>
+                            <li>Nº de Vértices do Grafo: {{resultViewTools.analysisSourceCodeSubject.numberVertexGraph}}</li>
+                            <li>Nº de Arestas do Grafo: {{resultViewTools.analysisSourceCodeSubject.numberEdgesGraph}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0" ng-if="resultViewTools.analysisSourceCodeSystem.length > 0">
+                    <div class="col-md-12">
+                        <h4>Resultados do {{resultViewTools.analysisSourceCodeSystem.userCompare}}</h4>
+                    </div>
+                    <div class="col-md-8" style="height: 280px">
+                        <cytoscape id="another-user-graph" graph-options="resultViewTools.options" graph-elements="resultViewTools.analysisSourceCodeSystem.graph.elements" graph-layout="resultViewTools.layout" graph-style="resultViewTools.style" graph-ready="resultViewTools.cy_graph_ready" style="width: 100%"></cytoscape>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list-unstyled">
+                            <li>Média da Solução: {{resultViewTools.analysisSourceCodeSystem.arithmeticMean}}</li>
+                            <li>Complexidade Ciclomática: {{resultViewTools.analysisSourceCodeSystem.cyclomaticComplexity}}</li>
+                            <li>Nº de Linhas úteis: {{resultViewTools.analysisSourceCodeSystem.numberUsefulLines}}</li>
+                            <li>Nº de Variáveis: {{resultViewTools.analysisSourceCodeSystem.numberVariables}}</li>
+                            <li>Nº de Comandos de Desvio: {{resultViewTools.analysisSourceCodeSystem.numberDiversionCommands}}</li>
+                            <li>Nº de Conectivos Lógicos: {{resultViewTools.analysisSourceCodeSystem.numberLogicalConnectives}}</li>
+                            <li>Nº de Regiões do Grafo: {{resultViewTools.analysisSourceCodeSystem.numberRegionsGraph}}</li>
+                            <li>Nº de Vértices do Grafo: {{resultViewTools.analysisSourceCodeSystem.numberVertexGraph}}</li>
+                            <li>Nº de Arestas do Grafo: {{resultViewTools.analysisSourceCodeSystem.numberEdgesGraph}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal visualização código fonte -->
+        <div style="z-index: 9999999" class="modal fade" id="view-source-code" tabindex="-1" role="dialog" aria-labelledby="viewSCTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="viewSCTitle">Código Fonte</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea ng-model="resultViewTools.analysisSourceCodeSubject.content" id="source-code-view" type="text" rows="28" ng-disabled="true" class="source-code"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal visualizacao rank -->
+        <div style="z-index: 9999999" class="modal fade" id="modal-rank" tabindex="-1" role="dialog" aria-labelledby="modalRankTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalRankTitle">Rank de Soluções</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
+                            <div class="col-md-12">
+                                <table class="table table-hover table-bordered table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th>Posição</th>
+                                        <th>Usuário</th>
+                                        <th>Média</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="clickable" ng-repeat="ranking in submissionTools.problem.rank" ng-click="submissionTools.changeComparison($index, !ranking.selected);">
+                                    <tr ng-class="{'bg-success-light': ranking.sourceCode.user.id == '<?=$this->identity()->getId()?>'}">
+                                        <td title="Posição">
+                                            {{ranking.ranking}}
+                                        </td>
+                                        <td title="Usuário">
+                                            {{ranking.sourceCode.user.profile.fullName}}
+                                        </td>
+                                        <td title="Média">
+                                            {{ranking.analysisMean}}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

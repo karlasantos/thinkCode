@@ -154,6 +154,7 @@ class ProblemController extends RestfulController
 
                 $problemResolved = $this->getProblemResolved($_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'], $problem[0]['id']);
                 $problem[0]['resolved'] = (count($problemResolved) > 0);
+                $problem[0]['sourceCodeId'] = (count($problemResolved) > 0)? $problemResolved['id'] : null;
                 $problem[0]['ranking'] = (isset($problemResolved['ranking']))? $problemResolved['ranking'] : null;
             } else {
                 throw new Exception(ProblemController::PROBLEM_NOT_FOUND);

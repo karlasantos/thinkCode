@@ -376,7 +376,7 @@ class GraphStructure
         $languageService = $this->dataCollectService->getLanguageService();
         /* INTERVALO X e Y: os espaços entre um vértice e outro será definido nessas variáveis.*/
         $distanceX = 120;
-        $distanceY = 50;
+        $distanceY = 65;
 
         /* COORDENADA X e Y: os valores de X e Y serão armazenados nessas variáveis.*/
         $coordinateX = 0;
@@ -572,6 +572,7 @@ class GraphStructure
             /* 5. Trata o comando ENDSWITCH */
             else if($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandSwitch()['initialCommandName']) {
                 $X_big = 0;
+                $blockOpening = false;
                 /* Percorre a Lista de Vértices até o vértice ENSWITCH atual */
                 for ($i = 0; $i < $key; $i++) {
                     /* Encontra os vértices que ligam-se a esquerda do vértice ENDSWITCH analisado*/
@@ -579,10 +580,18 @@ class GraphStructure
                         if($this->vertices[$i]->getX() > $X_big) {
                             $X_big = $this->vertices[$i]->getX();
                         }
+                        $caseDefault = $languageService->getInitialBypassCommandsCaseAndDefault();
+                        if(count($caseDefault) > 0 && $this->vertices[$i]->getName() == $language->getEndVertexName().$caseDefault[0] || $this->vertices[$i]->getName() == $language->getEndVertexName().$caseDefault[1]) {
+                            $blockOpening = true;
+                        }
                     }
                 }
 
-                $coordinateX = $X_big + $distanceX;
+                if($blockOpening)
+                    $coordinateX = $X_big + ($distanceX*4);
+                else
+                    $coordinateX = $X_big + $distanceX;
+
                 $coordinateY = $this->vertices[$this->vertices[$key]->getOpeningVertexIndex()]->getY();
                 $X_big = 0;
             }

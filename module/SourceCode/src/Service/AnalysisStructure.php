@@ -109,7 +109,8 @@ class AnalysisStructure
                     $edgesJson[] = array(
                         'group' => 'edges',
                         'data' => array(
-                            'id' => $idEdge,
+                            'id' => $key.$vertex->getRightVertexIndex().'.',
+                            'label' => ($idEdge != null)? $idEdge : null,
                             'source' => ($key),
                             'target' => $vertex->getRightVertexIndex(),
                         )
@@ -126,7 +127,8 @@ class AnalysisStructure
                     $edgesJson[] = array(
                         'group' => 'edges',
                         'data' => array(
-                            'id' => $idEdge,
+                            'id' => $key.$vertex->getLeftVertexIndex().'.',
+                            'label' => ($idEdge != null)? $idEdge : null,
                             'source' => ($key),
                             'target' => $vertex->getLeftVertexIndex(),
                         )
@@ -138,7 +140,7 @@ class AnalysisStructure
                         $edgesJson[] = array(
                             'group' => 'edges',
                             'data' => array(
-                                'id' => null,
+                                'id' => $key.$index.'.',
                                 'source' => ($key),
                                 'target' => $index,
                             )

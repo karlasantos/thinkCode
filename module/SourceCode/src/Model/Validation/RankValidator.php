@@ -5,7 +5,7 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Validation;
+namespace SourceCode\Model\Validation;
 
 
 use Zend\InputFilter\InputFilter;
@@ -36,8 +36,8 @@ class RankValidator extends InputFilter
                     'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            NotEmpty::IS_EMPTY => 'Informe o problema.',
-                            NotEmpty::INVALID => 'Informe o problema.',
+                            NotEmpty::IS_EMPTY => 'Informe o problema',
+                            NotEmpty::INVALID => 'Informe o problema',
                         ),
                     ),
                 ),
@@ -76,8 +76,8 @@ class RankValidator extends InputFilter
                     'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            NotEmpty::IS_EMPTY => 'Informe a Linguagem de Programação.',
-                            NotEmpty::INVALID => 'Informe a Linguagem de Programação.',
+                            NotEmpty::IS_EMPTY => 'Informe a Linguagem de Programação',
+                            NotEmpty::INVALID => 'Informe a Linguagem de Programação',
                         ),
                     ),
                 ),
@@ -98,7 +98,7 @@ class RankValidator extends InputFilter
                     'options' => array(
                         'messages' => array(
                             NotEmpty::IS_EMPTY => 'Informe o Código Fonte',
-                            NotEmpty::INVALID => 'Informe o Código Fonte.',
+                            NotEmpty::INVALID => 'Informe o Código Fonte',
                         ),
                     ),
                 ),

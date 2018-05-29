@@ -11,8 +11,8 @@ namespace SourceCode\Service;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use SourceCode\Model\Entity\Problem;
-use SourceCode\Validation\RankValidator;
-use \SourceCode\Model\Entity\Rank as RankEntity;
+use SourceCode\Model\Validation\RankValidator;
+use SourceCode\Model\Entity\Rank as RankEntity;
 use SourceCode\Model\Entity\SourceCode as SourceCodeEntity;
 
 class Rank

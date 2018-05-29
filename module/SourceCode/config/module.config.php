@@ -108,6 +108,18 @@ return [
                             ],
                         ],
                     ],
+                    'tcc-source-code-api' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/source-code/source-code[/:id]',
+                            'constraints' => [
+                                'id'     => '[0-9]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\SourceCodeController::class,
+                            ],
+                        ],
+                    ],
                 ]
             ]
         ],

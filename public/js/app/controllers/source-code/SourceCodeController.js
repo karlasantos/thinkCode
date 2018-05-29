@@ -155,6 +155,7 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
             {
                 selector: 'edge',
                 style: {
+                    "label": "data(label)",
                     'curve-style': 'bezier',
                     'opacity': 0.666,
                     'width': '5',
@@ -171,6 +172,87 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
             $scope.resultAnalysisTools.analysisSourceCodeSystem = data.result.sourceCodeSystem;
             //retorna os novos dados do problema
             $scope.submissionTools.initData(problemId);
+        },
+    }
+
+    $scope.resultViewTools = {
+        analysisSourceCodeSubject: {},
+        analysisSourceCodeSystem: {},
+
+        //configurações dos grafos
+        options: {
+            fit: true,
+            textureOnViewport:true,
+            pixelRatio: 'auto',
+            motionBlur: false,
+            hideEdgesOnViewport:true,
+            avoidOverlap: true,
+        },
+
+        //layout dos grafos
+        layout: {name: 'cose', padding: 65},
+
+        cy_graph_ready: function(evt){
+            console.log('graph ready to be interacted with: ', evt);
+        },
+
+        style: [
+            //configurações para os vértices
+            {
+                selector: 'node',
+                style: {
+                    'shape': 'ellipse',
+                    'width': '100',
+                    'height': '45',
+                    'content': 'data(name)',
+                    'text-valign': 'center',
+                    'text-outline-width': 2,
+                    'text-outline-color': '#6FB1FC',
+                    'text-transform': 'uppercase',
+                    'background-color': '#6FB1FC',
+                    'color': '#fff'
+                }
+            },
+            //configurações dos nós selecionados
+            {
+                selector: ':selected',
+                style: {
+                    'border-width': 3,
+                    'border-color': '#333'
+                }
+            },
+            //configurações das arestas
+            {
+                selector: 'edge',
+                style: {
+                    "label": "data(label)",
+                    'curve-style': 'bezier',
+                    'opacity': 0.666,
+                    'width': '5',
+                    'target-arrow-shape': 'triangle',
+                    'line-color': '#6FB1FC',
+                    'source-arrow-color': '#6FB1FC',
+                    'target-arrow-color': '#6FB1FC'
+                }
+            },
+        ],
+
+        initData: function (problemId) {
+            $scope.submissionTools.initData(problemId);
+
+            $http.get('/api/source-code/source-code/'+problemId)
+                .then(function onSuccess(response) {
+                    $scope.resultViewTools.analysisSourceCodeSubject = response.data.result;
+                   // $scope.resultAnalysisTools.showAnalysis = true;
+
+
+                }, function onError(response) {
+                    var data = response.data;
+                    $scope.resultViewTools.analysisSourceCodeSubject = {};
+                    if (data != null) {
+                        SweetAlert.swal("Erro", data.result, "error");
+                    }
+                });
         },
     }
 };

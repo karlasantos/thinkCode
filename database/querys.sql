@@ -138,12 +138,12 @@ INSERT INTO language__bypass_command(bypass_command_id, language_id) VALUES
 INSERT INTO diversion_commands(id, initial_command_name, terminal_command_name, type, graph_element_id) VALUES
 (10, 'se'       , 'senao|fimse'            , 'conditional', 1),
 (11, 'senao'    , 'fimse'                  , 'conditional', 3), -- todo verificar e colocar o senaose
-(12, 'escolha'  , 'fimescolha'             , 'conditional', 4),
-(13, 'caso'     , 'caso|defeito|fimescolha', 'conditional', 4),
-(14, 'defeito'  , 'fimescolha|$'           , 'conditional', 4),
+(12, 'escolhe'  , 'fimescolhe'             , 'conditional', 4),
+(13, 'caso'     , 'caso|defeito|fimescolhe', 'conditional', 4),
+(14, 'defeito'  , 'fimescolhe|$'           , 'conditional', 4),
 (15, 'para'     , 'fimpara'                , 'loop'       , 5),
 (16, 'enquanto' , 'fimenquanto'            , 'loop'       , 6),
-(17, 'repita'   , 'ate'                    , 'loop'       , 7),
+(17, 'repete'   , 'ate'                    , 'loop'       , 7),
 INSERT INTO language__bypass_command(bypass_command_id, language_id) VALUES
 (10,2),
 (11,2),

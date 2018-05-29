@@ -45,6 +45,16 @@ return [
                     ],
                 ],
             ],
+            'tcc-home-barra' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
             'tcc-application' => [
                 'type'    => Segment::class,
                 'options' => [

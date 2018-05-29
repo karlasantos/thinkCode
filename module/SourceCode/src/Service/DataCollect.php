@@ -321,7 +321,11 @@ class DataCollect
                             else if($this->languageService->isInitialBypassCommandCaseOrDefault($token)) {
                                 $lastCommandCase = $token;
                                 end($this->codeCommandsName);
-                                $lastCommandCaseIndex = key($this->codeCommandsName)+2;
+                                //se o penúltimo comando não for um case ou default significa que ele possui bloco, o default será adicionado duas vezes
+                                if(!$this->languageService->isInitialBypassCommandCaseOrDefault($this->codeCommandsName[key($this->codeCommandsName)-1]))
+                                    $lastCommandCaseIndex = key($this->codeCommandsName)+2;
+                                else
+                                    $lastCommandCaseIndex = key($this->codeCommandsName);
                                 $terminalSwitch = $this->languageService->getBypassCommandSwitch()['terminalCommandName'];
                                 $countCaseAndDefault++;
                             }
@@ -338,6 +342,8 @@ class DataCollect
                                     $blockOpeningLength = count(array_keys($commandsAfterLastCase, "{"));
                                     //conta os fechamentos de bloco contidos nos comandos de desvio do código (usa-se "}" por padrão)
                                     $blockClosureLength = count(array_keys($commandsAfterLastCase, "}"));
+//                                    \Zend\Debug\Debug::dump($this->codeCommandsName);
+//                                    \Zend\Debug\Debug::dump($lastCommandCaseIndex);
 //                                    \Zend\Debug\Debug::dump($commandsAfterLastCase);
 //                                    \Zend\Debug\Debug::dump('$blockOpeningLength - $blockClosureLength');
 //                                    \Zend\Debug\Debug::dump($blockOpeningLength);
@@ -456,7 +462,7 @@ class DataCollect
 
 //        \Zend\Debug\Debug::dump("last key remove: ");
 //        var_dump($removeLastKey);
-
+//
 //        \Zend\Debug\Debug::dump('---- TOKENS -----');
 //        $arrayResult = array();
 //        foreach ($this->codeCommands as $value) {
@@ -479,9 +485,10 @@ class DataCollect
 //        $arrayResult = array();
 //        foreach ($this->codeCommands as $value) {
 //            if($value instanceof CodeBypassCommand)
-//                $arrayResult[] = $value->getName();
+//                $arrayResult[] = $value->toArray();
 //        }
 //        \Zend\Debug\Debug::dump($arrayResult);
+//        die();
 
 //        \Zend\Debug\Debug::dump('$this->logicalConnectiveCounter');
 //        \Zend\Debug\Debug::dump($this->logicalConnectiveCounter);

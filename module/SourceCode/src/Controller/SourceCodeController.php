@@ -21,7 +21,7 @@ use SourceCode\Service\AnalysisStructure;
 use SourceCode\Service\DataCollect;
 use SourceCode\Service\GraphStructure;
 use SourceCode\Service\Rank;
-use SourceCode\Validation\SourceCodeValidator;
+use SourceCode\Model\Validation\SourceCodeValidator;
 use Symfony\Component\Debug\Tests\FatalErrorHandler\UndefinedMethodFatalErrorHandlerTest;
 use User\Controller\UserController;
 use User\Model\Entity\User;
@@ -52,6 +52,12 @@ class SourceCodeController extends RestfulController
      * @return ViewModel
      */
     public function submissionAction()
+    {
+        $problemId  = $this->params()->fromQuery('problemId');
+        return new ViewModel(array('problemId' => $problemId));
+    }
+
+    public function resultsAction()
     {
         $problemId  = $this->params()->fromQuery('problemId');
         return new ViewModel(array('problemId' => $problemId));
@@ -264,8 +270,54 @@ class SourceCodeController extends RestfulController
         }
 
         return new JsonModel([
-            'resultsL' => array($result),
+            'results' => array($result),
         ]);
+    }
+
+    /**
+     * @param mixed $id
+     * @return mixed|JsonModel
+     *
+     */
+    public function get($id)
+    {
+        $problemId = (int) $id;
+        $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
+
+        try {
+            $sourceCode = $this->entityManager->createQueryBuilder()
+                        ->select('sc, analysisResults, ranking')
+                        ->from(SourceCode::class, 'sc')
+                        ->leftJoin('sc.analysisResults', 'analysisResults')
+                        ->leftJoin('sc.ranking', 'ranking')
+                        ->where('sc.problem = :problemId')
+                        ->andWhere('sc.user = :userId')
+                        ->setParameter('problemId', $problemId)
+                        ->setParameter('userId', $userId)
+                        ->getQuery()
+                        ->getArrayResult();
+
+            if(count($sourceCode) > 0) {
+                $sourceCode = $sourceCode[0];
+                $sourceCode['submissionDate'] =  $sourceCode['submissionDate'] ->format('d/m/Y');
+                $sourceCode['analysisResults']['graph'] =  (array)json_decode($sourceCode['analysisResults']['graph']);
+                $sourceCode['analysisResults']['analysisResultsId'] =  $sourceCode['analysisResults']['id'];
+                unset($sourceCode['analysisResults']['id']);
+                $sourceCode = array_merge($sourceCode, $sourceCode['analysisResults']);
+                unset($sourceCode['analysisResults']);
+            }
+            else {
+                throw new Exception("Nenhum problema encontrado correspondente.");
+            }
+        }
+        catch (Exception $exception) {
+            $this->getResponse()->setStatusCode(400);
+            $sourceCode = array(
+                'result' => $exception->getMessage(),
+            );
+        }
+
+        return new JsonModel(array('result' => $sourceCode));
     }
 
     public function create($data)

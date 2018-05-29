@@ -5,7 +5,7 @@
  * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
-namespace SourceCode\Validation;
+namespace SourceCode\Model\Validation;
 
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\NotEmpty;
@@ -35,8 +35,8 @@ class SourceCodeValidator extends InputFilter
                     'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            NotEmpty::IS_EMPTY => 'Informe o problema.',
-                            NotEmpty::INVALID => 'Informe o problema.',
+                            NotEmpty::IS_EMPTY => 'Informe o problema',
+                            NotEmpty::INVALID => 'Informe o problema',
                         ),
                     ),
                 ),
@@ -55,8 +55,8 @@ class SourceCodeValidator extends InputFilter
                     'name' => NotEmpty::class,
                     'options' => array(
                         'messages' => array(
-                            NotEmpty::IS_EMPTY => 'Informe a Linguagem de Programação.',
-                            NotEmpty::INVALID => 'Informe a Linguagem de Programação.',
+                            NotEmpty::IS_EMPTY => 'Informe a Linguagem de Programação',
+                            NotEmpty::INVALID => 'Informe a Linguagem de Programação',
                         ),
                     ),
                 ),
@@ -76,7 +76,7 @@ class SourceCodeValidator extends InputFilter
                     'options' => array(
                         'messages' => array(
                             NotEmpty::IS_EMPTY => 'Informe o Código Fonte',
-                            NotEmpty::INVALID => 'Informe o Código Fonte.',
+                            NotEmpty::INVALID => 'Informe o Código Fonte',
                         ),
                     ),
                 ),

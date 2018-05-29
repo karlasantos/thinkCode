@@ -83,6 +83,10 @@ module.exports = function ($scope, $http, NgTableParams) {
 
         submitProblem: function () {
             window.location.href = '/source-code/source-code/submission?problemId='+$scope.problemSelectedTools.problem.id;
+        },
+
+        showResults: function () {
+            window.location.href = '/source-code/source-code/results?problemId='+$scope.problemSelectedTools.problem.id;
         }
     }
 };
