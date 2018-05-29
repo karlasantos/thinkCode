@@ -59,6 +59,7 @@ class SourceCodeController extends RestfulController
 
     public function resultsAction()
     {
+        $problemId = null;
         $problemId  = $this->params()->fromQuery('problemId');
         return new ViewModel(array('problemId' => $problemId));
     }

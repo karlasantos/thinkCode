@@ -566,13 +566,15 @@ class DataCollect
      * @param $token
      * @return bool
      */
-    private function lineContainsToken($line, $token)
+    private function lineContainsToken($line, $token = null)
     {
         //transforma o token e a linha para minúsculas
         $line = strtolower($line);
-        $token = strtolower($token);
-        if(strpos($line, $token) !== false) {
-            return true;
+        if($token != null) {
+            $token = strtolower($token);
+            if (strpos($line, $token) !== false) {
+                return true;
+            }
         }
 
         return false;
@@ -621,7 +623,11 @@ class DataCollect
         foreach ($this->languageService->getElementsOfLanguage()['logicalConnectives'] as $logicalConnective) {
             $index = strpos($line, $logicalConnective);
             if($index !== false) {
-                if($line[$index-1] == " " && $line[$index+1] == " ") {
+                $valueIndex = $index;
+                if($index > 0) {
+                    $valueIndex = $index-1;
+                }
+                if($line[$valueIndex] == " " && $line[$index+1] == " ") {
                     $specialCharacterCounter += substr_count($line, $logicalConnective);
                 }
             }

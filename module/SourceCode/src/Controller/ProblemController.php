@@ -146,9 +146,13 @@ class ProblemController extends RestfulController
                     $user = $this->entityManager->find(User::class, $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']);
                     if ($user instanceof User) {
                         $language = $user->getProfile()->getDefaultLanguage();
-                        if($language instanceof Language)
-                        $problem[0]['language'] = ['id' => $language->getId(), 'name' => $language->getName()];
-                        $problem[0]['languageId'] = $problem['language']['id'];
+                        if($language instanceof Language) {
+                            $problem[0]['language'] = ['id' => $language->getId(), 'name' => $language->getName()];
+                            $problem[0]['languageId'] = $language->getId();
+                        } else {
+                            $problem[0]['language'] = null;
+                            $problem[0]['languageId'] = null;
+                        }
                     }
                 }
 
