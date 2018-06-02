@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Mail\Message
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_addBcc" title="addBcc :: Add a &quot;Bcc&quot; address">
+            <span class="description">Add a &quot;Bcc&quot; address</span><pre>addBcc</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addCc" title="addCc :: Add a &quot;Cc&quot; address">
+            <span class="description">Add a &quot;Cc&quot; address</span><pre>addCc</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addFrom" title="addFrom :: Add a &quot;From&quot; address">
+            <span class="description">Add a &quot;From&quot; address</span><pre>addFrom</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addReplyTo" title="addReplyTo :: Add one or more addresses to the Reply-To recipients">
+            <span class="description">Add one or more addresses to the Reply-To recipients</span><pre>addReplyTo</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addTo" title="addTo :: Add one or more addresses to the To recipients">
+            <span class="description">Add one or more addresses to the To recipients</span><pre>addTo</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_fromString" title="fromString :: Instantiate from raw message string">
+            <span class="description">Instantiate from raw message string</span><pre>fromString</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getBcc" title="getBcc :: Retrieve list of BCC recipients">
+            <span class="description">Retrieve list of BCC recipients</span><pre>getBcc</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getBody" title="getBody :: Return the currently set message body">
+            <span class="description">Return the currently set message body</span><pre>getBody</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getBodyText" title="getBodyText :: Get the string-serialized message body text">
+            <span class="description">Get the string-serialized message body text</span><pre>getBodyText</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCc" title="getCc :: Retrieve list of CC recipients">
+            <span class="description">Retrieve list of CC recipients</span><pre>getCc</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEncoding" title="getEncoding :: Get the message encoding">
+            <span class="description">Get the message encoding</span><pre>getEncoding</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getFrom" title="getFrom :: Retrieve list of From senders">
+            <span class="description">Retrieve list of From senders</span><pre>getFrom</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getHeaders" title="getHeaders :: Access headers collection">
+            <span class="description">Access headers collection</span><pre>getHeaders</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getReplyTo" title="getReplyTo :: Access the address list of the Reply-To header">
+            <span class="description">Access the address list of the Reply-To header</span><pre>getReplyTo</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSender" title="getSender :: Retrieve the sender address, if any">
+            <span class="description">Retrieve the sender address, if any</span><pre>getSender</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSubject" title="getSubject :: Get the message subject header value">
+            <span class="description">Get the message subject header value</span><pre>getSubject</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getTo" title="getTo :: Access the address list of the To header">
+            <span class="description">Access the address list of the To header</span><pre>getTo</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isValid" title="isValid :: Is the message valid?">
+            <span class="description">Is the message valid?</span><pre>isValid</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setBcc" title="setBcc :: Set (overwrite) BCC addresses">
+            <span class="description">Set (overwrite) BCC addresses</span><pre>setBcc</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setBody" title="setBody :: Set the message body">
+            <span class="description">Set the message body</span><pre>setBody</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCc" title="setCc :: Set (overwrite) CC addresses">
+            <span class="description">Set (overwrite) CC addresses</span><pre>setCc</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setEncoding" title="setEncoding :: Set the message encoding">
+            <span class="description">Set the message encoding</span><pre>setEncoding</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setFrom" title="setFrom :: Set (overwrite) From addresses">
+            <span class="description">Set (overwrite) From addresses</span><pre>setFrom</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setHeaders" title="setHeaders :: Compose headers">
+            <span class="description">Compose headers</span><pre>setHeaders</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setReplyTo" title="setReplyTo :: Overwrite the address list in the Reply-To recipients">
+            <span class="description">Overwrite the address list in the Reply-To recipients</span><pre>setReplyTo</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setSender" title="setSender :: setSender">
+            <span class="description">setSender</span><pre>setSender</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setSubject" title="setSubject :: Set the message subject header value">
+            <span class="description">Set the message subject header value</span><pre>setSubject</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTo" title="setTo :: Overwrite the address list in the To recipients">
+            <span class="description">Overwrite the address list in the To recipients</span><pre>setTo</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_toString" title="toString :: Serialize to string">
+            <span class="description">Serialize to string</span><pre>toString</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                <li class="method protected">
+                            <a href="#method_clearHeaderByName" title="clearHeaderByName :: Clear a header by name">
+                                <span class="description">Clear a header by name</span><pre>clearHeaderByName</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected">
+                            <a href="#method_getAddressListFromHeader" title="getAddressListFromHeader :: Retrieve the AddressList from a named header">
+                                <span class="description">Retrieve the AddressList from a named header</span><pre>getAddressListFromHeader</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                        <li class="method protected">
+                            <a href="#method_getHeaderByName" title="getHeaderByName :: Retrieve a header by name">
+                                <span class="description">Retrieve a header by name</span><pre>getHeaderByName</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method protected">
+                            <a href="#method_updateAddressList" title="updateAddressList :: Update an address list">
+                                <span class="description">Update an address list</span><pre>updateAddressList</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Message</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_addBcc"></a>
+                        <div class="element clickable method public  method_addBcc" data-toggle="collapse" data-target=".method_addBcc .collapse">
+                            <h2>Add a &quot;Bcc&quot; address</h2>
+                            <pre>addBcc(string|\Zend\Mail\Address|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressOrList, string|null $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressOrList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.html">\Zend\Mail\Address</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addCc"></a>
+                        <div class="element clickable method public  method_addCc" data-toggle="collapse" data-target=".method_addCc .collapse">
+                            <h2>Add a &quot;Cc&quot; address</h2>
+                            <pre>addCc(string|\Zend\Mail\Address|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressOrList, string|null $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressOrList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.html">\Zend\Mail\Address</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addFrom"></a>
+                        <div class="element clickable method public  method_addFrom" data-toggle="collapse" data-target=".method_addFrom .collapse">
+                            <h2>Add a &quot;From&quot; address</h2>
+                            <pre>addFrom(string|\Zend\Mail\Address|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressOrList, string|null $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressOrList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.html">\Zend\Mail\Address</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addReplyTo"></a>
+                        <div class="element clickable method public  method_addReplyTo" data-toggle="collapse" data-target=".method_addReplyTo .collapse">
+                            <h2>Add one or more addresses to the Reply-To recipients</h2>
+                            <pre>addReplyTo(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressOrList, null|string $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Appends to the list.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressOrList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>null|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addTo"></a>
+                        <div class="element clickable method public  method_addTo" data-toggle="collapse" data-target=".method_addTo .collapse">
+                            <h2>Add one or more addresses to the To recipients</h2>
+                            <pre>addTo(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressOrList, null|string $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Appends to the list.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressOrList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>null|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearHeaderByName"></a>
+                        <div class="element clickable method protected  method_clearHeaderByName" data-toggle="collapse" data-target=".method_clearHeaderByName .collapse">
+                            <h2>Clear a header by name</h2>
+                            <pre>clearHeaderByName(string $headerName) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$headerName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fromString"></a>
+                        <div class="element clickable method public  method_fromString" data-toggle="collapse" data-target=".method_fromString .collapse">
+                            <h2>Instantiate from raw message string</h2>
+                            <pre>fromString(string $rawMessage) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Restore body to Mime\Message</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$rawMessage</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAddressListFromHeader"></a>
+                        <div class="element clickable method protected  method_getAddressListFromHeader" data-toggle="collapse" data-target=".method_getAddressListFromHeader .collapse">
+                            <h2>Retrieve the AddressList from a named header</h2>
+                            <pre>getAddressListFromHeader(string $headerName, string $headerClass) : \Zend\Mail\AddressList</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Used with To, From, Cc, Bcc, and ReplyTo headers. If the header does not
+exist, instantiates it.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Exception\DomainException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$headerName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$headerClass</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBcc"></a>
+                        <div class="element clickable method public  method_getBcc" data-toggle="collapse" data-target=".method_getBcc .collapse">
+                            <h2>Retrieve list of BCC recipients</h2>
+                            <pre>getBcc() : \Zend\Mail\AddressList</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBody"></a>
+                        <div class="element clickable method public  method_getBody" data-toggle="collapse" data-target=".method_getBody .collapse">
+                            <h2>Return the currently set message body</h2>
+                            <pre>getBody() : object</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBodyText"></a>
+                        <div class="element clickable method public  method_getBodyText" data-toggle="collapse" data-target=".method_getBodyText .collapse">
+                            <h2>Get the string-serialized message body text</h2>
+                            <pre>getBodyText() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCc"></a>
+                        <div class="element clickable method public  method_getCc" data-toggle="collapse" data-target=".method_getCc .collapse">
+                            <h2>Retrieve list of CC recipients</h2>
+                            <pre>getCc() : \Zend\Mail\AddressList</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEncoding"></a>
+                        <div class="element clickable method public  method_getEncoding" data-toggle="collapse" data-target=".method_getEncoding .collapse">
+                            <h2>Get the message encoding</h2>
+                            <pre>getEncoding() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFrom"></a>
+                        <div class="element clickable method public  method_getFrom" data-toggle="collapse" data-target=".method_getFrom .collapse">
+                            <h2>Retrieve list of From senders</h2>
+                            <pre>getFrom() : \Zend\Mail\AddressList</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHeaderByName"></a>
+                        <div class="element clickable method protected  method_getHeaderByName" data-toggle="collapse" data-target=".method_getHeaderByName .collapse">
+                            <h2>Retrieve a header by name</h2>
+                            <pre>getHeaderByName(string $headerName, string $headerClass) : \Zend\Mail\Header\HeaderInterface|\ArrayIterator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If not found, instantiates one based on $headerClass.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$headerName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$headerClass</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Header.HeaderInterface.html">\Zend\Mail\Header\HeaderInterface</a>|\ArrayIterator</code><p><p>header instance or collection of headers</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHeaders"></a>
+                        <div class="element clickable method public  method_getHeaders" data-toggle="collapse" data-target=".method_getHeaders .collapse">
+                            <h2>Access headers collection</h2>
+                            <pre>getHeaders() : \Zend\Mail\Headers</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Lazy-loads if not already attached.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Headers.html">\Zend\Mail\Headers</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getReplyTo"></a>
+                        <div class="element clickable method public  method_getReplyTo" data-toggle="collapse" data-target=".method_getReplyTo .collapse">
+                            <h2>Access the address list of the Reply-To header</h2>
+                            <pre>getReplyTo() : \Zend\Mail\AddressList</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSender"></a>
+                        <div class="element clickable method public  method_getSender" data-toggle="collapse" data-target=".method_getSender .collapse">
+                            <h2>Retrieve the sender address, if any</h2>
+                            <pre>getSender() : null|\Zend\Mail\Address\AddressInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSubject"></a>
+                        <div class="element clickable method public  method_getSubject" data-toggle="collapse" data-target=".method_getSubject .collapse">
+                            <h2>Get the message subject header value</h2>
+                            <pre>getSubject() : null|string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTo"></a>
+                        <div class="element clickable method public  method_getTo" data-toggle="collapse" data-target=".method_getTo .collapse">
+                            <h2>Access the address list of the To header</h2>
+                            <pre>getTo() : \Zend\Mail\AddressList</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isValid"></a>
+                        <div class="element clickable method public  method_isValid" data-toggle="collapse" data-target=".method_isValid .collapse">
+                            <h2>Is the message valid?</h2>
+                            <pre>isValid() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If we don't any From addresses, we're invalid, according to RFC2822.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setBcc"></a>
+                        <div class="element clickable method public  method_setBcc" data-toggle="collapse" data-target=".method_setBcc .collapse">
+                            <h2>Set (overwrite) BCC addresses</h2>
+                            <pre>setBcc(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressList, string|null $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setBody"></a>
+                        <div class="element clickable method public  method_setBody" data-toggle="collapse" data-target=".method_setBody .collapse">
+                            <h2>Set the message body</h2>
+                            <pre>setBody(null|string|\Zend\Mime\Message|object $body) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$body</h4>
+                                                <code>null|string|<a href="../classes/Zend.Mime.Message.html">\Zend\Mime\Message</a>|object</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCc"></a>
+                        <div class="element clickable method public  method_setCc" data-toggle="collapse" data-target=".method_setCc .collapse">
+                            <h2>Set (overwrite) CC addresses</h2>
+                            <pre>setCc(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressList, string|null $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setEncoding"></a>
+                        <div class="element clickable method public  method_setEncoding" data-toggle="collapse" data-target=".method_setEncoding .collapse">
+                            <h2>Set the message encoding</h2>
+                            <pre>setEncoding(string $encoding) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$encoding</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFrom"></a>
+                        <div class="element clickable method public  method_setFrom" data-toggle="collapse" data-target=".method_setFrom .collapse">
+                            <h2>Set (overwrite) From addresses</h2>
+                            <pre>setFrom(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressList, string|null $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setHeaders"></a>
+                        <div class="element clickable method public  method_setHeaders" data-toggle="collapse" data-target=".method_setHeaders .collapse">
+                            <h2>Compose headers</h2>
+                            <pre>setHeaders(\Zend\Mail\Headers $headers) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$headers</h4>
+                                                <code><a href="../classes/Zend.Mail.Headers.html">\Zend\Mail\Headers</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setReplyTo"></a>
+                        <div class="element clickable method public  method_setReplyTo" data-toggle="collapse" data-target=".method_setReplyTo .collapse">
+                            <h2>Overwrite the address list in the Reply-To recipients</h2>
+                            <pre>setReplyTo(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressList, null|string $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>null|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSender"></a>
+                        <div class="element clickable method public  method_setSender" data-toggle="collapse" data-target=".method_setSender .collapse">
+                            <h2>setSender</h2>
+                            <pre>setSender(mixed $emailOrAddress, mixed $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddress</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSubject"></a>
+                        <div class="element clickable method public  method_setSubject" data-toggle="collapse" data-target=".method_setSubject .collapse">
+                            <h2>Set the message subject header value</h2>
+                            <pre>setSubject(string $subject) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$subject</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTo"></a>
+                        <div class="element clickable method public  method_setTo" data-toggle="collapse" data-target=".method_setTo .collapse">
+                            <h2>Overwrite the address list in the To recipients</h2>
+                            <pre>setTo(string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressList, null|string $name = null) : \Zend\Mail\Message</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>null|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Message.html">\Zend\Mail\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_toString"></a>
+                        <div class="element clickable method public  method_toString" data-toggle="collapse" data-target=".method_toString .collapse">
+                            <h2>Serialize to string</h2>
+                            <pre>toString() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_updateAddressList"></a>
+                        <div class="element clickable method protected  method_updateAddressList" data-toggle="collapse" data-target=".method_updateAddressList .collapse">
+                            <h2>Update an address list</h2>
+                            <pre>updateAddressList(\Zend\Mail\AddressList $addressList, string|\Zend\Mail\Address\AddressInterface|array|\Zend\Mail\AddressList|\Traversable $emailOrAddressOrList, null|string $name, string $callingMethod) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Proxied to this from addFrom, addTo, addCc, addBcc, and addReplyTo.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$addressList</h4>
+                                                <code><a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$emailOrAddressOrList</h4>
+                                                <code>string|<a href="../classes/Zend.Mail.Address.AddressInterface.html">\Zend\Mail\Address\AddressInterface</a>|array|<a href="../classes/Zend.Mail.AddressList.html">\Zend\Mail\AddressList</a>|\Traversable</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>null|string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$callingMethod</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_body"> </a>
+                            <div class="element clickable property  protected property_body" data-toggle="collapse" data-target=".property_body .collapse">
+                                <h2>Content of the message</h2>
+                                <pre>body : string|object</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|object</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_headers"> </a>
+                            <div class="element clickable property  protected property_headers" data-toggle="collapse" data-target=".property_headers .collapse">
+                                <h2>headers</h2>
+                                <pre>headers : \Zend\Mail\Headers</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Mail.Headers.html">\Zend\Mail\Headers</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_encoding"> </a>
+                            <div class="element clickable property  protected property_encoding" data-toggle="collapse" data-target=".property_encoding .collapse">
+                                <h2>Message encoding</h2>
+                                <pre>encoding : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>Used to determine whether or not to encode headers; defaults to ASCII.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Mail\Message"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Mail.html">Mail</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Mail.Message.html">Message</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:17 +0000.<br/>
+    </footer>
+    </body>
+</html>

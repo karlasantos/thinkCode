@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class BypassCommand
  * Representa o Comando de Desvio de uma determinada Linguagem de Programação
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="diversion_commands")
  * @package SourceCode\Model\Entity
  */
@@ -24,7 +24,6 @@ class BypassCommand extends Entity
     const TYPE_CONDITIONAL = 'conditional';
     const TYPE_LOOP = 'loop';
 
-    //todo rever o nome desta classe
     /**
      * Id de identificação do Comando de Desvio
      *

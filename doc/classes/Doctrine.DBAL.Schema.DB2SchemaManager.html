@@ -1,0 +1,2598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\DBAL\Schema\DB2SchemaManager
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Constructor. Accepts the Connection instance to manage the schema for.">
+            <span class="description">Constructor. Accepts the Connection instance to manage the schema for.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_alterTable" title="alterTable :: Alters an existing tables schema.">
+            <span class="description">Alters an existing tables schema.</span><pre>alterTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createConstraint" title="createConstraint :: Creates a constraint on a table.">
+            <span class="description">Creates a constraint on a table.</span><pre>createConstraint</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createDatabase" title="createDatabase :: Creates a new database.">
+            <span class="description">Creates a new database.</span><pre>createDatabase</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createForeignKey" title="createForeignKey :: Creates a new foreign key.">
+            <span class="description">Creates a new foreign key.</span><pre>createForeignKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createIndex" title="createIndex :: Creates a new index on a table.">
+            <span class="description">Creates a new index on a table.</span><pre>createIndex</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createSchema" title="createSchema :: Creates a schema instance for the current database.">
+            <span class="description">Creates a schema instance for the current database.</span><pre>createSchema</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createSchemaConfig" title="createSchemaConfig :: Creates the configuration for this schema.">
+            <span class="description">Creates the configuration for this schema.</span><pre>createSchemaConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createSequence" title="createSequence :: Creates a new sequence.">
+            <span class="description">Creates a new sequence.</span><pre>createSequence</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createTable" title="createTable :: Creates a new table.">
+            <span class="description">Creates a new table.</span><pre>createTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_createView" title="createView :: Creates a new view.">
+            <span class="description">Creates a new view.</span><pre>createView</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateConstraint" title="dropAndCreateConstraint :: Drops and creates a constraint.">
+            <span class="description">Drops and creates a constraint.</span><pre>dropAndCreateConstraint</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateDatabase" title="dropAndCreateDatabase :: Drops and creates a new database.">
+            <span class="description">Drops and creates a new database.</span><pre>dropAndCreateDatabase</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateForeignKey" title="dropAndCreateForeignKey :: Drops and creates a new foreign key.">
+            <span class="description">Drops and creates a new foreign key.</span><pre>dropAndCreateForeignKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateIndex" title="dropAndCreateIndex :: Drops and creates a new index on a table.">
+            <span class="description">Drops and creates a new index on a table.</span><pre>dropAndCreateIndex</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateSequence" title="dropAndCreateSequence :: Drops and create a new sequence.">
+            <span class="description">Drops and create a new sequence.</span><pre>dropAndCreateSequence</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateTable" title="dropAndCreateTable :: Drops and creates a new table.">
+            <span class="description">Drops and creates a new table.</span><pre>dropAndCreateTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropAndCreateView" title="dropAndCreateView :: Drops and creates a new view.">
+            <span class="description">Drops and creates a new view.</span><pre>dropAndCreateView</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropConstraint" title="dropConstraint :: Drops the constraint from the given table.">
+            <span class="description">Drops the constraint from the given table.</span><pre>dropConstraint</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropDatabase" title="dropDatabase :: Drops a database.">
+            <span class="description">Drops a database.</span><pre>dropDatabase</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropForeignKey" title="dropForeignKey :: Drops a foreign key from a table.">
+            <span class="description">Drops a foreign key from a table.</span><pre>dropForeignKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropIndex" title="dropIndex :: Drops the index from the given table.">
+            <span class="description">Drops the index from the given table.</span><pre>dropIndex</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropSequence" title="dropSequence :: Drops a sequence with a given name.">
+            <span class="description">Drops a sequence with a given name.</span><pre>dropSequence</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropTable" title="dropTable :: Drops the given table.">
+            <span class="description">Drops the given table.</span><pre>dropTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_dropView" title="dropView :: Drops a view.">
+            <span class="description">Drops a view.</span><pre>dropView</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_extractDoctrineTypeFromComment" title="extractDoctrineTypeFromComment :: Given a table comment this method tries to extract a typehint for Doctrine Type, or returns
+the type given as default.">
+            <span class="description">Given a table comment this method tries to extract a typehint for Doctrine Type, or returns
+the type given as default.</span><pre>extractDoctrineTypeFromComment</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_getDatabasePlatform" title="getDatabasePlatform :: Returns the associated platform.">
+            <span class="description">Returns the associated platform.</span><pre>getDatabasePlatform</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_getSchemaSearchPaths" title="getSchemaSearchPaths :: The search path for namespaces in the currently connected database.">
+            <span class="description">The search path for namespaces in the currently connected database.</span><pre>getSchemaSearchPaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listDatabases" title="listDatabases :: Lists the available databases for this connection.">
+            <span class="description">Lists the available databases for this connection.</span><pre>listDatabases</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listNamespaceNames" title="listNamespaceNames :: Returns a list of all namespaces in the current database.">
+            <span class="description">Returns a list of all namespaces in the current database.</span><pre>listNamespaceNames</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listSequences" title="listSequences :: Lists the available sequences for this connection.">
+            <span class="description">Lists the available sequences for this connection.</span><pre>listSequences</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listTableColumns" title="listTableColumns :: Lists the columns for a given table.">
+            <span class="description">Lists the columns for a given table.</span><pre>listTableColumns</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listTableDetails" title="listTableDetails :: ">
+            <span class="description"></span><pre>listTableDetails</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listTableForeignKeys" title="listTableForeignKeys :: Lists the foreign keys for the given table.">
+            <span class="description">Lists the foreign keys for the given table.</span><pre>listTableForeignKeys</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listTableIndexes" title="listTableIndexes :: Lists the indexes for a given table returning an array of Index instances.">
+            <span class="description">Lists the indexes for a given table returning an array of Index instances.</span><pre>listTableIndexes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listTableNames" title="listTableNames :: Returns a list of all tables in the current database.">
+            <span class="description">Returns a list of all tables in the current database.</span><pre>listTableNames</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listTables" title="listTables :: Lists the tables for this connection.">
+            <span class="description">Lists the tables for this connection.</span><pre>listTables</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_listViews" title="listViews :: Lists the views this connection has.">
+            <span class="description">Lists the views this connection has.</span><pre>listViews</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_removeDoctrineTypeFromComment" title="removeDoctrineTypeFromComment :: ">
+            <span class="description"></span><pre>removeDoctrineTypeFromComment</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_renameTable" title="renameTable :: Renames a given table to another name.">
+            <span class="description">Renames a given table to another name.</span><pre>renameTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_tablesExist" title="tablesExist :: Returns true if all the given tables exist.">
+            <span class="description">Returns true if all the given tables exist.</span><pre>tablesExist</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_tryMethod" title="tryMethod :: Tries any method on the schema manager. Normally a method throws an
+exception when your DBMS doesn&#039;t support it or if an error occurs.">
+            <span class="description">Tries any method on the schema manager. Normally a method throws an
+exception when your DBMS doesn&#039;t support it or if an error occurs.</span><pre>tryMethod</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                <li class="method protected inherited">
+                            <a href="#method__execSql" title="_execSql :: ">
+                                <span class="description"></span><pre>_execSql</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableDatabaseDefinition" title="_getPortableDatabaseDefinition :: ">
+                                <span class="description"></span><pre>_getPortableDatabaseDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableDatabasesList" title="_getPortableDatabasesList :: ">
+                                <span class="description"></span><pre>_getPortableDatabasesList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method__getPortableForeignKeyRuleDef" title="_getPortableForeignKeyRuleDef :: {@inheritdoc}">
+                                <span class="description">{@inheritdoc}</span><pre>_getPortableForeignKeyRuleDef</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableFunctionDefinition" title="_getPortableFunctionDefinition :: ">
+                                <span class="description"></span><pre>_getPortableFunctionDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableFunctionsList" title="_getPortableFunctionsList :: ">
+                                <span class="description"></span><pre>_getPortableFunctionsList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableSequenceDefinition" title="_getPortableSequenceDefinition :: ">
+                                <span class="description"></span><pre>_getPortableSequenceDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableSequencesList" title="_getPortableSequencesList :: ">
+                                <span class="description"></span><pre>_getPortableSequencesList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTableColumnDefinition" title="_getPortableTableColumnDefinition :: Gets Table Column Definition.">
+                                <span class="description">Gets Table Column Definition.</span><pre>_getPortableTableColumnDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTableColumnList" title="_getPortableTableColumnList :: Independent of the database the keys of the column list result are lowercased.">
+                                <span class="description">Independent of the database the keys of the column list result are lowercased.</span><pre>_getPortableTableColumnList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTableDefinition" title="_getPortableTableDefinition :: ">
+                                <span class="description"></span><pre>_getPortableTableDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTableForeignKeyDefinition" title="_getPortableTableForeignKeyDefinition :: ">
+                                <span class="description"></span><pre>_getPortableTableForeignKeyDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTableForeignKeysList" title="_getPortableTableForeignKeysList :: ">
+                                <span class="description"></span><pre>_getPortableTableForeignKeysList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTableIndexesList" title="_getPortableTableIndexesList :: Aggregates and groups the index results according to the required data result.">
+                                <span class="description">Aggregates and groups the index results according to the required data result.</span><pre>_getPortableTableIndexesList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTablesList" title="_getPortableTablesList :: ">
+                                <span class="description"></span><pre>_getPortableTablesList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTriggerDefinition" title="_getPortableTriggerDefinition :: ">
+                                <span class="description"></span><pre>_getPortableTriggerDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableTriggersList" title="_getPortableTriggersList :: ">
+                                <span class="description"></span><pre>_getPortableTriggersList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableUserDefinition" title="_getPortableUserDefinition :: ">
+                                <span class="description"></span><pre>_getPortableUserDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableUsersList" title="_getPortableUsersList :: ">
+                                <span class="description"></span><pre>_getPortableUsersList</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableViewDefinition" title="_getPortableViewDefinition :: ">
+                                <span class="description"></span><pre>_getPortableViewDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__getPortableViewsList" title="_getPortableViewsList :: ">
+                                <span class="description"></span><pre>_getPortableViewsList</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_filterAssetNames" title="filterAssetNames :: Filters asset names if they are configured to return only a subset of all
+the found elements.">
+                                <span class="description">Filters asset names if they are configured to return only a subset of all
+the found elements.</span><pre>filterAssetNames</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_getFilterSchemaAssetsExpression" title="getFilterSchemaAssetsExpression :: ">
+                                <span class="description"></span><pre>getFilterSchemaAssetsExpression</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_getPortableNamespaceDefinition" title="getPortableNamespaceDefinition :: Converts a namespace definition from the native DBMS data definition to a portable Doctrine definition.">
+                                <span class="description">Converts a namespace definition from the native DBMS data definition to a portable Doctrine definition.</span><pre>getPortableNamespaceDefinition</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_getPortableNamespacesList" title="getPortableNamespacesList :: Converts a list of namespace names from the native DBMS data definition to a portable Doctrine definition.">
+                                <span class="description">Converts a list of namespace names from the native DBMS data definition to a portable Doctrine definition.</span><pre>getPortableNamespacesList</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>DB2SchemaManager</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.DBAL.Schema.AbstractSchemaManager.html">\Doctrine\DBAL\Schema\AbstractSchemaManager</a>
+                                                        </small>
+                <p class="short_description">IBM Db2 Schema Manager.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        link
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>www.doctrine-project.org</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    1.0
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Benjamin Eberlei <a href="mailto:kontakt@beberlei.de">kontakt@beberlei.de</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor. Accepts the Connection instance to manage the schema for.</h2>
+                            <pre>__construct(\Doctrine\DBAL\Connection $conn, \Doctrine\DBAL\Platforms\AbstractPlatform|null $platform = null) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$conn</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Connection.html">\Doctrine\DBAL\Connection</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a>|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__execSql"></a>
+                        <div class="element clickable method protected  method__execSql inherited" data-toggle="collapse" data-target=".method__execSql .collapse">
+                            <h2>_execSql</h2>
+                            <pre>_execSql(array|string $sql) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sql</h4>
+                                                <code>array|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableDatabaseDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableDatabaseDefinition inherited" data-toggle="collapse" data-target=".method__getPortableDatabaseDefinition .collapse">
+                            <h2>_getPortableDatabaseDefinition</h2>
+                            <pre>_getPortableDatabaseDefinition(array $database) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableDatabasesList"></a>
+                        <div class="element clickable method protected  method__getPortableDatabasesList inherited" data-toggle="collapse" data-target=".method__getPortableDatabasesList .collapse">
+                            <h2>_getPortableDatabasesList</h2>
+                            <pre>_getPortableDatabasesList(array $databases) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$databases</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableForeignKeyRuleDef"></a>
+                        <div class="element clickable method protected  method__getPortableForeignKeyRuleDef" data-toggle="collapse" data-target=".method__getPortableForeignKeyRuleDef .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>_getPortableForeignKeyRuleDef( $def) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$def</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableFunctionDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableFunctionDefinition inherited" data-toggle="collapse" data-target=".method__getPortableFunctionDefinition .collapse">
+                            <h2>_getPortableFunctionDefinition</h2>
+                            <pre>_getPortableFunctionDefinition(array $function) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$function</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableFunctionsList"></a>
+                        <div class="element clickable method protected  method__getPortableFunctionsList inherited" data-toggle="collapse" data-target=".method__getPortableFunctionsList .collapse">
+                            <h2>_getPortableFunctionsList</h2>
+                            <pre>_getPortableFunctionsList(array $functions) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$functions</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableSequenceDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableSequenceDefinition inherited" data-toggle="collapse" data-target=".method__getPortableSequenceDefinition .collapse">
+                            <h2>_getPortableSequenceDefinition</h2>
+                            <pre>_getPortableSequenceDefinition(array $sequence) : \Doctrine\DBAL\Schema\Sequence</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\DBAL\DBALException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequence</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableSequencesList"></a>
+                        <div class="element clickable method protected  method__getPortableSequencesList inherited" data-toggle="collapse" data-target=".method__getPortableSequencesList .collapse">
+                            <h2>_getPortableSequencesList</h2>
+                            <pre>_getPortableSequencesList(array $sequences) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequences</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTableColumnDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableTableColumnDefinition inherited" data-toggle="collapse" data-target=".method__getPortableTableColumnDefinition .collapse">
+                            <h2>Gets Table Column Definition.</h2>
+                            <pre>_getPortableTableColumnDefinition(array $tableColumn) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableColumn</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTableColumnList"></a>
+                        <div class="element clickable method protected  method__getPortableTableColumnList inherited" data-toggle="collapse" data-target=".method__getPortableTableColumnList .collapse">
+                            <h2>Independent of the database the keys of the column list result are lowercased.</h2>
+                            <pre>_getPortableTableColumnList(string $table, string $database, array $tableColumns) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The name of the created column instance however is kept in its case.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>string</code><p><p>The name of the table.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableColumns</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTableDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableTableDefinition inherited" data-toggle="collapse" data-target=".method__getPortableTableDefinition .collapse">
+                            <h2>_getPortableTableDefinition</h2>
+                            <pre>_getPortableTableDefinition(array $table) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTableForeignKeyDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableTableForeignKeyDefinition inherited" data-toggle="collapse" data-target=".method__getPortableTableForeignKeyDefinition .collapse">
+                            <h2>_getPortableTableForeignKeyDefinition</h2>
+                            <pre>_getPortableTableForeignKeyDefinition(array $tableForeignKey) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableForeignKey</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTableForeignKeysList"></a>
+                        <div class="element clickable method protected  method__getPortableTableForeignKeysList inherited" data-toggle="collapse" data-target=".method__getPortableTableForeignKeysList .collapse">
+                            <h2>_getPortableTableForeignKeysList</h2>
+                            <pre>_getPortableTableForeignKeysList(array $tableForeignKeys) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableForeignKeys</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTableIndexesList"></a>
+                        <div class="element clickable method protected  method__getPortableTableIndexesList inherited" data-toggle="collapse" data-target=".method__getPortableTableIndexesList .collapse">
+                            <h2>Aggregates and groups the index results according to the required data result.</h2>
+                            <pre>_getPortableTableIndexesList(array $tableIndexRows, string|null $tableName = null) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableIndexRows</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableName</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTablesList"></a>
+                        <div class="element clickable method protected  method__getPortableTablesList inherited" data-toggle="collapse" data-target=".method__getPortableTablesList .collapse">
+                            <h2>_getPortableTablesList</h2>
+                            <pre>_getPortableTablesList(array $tables) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tables</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTriggerDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableTriggerDefinition inherited" data-toggle="collapse" data-target=".method__getPortableTriggerDefinition .collapse">
+                            <h2>_getPortableTriggerDefinition</h2>
+                            <pre>_getPortableTriggerDefinition(array $trigger) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$trigger</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableTriggersList"></a>
+                        <div class="element clickable method protected  method__getPortableTriggersList inherited" data-toggle="collapse" data-target=".method__getPortableTriggersList .collapse">
+                            <h2>_getPortableTriggersList</h2>
+                            <pre>_getPortableTriggersList(array $triggers) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$triggers</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableUserDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableUserDefinition inherited" data-toggle="collapse" data-target=".method__getPortableUserDefinition .collapse">
+                            <h2>_getPortableUserDefinition</h2>
+                            <pre>_getPortableUserDefinition(array $user) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$user</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableUsersList"></a>
+                        <div class="element clickable method protected  method__getPortableUsersList inherited" data-toggle="collapse" data-target=".method__getPortableUsersList .collapse">
+                            <h2>_getPortableUsersList</h2>
+                            <pre>_getPortableUsersList(array $users) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$users</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableViewDefinition"></a>
+                        <div class="element clickable method protected  method__getPortableViewDefinition inherited" data-toggle="collapse" data-target=".method__getPortableViewDefinition .collapse">
+                            <h2>_getPortableViewDefinition</h2>
+                            <pre>_getPortableViewDefinition(array $view) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$view</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__getPortableViewsList"></a>
+                        <div class="element clickable method protected  method__getPortableViewsList inherited" data-toggle="collapse" data-target=".method__getPortableViewsList .collapse">
+                            <h2>_getPortableViewsList</h2>
+                            <pre>_getPortableViewsList(array $views) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$views</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_alterTable"></a>
+                        <div class="element clickable method public  method_alterTable inherited" data-toggle="collapse" data-target=".method_alterTable .collapse">
+                            <h2>Alters an existing tables schema.</h2>
+                            <pre>alterTable(\Doctrine\DBAL\Schema\TableDiff $tableDiff) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableDiff</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.TableDiff.html">\Doctrine\DBAL\Schema\TableDiff</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createConstraint"></a>
+                        <div class="element clickable method public  method_createConstraint inherited" data-toggle="collapse" data-target=".method_createConstraint .collapse">
+                            <h2>Creates a constraint on a table.</h2>
+                            <pre>createConstraint(\Doctrine\DBAL\Schema\Constraint $constraint, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$constraint</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Constraint.html">\Doctrine\DBAL\Schema\Constraint</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createDatabase"></a>
+                        <div class="element clickable method public  method_createDatabase inherited" data-toggle="collapse" data-target=".method_createDatabase .collapse">
+                            <h2>Creates a new database.</h2>
+                            <pre>createDatabase(string $database) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string</code><p><p>The name of the database to create.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createForeignKey"></a>
+                        <div class="element clickable method public  method_createForeignKey inherited" data-toggle="collapse" data-target=".method_createForeignKey .collapse">
+                            <h2>Creates a new foreign key.</h2>
+                            <pre>createForeignKey(\Doctrine\DBAL\Schema\ForeignKeyConstraint $foreignKey, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$foreignKey</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.ForeignKeyConstraint.html">\Doctrine\DBAL\Schema\ForeignKeyConstraint</a></code><p><p>The ForeignKey instance.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table on which the foreign key is to be created.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createIndex"></a>
+                        <div class="element clickable method public  method_createIndex inherited" data-toggle="collapse" data-target=".method_createIndex .collapse">
+                            <h2>Creates a new index on a table.</h2>
+                            <pre>createIndex(\Doctrine\DBAL\Schema\Index $index, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$index</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Index.html">\Doctrine\DBAL\Schema\Index</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table on which the index is to be created.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createSchema"></a>
+                        <div class="element clickable method public  method_createSchema inherited" data-toggle="collapse" data-target=".method_createSchema .collapse">
+                            <h2>Creates a schema instance for the current database.</h2>
+                            <pre>createSchema() : \Doctrine\DBAL\Schema\Schema</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Schema.html">\Doctrine\DBAL\Schema\Schema</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createSchemaConfig"></a>
+                        <div class="element clickable method public  method_createSchemaConfig inherited" data-toggle="collapse" data-target=".method_createSchemaConfig .collapse">
+                            <h2>Creates the configuration for this schema.</h2>
+                            <pre>createSchemaConfig() : \Doctrine\DBAL\Schema\SchemaConfig</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.SchemaConfig.html">\Doctrine\DBAL\Schema\SchemaConfig</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createSequence"></a>
+                        <div class="element clickable method public  method_createSequence inherited" data-toggle="collapse" data-target=".method_createSequence .collapse">
+                            <h2>Creates a new sequence.</h2>
+                            <pre>createSequence(\Doctrine\DBAL\Schema\Sequence $sequence) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\DBAL\ConnectionException</dt>
+                                                        <dd><p>If something fails at database level.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequence</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createTable"></a>
+                        <div class="element clickable method public  method_createTable inherited" data-toggle="collapse" data-target=".method_createTable .collapse">
+                            <h2>Creates a new table.</h2>
+                            <pre>createTable(\Doctrine\DBAL\Schema\Table $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createView"></a>
+                        <div class="element clickable method public  method_createView inherited" data-toggle="collapse" data-target=".method_createView .collapse">
+                            <h2>Creates a new view.</h2>
+                            <pre>createView(\Doctrine\DBAL\Schema\View $view) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$view</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.View.html">\Doctrine\DBAL\Schema\View</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateConstraint"></a>
+                        <div class="element clickable method public  method_dropAndCreateConstraint inherited" data-toggle="collapse" data-target=".method_dropAndCreateConstraint .collapse">
+                            <h2>Drops and creates a constraint.</h2>
+                            <pre>dropAndCreateConstraint(\Doctrine\DBAL\Schema\Constraint $constraint, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Doctrine.DBAL.Schema.AbstractSchemaManager.html#method_dropConstraint">\Doctrine\DBAL\Schema\AbstractSchemaManager::dropConstraint()</a>
+                                                                                                                
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Doctrine.DBAL.Schema.AbstractSchemaManager.html#method_createConstraint">\Doctrine\DBAL\Schema\AbstractSchemaManager::createConstraint()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$constraint</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Constraint.html">\Doctrine\DBAL\Schema\Constraint</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateDatabase"></a>
+                        <div class="element clickable method public  method_dropAndCreateDatabase inherited" data-toggle="collapse" data-target=".method_dropAndCreateDatabase .collapse">
+                            <h2>Drops and creates a new database.</h2>
+                            <pre>dropAndCreateDatabase(string $database) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string</code><p><p>The name of the database to create.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateForeignKey"></a>
+                        <div class="element clickable method public  method_dropAndCreateForeignKey inherited" data-toggle="collapse" data-target=".method_dropAndCreateForeignKey .collapse">
+                            <h2>Drops and creates a new foreign key.</h2>
+                            <pre>dropAndCreateForeignKey(\Doctrine\DBAL\Schema\ForeignKeyConstraint $foreignKey, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$foreignKey</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.ForeignKeyConstraint.html">\Doctrine\DBAL\Schema\ForeignKeyConstraint</a></code><p><p>An associative array that defines properties of the foreign key to be created.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table on which the foreign key is to be created.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateIndex"></a>
+                        <div class="element clickable method public  method_dropAndCreateIndex inherited" data-toggle="collapse" data-target=".method_dropAndCreateIndex .collapse">
+                            <h2>Drops and creates a new index on a table.</h2>
+                            <pre>dropAndCreateIndex(\Doctrine\DBAL\Schema\Index $index, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$index</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Index.html">\Doctrine\DBAL\Schema\Index</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table on which the index is to be created.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateSequence"></a>
+                        <div class="element clickable method public  method_dropAndCreateSequence inherited" data-toggle="collapse" data-target=".method_dropAndCreateSequence .collapse">
+                            <h2>Drops and create a new sequence.</h2>
+                            <pre>dropAndCreateSequence(\Doctrine\DBAL\Schema\Sequence $sequence) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\DBAL\ConnectionException</dt>
+                                                        <dd><p>If something fails at database level.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequence</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateTable"></a>
+                        <div class="element clickable method public  method_dropAndCreateTable inherited" data-toggle="collapse" data-target=".method_dropAndCreateTable .collapse">
+                            <h2>Drops and creates a new table.</h2>
+                            <pre>dropAndCreateTable(\Doctrine\DBAL\Schema\Table $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropAndCreateView"></a>
+                        <div class="element clickable method public  method_dropAndCreateView inherited" data-toggle="collapse" data-target=".method_dropAndCreateView .collapse">
+                            <h2>Drops and creates a new view.</h2>
+                            <pre>dropAndCreateView(\Doctrine\DBAL\Schema\View $view) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$view</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.View.html">\Doctrine\DBAL\Schema\View</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropConstraint"></a>
+                        <div class="element clickable method public  method_dropConstraint inherited" data-toggle="collapse" data-target=".method_dropConstraint .collapse">
+                            <h2>Drops the constraint from the given table.</h2>
+                            <pre>dropConstraint(\Doctrine\DBAL\Schema\Constraint $constraint, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$constraint</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Constraint.html">\Doctrine\DBAL\Schema\Constraint</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropDatabase"></a>
+                        <div class="element clickable method public  method_dropDatabase inherited" data-toggle="collapse" data-target=".method_dropDatabase .collapse">
+                            <h2>Drops a database.</h2>
+                            <pre>dropDatabase(string $database) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>NOTE: You can not drop the database this SchemaManager is currently connected to.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string</code><p><p>The name of the database to drop.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropForeignKey"></a>
+                        <div class="element clickable method public  method_dropForeignKey inherited" data-toggle="collapse" data-target=".method_dropForeignKey .collapse">
+                            <h2>Drops a foreign key from a table.</h2>
+                            <pre>dropForeignKey(\Doctrine\DBAL\Schema\ForeignKeyConstraint|string $foreignKey, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$foreignKey</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.ForeignKeyConstraint.html">\Doctrine\DBAL\Schema\ForeignKeyConstraint</a>|string</code><p><p>The name of the foreign key.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table with the foreign key.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropIndex"></a>
+                        <div class="element clickable method public  method_dropIndex inherited" data-toggle="collapse" data-target=".method_dropIndex .collapse">
+                            <h2>Drops the index from the given table.</h2>
+                            <pre>dropIndex(\Doctrine\DBAL\Schema\Index|string $index, \Doctrine\DBAL\Schema\Table|string $table) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$index</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Index.html">\Doctrine\DBAL\Schema\Index</a>|string</code><p><p>The name of the index.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>|string</code><p><p>The name of the table.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropSequence"></a>
+                        <div class="element clickable method public  method_dropSequence inherited" data-toggle="collapse" data-target=".method_dropSequence .collapse">
+                            <h2>Drops a sequence with a given name.</h2>
+                            <pre>dropSequence(string $name) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the sequence to drop.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropTable"></a>
+                        <div class="element clickable method public  method_dropTable inherited" data-toggle="collapse" data-target=".method_dropTable .collapse">
+                            <h2>Drops the given table.</h2>
+                            <pre>dropTable(string $tableName) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableName</h4>
+                                                <code>string</code><p><p>The name of the table to drop.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_dropView"></a>
+                        <div class="element clickable method public  method_dropView inherited" data-toggle="collapse" data-target=".method_dropView .collapse">
+                            <h2>Drops a view.</h2>
+                            <pre>dropView(string $name) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the view.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_extractDoctrineTypeFromComment"></a>
+                        <div class="element clickable method public  method_extractDoctrineTypeFromComment inherited" data-toggle="collapse" data-target=".method_extractDoctrineTypeFromComment .collapse">
+                            <h2>Given a table comment this method tries to extract a typehint for Doctrine Type, or returns
+the type given as default.</h2>
+                            <pre>extractDoctrineTypeFromComment(string $comment, string $currentType) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$comment</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$currentType</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_filterAssetNames"></a>
+                        <div class="element clickable method protected  method_filterAssetNames inherited" data-toggle="collapse" data-target=".method_filterAssetNames .collapse">
+                            <h2>Filters asset names if they are configured to return only a subset of all
+the found elements.</h2>
+                            <pre>filterAssetNames(array $assetNames) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assetNames</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDatabasePlatform"></a>
+                        <div class="element clickable method public  method_getDatabasePlatform inherited" data-toggle="collapse" data-target=".method_getDatabasePlatform .collapse">
+                            <h2>Returns the associated platform.</h2>
+                            <pre>getDatabasePlatform() : \Doctrine\DBAL\Platforms\AbstractPlatform</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFilterSchemaAssetsExpression"></a>
+                        <div class="element clickable method protected  method_getFilterSchemaAssetsExpression inherited" data-toggle="collapse" data-target=".method_getFilterSchemaAssetsExpression .collapse">
+                            <h2>getFilterSchemaAssetsExpression</h2>
+                            <pre>getFilterSchemaAssetsExpression() : string|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPortableNamespaceDefinition"></a>
+                        <div class="element clickable method protected  method_getPortableNamespaceDefinition inherited" data-toggle="collapse" data-target=".method_getPortableNamespaceDefinition .collapse">
+                            <h2>Converts a namespace definition from the native DBMS data definition to a portable Doctrine definition.</h2>
+                            <pre>getPortableNamespaceDefinition(array $namespace) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>array</code><p><p>The native DBMS namespace definition.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPortableNamespacesList"></a>
+                        <div class="element clickable method protected  method_getPortableNamespacesList inherited" data-toggle="collapse" data-target=".method_getPortableNamespacesList .collapse">
+                            <h2>Converts a list of namespace names from the native DBMS data definition to a portable Doctrine definition.</h2>
+                            <pre>getPortableNamespacesList(array $namespaces) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespaces</h4>
+                                                <code>array</code><p><p>The list of namespace names in the native DBMS data definition.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSchemaSearchPaths"></a>
+                        <div class="element clickable method public  method_getSchemaSearchPaths inherited" data-toggle="collapse" data-target=".method_getSchemaSearchPaths .collapse">
+                            <h2>The search path for namespaces in the currently connected database.</h2>
+                            <pre>getSchemaSearchPaths() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The first entry is usually the default namespace in the Schema. All
+further namespaces contain tables/sequences which can also be addressed
+with a short, not full-qualified name.</p>
+<p>For databases that don't support subschema/namespaces this method
+returns the name of the currently connected database.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listDatabases"></a>
+                        <div class="element clickable method public  method_listDatabases inherited" data-toggle="collapse" data-target=".method_listDatabases .collapse">
+                            <h2>Lists the available databases for this connection.</h2>
+                            <pre>listDatabases() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listNamespaceNames"></a>
+                        <div class="element clickable method public  method_listNamespaceNames inherited" data-toggle="collapse" data-target=".method_listNamespaceNames .collapse">
+                            <h2>Returns a list of all namespaces in the current database.</h2>
+                            <pre>listNamespaceNames() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listSequences"></a>
+                        <div class="element clickable method public  method_listSequences inherited" data-toggle="collapse" data-target=".method_listSequences .collapse">
+                            <h2>Lists the available sequences for this connection.</h2>
+                            <pre>listSequences(string|null $database = null) : array&lt;mixed,\Doctrine\DBAL\Schema\Sequence&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listTableColumns"></a>
+                        <div class="element clickable method public  method_listTableColumns inherited" data-toggle="collapse" data-target=".method_listTableColumns .collapse">
+                            <h2>Lists the columns for a given table.</h2>
+                            <pre>listTableColumns(string $table, string|null $database = null) : array&lt;mixed,\Doctrine\DBAL\Schema\Column&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>In contrast to other libraries and to the old version of Doctrine,
+this column definition does try to contain the 'primary' field for
+the reason that it is not portable accross different RDBMS. Use
+\listTableIndexes($tableName) to retrieve the primary key
+of a table. We're a RDBMS specifies more details these are held
+in the platformDetails array.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>string</code><p><p>The name of the table.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listTableDetails"></a>
+                        <div class="element clickable method public  method_listTableDetails inherited" data-toggle="collapse" data-target=".method_listTableDetails .collapse">
+                            <h2>listTableDetails</h2>
+                            <pre>listTableDetails(string $tableName) : \Doctrine\DBAL\Schema\Table</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listTableForeignKeys"></a>
+                        <div class="element clickable method public  method_listTableForeignKeys inherited" data-toggle="collapse" data-target=".method_listTableForeignKeys .collapse">
+                            <h2>Lists the foreign keys for the given table.</h2>
+                            <pre>listTableForeignKeys(string $table, string|null $database = null) : array&lt;mixed,\Doctrine\DBAL\Schema\ForeignKeyConstraint&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>string</code><p><p>The name of the table.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$database</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.DBAL.Schema.ForeignKeyConstraint.html">\Doctrine\DBAL\Schema\ForeignKeyConstraint</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listTableIndexes"></a>
+                        <div class="element clickable method public  method_listTableIndexes inherited" data-toggle="collapse" data-target=".method_listTableIndexes .collapse">
+                            <h2>Lists the indexes for a given table returning an array of Index instances.</h2>
+                            <pre>listTableIndexes(string $table) : array&lt;mixed,\Doctrine\DBAL\Schema\Index&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Keys of the portable indexes list are all lower-cased.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table</h4>
+                                                <code>string</code><p><p>The name of the table.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.DBAL.Schema.Index.html">\Doctrine\DBAL\Schema\Index</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listTableNames"></a>
+                        <div class="element clickable method public  method_listTableNames inherited" data-toggle="collapse" data-target=".method_listTableNames .collapse">
+                            <h2>Returns a list of all tables in the current database.</h2>
+                            <pre>listTableNames() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listTables"></a>
+                        <div class="element clickable method public  method_listTables inherited" data-toggle="collapse" data-target=".method_listTables .collapse">
+                            <h2>Lists the tables for this connection.</h2>
+                            <pre>listTables() : array&lt;mixed,\Doctrine\DBAL\Schema\Table&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_listViews"></a>
+                        <div class="element clickable method public  method_listViews inherited" data-toggle="collapse" data-target=".method_listViews .collapse">
+                            <h2>Lists the views this connection has.</h2>
+                            <pre>listViews() : array&lt;mixed,\Doctrine\DBAL\Schema\View&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.DBAL.Schema.View.html">\Doctrine\DBAL\Schema\View</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_removeDoctrineTypeFromComment"></a>
+                        <div class="element clickable method public  method_removeDoctrineTypeFromComment inherited" data-toggle="collapse" data-target=".method_removeDoctrineTypeFromComment .collapse">
+                            <h2>removeDoctrineTypeFromComment</h2>
+                            <pre>removeDoctrineTypeFromComment(string $comment, string $type) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$comment</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_renameTable"></a>
+                        <div class="element clickable method public  method_renameTable inherited" data-toggle="collapse" data-target=".method_renameTable .collapse">
+                            <h2>Renames a given table to another name.</h2>
+                            <pre>renameTable(string $name, string $newName) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The current name of the table.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$newName</h4>
+                                                <code>string</code><p><p>The new name of the table.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_tablesExist"></a>
+                        <div class="element clickable method public  method_tablesExist inherited" data-toggle="collapse" data-target=".method_tablesExist .collapse">
+                            <h2>Returns true if all the given tables exist.</h2>
+                            <pre>tablesExist(array $tableNames) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableNames</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_tryMethod"></a>
+                        <div class="element clickable method public  method_tryMethod inherited" data-toggle="collapse" data-target=".method_tryMethod .collapse">
+                            <h2>Tries any method on the schema manager. Normally a method throws an
+exception when your DBMS doesn&#039;t support it or if an error occurs.</h2>
+                            <pre>tryMethod() : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method allows you to try and method on your SchemaManager
+instance and will return false if it does not work or is not supported.</p>
+<p><code>
+$result = $sm-&gt;tryMethod('dropView', 'view_name');
+</code></p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property__conn"> </a>
+                            <div class="element clickable property  protected property__conn inherited" data-toggle="collapse" data-target=".property__conn .collapse">
+                                <h2>Holds instance of the Doctrine connection for this schema manager.</h2>
+                                <pre>_conn : \Doctrine\DBAL\Connection</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.DBAL.Connection.html">\Doctrine\DBAL\Connection</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__platform"> </a>
+                            <div class="element clickable property  protected property__platform inherited" data-toggle="collapse" data-target=".property__platform .collapse">
+                                <h2>Holds instance of the database platform used for this schema manager.</h2>
+                                <pre>_platform : \Doctrine\DBAL\Platforms\AbstractPlatform</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\DBAL\Schema\DB2SchemaManager"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.DBAL.Schema.html">Schema</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.DBAL.Schema.DB2SchemaManager.html">DB2SchemaManager</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:23 +0000.<br/>
+    </footer>
+    </body>
+</html>

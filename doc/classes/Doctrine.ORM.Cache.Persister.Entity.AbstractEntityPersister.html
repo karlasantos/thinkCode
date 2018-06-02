@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Cache\Persister\Entity\AbstractEntityPersister
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addInsert" title="addInsert :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>addInsert</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_count" title="count :: {@inheritDoc}">
+            <span class="description">{@inheritDoc}</span><pre>count</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_executeInserts" title="executeInserts :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>executeInserts</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_exists" title="exists :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>exists</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_expandCriteriaParameters" title="expandCriteriaParameters :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>expandCriteriaParameters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_expandParameters" title="expandParameters :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>expandParameters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCacheRegion" title="getCacheRegion :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getCacheRegion</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getClassMetadata" title="getClassMetadata :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getClassMetadata</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCountSQL" title="getCountSQL :: {@inheritDoc}">
+            <span class="description">{@inheritDoc}</span><pre>getCountSQL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEntityHydrator" title="getEntityHydrator :: ">
+            <span class="description"></span><pre>getEntityHydrator</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getInserts" title="getInserts :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getInserts</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getInsertSQL" title="getInsertSQL :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getInsertSQL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getManyToManyCollection" title="getManyToManyCollection :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getManyToManyCollection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getOneToManyCollection" title="getOneToManyCollection :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getOneToManyCollection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getOwningTable" title="getOwningTable :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getOwningTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getResultSetMapping" title="getResultSetMapping :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getResultSetMapping</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSelectConditionStatementSQL" title="getSelectConditionStatementSQL :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getSelectConditionStatementSQL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSelectSQL" title="getSelectSQL :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getSelectSQL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_load" title="load :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>load</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadAll" title="loadAll :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>loadAll</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadById" title="loadById :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>loadById</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadCriteria" title="loadCriteria :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>loadCriteria</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadManyToManyCollection" title="loadManyToManyCollection :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>loadManyToManyCollection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadOneToManyCollection" title="loadOneToManyCollection :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>loadOneToManyCollection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_loadOneToOneEntity" title="loadOneToOneEntity :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>loadOneToOneEntity</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_lock" title="lock :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>lock</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_refresh" title="refresh :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>refresh</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_storeEntityCache" title="storeEntityCache :: ">
+            <span class="description"></span><pre>storeEntityCache</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected">
+                            <a href="#method_getHash" title="getHash :: Generates a string of currently query">
+                                <span class="description">Generates a string of currently query</span><pre>getHash</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method private">
+                            <a href="#method_storeJoinedAssociations" title="storeJoinedAssociations :: ">
+                                <span class="description"></span><pre>storeJoinedAssociations</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>AbstractEntityPersister</h1>
+                <small style="display: block; text-align: right">
+                                                                Implements <a href="../classes/Doctrine.ORM.Cache.Persister.Entity.CachedEntityPersister.html">\Doctrine\ORM\Cache\Persister\Entity\CachedEntityPersister</a>
+                                    </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Fabio B. Silva <a href="mailto:fabio.bat.silva@gmail.com">fabio.bat.silva@gmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.5
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(\Doctrine\ORM\Persisters\Entity\EntityPersister $persister, \Doctrine\ORM\Cache\Region $region, \Doctrine\ORM\EntityManagerInterface $em, \Doctrine\ORM\Mapping\ClassMetadata $class) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$persister</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Persisters.Entity.EntityPersister.html">\Doctrine\ORM\Persisters\Entity\EntityPersister</a></code><p><p>The entity persister to cache.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$region</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Cache.Region.html">\Doctrine\ORM\Cache\Region</a></code><p><p>The entity cache region.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The entity manager.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code><p><p>The entity metadata.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addInsert"></a>
+                        <div class="element clickable method public  method_addInsert" data-toggle="collapse" data-target=".method_addInsert .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>addInsert( $entity) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_count"></a>
+                        <div class="element clickable method public  method_count" data-toggle="collapse" data-target=".method_count .collapse">
+                            <h2>{@inheritDoc}</h2>
+                            <pre>count( $criteria = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_executeInserts"></a>
+                        <div class="element clickable method public  method_executeInserts" data-toggle="collapse" data-target=".method_executeInserts .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>executeInserts() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_exists"></a>
+                        <div class="element clickable method public  method_exists" data-toggle="collapse" data-target=".method_exists .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>exists( $entity, \Doctrine\Common\Collections\Criteria $extraConditions = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$extraConditions</h4>
+                                                <code><a href="../classes/Doctrine.Common.Collections.Criteria.html">\Doctrine\Common\Collections\Criteria</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_expandCriteriaParameters"></a>
+                        <div class="element clickable method public  method_expandCriteriaParameters" data-toggle="collapse" data-target=".method_expandCriteriaParameters .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>expandCriteriaParameters(\Doctrine\Common\Collections\Criteria $criteria) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code><a href="../classes/Doctrine.Common.Collections.Criteria.html">\Doctrine\Common\Collections\Criteria</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_expandParameters"></a>
+                        <div class="element clickable method public  method_expandParameters" data-toggle="collapse" data-target=".method_expandParameters .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>expandParameters( $criteria) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCacheRegion"></a>
+                        <div class="element clickable method public  method_getCacheRegion" data-toggle="collapse" data-target=".method_getCacheRegion .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getCacheRegion() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClassMetadata"></a>
+                        <div class="element clickable method public  method_getClassMetadata" data-toggle="collapse" data-target=".method_getClassMetadata .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getClassMetadata() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCountSQL"></a>
+                        <div class="element clickable method public  method_getCountSQL" data-toggle="collapse" data-target=".method_getCountSQL .collapse">
+                            <h2>{@inheritDoc}</h2>
+                            <pre>getCountSQL( $criteria = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEntityHydrator"></a>
+                        <div class="element clickable method public  method_getEntityHydrator" data-toggle="collapse" data-target=".method_getEntityHydrator .collapse">
+                            <h2>getEntityHydrator</h2>
+                            <pre>getEntityHydrator() : \Doctrine\ORM\Cache\EntityHydrator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.EntityHydrator.html">\Doctrine\ORM\Cache\EntityHydrator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHash"></a>
+                        <div class="element clickable method protected  method_getHash" data-toggle="collapse" data-target=".method_getHash .collapse">
+                            <h2>Generates a string of currently query</h2>
+                            <pre>getHash(array $query, string $criteria, array $orderBy = null, integer $limit = null, integer $offset = null) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$query</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$orderBy</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$limit</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInserts"></a>
+                        <div class="element clickable method public  method_getInserts" data-toggle="collapse" data-target=".method_getInserts .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getInserts() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInsertSQL"></a>
+                        <div class="element clickable method public  method_getInsertSQL" data-toggle="collapse" data-target=".method_getInsertSQL .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getInsertSQL() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getManyToManyCollection"></a>
+                        <div class="element clickable method public  method_getManyToManyCollection" data-toggle="collapse" data-target=".method_getManyToManyCollection .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getManyToManyCollection(array $assoc,  $sourceEntity,  $offset = null,  $limit = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceEntity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$limit</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getOneToManyCollection"></a>
+                        <div class="element clickable method public  method_getOneToManyCollection" data-toggle="collapse" data-target=".method_getOneToManyCollection .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getOneToManyCollection(array $assoc,  $sourceEntity,  $offset = null,  $limit = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceEntity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$limit</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getOwningTable"></a>
+                        <div class="element clickable method public  method_getOwningTable" data-toggle="collapse" data-target=".method_getOwningTable .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getOwningTable( $fieldName) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getResultSetMapping"></a>
+                        <div class="element clickable method public  method_getResultSetMapping" data-toggle="collapse" data-target=".method_getResultSetMapping .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getResultSetMapping() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSelectConditionStatementSQL"></a>
+                        <div class="element clickable method public  method_getSelectConditionStatementSQL" data-toggle="collapse" data-target=".method_getSelectConditionStatementSQL .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getSelectConditionStatementSQL( $field,  $value,  $assoc = null,  $comparison = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$field</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$comparison</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSelectSQL"></a>
+                        <div class="element clickable method public  method_getSelectSQL" data-toggle="collapse" data-target=".method_getSelectSQL .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getSelectSQL( $criteria,  $assoc = null,  $lockMode = null,  $limit = null,  $offset = null, array $orderBy = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lockMode</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$limit</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$orderBy</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_load"></a>
+                        <div class="element clickable method public  method_load" data-toggle="collapse" data-target=".method_load .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>load(array $criteria,  $entity = null,  $assoc = null, array $hints = array(),  $lockMode = null,  $limit = null, array $orderBy = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$hints</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lockMode</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$limit</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$orderBy</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_loadAll"></a>
+                        <div class="element clickable method public  method_loadAll" data-toggle="collapse" data-target=".method_loadAll .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>loadAll(array $criteria = array(), array $orderBy = null,  $limit = null,  $offset = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$orderBy</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$limit</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$offset</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_loadById"></a>
+                        <div class="element clickable method public  method_loadById" data-toggle="collapse" data-target=".method_loadById .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>loadById(array $identifier,  $entity = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$identifier</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_loadCriteria"></a>
+                        <div class="element clickable method public  method_loadCriteria" data-toggle="collapse" data-target=".method_loadCriteria .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>loadCriteria(\Doctrine\Common\Collections\Criteria $criteria) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code><a href="../classes/Doctrine.Common.Collections.Criteria.html">\Doctrine\Common\Collections\Criteria</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_loadManyToManyCollection"></a>
+                        <div class="element clickable method public  method_loadManyToManyCollection" data-toggle="collapse" data-target=".method_loadManyToManyCollection .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>loadManyToManyCollection(array $assoc,  $sourceEntity, \Doctrine\ORM\PersistentCollection $coll) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceEntity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$coll</h4>
+                                                <code><a href="../classes/Doctrine.ORM.PersistentCollection.html">\Doctrine\ORM\PersistentCollection</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_loadOneToManyCollection"></a>
+                        <div class="element clickable method public  method_loadOneToManyCollection" data-toggle="collapse" data-target=".method_loadOneToManyCollection .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>loadOneToManyCollection(array $assoc,  $sourceEntity, \Doctrine\ORM\PersistentCollection $coll) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceEntity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$coll</h4>
+                                                <code><a href="../classes/Doctrine.ORM.PersistentCollection.html">\Doctrine\ORM\PersistentCollection</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_loadOneToOneEntity"></a>
+                        <div class="element clickable method public  method_loadOneToOneEntity" data-toggle="collapse" data-target=".method_loadOneToOneEntity .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>loadOneToOneEntity(array $assoc,  $sourceEntity, array $identifier = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$assoc</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceEntity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$identifier</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_lock"></a>
+                        <div class="element clickable method public  method_lock" data-toggle="collapse" data-target=".method_lock .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>lock(array $criteria,  $lockMode) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$criteria</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lockMode</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_refresh"></a>
+                        <div class="element clickable method public  method_refresh" data-toggle="collapse" data-target=".method_refresh .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>refresh(array $id,  $entity,  $lockMode = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lockMode</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_storeEntityCache"></a>
+                        <div class="element clickable method public  method_storeEntityCache" data-toggle="collapse" data-target=".method_storeEntityCache .collapse">
+                            <h2>storeEntityCache</h2>
+                            <pre>storeEntityCache(object $entity, \Doctrine\ORM\Cache\EntityCacheKey $key) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Cache.EntityCacheKey.html">\Doctrine\ORM\Cache\EntityCacheKey</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_storeJoinedAssociations"></a>
+                        <div class="element clickable method private  method_storeJoinedAssociations" data-toggle="collapse" data-target=".method_storeJoinedAssociations .collapse">
+                            <h2>storeJoinedAssociations</h2>
+                            <pre>storeJoinedAssociations(object $entity) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_uow"> </a>
+                            <div class="element clickable property  protected property_uow" data-toggle="collapse" data-target=".property_uow .collapse">
+                                <h2>uow</h2>
+                                <pre>uow : \Doctrine\ORM\UnitOfWork</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.UnitOfWork.html">\Doctrine\ORM\UnitOfWork</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_metadataFactory"> </a>
+                            <div class="element clickable property  protected property_metadataFactory" data-toggle="collapse" data-target=".property_metadataFactory .collapse">
+                                <h2>metadataFactory</h2>
+                                <pre>metadataFactory : \Doctrine\ORM\Mapping\ClassMetadataFactory</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadataFactory.html">\Doctrine\ORM\Mapping\ClassMetadataFactory</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_persister"> </a>
+                            <div class="element clickable property  protected property_persister" data-toggle="collapse" data-target=".property_persister .collapse">
+                                <h2>persister</h2>
+                                <pre>persister : \Doctrine\ORM\Persisters\Entity\EntityPersister</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Persisters.Entity.EntityPersister.html">\Doctrine\ORM\Persisters\Entity\EntityPersister</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_class"> </a>
+                            <div class="element clickable property  protected property_class" data-toggle="collapse" data-target=".property_class .collapse">
+                                <h2>class</h2>
+                                <pre>class : \Doctrine\ORM\Mapping\ClassMetadata</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_queuedCache"> </a>
+                            <div class="element clickable property  protected property_queuedCache" data-toggle="collapse" data-target=".property_queuedCache .collapse">
+                                <h2>queuedCache</h2>
+                                <pre>queuedCache : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_region"> </a>
+                            <div class="element clickable property  protected property_region" data-toggle="collapse" data-target=".property_region .collapse">
+                                <h2>region</h2>
+                                <pre>region : \Doctrine\ORM\Cache\Region</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.Region.html">\Doctrine\ORM\Cache\Region</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_timestampRegion"> </a>
+                            <div class="element clickable property  protected property_timestampRegion" data-toggle="collapse" data-target=".property_timestampRegion .collapse">
+                                <h2>timestampRegion</h2>
+                                <pre>timestampRegion : \Doctrine\ORM\Cache\TimestampRegion</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.TimestampRegion.html">\Doctrine\ORM\Cache\TimestampRegion</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_timestampKey"> </a>
+                            <div class="element clickable property  protected property_timestampKey" data-toggle="collapse" data-target=".property_timestampKey .collapse">
+                                <h2>timestampKey</h2>
+                                <pre>timestampKey : \Doctrine\ORM\Cache\TimestampCacheKey</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.TimestampCacheKey.html">\Doctrine\ORM\Cache\TimestampCacheKey</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_hydrator"> </a>
+                            <div class="element clickable property  protected property_hydrator" data-toggle="collapse" data-target=".property_hydrator .collapse">
+                                <h2>hydrator</h2>
+                                <pre>hydrator : \Doctrine\ORM\Cache\EntityHydrator</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.EntityHydrator.html">\Doctrine\ORM\Cache\EntityHydrator</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_cache"> </a>
+                            <div class="element clickable property  protected property_cache" data-toggle="collapse" data-target=".property_cache .collapse">
+                                <h2>cache</h2>
+                                <pre>cache : \Doctrine\ORM\Cache</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.html">\Doctrine\ORM\Cache</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_cacheLogger"> </a>
+                            <div class="element clickable property  protected property_cacheLogger" data-toggle="collapse" data-target=".property_cacheLogger .collapse">
+                                <h2>cacheLogger</h2>
+                                <pre>cacheLogger : \Doctrine\ORM\Cache\Logging\CacheLogger</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.Logging.CacheLogger.html">\Doctrine\ORM\Cache\Logging\CacheLogger</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_regionName"> </a>
+                            <div class="element clickable property  protected property_regionName" data-toggle="collapse" data-target=".property_regionName .collapse">
+                                <h2>regionName</h2>
+                                <pre>regionName : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_joinedAssociations"> </a>
+                            <div class="element clickable property  protected property_joinedAssociations" data-toggle="collapse" data-target=".property_joinedAssociations .collapse">
+                                <h2>Associations configured as FETCH_EAGER, as well as all inverse one-to-one associations.</h2>
+                                <pre>joinedAssociations : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\ORM\Cache\Persister\Entity\AbstractEntityPersister"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Cache.Persister.Entity.html">Entity</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Cache.Persister.Entity.AbstractEntityPersister.html">AbstractEntityPersister</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:31 +0000.<br/>
+    </footer>
+    </body>
+</html>

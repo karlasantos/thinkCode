@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\Common\Cache\FilesystemCache
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Constructor.">
+            <span class="description">Constructor.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_contains" title="contains :: Tests if an entry exists in the cache.">
+            <span class="description">Tests if an entry exists in the cache.</span><pre>contains</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_delete" title="delete :: Deletes a cache entry.">
+            <span class="description">Deletes a cache entry.</span><pre>delete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_deleteAll" title="deleteAll :: Deletes all cache entries in the current cache namespace.">
+            <span class="description">Deletes all cache entries in the current cache namespace.</span><pre>deleteAll</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_fetch" title="fetch :: Fetches an entry from the cache.">
+            <span class="description">Fetches an entry from the cache.</span><pre>fetch</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_fetchMultiple" title="fetchMultiple :: Returns an associative array of values for keys is found in cache.">
+            <span class="description">Returns an associative array of values for keys is found in cache.</span><pre>fetchMultiple</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_flushAll" title="flushAll :: Flushes all cache entries, globally.">
+            <span class="description">Flushes all cache entries, globally.</span><pre>flushAll</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getDirectory" title="getDirectory :: Gets the cache directory.">
+            <span class="description">Gets the cache directory.</span><pre>getDirectory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getExtension" title="getExtension :: Gets the cache file extension.">
+            <span class="description">Gets the cache file extension.</span><pre>getExtension</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_getNamespace" title="getNamespace :: Retrieves the namespace that prefixes all cache ids.">
+            <span class="description">Retrieves the namespace that prefixes all cache ids.</span><pre>getNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_getStats" title="getStats :: Retrieves cached information from the data store.">
+            <span class="description">Retrieves cached information from the data store.</span><pre>getStats</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_save" title="save :: Puts data into the cache.">
+            <span class="description">Puts data into the cache.</span><pre>save</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_saveMultiple" title="saveMultiple :: Returns a boolean value indicating if the operation succeeded.">
+            <span class="description">Returns a boolean value indicating if the operation succeeded.</span><pre>saveMultiple</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setNamespace" title="setNamespace :: Sets the namespace to prefix all cache ids with.">
+            <span class="description">Sets the namespace to prefix all cache ids with.</span><pre>setNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_doContains" title="doContains :: Tests if an entry exists in the cache.">
+                                <span class="description">Tests if an entry exists in the cache.</span><pre>doContains</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doDelete" title="doDelete :: Deletes a cache entry.">
+                                <span class="description">Deletes a cache entry.</span><pre>doDelete</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doFetch" title="doFetch :: Fetches an entry from the cache.">
+                                <span class="description">Fetches an entry from the cache.</span><pre>doFetch</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doFetchMultiple" title="doFetchMultiple :: Default implementation of doFetchMultiple. Each driver that supports multi-get should owerwrite it.">
+                                <span class="description">Default implementation of doFetchMultiple. Each driver that supports multi-get should owerwrite it.</span><pre>doFetchMultiple</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doFlush" title="doFlush :: Flushes all cache entries.">
+                                <span class="description">Flushes all cache entries.</span><pre>doFlush</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doGetStats" title="doGetStats :: Retrieves cached information from the data store.">
+                                <span class="description">Retrieves cached information from the data store.</span><pre>doGetStats</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doSave" title="doSave :: Puts data into the cache.">
+                                <span class="description">Puts data into the cache.</span><pre>doSave</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_doSaveMultiple" title="doSaveMultiple :: Default implementation of doSaveMultiple. Each driver that supports multi-put should override it.">
+                                <span class="description">Default implementation of doSaveMultiple. Each driver that supports multi-put should override it.</span><pre>doSaveMultiple</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_getFilename" title="getFilename :: ">
+                                <span class="description"></span><pre>getFilename</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
+                            <a href="#method_writeFile" title="writeFile :: Writes a string content to file in an atomic way.">
+                                <span class="description">Writes a string content to file in an atomic way.</span><pre>writeFile</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                    <li class="method private inherited">
+                            <a href="#method_createPathIfNeeded" title="createPathIfNeeded :: Create path if needed.">
+                                <span class="description">Create path if needed.</span><pre>createPathIfNeeded</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method private inherited">
+                            <a href="#method_getIterator" title="getIterator :: ">
+                                <span class="description"></span><pre>getIterator</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method private inherited">
+                            <a href="#method_getNamespaceCacheKey" title="getNamespaceCacheKey :: Returns the namespace cache key.">
+                                <span class="description">Returns the namespace cache key.</span><pre>getNamespaceCacheKey</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_getNamespacedId" title="getNamespacedId :: Prefixes the passed id with the configured namespace value.">
+                                <span class="description">Prefixes the passed id with the configured namespace value.</span><pre>getNamespacedId</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_getNamespaceVersion" title="getNamespaceVersion :: Returns the namespace version.">
+                                <span class="description">Returns the namespace version.</span><pre>getNamespaceVersion</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method private inherited">
+                            <a href="#method_isFilenameEndingWithExtension" title="isFilenameEndingWithExtension :: ">
+                                <span class="description"></span><pre>isFilenameEndingWithExtension</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_DOCTRINE_NAMESPACE_CACHEKEY" title="DOCTRINE_NAMESPACE_CACHEKEY :: ">
+                        <span class="description"></span><pre>DOCTRINE_NAMESPACE_CACHEKEY</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_EXTENSION" title="EXTENSION :: ">
+                        <span class="description"></span><pre>EXTENSION</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>FilesystemCache</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.Common.Cache.FileCache.html">\Doctrine\Common\Cache\FileCache</a>
+                                                        </small>
+                <p class="short_description">Filesystem cache driver.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.3
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Fabio B. Silva <a href="mailto:fabio.bat.silva@gmail.com">fabio.bat.silva@gmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor.</h2>
+                            <pre>__construct(string $directory, string $extension = &#039;&#039;,  $umask = 2) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$directory</h4>
+                                                <code>string</code><p><p>The cache directory.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$extension</h4>
+                                                <code>string</code><p><p>The cache file extension.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$umask</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_contains"></a>
+                        <div class="element clickable method public  method_contains inherited" data-toggle="collapse" data-target=".method_contains .collapse">
+                            <h2>Tests if an entry exists in the cache.</h2>
+                            <pre>contains(string $id) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The cache id of the entry to check for.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if a cache entry exists for the given cache id, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createPathIfNeeded"></a>
+                        <div class="element clickable method private  method_createPathIfNeeded inherited" data-toggle="collapse" data-target=".method_createPathIfNeeded .collapse">
+                            <h2>Create path if needed.</h2>
+                            <pre>createPathIfNeeded(string $path) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$path</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE on success or if path already exists, FALSE if path cannot be created.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete"></a>
+                        <div class="element clickable method public  method_delete inherited" data-toggle="collapse" data-target=".method_delete .collapse">
+                            <h2>Deletes a cache entry.</h2>
+                            <pre>delete(string $id) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The cache id.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the cache entry was successfully deleted, FALSE otherwise.
+Deleting a non-existing entry is considered successful.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_deleteAll"></a>
+                        <div class="element clickable method public  method_deleteAll inherited" data-toggle="collapse" data-target=".method_deleteAll .collapse">
+                            <h2>Deletes all cache entries in the current cache namespace.</h2>
+                            <pre>deleteAll() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the cache entries were successfully deleted, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doContains"></a>
+                        <div class="element clickable method protected  method_doContains inherited" data-toggle="collapse" data-target=".method_doContains .collapse">
+                            <h2>Tests if an entry exists in the cache.</h2>
+                            <pre>doContains(string $id) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The cache id of the entry to check for.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if a cache entry exists for the given cache id, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doDelete"></a>
+                        <div class="element clickable method protected  method_doDelete inherited" data-toggle="collapse" data-target=".method_doDelete .collapse">
+                            <h2>Deletes a cache entry.</h2>
+                            <pre>doDelete(string $id) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The cache id.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the cache entry was successfully deleted, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doFetch"></a>
+                        <div class="element clickable method protected  method_doFetch inherited" data-toggle="collapse" data-target=".method_doFetch .collapse">
+                            <h2>Fetches an entry from the cache.</h2>
+                            <pre>doFetch(string $id) : mixed|false</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The id of the cache entry to fetch.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed|false</code><p><p>The cached data or FALSE, if no cache entry exists for the given id.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doFetchMultiple"></a>
+                        <div class="element clickable method protected  method_doFetchMultiple inherited" data-toggle="collapse" data-target=".method_doFetchMultiple .collapse">
+                            <h2>Default implementation of doFetchMultiple. Each driver that supports multi-get should owerwrite it.</h2>
+                            <pre>doFetchMultiple(array $keys) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$keys</h4>
+                                                <code>array</code><p><p>Array of keys to retrieve from cache</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>Array of values retrieved for the given keys.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doFlush"></a>
+                        <div class="element clickable method protected  method_doFlush inherited" data-toggle="collapse" data-target=".method_doFlush .collapse">
+                            <h2>Flushes all cache entries.</h2>
+                            <pre>doFlush() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the cache entries were successfully flushed, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doGetStats"></a>
+                        <div class="element clickable method protected  method_doGetStats inherited" data-toggle="collapse" data-target=".method_doGetStats .collapse">
+                            <h2>Retrieves cached information from the data store.</h2>
+                            <pre>doGetStats() : array|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    since
+                                                </th>
+                                                <td>
+                                                                                                                                                                        2.2
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array|null</code><p><p>An associative array with server's statistics if available, NULL otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doSave"></a>
+                        <div class="element clickable method protected  method_doSave inherited" data-toggle="collapse" data-target=".method_doSave .collapse">
+                            <h2>Puts data into the cache.</h2>
+                            <pre>doSave(string $id, string $data, integer $lifeTime) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The cache id.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>string</code><p><p>The cache entry/data.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lifeTime</h4>
+                                                <code>integer</code><p><p>The lifetime. If != 0, sets a specific lifetime for this
+cache entry (0 =&gt; infinite lifeTime).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the entry was successfully stored in the cache, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doSaveMultiple"></a>
+                        <div class="element clickable method protected  method_doSaveMultiple inherited" data-toggle="collapse" data-target=".method_doSaveMultiple .collapse">
+                            <h2>Default implementation of doSaveMultiple. Each driver that supports multi-put should override it.</h2>
+                            <pre>doSaveMultiple(array $keysAndValues, integer $lifetime) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$keysAndValues</h4>
+                                                <code>array</code><p><p>Array of keys and values to save in cache</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lifetime</h4>
+                                                <code>integer</code><p><p>The lifetime. If != 0, sets a specific lifetime for these
+cache entries (0 =&gt; infinite lifeTime).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the operation was successful, FALSE if it wasn't.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fetch"></a>
+                        <div class="element clickable method public  method_fetch inherited" data-toggle="collapse" data-target=".method_fetch .collapse">
+                            <h2>Fetches an entry from the cache.</h2>
+                            <pre>fetch(string $id) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The id of the cache entry to fetch.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>The cached data or FALSE, if no cache entry exists for the given id.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fetchMultiple"></a>
+                        <div class="element clickable method public  method_fetchMultiple inherited" data-toggle="collapse" data-target=".method_fetchMultiple .collapse">
+                            <h2>Returns an associative array of values for keys is found in cache.</h2>
+                            <pre>fetchMultiple(array $keys) : array&lt;mixed,mixed&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$keys</h4>
+                                                <code>array</code><p><p>Array of keys to retrieve from cache</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,mixed&gt;</code><p><p>Array of retrieved values, indexed by the specified keys.
+Values that couldn't be retrieved are not contained in this array.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_flushAll"></a>
+                        <div class="element clickable method public  method_flushAll inherited" data-toggle="collapse" data-target=".method_flushAll .collapse">
+                            <h2>Flushes all cache entries, globally.</h2>
+                            <pre>flushAll() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the cache entries were successfully flushed, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDirectory"></a>
+                        <div class="element clickable method public  method_getDirectory inherited" data-toggle="collapse" data-target=".method_getDirectory .collapse">
+                            <h2>Gets the cache directory.</h2>
+                            <pre>getDirectory() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getExtension"></a>
+                        <div class="element clickable method public  method_getExtension inherited" data-toggle="collapse" data-target=".method_getExtension .collapse">
+                            <h2>Gets the cache file extension.</h2>
+                            <pre>getExtension() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFilename"></a>
+                        <div class="element clickable method protected  method_getFilename inherited" data-toggle="collapse" data-target=".method_getFilename .collapse">
+                            <h2>getFilename</h2>
+                            <pre>getFilename(string $id) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getIterator"></a>
+                        <div class="element clickable method private  method_getIterator inherited" data-toggle="collapse" data-target=".method_getIterator .collapse">
+                            <h2>getIterator</h2>
+                            <pre>getIterator() : \Iterator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\Iterator</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespace"></a>
+                        <div class="element clickable method public  method_getNamespace inherited" data-toggle="collapse" data-target=".method_getNamespace .collapse">
+                            <h2>Retrieves the namespace that prefixes all cache ids.</h2>
+                            <pre>getNamespace() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespaceCacheKey"></a>
+                        <div class="element clickable method private  method_getNamespaceCacheKey inherited" data-toggle="collapse" data-target=".method_getNamespaceCacheKey .collapse">
+                            <h2>Returns the namespace cache key.</h2>
+                            <pre>getNamespaceCacheKey() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespacedId"></a>
+                        <div class="element clickable method private  method_getNamespacedId inherited" data-toggle="collapse" data-target=".method_getNamespacedId .collapse">
+                            <h2>Prefixes the passed id with the configured namespace value.</h2>
+                            <pre>getNamespacedId(string $id) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The id to namespace.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>The namespaced id.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespaceVersion"></a>
+                        <div class="element clickable method private  method_getNamespaceVersion inherited" data-toggle="collapse" data-target=".method_getNamespaceVersion .collapse">
+                            <h2>Returns the namespace version.</h2>
+                            <pre>getNamespaceVersion() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getStats"></a>
+                        <div class="element clickable method public  method_getStats inherited" data-toggle="collapse" data-target=".method_getStats .collapse">
+                            <h2>Retrieves cached information from the data store.</h2>
+                            <pre>getStats() : array|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The server's statistics array has the following values:</p>
+<ul>
+<li>
+<p><b>hits</b>
+Number of keys that have been requested and found present.</p>
+</li>
+<li>
+<p><b>misses</b>
+Number of items that have been requested and not found.</p>
+</li>
+<li>
+<p><b>uptime</b>
+Time that the server is running.</p>
+</li>
+<li>
+<p><b>memory_usage</b>
+Memory used by this server to store items.</p>
+</li>
+<li><b>memory_available</b>
+Memory allowed to use for storage.</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array|null</code><p><p>An associative array with server's statistics if available, NULL otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isFilenameEndingWithExtension"></a>
+                        <div class="element clickable method private  method_isFilenameEndingWithExtension inherited" data-toggle="collapse" data-target=".method_isFilenameEndingWithExtension .collapse">
+                            <h2>isFilenameEndingWithExtension</h2>
+                            <pre>isFilenameEndingWithExtension(string $name) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The filename</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_save"></a>
+                        <div class="element clickable method public  method_save inherited" data-toggle="collapse" data-target=".method_save .collapse">
+                            <h2>Puts data into the cache.</h2>
+                            <pre>save(string $id, mixed $data, integer $lifeTime) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If a cache entry with the given id already exists, its data will be replaced.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>The cache id.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>mixed</code><p><p>The cache entry/data.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lifeTime</h4>
+                                                <code>integer</code><p><p>The lifetime in number of seconds for this cache entry.
+If zero (the default), the entry never expires (although it may be deleted from the cache
+to make place for other entries).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the entry was successfully stored in the cache, FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_saveMultiple"></a>
+                        <div class="element clickable method public  method_saveMultiple inherited" data-toggle="collapse" data-target=".method_saveMultiple .collapse">
+                            <h2>Returns a boolean value indicating if the operation succeeded.</h2>
+                            <pre>saveMultiple(array $keysAndValues, integer $lifetime) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$keysAndValues</h4>
+                                                <code>array</code><p><p>Array of keys and values to save in cache</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lifetime</h4>
+                                                <code>integer</code><p><p>The lifetime. If != 0, sets a specific lifetime for these
+cache entries (0 =&gt; infinite lifeTime).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if the operation was successful, FALSE if it wasn't.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setNamespace"></a>
+                        <div class="element clickable method public  method_setNamespace inherited" data-toggle="collapse" data-target=".method_setNamespace .collapse">
+                            <h2>Sets the namespace to prefix all cache ids with.</h2>
+                            <pre>setNamespace(string $namespace) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_writeFile"></a>
+                        <div class="element clickable method protected  method_writeFile inherited" data-toggle="collapse" data-target=".method_writeFile .collapse">
+                            <h2>Writes a string content to file in an atomic way.</h2>
+                            <pre>writeFile(string $filename, string $content) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$filename</h4>
+                                                <code>string</code><p><p>Path to the file where to write the data.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$content</h4>
+                                                <code>string</code><p><p>The content to write</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE on success, FALSE if path cannot be created, if path is not writable or an any other error.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_EXTENSION"> </a>
+                            <div class="element clickable constant  constant_EXTENSION" data-toggle="collapse" data-target=".constant_EXTENSION .collapse">
+                                <h2>EXTENSION</h2>
+                                <pre>EXTENSION</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_DOCTRINE_NAMESPACE_CACHEKEY"> </a>
+                            <div class="element clickable constant  constant_DOCTRINE_NAMESPACE_CACHEKEY inherited" data-toggle="collapse" data-target=".constant_DOCTRINE_NAMESPACE_CACHEKEY .collapse">
+                                <h2>DOCTRINE_NAMESPACE_CACHEKEY</h2>
+                                <pre>DOCTRINE_NAMESPACE_CACHEKEY</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_directory"> </a>
+                            <div class="element clickable property  protected property_directory inherited" data-toggle="collapse" data-target=".property_directory .collapse">
+                                <h2>The cache directory.</h2>
+                                <pre>directory : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_extension"> </a>
+                            <div class="element clickable property  private property_extension inherited" data-toggle="collapse" data-target=".property_extension .collapse">
+                                <h2>The cache file extension.</h2>
+                                <pre>extension : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_umask"> </a>
+                            <div class="element clickable property  private property_umask inherited" data-toggle="collapse" data-target=".property_umask .collapse">
+                                <h2>umask</h2>
+                                <pre>umask : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_directoryStringLength"> </a>
+                            <div class="element clickable property  private property_directoryStringLength inherited" data-toggle="collapse" data-target=".property_directoryStringLength .collapse">
+                                <h2>directoryStringLength</h2>
+                                <pre>directoryStringLength : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_extensionStringLength"> </a>
+                            <div class="element clickable property  private property_extensionStringLength inherited" data-toggle="collapse" data-target=".property_extensionStringLength .collapse">
+                                <h2>extensionStringLength</h2>
+                                <pre>extensionStringLength : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_isRunningOnWindows"> </a>
+                            <div class="element clickable property  private property_isRunningOnWindows inherited" data-toggle="collapse" data-target=".property_isRunningOnWindows .collapse">
+                                <h2>isRunningOnWindows</h2>
+                                <pre>isRunningOnWindows : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_namespace"> </a>
+                            <div class="element clickable property  private property_namespace inherited" data-toggle="collapse" data-target=".property_namespace .collapse">
+                                <h2>The namespace to prefix all cache ids with.</h2>
+                                <pre>namespace : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_namespaceVersion"> </a>
+                            <div class="element clickable property  private property_namespaceVersion inherited" data-toggle="collapse" data-target=".property_namespaceVersion .collapse">
+                                <h2>The namespace version.</h2>
+                                <pre>namespaceVersion : integer|null</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\Common\Cache\FilesystemCache"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.Common.Cache.html">Cache</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.Common.Cache.FilesystemCache.html">FilesystemCache</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:22 +0000.<br/>
+    </footer>
+    </body>
+</html>

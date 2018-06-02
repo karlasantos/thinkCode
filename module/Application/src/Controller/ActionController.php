@@ -11,9 +11,8 @@ use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
- * Define o modelo dos ActionControllers do sistema
- *
  * Class ActionController
+ * Define o modelo dos ActionControllers do sistema. As actions são responsáveis pelos retornos de views.
  * @package Application\Controller
  * @abstract
  */
@@ -26,19 +25,14 @@ abstract class ActionController extends AbstractActionController
      */
     protected $entityManager;
 
+    /**
+     * Construtor da classe
+     *
+     * ActionController constructor.
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-    }
-
-
-    protected function getSession()
-    {
-
-    }
-
-    protected function getService()
-    {
-
     }
 }

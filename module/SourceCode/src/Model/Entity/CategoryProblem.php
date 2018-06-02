@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class CategoryProblem
  * Representa a Categoria de cada problema
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="categories_problem")
  * @package SourceCode\Model\Entity
  */

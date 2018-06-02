@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Session\SessionManager
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Constructor">
+            <span class="description">Constructor</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_destroy" title="destroy :: Destroy/end a session">
+            <span class="description">Destroy/end a session</span><pre>destroy</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_expireSessionCookie" title="expireSessionCookie :: Expire the session cookie">
+            <span class="description">Expire the session cookie</span><pre>expireSessionCookie</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_forgetMe" title="forgetMe :: Set a 0s TTL for the session cookie">
+            <span class="description">Set a 0s TTL for the session cookie</span><pre>forgetMe</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getConfig" title="getConfig :: Retrieve configuration object">
+            <span class="description">Retrieve configuration object</span><pre>getConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getId" title="getId :: Get session ID">
+            <span class="description">Get session ID</span><pre>getId</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getName" title="getName :: Get session name">
+            <span class="description">Get session name</span><pre>getName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getSaveHandler" title="getSaveHandler :: Get SaveHandler Object">
+            <span class="description">Get SaveHandler Object</span><pre>getSaveHandler</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getStorage" title="getStorage :: Retrieve storage object">
+            <span class="description">Retrieve storage object</span><pre>getStorage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getValidatorChain" title="getValidatorChain :: Get the validator chain to use when validating a session">
+            <span class="description">Get the validator chain to use when validating a session</span><pre>getValidatorChain</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_isValid" title="isValid :: Is this session valid?">
+            <span class="description">Is this session valid?</span><pre>isValid</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_regenerateId" title="regenerateId :: Regenerate id">
+            <span class="description">Regenerate id</span><pre>regenerateId</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_rememberMe" title="rememberMe :: Set the TTL (in seconds) for the session cookie expiry">
+            <span class="description">Set the TTL (in seconds) for the session cookie expiry</span><pre>rememberMe</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_sessionExists" title="sessionExists :: Does a session exist and is it currently active?">
+            <span class="description">Does a session exist and is it currently active?</span><pre>sessionExists</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setConfig" title="setConfig :: Set configuration object">
+            <span class="description">Set configuration object</span><pre>setConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setId" title="setId :: Set session ID">
+            <span class="description">Set session ID</span><pre>setId</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setName" title="setName :: Attempt to set the session name">
+            <span class="description">Attempt to set the session name</span><pre>setName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setSaveHandler" title="setSaveHandler :: Set session save handler object">
+            <span class="description">Set session save handler object</span><pre>setSaveHandler</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_setStorage" title="setStorage :: Set session storage object">
+            <span class="description">Set session storage object</span><pre>setStorage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setValidatorChain" title="setValidatorChain :: Set the validator chain to use when validating a session">
+            <span class="description">Set the validator chain to use when validating a session</span><pre>setValidatorChain</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_start" title="start :: Start session">
+            <span class="description">Start session</span><pre>start</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_writeClose" title="writeClose :: Write session to save handler and close">
+            <span class="description">Write session to save handler and close</span><pre>writeClose</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="method protected">
+                            <a href="#method_initializeValidatorChain" title="initializeValidatorChain :: Create validators, insert reference value and add them to the validator chain">
+                                <span class="description">Create validators, insert reference value and add them to the validator chain</span><pre>initializeValidatorChain</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method protected">
+                            <a href="#method_registerSaveHandler" title="registerSaveHandler :: Register Save Handler with ext/session">
+                                <span class="description">Register Save Handler with ext/session</span><pre>registerSaveHandler</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                        <li class="method protected">
+                            <a href="#method_setSessionCookieLifetime" title="setSessionCookieLifetime :: Set the session cookie lifetime">
+                                <span class="description">Set the session cookie lifetime</span><pre>setSessionCookieLifetime</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>SessionManager</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Session.AbstractManager.html">\Zend\Session\AbstractManager</a>
+                                                        </small>
+                <p class="short_description">Session ManagerInterface implementation utilizing ext/session</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>Defines common constructor logic and getters for Storage and Configuration</p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor</h2>
+                            <pre>__construct(\Zend\Session\Config\ConfigInterface|null $config = null, \Zend\Session\Storage\StorageInterface|null $storage = null, \Zend\Session\SaveHandler\SaveHandlerInterface|null $saveHandler = null, array $validators = array()) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Session\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$config</h4>
+                                                <code><a href="../classes/Zend.Session.Config.ConfigInterface.html">\Zend\Session\Config\ConfigInterface</a>|null</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$storage</h4>
+                                                <code><a href="../classes/Zend.Session.Storage.StorageInterface.html">\Zend\Session\Storage\StorageInterface</a>|null</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$saveHandler</h4>
+                                                <code><a href="../classes/Zend.Session.SaveHandler.SaveHandlerInterface.html">\Zend\Session\SaveHandler\SaveHandlerInterface</a>|null</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$validators</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_destroy"></a>
+                        <div class="element clickable method public  method_destroy" data-toggle="collapse" data-target=".method_destroy .collapse">
+                            <h2>Destroy/end a session</h2>
+                            <pre>destroy(array $options = null) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p><p>See {@link $defaultDestroyOptions}</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_expireSessionCookie"></a>
+                        <div class="element clickable method public  method_expireSessionCookie" data-toggle="collapse" data-target=".method_expireSessionCookie .collapse">
+                            <h2>Expire the session cookie</h2>
+                            <pre>expireSessionCookie() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Sends a session cookie with no value, and with an expiry in the past.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_forgetMe"></a>
+                        <div class="element clickable method public  method_forgetMe" data-toggle="collapse" data-target=".method_forgetMe .collapse">
+                            <h2>Set a 0s TTL for the session cookie</h2>
+                            <pre>forgetMe() : \Zend\Session\SessionManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Can safely be called in the middle of a session.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SessionManager.html">\Zend\Session\SessionManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfig"></a>
+                        <div class="element clickable method public  method_getConfig inherited" data-toggle="collapse" data-target=".method_getConfig .collapse">
+                            <h2>Retrieve configuration object</h2>
+                            <pre>getConfig() : \Zend\Session\Config\ConfigInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.Config.ConfigInterface.html">\Zend\Session\Config\ConfigInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getId"></a>
+                        <div class="element clickable method public  method_getId" data-toggle="collapse" data-target=".method_getId .collapse">
+                            <h2>Get session ID</h2>
+                            <pre>getId() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Proxies to \session_id()</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getName"></a>
+                        <div class="element clickable method public  method_getName" data-toggle="collapse" data-target=".method_getName .collapse">
+                            <h2>Get session name</h2>
+                            <pre>getName() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Proxies to \session_name().</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSaveHandler"></a>
+                        <div class="element clickable method public  method_getSaveHandler inherited" data-toggle="collapse" data-target=".method_getSaveHandler .collapse">
+                            <h2>Get SaveHandler Object</h2>
+                            <pre>getSaveHandler() : \Zend\Session\SaveHandler\SaveHandlerInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SaveHandler.SaveHandlerInterface.html">\Zend\Session\SaveHandler\SaveHandlerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getStorage"></a>
+                        <div class="element clickable method public  method_getStorage inherited" data-toggle="collapse" data-target=".method_getStorage .collapse">
+                            <h2>Retrieve storage object</h2>
+                            <pre>getStorage() : \Zend\Session\Storage\StorageInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.Storage.StorageInterface.html">\Zend\Session\Storage\StorageInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getValidatorChain"></a>
+                        <div class="element clickable method public  method_getValidatorChain" data-toggle="collapse" data-target=".method_getValidatorChain .collapse">
+                            <h2>Get the validator chain to use when validating a session</h2>
+                            <pre>getValidatorChain() : \Zend\EventManager\EventManagerInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>By default, uses an instance of \ValidatorChain.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.EventManager.EventManagerInterface.html">\Zend\EventManager\EventManagerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_initializeValidatorChain"></a>
+                        <div class="element clickable method protected  method_initializeValidatorChain" data-toggle="collapse" data-target=".method_initializeValidatorChain .collapse">
+                            <h2>Create validators, insert reference value and add them to the validator chain</h2>
+                            <pre>initializeValidatorChain() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isValid"></a>
+                        <div class="element clickable method public  method_isValid" data-toggle="collapse" data-target=".method_isValid .collapse">
+                            <h2>Is this session valid?</h2>
+                            <pre>isValid() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Notifies the Validator Chain until either all validators have returned
+true or one has failed.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_regenerateId"></a>
+                        <div class="element clickable method public  method_regenerateId" data-toggle="collapse" data-target=".method_regenerateId .collapse">
+                            <h2>Regenerate id</h2>
+                            <pre>regenerateId(boolean $deleteOldSession = true) : \Zend\Session\SessionManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Regenerate the session ID, using session save handler's
+native ID generation Can safely be called in the middle of a session.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$deleteOldSession</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SessionManager.html">\Zend\Session\SessionManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_registerSaveHandler"></a>
+                        <div class="element clickable method protected  method_registerSaveHandler" data-toggle="collapse" data-target=".method_registerSaveHandler .collapse">
+                            <h2>Register Save Handler with ext/session</h2>
+                            <pre>registerSaveHandler(\Zend\Session\SaveHandler\SaveHandlerInterface $saveHandler) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Since ext/session is coupled to this particular session manager
+register the save handler with ext/session.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$saveHandler</h4>
+                                                <code><a href="../classes/Zend.Session.SaveHandler.SaveHandlerInterface.html">\Zend\Session\SaveHandler\SaveHandlerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_rememberMe"></a>
+                        <div class="element clickable method public  method_rememberMe" data-toggle="collapse" data-target=".method_rememberMe .collapse">
+                            <h2>Set the TTL (in seconds) for the session cookie expiry</h2>
+                            <pre>rememberMe(null|integer $ttl = null) : \Zend\Session\SessionManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Can safely be called in the middle of a session.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$ttl</h4>
+                                                <code>null|integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SessionManager.html">\Zend\Session\SessionManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_sessionExists"></a>
+                        <div class="element clickable method public  method_sessionExists" data-toggle="collapse" data-target=".method_sessionExists .collapse">
+                            <h2>Does a session exist and is it currently active?</h2>
+                            <pre>sessionExists() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConfig"></a>
+                        <div class="element clickable method public  method_setConfig inherited" data-toggle="collapse" data-target=".method_setConfig .collapse">
+                            <h2>Set configuration object</h2>
+                            <pre>setConfig(\Zend\Session\Config\ConfigInterface $config) : \Zend\Session\AbstractManager</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$config</h4>
+                                                <code><a href="../classes/Zend.Session.Config.ConfigInterface.html">\Zend\Session\Config\ConfigInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.AbstractManager.html">\Zend\Session\AbstractManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setId"></a>
+                        <div class="element clickable method public  method_setId" data-toggle="collapse" data-target=".method_setId .collapse">
+                            <h2>Set session ID</h2>
+                            <pre>setId(string $id) : \Zend\Session\SessionManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Can safely be called in the middle of a session.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SessionManager.html">\Zend\Session\SessionManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setName"></a>
+                        <div class="element clickable method public  method_setName" data-toggle="collapse" data-target=".method_setName .collapse">
+                            <h2>Attempt to set the session name</h2>
+                            <pre>setName(string $name) : \Zend\Session\SessionManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If the session has already been started, or if the name provided fails
+validation, an exception will be raised.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Session\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SessionManager.html">\Zend\Session\SessionManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSaveHandler"></a>
+                        <div class="element clickable method public  method_setSaveHandler inherited" data-toggle="collapse" data-target=".method_setSaveHandler .collapse">
+                            <h2>Set session save handler object</h2>
+                            <pre>setSaveHandler(\Zend\Session\SaveHandler\SaveHandlerInterface $saveHandler) : \Zend\Session\AbstractManager</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$saveHandler</h4>
+                                                <code><a href="../classes/Zend.Session.SaveHandler.SaveHandlerInterface.html">\Zend\Session\SaveHandler\SaveHandlerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.AbstractManager.html">\Zend\Session\AbstractManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSessionCookieLifetime"></a>
+                        <div class="element clickable method protected  method_setSessionCookieLifetime" data-toggle="collapse" data-target=".method_setSessionCookieLifetime .collapse">
+                            <h2>Set the session cookie lifetime</h2>
+                            <pre>setSessionCookieLifetime(integer $ttl) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If a session already exists, destroys it (without sending an expiration
+cookie), regenerates the session ID, and restarts the session.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$ttl</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setStorage"></a>
+                        <div class="element clickable method public  method_setStorage inherited" data-toggle="collapse" data-target=".method_setStorage .collapse">
+                            <h2>Set session storage object</h2>
+                            <pre>setStorage(\Zend\Session\Storage\StorageInterface $storage) : \Zend\Session\AbstractManager</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$storage</h4>
+                                                <code><a href="../classes/Zend.Session.Storage.StorageInterface.html">\Zend\Session\Storage\StorageInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.AbstractManager.html">\Zend\Session\AbstractManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setValidatorChain"></a>
+                        <div class="element clickable method public  method_setValidatorChain" data-toggle="collapse" data-target=".method_setValidatorChain .collapse">
+                            <h2>Set the validator chain to use when validating a session</h2>
+                            <pre>setValidatorChain(\Zend\EventManager\EventManagerInterface $chain) : \Zend\Session\SessionManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>In most cases, you should use an instance of \ValidatorChain.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$chain</h4>
+                                                <code><a href="../classes/Zend.EventManager.EventManagerInterface.html">\Zend\EventManager\EventManagerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.SessionManager.html">\Zend\Session\SessionManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_start"></a>
+                        <div class="element clickable method public  method_start" data-toggle="collapse" data-target=".method_start .collapse">
+                            <h2>Start session</h2>
+                            <pre>start(boolean $preserveStorage = false) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>if No session currently exists, attempt to start it. Calls
+\isValid() once session_start() is called, and raises an
+exception if validation fails.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Session\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$preserveStorage</h4>
+                                                <code>boolean</code><p><p>If set to true, current session storage will not be overwritten by the
+contents of $_SESSION.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_writeClose"></a>
+                        <div class="element clickable method public  method_writeClose" data-toggle="collapse" data-target=".method_writeClose .collapse">
+                            <h2>Write session to save handler and close</h2>
+                            <pre>writeClose() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Once done, the Storage object will be marked as isImmutable.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_defaultDestroyOptions"> </a>
+                            <div class="element clickable property  protected property_defaultDestroyOptions" data-toggle="collapse" data-target=".property_defaultDestroyOptions .collapse">
+                                <h2>Default options when a call to {@link destroy()} is made
+- send_expire_cookie: whether or not to send a cookie expiring the current session cookie
+- clear_storage: whether or not to empty the storage object of any stored values</h2>
+                                <pre>defaultDestroyOptions : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultOptions"> </a>
+                            <div class="element clickable property  protected property_defaultOptions" data-toggle="collapse" data-target=".property_defaultOptions .collapse">
+                                <h2>Default session manager options</h2>
+                                <pre>defaultOptions : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>Default session manager options</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultValidators"> </a>
+                            <div class="element clickable property  protected property_defaultValidators" data-toggle="collapse" data-target=".property_defaultValidators .collapse">
+                                <h2>Default validators</h2>
+                                <pre>defaultValidators : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>Default validators</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_name"> </a>
+                            <div class="element clickable property  protected property_name" data-toggle="collapse" data-target=".property_name .collapse">
+                                <h2>value returned by session_name()</h2>
+                                <pre>name : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>value returned by session_name()</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_validatorChain"> </a>
+                            <div class="element clickable property  protected property_validatorChain" data-toggle="collapse" data-target=".property_validatorChain .collapse">
+                                <h2>Validation chain to determine if session is valid</h2>
+                                <pre>validatorChain : \Zend\EventManager\EventManagerInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>Validation chain to determine if session is valid</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.EventManager.EventManagerInterface.html">\Zend\EventManager\EventManagerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_config"> </a>
+                            <div class="element clickable property  protected property_config inherited" data-toggle="collapse" data-target=".property_config .collapse">
+                                <h2>config</h2>
+                                <pre>config : \Zend\Session\Config\ConfigInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Session.Config.ConfigInterface.html">\Zend\Session\Config\ConfigInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultConfigClass"> </a>
+                            <div class="element clickable property  protected property_defaultConfigClass inherited" data-toggle="collapse" data-target=".property_defaultConfigClass .collapse">
+                                <h2>Default configuration class to use when no configuration provided</h2>
+                                <pre>defaultConfigClass : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_storage"> </a>
+                            <div class="element clickable property  protected property_storage inherited" data-toggle="collapse" data-target=".property_storage .collapse">
+                                <h2>storage</h2>
+                                <pre>storage : \Zend\Session\Storage\StorageInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Session.Storage.StorageInterface.html">\Zend\Session\Storage\StorageInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultStorageClass"> </a>
+                            <div class="element clickable property  protected property_defaultStorageClass inherited" data-toggle="collapse" data-target=".property_defaultStorageClass .collapse">
+                                <h2>Default storage class to use when no storage provided</h2>
+                                <pre>defaultStorageClass : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_saveHandler"> </a>
+                            <div class="element clickable property  protected property_saveHandler inherited" data-toggle="collapse" data-target=".property_saveHandler .collapse">
+                                <h2>saveHandler</h2>
+                                <pre>saveHandler : \Zend\Session\SaveHandler\SaveHandlerInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Session.SaveHandler.SaveHandlerInterface.html">\Zend\Session\SaveHandler\SaveHandlerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_validators"> </a>
+                            <div class="element clickable property  protected property_validators inherited" data-toggle="collapse" data-target=".property_validators .collapse">
+                                <h2>validators</h2>
+                                <pre>validators : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Session\SessionManager"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Session.html">Session</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Session.SessionManager.html">SessionManager</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:00 +0000.<br/>
+    </footer>
+    </body>
+</html>

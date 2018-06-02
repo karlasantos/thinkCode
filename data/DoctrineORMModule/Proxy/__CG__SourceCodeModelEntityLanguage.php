@@ -440,15 +440,4 @@ class Language extends \SourceCode\Model\Entity\Language implements \Doctrine\OR
         return parent::setData($data);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getData(\Doctrine\ORM\EntityManager $em)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getData', [$em]);
-
-        return parent::getData($em);
-    }
-
 }

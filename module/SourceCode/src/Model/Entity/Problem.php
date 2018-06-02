@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Problem
  *  Representa os enunciados de problemas
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="problems")
  * @package SourceCode\Model\Entity
  */

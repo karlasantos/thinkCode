@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Di\InstanceManager
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_addAlias" title="addAlias :: Add alias">
+            <span class="description">Add alias</span><pre>addAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addSharedInstance" title="addSharedInstance :: Add shared instance">
+            <span class="description">Add shared instance</span><pre>addSharedInstance</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addSharedInstanceWithParameters" title="addSharedInstanceWithParameters :: addSharedInstanceWithParameters()">
+            <span class="description">addSharedInstanceWithParameters()</span><pre>addSharedInstanceWithParameters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addTypePreference" title="addTypePreference :: Adds a type preference. A type preference is a redirection to a preferred alias or type when an abstract type
+$interfaceOrAbstract is requested">
+            <span class="description">Adds a type preference. A type preference is a redirection to a preferred alias or type when an abstract type
+$interfaceOrAbstract is requested</span><pre>addTypePreference</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_getAliases" title="getAliases :: Get aliases">
+            <span class="description">Get aliases</span><pre>getAliases</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getClasses" title="getClasses :: Get classes">
+            <span class="description">Get classes</span><pre>getClasses</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getClassFromAlias" title="getClassFromAlias :: getClassFromAlias()">
+            <span class="description">getClassFromAlias()</span><pre>getClassFromAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfig" title="getConfig :: ">
+            <span class="description"></span><pre>getConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSharedInstance" title="getSharedInstance :: getSharedInstance()">
+            <span class="description">getSharedInstance()</span><pre>getSharedInstance</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSharedInstanceWithParameters" title="getSharedInstanceWithParameters :: Retrieves an instance by its name and the parameters stored at its instantiation">
+            <span class="description">Retrieves an instance by its name and the parameters stored at its instantiation</span><pre>getSharedInstanceWithParameters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getTypePreferences" title="getTypePreferences :: Get type preferences">
+            <span class="description">Get type preferences</span><pre>getTypePreferences</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasAlias" title="hasAlias :: Check for an alias">
+            <span class="description">Check for an alias</span><pre>hasAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasConfig" title="hasConfig :: Check for configuration">
+            <span class="description">Check for configuration</span><pre>hasConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasSharedInstance" title="hasSharedInstance :: Does this instance manager have this shared instance">
+            <span class="description">Does this instance manager have this shared instance</span><pre>hasSharedInstance</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasSharedInstanceWithParameters" title="hasSharedInstanceWithParameters :: hasSharedInstanceWithParameters()">
+            <span class="description">hasSharedInstanceWithParameters()</span><pre>hasSharedInstanceWithParameters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasTypePreferences" title="hasTypePreferences :: Check for type preferences">
+            <span class="description">Check for type preferences</span><pre>hasTypePreferences</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_removeTypePreference" title="removeTypePreference :: Removes a previously set type preference">
+            <span class="description">Removes a previously set type preference</span><pre>removeTypePreference</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConfig" title="setConfig :: Sets configuration for a single alias/class">
+            <span class="description">Sets configuration for a single alias/class</span><pre>setConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setInjections" title="setInjections :: setInjections() is a convenience method for:
+   setConfig($type, array(&#039;injections&#039; =&gt; array(.">
+            <span class="description">setInjections() is a convenience method for:
+   setConfig($type, array(&#039;injections&#039; =&gt; array(.</span><pre>setInjections</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setParameters" title="setParameters :: setParameters() is a convenience method for:
+   setConfig($type, array(&#039;parameters&#039; =&gt; array(.">
+            <span class="description">setParameters() is a convenience method for:
+   setConfig($type, array(&#039;parameters&#039; =&gt; array(.</span><pre>setParameters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setShared" title="setShared :: Set shared">
+            <span class="description">Set shared</span><pre>setShared</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTypePreference" title="setTypePreference :: Set type preference">
+            <span class="description">Set type preference</span><pre>setTypePreference</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_unsetTypePreferences" title="unsetTypePreferences :: Unset type preferences">
+            <span class="description">Unset type preferences</span><pre>unsetTypePreferences</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                            <li class="method protected">
+                            <a href="#method_createHashForKeys" title="createHashForKeys :: ">
+                                <span class="description"></span><pre>createHashForKeys</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_createHashForValues" title="createHashForValues :: ">
+                                <span class="description"></span><pre>createHashForValues</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected">
+                            <a href="#method_getBaseAlias" title="getBaseAlias :: ">
+                                <span class="description"></span><pre>getBaseAlias</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>InstanceManager</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Registry of instantiated objects, their names and the parameters used to build them</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_addAlias"></a>
+                        <div class="element clickable method public  method_addAlias" data-toggle="collapse" data-target=".method_addAlias .collapse">
+                            <h2>Add alias</h2>
+                            <pre>addAlias(string $alias, string $class, array $parameters = array()) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Di\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addSharedInstance"></a>
+                        <div class="element clickable method public  method_addSharedInstance" data-toggle="collapse" data-target=".method_addSharedInstance .collapse">
+                            <h2>Add shared instance</h2>
+                            <pre>addSharedInstance(object $instance, string $classOrAlias) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Di\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$instance</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addSharedInstanceWithParameters"></a>
+                        <div class="element clickable method public  method_addSharedInstanceWithParameters" data-toggle="collapse" data-target=".method_addSharedInstanceWithParameters .collapse">
+                            <h2>addSharedInstanceWithParameters()</h2>
+                            <pre>addSharedInstanceWithParameters(object $instance, string $classOrAlias, array $params) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$instance</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$params</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addTypePreference"></a>
+                        <div class="element clickable method public  method_addTypePreference" data-toggle="collapse" data-target=".method_addTypePreference .collapse">
+                            <h2>Adds a type preference. A type preference is a redirection to a preferred alias or type when an abstract type
+$interfaceOrAbstract is requested</h2>
+                            <pre>addTypePreference(string $interfaceOrAbstract, string $preferredImplementation) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$interfaceOrAbstract</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$preferredImplementation</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createHashForKeys"></a>
+                        <div class="element clickable method protected  method_createHashForKeys" data-toggle="collapse" data-target=".method_createHashForKeys .collapse">
+                            <h2>createHashForKeys</h2>
+                            <pre>createHashForKeys(string $classOrAlias, array&lt;mixed,string&gt; $paramKeys) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$paramKeys</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createHashForValues"></a>
+                        <div class="element clickable method protected  method_createHashForValues" data-toggle="collapse" data-target=".method_createHashForValues .collapse">
+                            <h2>createHashForValues</h2>
+                            <pre>createHashForValues(string $classOrAlias, array $paramValues) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$paramValues</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAliases"></a>
+                        <div class="element clickable method public  method_getAliases" data-toggle="collapse" data-target=".method_getAliases .collapse">
+                            <h2>Get aliases</h2>
+                            <pre>getAliases() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBaseAlias"></a>
+                        <div class="element clickable method protected  method_getBaseAlias" data-toggle="collapse" data-target=".method_getBaseAlias .collapse">
+                            <h2>getBaseAlias</h2>
+                            <pre>getBaseAlias(string $alias) : string|boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Di\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string|boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClasses"></a>
+                        <div class="element clickable method public  method_getClasses" data-toggle="collapse" data-target=".method_getClasses .collapse">
+                            <h2>Get classes</h2>
+                            <pre>getClasses() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClassFromAlias"></a>
+                        <div class="element clickable method public  method_getClassFromAlias" data-toggle="collapse" data-target=".method_getClassFromAlias .collapse">
+                            <h2>getClassFromAlias()</h2>
+                            <pre>getClassFromAlias( $alias) : string|boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Di\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string|boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfig"></a>
+                        <div class="element clickable method public  method_getConfig" data-toggle="collapse" data-target=".method_getConfig .collapse">
+                            <h2>getConfig</h2>
+                            <pre>getConfig(string $aliasOrClass) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliasOrClass</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSharedInstance"></a>
+                        <div class="element clickable method public  method_getSharedInstance" data-toggle="collapse" data-target=".method_getSharedInstance .collapse">
+                            <h2>getSharedInstance()</h2>
+                            <pre>getSharedInstance( $classOrAlias) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSharedInstanceWithParameters"></a>
+                        <div class="element clickable method public  method_getSharedInstanceWithParameters" data-toggle="collapse" data-target=".method_getSharedInstanceWithParameters .collapse">
+                            <h2>Retrieves an instance by its name and the parameters stored at its instantiation</h2>
+                            <pre>getSharedInstanceWithParameters(string $classOrAlias, array $params, boolean|null $fastHashFromHasLookup = null) : object|boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$params</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fastHashFromHasLookup</h4>
+                                                <code>boolean|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object|boolean</code><p><p>false if no instance was found</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTypePreferences"></a>
+                        <div class="element clickable method public  method_getTypePreferences" data-toggle="collapse" data-target=".method_getTypePreferences .collapse">
+                            <h2>Get type preferences</h2>
+                            <pre>getTypePreferences(string $interfaceOrAbstract) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$interfaceOrAbstract</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasAlias"></a>
+                        <div class="element clickable method public  method_hasAlias" data-toggle="collapse" data-target=".method_hasAlias .collapse">
+                            <h2>Check for an alias</h2>
+                            <pre>hasAlias(string $alias) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasConfig"></a>
+                        <div class="element clickable method public  method_hasConfig" data-toggle="collapse" data-target=".method_hasConfig .collapse">
+                            <h2>Check for configuration</h2>
+                            <pre>hasConfig(string $aliasOrClass) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliasOrClass</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasSharedInstance"></a>
+                        <div class="element clickable method public  method_hasSharedInstance" data-toggle="collapse" data-target=".method_hasSharedInstance .collapse">
+                            <h2>Does this instance manager have this shared instance</h2>
+                            <pre>hasSharedInstance(string $classOrAlias) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasSharedInstanceWithParameters"></a>
+                        <div class="element clickable method public  method_hasSharedInstanceWithParameters" data-toggle="collapse" data-target=".method_hasSharedInstanceWithParameters .collapse">
+                            <h2>hasSharedInstanceWithParameters()</h2>
+                            <pre>hasSharedInstanceWithParameters(string $classOrAlias, array $params, boolean $returnFastHashLookupKey = false) : boolean|string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$classOrAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$params</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$returnFastHashLookupKey</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean|string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasTypePreferences"></a>
+                        <div class="element clickable method public  method_hasTypePreferences" data-toggle="collapse" data-target=".method_hasTypePreferences .collapse">
+                            <h2>Check for type preferences</h2>
+                            <pre>hasTypePreferences(string $interfaceOrAbstract) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$interfaceOrAbstract</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_removeTypePreference"></a>
+                        <div class="element clickable method public  method_removeTypePreference" data-toggle="collapse" data-target=".method_removeTypePreference .collapse">
+                            <h2>Removes a previously set type preference</h2>
+                            <pre>removeTypePreference(string $interfaceOrAbstract, string $preferredType) : boolean|self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$interfaceOrAbstract</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$preferredType</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean|self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConfig"></a>
+                        <div class="element clickable method public  method_setConfig" data-toggle="collapse" data-target=".method_setConfig .collapse">
+                            <h2>Sets configuration for a single alias/class</h2>
+                            <pre>setConfig(string $aliasOrClass, array $configuration, boolean $append = false) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliasOrClass</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$configuration</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$append</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setInjections"></a>
+                        <div class="element clickable method public  method_setInjections" data-toggle="collapse" data-target=".method_setInjections .collapse">
+                            <h2>setInjections() is a convenience method for:
+   setConfig($type, array(&#039;injections&#039; =&gt; array(.</h2>
+                            <pre>setInjections(string $aliasOrClass, array $injections) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>..)), true);</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliasOrClass</h4>
+                                                <code>string</code><p><p>Alias or Class</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$injections</h4>
+                                                <code>array</code><p><p>Multi-dim array of methods and their parameters</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setParameters"></a>
+                        <div class="element clickable method public  method_setParameters" data-toggle="collapse" data-target=".method_setParameters .collapse">
+                            <h2>setParameters() is a convenience method for:
+   setConfig($type, array(&#039;parameters&#039; =&gt; array(.</h2>
+                            <pre>setParameters(string $aliasOrClass, array $parameters) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>..)), true);</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliasOrClass</h4>
+                                                <code>string</code><p><p>Alias or Class</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p><p>Multi-dim array of parameters and their values</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setShared"></a>
+                        <div class="element clickable method public  method_setShared" data-toggle="collapse" data-target=".method_setShared .collapse">
+                            <h2>Set shared</h2>
+                            <pre>setShared(string $aliasOrClass, boolean $isShared) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliasOrClass</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isShared</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTypePreference"></a>
+                        <div class="element clickable method public  method_setTypePreference" data-toggle="collapse" data-target=".method_setTypePreference .collapse">
+                            <h2>Set type preference</h2>
+                            <pre>setTypePreference(string $interfaceOrAbstract, array $preferredImplementations) : \Zend\Di\InstanceManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$interfaceOrAbstract</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$preferredImplementations</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Di.InstanceManager.html">\Zend\Di\InstanceManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_unsetTypePreferences"></a>
+                        <div class="element clickable method public  method_unsetTypePreferences" data-toggle="collapse" data-target=".method_unsetTypePreferences .collapse">
+                            <h2>Unset type preferences</h2>
+                            <pre>unsetTypePreferences(string $interfaceOrAbstract) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$interfaceOrAbstract</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_sharedInstances"> </a>
+                            <div class="element clickable property  protected property_sharedInstances" data-toggle="collapse" data-target=".property_sharedInstances .collapse">
+                                <h2>Array of shared instances</h2>
+                                <pre>sharedInstances : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_sharedInstancesWithParams"> </a>
+                            <div class="element clickable property  protected property_sharedInstancesWithParams" data-toggle="collapse" data-target=".property_sharedInstancesWithParams .collapse">
+                                <h2>Array of shared instances with params</h2>
+                                <pre>sharedInstancesWithParams : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_aliases"> </a>
+                            <div class="element clickable property  protected property_aliases" data-toggle="collapse" data-target=".property_aliases .collapse">
+                                <h2>Array of class aliases</h2>
+                                <pre>aliases : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>key: alias, value: class</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configurationTemplate"> </a>
+                            <div class="element clickable property  protected property_configurationTemplate" data-toggle="collapse" data-target=".property_configurationTemplate .collapse">
+                                <h2>The template to use for housing configuration information</h2>
+                                <pre>configurationTemplate : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configurations"> </a>
+                            <div class="element clickable property  protected property_configurations" data-toggle="collapse" data-target=".property_configurations .collapse">
+                                <h2>An array of instance configuration data</h2>
+                                <pre>configurations : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_typePreferences"> </a>
+                            <div class="element clickable property  protected property_typePreferences" data-toggle="collapse" data-target=".property_typePreferences .collapse">
+                                <h2>An array of globally preferred implementations for interfaces/abstracts</h2>
+                                <pre>typePreferences : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Di\InstanceManager"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Di.html">Di</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Di.InstanceManager.html">InstanceManager</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:15 +0000.<br/>
+    </footer>
+    </body>
+</html>

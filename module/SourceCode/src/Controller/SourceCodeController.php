@@ -9,20 +9,16 @@ namespace SourceCode\Controller;
 
 
 use Application\Controller\RestfulController;
-use Doctrine\DBAL\Types\JsonArrayType;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use SourceCode\Model\Entity\Language;
 use SourceCode\Model\Entity\Problem;
 use SourceCode\Model\Entity\SourceCode;
-use SourceCode\Model\CodeBypassCommand;
-use SourceCode\Model\Vertex;
 use SourceCode\Service\AnalysisStructure;
 use SourceCode\Service\DataCollect;
 use SourceCode\Service\GraphStructure;
 use SourceCode\Service\Rank;
 use SourceCode\Model\Validation\SourceCodeValidator;
-use Symfony\Component\Debug\Tests\FatalErrorHandler\UndefinedMethodFatalErrorHandlerTest;
 use User\Controller\UserController;
 use User\Model\Entity\User;
 use Zend\View\Model\JsonModel;
@@ -40,7 +36,6 @@ class SourceCodeController extends RestfulController
      * Construtor da classe
      * SourceCodeController constructor.
      * @param EntityManager $entityManager
-     * @param DataCollect $dataCollect
      */
     public function __construct(EntityManager $entityManager)
     {
@@ -57,6 +52,10 @@ class SourceCodeController extends RestfulController
         return new ViewModel(array('problemId' => $problemId));
     }
 
+    /**
+     * Retorna a interface de resultados de submissão do código fonte
+     * @return ViewModel
+     */
     public function resultsAction()
     {
         $problemId = null;
@@ -64,219 +63,11 @@ class SourceCodeController extends RestfulController
         return new ViewModel(array('problemId' => $problemId));
     }
 
-    public function getList()
-    {
-        //die("teste");
-        try {
-            $sourceCode = new SourceCode();
-            $language = $this->entityManager->find(Language::class, 1);
-            if($language instanceof Language)
-                $sourceCode->setLanguage($language);
-
-            $languageService = new \SourceCode\Service\Language($this->entityManager);
-            //busca e define os elementos da linguagem do banco de dados
-            $languageService->searchElementsOfLanguage($language->getId());
-            $dataCollect = new DataCollect($this->entityManager, $languageService);
-            $analysis = new GraphStructure($this->entityManager, $dataCollect);
-
-//            $sourceCode->setContent("int main() {
-//            \nint a = 1, c;
-//            \nfloat b = 0;
-//            \nif(a > 0 || b == 0)
-//            \n {
-//               \nif(b >0)
-//               \n{
-//                  \nb=1;
-//               \n}
-//               \na++;
-//            \n}
-//            \n//teste
-//            \nelse {
-//               \na--;
-//            \n}
-//            \ndo {
-//                \nif()
-//                \n{
-//                \n}
-//            \n}
-//            \nwhile (a > 1 && a == 2);
-//            \nswitch (a)
-//            \n{
-//                \ncase 1:
-//                   \nif (a)
-//                   \n{
-//                   \n}
-//                  \nbreak;
-//                \ncase 2:
-//                  \nif
-//                  \n{
-//                  \n}
-//                  \nbreak;
-//                \ndefault:
-//                  \nif ()
-//                  \n{
-//                  \n}
-//                  \nelse
-//                  \n{
-//                      \nif ()
-//                  \n}
-//            \n}
-//            \nfor(i=0; i<3; i++)
-//            \n{
-//            \n}
-//            \nswitch (b)
-//            \n{
-//                \ncase 1:
-//                   \nbreak;
-//            \n}
-//            \n}");
-//
-//            $sourceCode->setContent("int main() {
-//            \nint a = 1, c;
-//            \nfloat b = 0;
-//            \nif(a > 0 || b == 0)
-//            \n {
-//               \nif(b >0)
-//               \n{
-//                  \nb=1;
-//               \n}
-//               \na++;
-//            \n}
-//            \nelse
-//               \nif () {
-//            \n}
-//
-//            }");
-//            $sourceCode->setContent("int main() {
-//            \ndo
-//            \n{
-//
-//            \n} while (b > 0);
-//            }");
-//            $sourceCode->setContent("int main() {
-//            \nwhile (b > 0)
-//            \n{
-//
-//            \n}
-//            }");
-//            $sourceCode->setContent("int main() {
-//
-//                    if {
-//                    } else if {
-//                       for () {
-//                       }
-//                    } else {
-//                    }
-//
-//            }");
-//            $sourceCode->setContent("
-//            int main() {\n
-//                if {\n
-//                   do { \n
-//                      while { \n
-//                        if {\n
-//                        }\n
-//                        else {\n
-//                        }\n
-//                      } \n
-//                   } while ();\n
-//                } \n
-//            }");
-            $sourceCode->setContent("inicio
-                \ninteiro n,fat
-                \nfat<-1
-                \nler n
-                \nenquanto (n>=1) faz
-                    \nfat<-fat*n
-                    \nn<-n-1
-                \nfimenquanto
-            \nfim ");
-            $sourceCode->setContent("int main () {\n
-                int a[5],b[5],uni[10],i,inte[5],x,c,a2[5],d=0,cont=0,aux=0;\n
-                for (i=0;i<5;i++) {\n
-                    scanf (\"%d\", &a[i]);\n
-                }\n
-                for (i=0;i<5;i++) {\n
-                    scanf (\"%d\", &b[i]);\n
-                }\n
-                for (i=0;i<5;i++) {\n
-                    uni[i]=0;\n
-                    inte[i]=0;\n
-                }		\n
-                for (i=0;i<5;i++) {\n
-                        for (x=0;x<5;x++) {\n
-                              if (a[i]==b[x]) {\n
-                                inte[i]=a[i];\n 
-                        cont=cont+1;\n
-                            }\n
-                        }\n
-                    }\n
-            
-                printf (\"\n\");\n
-                for (i=0;i<cont;i++) {\n
-                    for (c=0;c<5;c++) {\n
-                            if (inte[i]==a[c]) {\n
-                                a2[d]=c;\n
-                                d=d+1;\n
-                            }\n
-                        }\n
-                    }\n
-                return 0;\n
-            }");
-            $result = $dataCollect->getDataFromCode($sourceCode);
-//            $userId =  $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id'];
-//            $user = $this->entityManager->find(User::class, $userId);
-//            $problem = $this->entityManager->find(Problem::class, 1);
-
-            //estrutura de analise
-            $result = $analysis->setGraphData($sourceCode);
-//            $analysisStructures = new AnalysisStructure($this->entityManager, $languageService, $result, $dataCollect);
-//            $resultObject = $analysisStructures->calculateCyclomaticComplexity($sourceCode);
-            //como salvar em formato JSON
-//            $graphJSON = $analysisStructures->generateJsonGraph($sourceCode);
-
-//            $sourceCode->setUser($user);
-//            $sourceCode->setAnalysisResults($resultObject);
-//            $sourceCode->setProblem($problem);
-//            $sourceCode->setReferential(false);
-//            $this->entityManager->persist($sourceCode);
-//            $this->entityManager->persist($resultObject);
-//            $this->entityManager->flush();
-
-            //como retornar em formato JSON
-//            return new JsonModel((array)json_decode($resultObject->getGraph()));
-
-            $arrayResult = array();
-            foreach ($result as $key => $value) {
-                if ($value instanceof Vertex) {
-//                    $valor = [
-//                        'name' => $value->getName(),
-//                        'openingVertexIndex' => $value->getOpeningVertexIndex(),
-//                        'lineNumber' => $value->getEndLineNumber()
-//                    ];
-//                    $setValue = $value->toArray();
-//                    $setValue['id'] = $key;
-//                    $arrayResult[] = $setValue;
-                    $arrayResult[] = $value->getName();
-                }
-            }
-//            die();
-            return new JsonModel([
-                'resultsC' => array($arrayResult),
-            ]);
-        } catch(Exception $e) {
-            return new JsonModel([
-                'resultsERRR' => array($e->getMessage()),
-            ]);
-        }
-
-        return new JsonModel([
-            'results' => array($result),
-        ]);
-    }
-
     /**
-     * @param mixed $id
+     * Retorna os dados de um código fonte submetido
+     *
+     * @api
+     * @param integer $id Id de identificação do código fonte
      * @return mixed|JsonModel
      *
      */
@@ -321,6 +112,13 @@ class SourceCodeController extends RestfulController
         return new JsonModel(array('result' => $sourceCode));
     }
 
+    /**
+     * Salva um novo códifo fonte, gera sua análise e retorna os resultados
+     *
+     * @api
+     * @param array $data dados da submissão do código fonte
+     * @return mixed|JsonModel
+     */
     public function create($data)
     {
         $analysisResultsSystem = array();

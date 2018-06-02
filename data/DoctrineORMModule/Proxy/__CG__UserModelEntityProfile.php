@@ -374,15 +374,4 @@ class Profile extends \User\Model\Entity\Profile implements \Doctrine\ORM\Proxy\
         return parent::setData($data);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getData(\Doctrine\ORM\EntityManager $em)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getData', [$em]);
-
-        return parent::getData($em);
-    }
-
 }

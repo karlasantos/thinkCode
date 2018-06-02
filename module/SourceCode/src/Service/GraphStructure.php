@@ -20,14 +20,36 @@ use SourceCode\Service\Language as LanguageService;
  */
 class GraphStructure
 {
+    /**
+     * Gerenciador de entidades
+     * @var EntityManager
+     */
     protected $entityManager;
 
+    /**
+     * Comandos de desvio do código fonte
+     *
+     * @var array
+     */
     protected $codeCommands;
 
+    /**
+     * Vértices do grafo
+     * @var array
+     */
     protected $vertices;
 
+    /**
+     * Serviço de coleta de informações
+     * @var DataCollect
+     */
     protected $dataCollectService;
 
+    /**
+     * GraphStructure constructor.
+     * @param EntityManager $entityManager
+     * @param DataCollect $dataCollectService
+     */
     public function __construct(EntityManager $entityManager, DataCollect $dataCollectService)
     {
         $this->entityManager = $entityManager;
@@ -36,6 +58,8 @@ class GraphStructure
     }
 
     /**
+     * Define todos os dados do grafo (vértices, arestas e coordenadas de vértices)
+     *
      * @param SourceCode $sourceCode
      * @return array
      * @throws \Exception
@@ -156,7 +180,6 @@ class GraphStructure
      * Gera as arestas e armazena essas ligações entre vértices na listagem de vértices
      *
      * @param Language $language
-     * @return array
      */
     private function setEdges(Language $language)
     {
@@ -690,7 +713,7 @@ class GraphStructure
 
     /**
      * Indica se o vértice presente em um determinado índice possui dentro em seu bloco de comandos outros vértices
-     * @param $index int
+     * @param int $index
      * @return bool
      */
     private function containsBlockOpening($index)
@@ -708,7 +731,7 @@ class GraphStructure
 
     /**
      * Localiza a posição de fechamento de bloco (}) criado por uma abertura de bloco ({)
-     * @param $blockStartIndex
+     * @param int $blockStartIndex
      * @return int
      */
     private function findsBlockEnd($blockStartIndex)
@@ -738,9 +761,9 @@ class GraphStructure
     /**
      * Remove o prefixo END dos vértices de final de bloco
      *
-     * @param $vertexName
+     * @param string $vertexName
      * @param Language $language
-     * @return mixed
+     * @return string
      */
     private function removeEndVertexPrefix($vertexName, Language $language)
     {

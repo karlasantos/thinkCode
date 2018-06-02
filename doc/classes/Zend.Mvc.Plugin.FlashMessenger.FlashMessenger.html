@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_addErrorMessage" title="addErrorMessage :: Add a message with &quot;error&quot; type">
+            <span class="description">Add a message with &quot;error&quot; type</span><pre>addErrorMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addInfoMessage" title="addInfoMessage :: Add a message with &quot;info&quot; type">
+            <span class="description">Add a message with &quot;info&quot; type</span><pre>addInfoMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addMessage" title="addMessage :: Add a message">
+            <span class="description">Add a message</span><pre>addMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addSuccessMessage" title="addSuccessMessage :: Add a message with &quot;success&quot; type">
+            <span class="description">Add a message with &quot;success&quot; type</span><pre>addSuccessMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addWarningMessage" title="addWarningMessage :: Add a message with &quot;warning&quot; type">
+            <span class="description">Add a message with &quot;warning&quot; type</span><pre>addWarningMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearCurrentMessages" title="clearCurrentMessages :: Clear messages from the current request and current namespace">
+            <span class="description">Clear messages from the current request and current namespace</span><pre>clearCurrentMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearCurrentMessagesFromContainer" title="clearCurrentMessagesFromContainer :: Clear messages from the container">
+            <span class="description">Clear messages from the container</span><pre>clearCurrentMessagesFromContainer</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearCurrentMessagesFromNamespace" title="clearCurrentMessagesFromNamespace :: Clear messages from the current namespace">
+            <span class="description">Clear messages from the current namespace</span><pre>clearCurrentMessagesFromNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearMessages" title="clearMessages :: Clear all messages from the previous request &amp; current namespace">
+            <span class="description">Clear all messages from the previous request &amp; current namespace</span><pre>clearMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearMessagesFromContainer" title="clearMessagesFromContainer :: Clear all messages from the container">
+            <span class="description">Clear all messages from the container</span><pre>clearMessagesFromContainer</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearMessagesFromNamespace" title="clearMessagesFromNamespace :: Clear all messages from specific namespace">
+            <span class="description">Clear all messages from specific namespace</span><pre>clearMessagesFromNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_count" title="count :: Complete the countable interface">
+            <span class="description">Complete the countable interface</span><pre>count</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getContainer" title="getContainer :: Get session container for flash messages">
+            <span class="description">Get session container for flash messages</span><pre>getContainer</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getController" title="getController :: Get the current controller instance">
+            <span class="description">Get the current controller instance</span><pre>getController</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentErrorMessages" title="getCurrentErrorMessages :: Get messages that have been added to the &quot;error&quot;
+namespace within this request">
+            <span class="description">Get messages that have been added to the &quot;error&quot;
+namespace within this request</span><pre>getCurrentErrorMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentInfoMessages" title="getCurrentInfoMessages :: Get messages that have been added to the &quot;info&quot;
+namespace within this request">
+            <span class="description">Get messages that have been added to the &quot;info&quot;
+namespace within this request</span><pre>getCurrentInfoMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentMessages" title="getCurrentMessages :: Get messages that have been added to the current
+namespace within this request">
+            <span class="description">Get messages that have been added to the current
+namespace within this request</span><pre>getCurrentMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentMessagesFromNamespace" title="getCurrentMessagesFromNamespace :: Get messages that have been added to the current
+namespace in specific namespace">
+            <span class="description">Get messages that have been added to the current
+namespace in specific namespace</span><pre>getCurrentMessagesFromNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentSuccessMessages" title="getCurrentSuccessMessages :: Get messages that have been added to the &quot;success&quot;
+namespace within this request">
+            <span class="description">Get messages that have been added to the &quot;success&quot;
+namespace within this request</span><pre>getCurrentSuccessMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentWarningMessages" title="getCurrentWarningMessages :: Get messages that have been added to the &quot;warning&quot;
+namespace within this request">
+            <span class="description">Get messages that have been added to the &quot;warning&quot;
+namespace within this request</span><pre>getCurrentWarningMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getErrorMessages" title="getErrorMessages :: Get messages from &quot;error&quot; namespace">
+            <span class="description">Get messages from &quot;error&quot; namespace</span><pre>getErrorMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getInfoMessages" title="getInfoMessages :: Get messages from &quot;info&quot; namespace">
+            <span class="description">Get messages from &quot;info&quot; namespace</span><pre>getInfoMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getIterator" title="getIterator :: Complete the IteratorAggregate interface, for iterating">
+            <span class="description">Complete the IteratorAggregate interface, for iterating</span><pre>getIterator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getMessages" title="getMessages :: Get messages from a specific namespace">
+            <span class="description">Get messages from a specific namespace</span><pre>getMessages</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getMessagesFromNamespace" title="getMessagesFromNamespace :: Get messages from a specific namespace">
+            <span class="description">Get messages from a specific namespace</span><pre>getMessagesFromNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getNamespace" title="getNamespace :: Get the message namespace">
+            <span class="description">Get the message namespace</span><pre>getNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSessionManager" title="getSessionManager :: Retrieve the session manager">
+            <span class="description">Retrieve the session manager</span><pre>getSessionManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSuccessMessages" title="getSuccessMessages :: Get messages from &quot;success&quot; namespace">
+            <span class="description">Get messages from &quot;success&quot; namespace</span><pre>getSuccessMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getWarningMessages" title="getWarningMessages :: Get messages from &quot;warning&quot; namespace">
+            <span class="description">Get messages from &quot;warning&quot; namespace</span><pre>getWarningMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasCurrentErrorMessages" title="hasCurrentErrorMessages :: Check to see if messages have been added to &quot;error&quot;
+namespace within this request">
+            <span class="description">Check to see if messages have been added to &quot;error&quot;
+namespace within this request</span><pre>hasCurrentErrorMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasCurrentInfoMessages" title="hasCurrentInfoMessages :: Check to see if messages have been added to &quot;info&quot;
+namespace within this request">
+            <span class="description">Check to see if messages have been added to &quot;info&quot;
+namespace within this request</span><pre>hasCurrentInfoMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasCurrentMessages" title="hasCurrentMessages :: Check to see if messages have been added to the current
+namespace within this request">
+            <span class="description">Check to see if messages have been added to the current
+namespace within this request</span><pre>hasCurrentMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasCurrentSuccessMessages" title="hasCurrentSuccessMessages :: Check to see if messages have been added to &quot;success&quot;
+namespace within this request">
+            <span class="description">Check to see if messages have been added to &quot;success&quot;
+namespace within this request</span><pre>hasCurrentSuccessMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasCurrentWarningMessages" title="hasCurrentWarningMessages :: Check to see if messages have been added to &quot;warning&quot;
+namespace within this request">
+            <span class="description">Check to see if messages have been added to &quot;warning&quot;
+namespace within this request</span><pre>hasCurrentWarningMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasErrorMessages" title="hasErrorMessages :: Whether &quot;error&quot; namespace has messages">
+            <span class="description">Whether &quot;error&quot; namespace has messages</span><pre>hasErrorMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasInfoMessages" title="hasInfoMessages :: Whether &quot;info&quot; namespace has messages">
+            <span class="description">Whether &quot;info&quot; namespace has messages</span><pre>hasInfoMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasMessages" title="hasMessages :: Whether a specific namespace has messages">
+            <span class="description">Whether a specific namespace has messages</span><pre>hasMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasSuccessMessages" title="hasSuccessMessages :: Whether &quot;success&quot; namespace has messages">
+            <span class="description">Whether &quot;success&quot; namespace has messages</span><pre>hasSuccessMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasWarningMessages" title="hasWarningMessages :: Whether &quot;warning&quot; namespace has messages">
+            <span class="description">Whether &quot;warning&quot; namespace has messages</span><pre>hasWarningMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setController" title="setController :: Set the current controller instance">
+            <span class="description">Set the current controller instance</span><pre>setController</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setNamespace" title="setNamespace :: Change the namespace messages are added to">
+            <span class="description">Change the namespace messages are added to</span><pre>setNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setSessionManager" title="setSessionManager :: Set the session manager">
+            <span class="description">Set the session manager</span><pre>setSessionManager</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li class="method protected">
+                            <a href="#method_getMessagesFromContainer" title="getMessagesFromContainer :: Pull messages from the session container">
+                                <span class="description">Pull messages from the session container</span><pre>getMessagesFromContainer</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_NAMESPACE_DEFAULT" title="NAMESPACE_DEFAULT :: Default messages namespace">
+                        <span class="description">Default messages namespace</span><pre>NAMESPACE_DEFAULT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_NAMESPACE_ERROR" title="NAMESPACE_ERROR :: Error messages namespace">
+                        <span class="description">Error messages namespace</span><pre>NAMESPACE_ERROR</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_NAMESPACE_INFO" title="NAMESPACE_INFO :: Info messages namespace">
+                        <span class="description">Info messages namespace</span><pre>NAMESPACE_INFO</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_NAMESPACE_SUCCESS" title="NAMESPACE_SUCCESS :: Success messages namespace">
+                        <span class="description">Success messages namespace</span><pre>NAMESPACE_SUCCESS</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_NAMESPACE_WARNING" title="NAMESPACE_WARNING :: Warning messages namespace">
+                        <span class="description">Warning messages namespace</span><pre>NAMESPACE_WARNING</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>FlashMessenger</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Mvc.Controller.Plugin.AbstractPlugin.html">\Zend\Mvc\Controller\Plugin\AbstractPlugin</a>
+                                                                Implements \IteratorAggregate, \Countable
+                                    </small>
+                <p class="short_description">Flash Messenger - implement session-based messages</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_addErrorMessage"></a>
+                        <div class="element clickable method public  method_addErrorMessage" data-toggle="collapse" data-target=".method_addErrorMessage .collapse">
+                            <h2>Add a message with &quot;error&quot; type</h2>
+                            <pre>addErrorMessage(string $message) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addInfoMessage"></a>
+                        <div class="element clickable method public  method_addInfoMessage" data-toggle="collapse" data-target=".method_addInfoMessage .collapse">
+                            <h2>Add a message with &quot;info&quot; type</h2>
+                            <pre>addInfoMessage(string $message) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addMessage"></a>
+                        <div class="element clickable method public  method_addMessage" data-toggle="collapse" data-target=".method_addMessage .collapse">
+                            <h2>Add a message</h2>
+                            <pre>addMessage(string $message, null|string $namespace = null, null|integer $hops = 1) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>null|string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$hops</h4>
+                                                <code>null|integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addSuccessMessage"></a>
+                        <div class="element clickable method public  method_addSuccessMessage" data-toggle="collapse" data-target=".method_addSuccessMessage .collapse">
+                            <h2>Add a message with &quot;success&quot; type</h2>
+                            <pre>addSuccessMessage(string $message) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addWarningMessage"></a>
+                        <div class="element clickable method public  method_addWarningMessage" data-toggle="collapse" data-target=".method_addWarningMessage .collapse">
+                            <h2>Add a message with &quot;warning&quot; type</h2>
+                            <pre>addWarningMessage(string $message) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearCurrentMessages"></a>
+                        <div class="element clickable method public  method_clearCurrentMessages" data-toggle="collapse" data-target=".method_clearCurrentMessages .collapse">
+                            <h2>Clear messages from the current request and current namespace</h2>
+                            <pre>clearCurrentMessages(string $namespace = null) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True if current messages were cleared, false if none existed.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearCurrentMessagesFromContainer"></a>
+                        <div class="element clickable method public  method_clearCurrentMessagesFromContainer" data-toggle="collapse" data-target=".method_clearCurrentMessagesFromContainer .collapse">
+                            <h2>Clear messages from the container</h2>
+                            <pre>clearCurrentMessagesFromContainer() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True if current messages were cleared from the container, false if none existed.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearCurrentMessagesFromNamespace"></a>
+                        <div class="element clickable method public  method_clearCurrentMessagesFromNamespace" data-toggle="collapse" data-target=".method_clearCurrentMessagesFromNamespace .collapse">
+                            <h2>Clear messages from the current namespace</h2>
+                            <pre>clearCurrentMessagesFromNamespace(string $namespaceToClear) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespaceToClear</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True if current messages were cleared from the given namespace, false if none existed.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearMessages"></a>
+                        <div class="element clickable method public  method_clearMessages" data-toggle="collapse" data-target=".method_clearMessages .collapse">
+                            <h2>Clear all messages from the previous request &amp; current namespace</h2>
+                            <pre>clearMessages(string $namespace = null) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True if messages were cleared, false if none existed</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearMessagesFromContainer"></a>
+                        <div class="element clickable method public  method_clearMessagesFromContainer" data-toggle="collapse" data-target=".method_clearMessagesFromContainer .collapse">
+                            <h2>Clear all messages from the container</h2>
+                            <pre>clearMessagesFromContainer() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True if messages were cleared, false if none existed</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearMessagesFromNamespace"></a>
+                        <div class="element clickable method public  method_clearMessagesFromNamespace" data-toggle="collapse" data-target=".method_clearMessagesFromNamespace .collapse">
+                            <h2>Clear all messages from specific namespace</h2>
+                            <pre>clearMessagesFromNamespace(string $namespaceToClear) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespaceToClear</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True if messages were cleared, false if none existed</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_count"></a>
+                        <div class="element clickable method public  method_count" data-toggle="collapse" data-target=".method_count .collapse">
+                            <h2>Complete the countable interface</h2>
+                            <pre>count() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getContainer"></a>
+                        <div class="element clickable method public  method_getContainer" data-toggle="collapse" data-target=".method_getContainer .collapse">
+                            <h2>Get session container for flash messages</h2>
+                            <pre>getContainer() : \Zend\Session\Container</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.Container.html">\Zend\Session\Container</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getController"></a>
+                        <div class="element clickable method public  method_getController inherited" data-toggle="collapse" data-target=".method_getController .collapse">
+                            <h2>Get the current controller instance</h2>
+                            <pre>getController() : null|\Zend\Stdlib\DispatchableInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Zend.Stdlib.DispatchableInterface.html">\Zend\Stdlib\DispatchableInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentErrorMessages"></a>
+                        <div class="element clickable method public  method_getCurrentErrorMessages" data-toggle="collapse" data-target=".method_getCurrentErrorMessages .collapse">
+                            <h2>Get messages that have been added to the &quot;error&quot;
+namespace within this request</h2>
+                            <pre>getCurrentErrorMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentInfoMessages"></a>
+                        <div class="element clickable method public  method_getCurrentInfoMessages" data-toggle="collapse" data-target=".method_getCurrentInfoMessages .collapse">
+                            <h2>Get messages that have been added to the &quot;info&quot;
+namespace within this request</h2>
+                            <pre>getCurrentInfoMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentMessages"></a>
+                        <div class="element clickable method public  method_getCurrentMessages" data-toggle="collapse" data-target=".method_getCurrentMessages .collapse">
+                            <h2>Get messages that have been added to the current
+namespace within this request</h2>
+                            <pre>getCurrentMessages(string $namespace = null) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentMessagesFromNamespace"></a>
+                        <div class="element clickable method public  method_getCurrentMessagesFromNamespace" data-toggle="collapse" data-target=".method_getCurrentMessagesFromNamespace .collapse">
+                            <h2>Get messages that have been added to the current
+namespace in specific namespace</h2>
+                            <pre>getCurrentMessagesFromNamespace(string $namespaceToGet) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespaceToGet</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentSuccessMessages"></a>
+                        <div class="element clickable method public  method_getCurrentSuccessMessages" data-toggle="collapse" data-target=".method_getCurrentSuccessMessages .collapse">
+                            <h2>Get messages that have been added to the &quot;success&quot;
+namespace within this request</h2>
+                            <pre>getCurrentSuccessMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentWarningMessages"></a>
+                        <div class="element clickable method public  method_getCurrentWarningMessages" data-toggle="collapse" data-target=".method_getCurrentWarningMessages .collapse">
+                            <h2>Get messages that have been added to the &quot;warning&quot;
+namespace within this request</h2>
+                            <pre>getCurrentWarningMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getErrorMessages"></a>
+                        <div class="element clickable method public  method_getErrorMessages" data-toggle="collapse" data-target=".method_getErrorMessages .collapse">
+                            <h2>Get messages from &quot;error&quot; namespace</h2>
+                            <pre>getErrorMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInfoMessages"></a>
+                        <div class="element clickable method public  method_getInfoMessages" data-toggle="collapse" data-target=".method_getInfoMessages .collapse">
+                            <h2>Get messages from &quot;info&quot; namespace</h2>
+                            <pre>getInfoMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getIterator"></a>
+                        <div class="element clickable method public  method_getIterator" data-toggle="collapse" data-target=".method_getIterator .collapse">
+                            <h2>Complete the IteratorAggregate interface, for iterating</h2>
+                            <pre>getIterator() : \ArrayIterator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\ArrayIterator</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessages"></a>
+                        <div class="element clickable method public  method_getMessages" data-toggle="collapse" data-target=".method_getMessages .collapse">
+                            <h2>Get messages from a specific namespace</h2>
+                            <pre>getMessages(string $namespace = null) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessagesFromContainer"></a>
+                        <div class="element clickable method protected  method_getMessagesFromContainer" data-toggle="collapse" data-target=".method_getMessagesFromContainer .collapse">
+                            <h2>Pull messages from the session container</h2>
+                            <pre>getMessagesFromContainer() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Iterates through the session container, removing messages into the local
+scope.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessagesFromNamespace"></a>
+                        <div class="element clickable method public  method_getMessagesFromNamespace" data-toggle="collapse" data-target=".method_getMessagesFromNamespace .collapse">
+                            <h2>Get messages from a specific namespace</h2>
+                            <pre>getMessagesFromNamespace(string $namespaceToGet) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespaceToGet</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespace"></a>
+                        <div class="element clickable method public  method_getNamespace" data-toggle="collapse" data-target=".method_getNamespace .collapse">
+                            <h2>Get the message namespace</h2>
+                            <pre>getNamespace() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSessionManager"></a>
+                        <div class="element clickable method public  method_getSessionManager" data-toggle="collapse" data-target=".method_getSessionManager .collapse">
+                            <h2>Retrieve the session manager</h2>
+                            <pre>getSessionManager() : \Zend\Session\ManagerInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If none composed, lazy-loads a SessionManager instance</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Session.ManagerInterface.html">\Zend\Session\ManagerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSuccessMessages"></a>
+                        <div class="element clickable method public  method_getSuccessMessages" data-toggle="collapse" data-target=".method_getSuccessMessages .collapse">
+                            <h2>Get messages from &quot;success&quot; namespace</h2>
+                            <pre>getSuccessMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getWarningMessages"></a>
+                        <div class="element clickable method public  method_getWarningMessages" data-toggle="collapse" data-target=".method_getWarningMessages .collapse">
+                            <h2>Get messages from &quot;warning&quot; namespace</h2>
+                            <pre>getWarningMessages() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasCurrentErrorMessages"></a>
+                        <div class="element clickable method public  method_hasCurrentErrorMessages" data-toggle="collapse" data-target=".method_hasCurrentErrorMessages .collapse">
+                            <h2>Check to see if messages have been added to &quot;error&quot;
+namespace within this request</h2>
+                            <pre>hasCurrentErrorMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasCurrentInfoMessages"></a>
+                        <div class="element clickable method public  method_hasCurrentInfoMessages" data-toggle="collapse" data-target=".method_hasCurrentInfoMessages .collapse">
+                            <h2>Check to see if messages have been added to &quot;info&quot;
+namespace within this request</h2>
+                            <pre>hasCurrentInfoMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasCurrentMessages"></a>
+                        <div class="element clickable method public  method_hasCurrentMessages" data-toggle="collapse" data-target=".method_hasCurrentMessages .collapse">
+                            <h2>Check to see if messages have been added to the current
+namespace within this request</h2>
+                            <pre>hasCurrentMessages(string $namespace = null) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasCurrentSuccessMessages"></a>
+                        <div class="element clickable method public  method_hasCurrentSuccessMessages" data-toggle="collapse" data-target=".method_hasCurrentSuccessMessages .collapse">
+                            <h2>Check to see if messages have been added to &quot;success&quot;
+namespace within this request</h2>
+                            <pre>hasCurrentSuccessMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasCurrentWarningMessages"></a>
+                        <div class="element clickable method public  method_hasCurrentWarningMessages" data-toggle="collapse" data-target=".method_hasCurrentWarningMessages .collapse">
+                            <h2>Check to see if messages have been added to &quot;warning&quot;
+namespace within this request</h2>
+                            <pre>hasCurrentWarningMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasErrorMessages"></a>
+                        <div class="element clickable method public  method_hasErrorMessages" data-toggle="collapse" data-target=".method_hasErrorMessages .collapse">
+                            <h2>Whether &quot;error&quot; namespace has messages</h2>
+                            <pre>hasErrorMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasInfoMessages"></a>
+                        <div class="element clickable method public  method_hasInfoMessages" data-toggle="collapse" data-target=".method_hasInfoMessages .collapse">
+                            <h2>Whether &quot;info&quot; namespace has messages</h2>
+                            <pre>hasInfoMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasMessages"></a>
+                        <div class="element clickable method public  method_hasMessages" data-toggle="collapse" data-target=".method_hasMessages .collapse">
+                            <h2>Whether a specific namespace has messages</h2>
+                            <pre>hasMessages(string $namespace = null) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasSuccessMessages"></a>
+                        <div class="element clickable method public  method_hasSuccessMessages" data-toggle="collapse" data-target=".method_hasSuccessMessages .collapse">
+                            <h2>Whether &quot;success&quot; namespace has messages</h2>
+                            <pre>hasSuccessMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasWarningMessages"></a>
+                        <div class="element clickable method public  method_hasWarningMessages" data-toggle="collapse" data-target=".method_hasWarningMessages .collapse">
+                            <h2>Whether &quot;warning&quot; namespace has messages</h2>
+                            <pre>hasWarningMessages() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setController"></a>
+                        <div class="element clickable method public  method_setController inherited" data-toggle="collapse" data-target=".method_setController .collapse">
+                            <h2>Set the current controller instance</h2>
+                            <pre>setController(\Zend\Stdlib\DispatchableInterface $controller) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$controller</h4>
+                                                <code><a href="../classes/Zend.Stdlib.DispatchableInterface.html">\Zend\Stdlib\DispatchableInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setNamespace"></a>
+                        <div class="element clickable method public  method_setNamespace" data-toggle="collapse" data-target=".method_setNamespace .collapse">
+                            <h2>Change the namespace messages are added to</h2>
+                            <pre>setNamespace(string $namespace = &#039;default&#039;) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Useful for per action controller messaging between requests</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$namespace</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSessionManager"></a>
+                        <div class="element clickable method public  method_setSessionManager" data-toggle="collapse" data-target=".method_setSessionManager .collapse">
+                            <h2>Set the session manager</h2>
+                            <pre>setSessionManager(\Zend\Session\ManagerInterface $manager) : \Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$manager</h4>
+                                                <code><a href="../classes/Zend.Session.ManagerInterface.html">\Zend\Session\ManagerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_NAMESPACE_DEFAULT"> </a>
+                            <div class="element clickable constant  constant_NAMESPACE_DEFAULT" data-toggle="collapse" data-target=".constant_NAMESPACE_DEFAULT .collapse">
+                                <h2>Default messages namespace</h2>
+                                <pre>NAMESPACE_DEFAULT</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_NAMESPACE_SUCCESS"> </a>
+                            <div class="element clickable constant  constant_NAMESPACE_SUCCESS" data-toggle="collapse" data-target=".constant_NAMESPACE_SUCCESS .collapse">
+                                <h2>Success messages namespace</h2>
+                                <pre>NAMESPACE_SUCCESS</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_NAMESPACE_WARNING"> </a>
+                            <div class="element clickable constant  constant_NAMESPACE_WARNING" data-toggle="collapse" data-target=".constant_NAMESPACE_WARNING .collapse">
+                                <h2>Warning messages namespace</h2>
+                                <pre>NAMESPACE_WARNING</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_NAMESPACE_ERROR"> </a>
+                            <div class="element clickable constant  constant_NAMESPACE_ERROR" data-toggle="collapse" data-target=".constant_NAMESPACE_ERROR .collapse">
+                                <h2>Error messages namespace</h2>
+                                <pre>NAMESPACE_ERROR</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_NAMESPACE_INFO"> </a>
+                            <div class="element clickable constant  constant_NAMESPACE_INFO" data-toggle="collapse" data-target=".constant_NAMESPACE_INFO .collapse">
+                                <h2>Info messages namespace</h2>
+                                <pre>NAMESPACE_INFO</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_container"> </a>
+                            <div class="element clickable property  protected property_container" data-toggle="collapse" data-target=".property_container .collapse">
+                                <h2>container</h2>
+                                <pre>container : \Zend\Session\Container</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Session.Container.html">\Zend\Session\Container</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_messages"> </a>
+                            <div class="element clickable property  protected property_messages" data-toggle="collapse" data-target=".property_messages .collapse">
+                                <h2>Messages from previous request</h2>
+                                <pre>messages : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_session"> </a>
+                            <div class="element clickable property  protected property_session" data-toggle="collapse" data-target=".property_session .collapse">
+                                <h2>session</h2>
+                                <pre>session : \Zend\Session\ManagerInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Session.ManagerInterface.html">\Zend\Session\ManagerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_messageAdded"> </a>
+                            <div class="element clickable property  protected property_messageAdded" data-toggle="collapse" data-target=".property_messageAdded .collapse">
+                                <h2>Whether a message has been added during this request</h2>
+                                <pre>messageAdded : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_namespace"> </a>
+                            <div class="element clickable property  protected property_namespace" data-toggle="collapse" data-target=".property_namespace .collapse">
+                                <h2>Instance namespace, default is &#039;default&#039;</h2>
+                                <pre>namespace : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_controller"> </a>
+                            <div class="element clickable property  protected property_controller inherited" data-toggle="collapse" data-target=".property_controller .collapse">
+                                <h2>controller</h2>
+                                <pre>controller : null|\Zend\Stdlib\DispatchableInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|<a href="../classes/Zend.Stdlib.DispatchableInterface.html">\Zend\Stdlib\DispatchableInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Mvc\Plugin\FlashMessenger\FlashMessenger"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Mvc.Plugin.FlashMessenger.html">FlashMessenger</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Mvc.Plugin.FlashMessenger.FlashMessenger.html">FlashMessenger</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:21 +0000.<br/>
+    </footer>
+    </body>
+</html>

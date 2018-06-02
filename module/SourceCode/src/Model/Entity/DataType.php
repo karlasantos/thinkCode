@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class DataType
  * Representa o tipo de dado de uma determinada Linguagem de Programação
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="data_types")
  * @package SourceCode\Model\Entity
  */
@@ -131,11 +131,16 @@ class DataType extends Entity
     }
 
     /**
-     * Método abstrato que retorna os dados do objeto em formato de array
-     * @return mixed
+     * Retorna todos os dados do DataType em formato de array
+     * @inheritdoc
+     * @return array
      */
     public function toArray()
     {
-        // TODO: Implement toArray() method.
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'byteSize' => $this->byteSize,
+        );
     }
 }

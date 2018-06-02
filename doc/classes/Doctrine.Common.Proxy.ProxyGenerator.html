@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\Common\Proxy\ProxyGenerator
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: Initializes a new instance of the &lt;tt&gt;ProxyFactory&lt;/tt&gt; class that is
+connected to the given &lt;tt&gt;EntityManager&lt;/tt&gt;.">
+            <span class="description">Initializes a new instance of the &lt;tt&gt;ProxyFactory&lt;/tt&gt; class that is
+connected to the given &lt;tt&gt;EntityManager&lt;/tt&gt;.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public">
+        <a href="#method_generateProxyClass" title="generateProxyClass :: Generates a proxy class file.">
+            <span class="description">Generates a proxy class file.</span><pre>generateProxyClass</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_getProxyFileName" title="getProxyFileName :: Generates the Proxy file name.">
+            <span class="description">Generates the Proxy file name.</span><pre>getProxyFileName</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_setPlaceholder" title="setPlaceholder :: Sets a placeholder to be replaced in the template.">
+            <span class="description">Sets a placeholder to be replaced in the template.</span><pre>setPlaceholder</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setProxyClassTemplate" title="setProxyClassTemplate :: Sets the base template used to create proxy classes.">
+            <span class="description">Sets the base template used to create proxy classes.</span><pre>setProxyClassTemplate</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                <li class="method private">
+                            <a href="#method_buildParametersString" title="buildParametersString :: ">
+                                <span class="description"></span><pre>buildParametersString</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_formatType" title="formatType :: ">
+                                <span class="description"></span><pre>formatType</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateClassName" title="generateClassName :: Generates the original class name.">
+                                <span class="description">Generates the original class name.</span><pre>generateClassName</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateCloneImpl" title="generateCloneImpl :: Generates implementation for the `__clone` method of proxies.">
+                                <span class="description">Generates implementation for the `__clone` method of proxies.</span><pre>generateCloneImpl</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateConstructorImpl" title="generateConstructorImpl :: Generates the constructor code (un-setting public lazy loaded properties, setting identifier field values).">
+                                <span class="description">Generates the constructor code (un-setting public lazy loaded properties, setting identifier field values).</span><pre>generateConstructorImpl</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateLazyPropertiesDefaults" title="generateLazyPropertiesDefaults :: Generates the array representation of lazy loaded public properties and their default values.">
+                                <span class="description">Generates the array representation of lazy loaded public properties and their default values.</span><pre>generateLazyPropertiesDefaults</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateMagicGet" title="generateMagicGet :: Generates the magic getter invoked when lazy loaded public properties are requested.">
+                                <span class="description">Generates the magic getter invoked when lazy loaded public properties are requested.</span><pre>generateMagicGet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateMagicIsset" title="generateMagicIsset :: Generates the magic issetter invoked when lazy loaded public properties are checked against isset().">
+                                <span class="description">Generates the magic issetter invoked when lazy loaded public properties are checked against isset().</span><pre>generateMagicIsset</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateMagicSet" title="generateMagicSet :: Generates the magic setter (currently unused).">
+                                <span class="description">Generates the magic setter (currently unused).</span><pre>generateMagicSet</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateMethods" title="generateMethods :: Generates decorated methods by picking those available in the parent class.">
+                                <span class="description">Generates decorated methods by picking those available in the parent class.</span><pre>generateMethods</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateNamespace" title="generateNamespace :: Generates the proxy namespace.">
+                                <span class="description">Generates the proxy namespace.</span><pre>generateNamespace</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method private">
+                            <a href="#method_generateProxyShortClassName" title="generateProxyShortClassName :: Generates the proxy short class name to be used in the template.">
+                                <span class="description">Generates the proxy short class name to be used in the template.</span><pre>generateProxyShortClassName</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateSleepImpl" title="generateSleepImpl :: Generates implementation for the `__sleep` method of proxies.">
+                                <span class="description">Generates implementation for the `__sleep` method of proxies.</span><pre>generateSleepImpl</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_generateWakeupImpl" title="generateWakeupImpl :: Generates implementation for the `__wakeup` method of proxies.">
+                                <span class="description">Generates implementation for the `__wakeup` method of proxies.</span><pre>generateWakeupImpl</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getLazyLoadedPublicProperties" title="getLazyLoadedPublicProperties :: Generates the list of public properties to be lazy loaded, with their default values.">
+                                <span class="description">Generates the list of public properties to be lazy loaded, with their default values.</span><pre>getLazyLoadedPublicProperties</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getMethodReturnType" title="getMethodReturnType :: ">
+                                <span class="description"></span><pre>getMethodReturnType</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getParameterNamesForInvoke" title="getParameterNamesForInvoke :: ">
+                                <span class="description"></span><pre>getParameterNamesForInvoke</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getParameterNamesForParentCall" title="getParameterNamesForParentCall :: ">
+                                <span class="description"></span><pre>getParameterNamesForParentCall</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getParameterType" title="getParameterType :: ">
+                                <span class="description"></span><pre>getParameterType</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method private">
+                            <a href="#method_isShortIdentifierGetter" title="isShortIdentifierGetter :: Checks if the method is a short identifier getter.">
+                                <span class="description">Checks if the method is a short identifier getter.</span><pre>isShortIdentifierGetter</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private">
+                            <a href="#method_shouldProxiedMethodReturn" title="shouldProxiedMethodReturn :: ">
+                                <span class="description"></span><pre>shouldProxiedMethodReturn</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_PATTERN_MATCH_ID_METHOD" title="PATTERN_MATCH_ID_METHOD :: Used to match very simple id methods that don&#039;t need
+to be decorated since the identifier is known.">
+                        <span class="description">Used to match very simple id methods that don&#039;t need
+to be decorated since the identifier is known.</span><pre>PATTERN_MATCH_ID_METHOD</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ProxyGenerator</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">This factory is used to generate proxy classes.</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>It builds proxies from given parameters, a template and class metadata.</p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Marco Pivetta <a href="mailto:ocramius@gmail.com">ocramius@gmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.4
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Initializes a new instance of the &lt;tt&gt;ProxyFactory&lt;/tt&gt; class that is
+connected to the given &lt;tt&gt;EntityManager&lt;/tt&gt;.</h2>
+                            <pre>__construct(string $proxyDirectory, string $proxyNamespace) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\Common\Proxy\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$proxyDirectory</h4>
+                                                <code>string</code><p><p>The directory to use for the proxy classes. It must exist.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$proxyNamespace</h4>
+                                                <code>string</code><p><p>The namespace to use for the proxy classes.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildParametersString"></a>
+                        <div class="element clickable method private  method_buildParametersString" data-toggle="collapse" data-target=".method_buildParametersString .collapse">
+                            <h2>buildParametersString</h2>
+                            <pre>buildParametersString(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class, \ReflectionMethod $method, array&lt;mixed,\ReflectionParameter&gt; $parameters) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>\ReflectionMethod</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array&lt;mixed,\ReflectionParameter&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_formatType"></a>
+                        <div class="element clickable method private  method_formatType" data-toggle="collapse" data-target=".method_formatType .collapse">
+                            <h2>formatType</h2>
+                            <pre>formatType(\ReflectionType $type, \ReflectionMethod $method, \ReflectionParameter|null $parameter = null) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>\ReflectionType</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>\ReflectionMethod</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameter</h4>
+                                                <code>\ReflectionParameter|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateClassName"></a>
+                        <div class="element clickable method private  method_generateClassName" data-toggle="collapse" data-target=".method_generateClassName .collapse">
+                            <h2>Generates the original class name.</h2>
+                            <pre>generateClassName(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateCloneImpl"></a>
+                        <div class="element clickable method private  method_generateCloneImpl" data-toggle="collapse" data-target=".method_generateCloneImpl .collapse">
+                            <h2>Generates implementation for the `__clone` method of proxies.</h2>
+                            <pre>generateCloneImpl(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateConstructorImpl"></a>
+                        <div class="element clickable method private  method_generateConstructorImpl" data-toggle="collapse" data-target=".method_generateConstructorImpl .collapse">
+                            <h2>Generates the constructor code (un-setting public lazy loaded properties, setting identifier field values).</h2>
+                            <pre>generateConstructorImpl(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateLazyPropertiesDefaults"></a>
+                        <div class="element clickable method private  method_generateLazyPropertiesDefaults" data-toggle="collapse" data-target=".method_generateLazyPropertiesDefaults .collapse">
+                            <h2>Generates the array representation of lazy loaded public properties and their default values.</h2>
+                            <pre>generateLazyPropertiesDefaults(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateMagicGet"></a>
+                        <div class="element clickable method private  method_generateMagicGet" data-toggle="collapse" data-target=".method_generateMagicGet .collapse">
+                            <h2>Generates the magic getter invoked when lazy loaded public properties are requested.</h2>
+                            <pre>generateMagicGet(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateMagicIsset"></a>
+                        <div class="element clickable method private  method_generateMagicIsset" data-toggle="collapse" data-target=".method_generateMagicIsset .collapse">
+                            <h2>Generates the magic issetter invoked when lazy loaded public properties are checked against isset().</h2>
+                            <pre>generateMagicIsset(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateMagicSet"></a>
+                        <div class="element clickable method private  method_generateMagicSet" data-toggle="collapse" data-target=".method_generateMagicSet .collapse">
+                            <h2>Generates the magic setter (currently unused).</h2>
+                            <pre>generateMagicSet(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateMethods"></a>
+                        <div class="element clickable method private  method_generateMethods" data-toggle="collapse" data-target=".method_generateMethods .collapse">
+                            <h2>Generates decorated methods by picking those available in the parent class.</h2>
+                            <pre>generateMethods(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateNamespace"></a>
+                        <div class="element clickable method private  method_generateNamespace" data-toggle="collapse" data-target=".method_generateNamespace .collapse">
+                            <h2>Generates the proxy namespace.</h2>
+                            <pre>generateNamespace(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateProxyClass"></a>
+                        <div class="element clickable method public  method_generateProxyClass" data-toggle="collapse" data-target=".method_generateProxyClass .collapse">
+                            <h2>Generates a proxy class file.</h2>
+                            <pre>generateProxyClass(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class, string|boolean $fileName = false) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\Common\Proxy\Exception\UnexpectedValueException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p><p>Metadata for the original class.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fileName</h4>
+                                                <code>string|boolean</code><p><p>Filename (full path) for the generated class. If none is given, eval() is used.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateProxyShortClassName"></a>
+                        <div class="element clickable method private  method_generateProxyShortClassName" data-toggle="collapse" data-target=".method_generateProxyShortClassName .collapse">
+                            <h2>Generates the proxy short class name to be used in the template.</h2>
+                            <pre>generateProxyShortClassName(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateSleepImpl"></a>
+                        <div class="element clickable method private  method_generateSleepImpl" data-toggle="collapse" data-target=".method_generateSleepImpl .collapse">
+                            <h2>Generates implementation for the `__sleep` method of proxies.</h2>
+                            <pre>generateSleepImpl(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateWakeupImpl"></a>
+                        <div class="element clickable method private  method_generateWakeupImpl" data-toggle="collapse" data-target=".method_generateWakeupImpl .collapse">
+                            <h2>Generates implementation for the `__wakeup` method of proxies.</h2>
+                            <pre>generateWakeupImpl(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getLazyLoadedPublicProperties"></a>
+                        <div class="element clickable method private  method_getLazyLoadedPublicProperties" data-toggle="collapse" data-target=".method_getLazyLoadedPublicProperties .collapse">
+                            <h2>Generates the list of public properties to be lazy loaded, with their default values.</h2>
+                            <pre>getLazyLoadedPublicProperties(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : array&lt;mixed,mixed&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,mixed&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMethodReturnType"></a>
+                        <div class="element clickable method private  method_getMethodReturnType" data-toggle="collapse" data-target=".method_getMethodReturnType .collapse">
+                            <h2>getMethodReturnType</h2>
+                            <pre>getMethodReturnType(\ReflectionMethod $method) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    Param
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>\ReflectionMethod $method</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>\ReflectionMethod</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getParameterNamesForInvoke"></a>
+                        <div class="element clickable method private  method_getParameterNamesForInvoke" data-toggle="collapse" data-target=".method_getParameterNamesForInvoke .collapse">
+                            <h2>getParameterNamesForInvoke</h2>
+                            <pre>getParameterNamesForInvoke(array&lt;mixed,\ReflectionParameter&gt; $parameters) : array&lt;mixed,string&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array&lt;mixed,\ReflectionParameter&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,string&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getParameterNamesForParentCall"></a>
+                        <div class="element clickable method private  method_getParameterNamesForParentCall" data-toggle="collapse" data-target=".method_getParameterNamesForParentCall .collapse">
+                            <h2>getParameterNamesForParentCall</h2>
+                            <pre>getParameterNamesForParentCall(array&lt;mixed,\ReflectionParameter&gt; $parameters) : array&lt;mixed,string&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array&lt;mixed,\ReflectionParameter&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,string&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getParameterType"></a>
+                        <div class="element clickable method private  method_getParameterType" data-toggle="collapse" data-target=".method_getParameterType .collapse">
+                            <h2>getParameterType</h2>
+                            <pre>getParameterType(\Doctrine\Common\Persistence\Mapping\ClassMetadata $class, \ReflectionMethod $method, \ReflectionParameter $parameter) : string|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>\ReflectionMethod</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameter</h4>
+                                                <code>\ReflectionParameter</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getProxyFileName"></a>
+                        <div class="element clickable method public  method_getProxyFileName" data-toggle="collapse" data-target=".method_getProxyFileName .collapse">
+                            <h2>Generates the Proxy file name.</h2>
+                            <pre>getProxyFileName(string $className, string $baseDirectory = null) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$baseDirectory</h4>
+                                                <code>string</code><p><p>Optional base directory for proxy file name generation.
+If not specified, the directory configured on the Configuration of the
+EntityManager will be used by this factory.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isShortIdentifierGetter"></a>
+                        <div class="element clickable method private  method_isShortIdentifierGetter" data-toggle="collapse" data-target=".method_isShortIdentifierGetter .collapse">
+                            <h2>Checks if the method is a short identifier getter.</h2>
+                            <pre>isShortIdentifierGetter(\ReflectionMethod $method, \Doctrine\Common\Persistence\Mapping\ClassMetadata $class) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>What does this mean? For proxy objects the identifier is already known,
+however accessing the getter for this identifier usually triggers the
+lazy loading, leading to a query that may not be necessary if only the
+ID is interesting for the userland code (for example in views that
+generate links to the entity, but do not display anything else).</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>\ReflectionMethod</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setPlaceholder"></a>
+                        <div class="element clickable method public  method_setPlaceholder" data-toggle="collapse" data-target=".method_setPlaceholder .collapse">
+                            <h2>Sets a placeholder to be replaced in the template.</h2>
+                            <pre>setPlaceholder(string $name, string|callable $placeholder) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\Common\Proxy\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$placeholder</h4>
+                                                <code>string|callable</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setProxyClassTemplate"></a>
+                        <div class="element clickable method public  method_setProxyClassTemplate" data-toggle="collapse" data-target=".method_setProxyClassTemplate .collapse">
+                            <h2>Sets the base template used to create proxy classes.</h2>
+                            <pre>setProxyClassTemplate(string $proxyClassTemplate) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$proxyClassTemplate</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_shouldProxiedMethodReturn"></a>
+                        <div class="element clickable method private  method_shouldProxiedMethodReturn" data-toggle="collapse" data-target=".method_shouldProxiedMethodReturn .collapse">
+                            <h2>shouldProxiedMethodReturn</h2>
+                            <pre>shouldProxiedMethodReturn(\ReflectionMethod $method) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>\ReflectionMethod</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_PATTERN_MATCH_ID_METHOD"> </a>
+                            <div class="element clickable constant  constant_PATTERN_MATCH_ID_METHOD" data-toggle="collapse" data-target=".constant_PATTERN_MATCH_ID_METHOD .collapse">
+                                <h2>Used to match very simple id methods that don&#039;t need
+to be decorated since the identifier is known.</h2>
+                                <pre>PATTERN_MATCH_ID_METHOD</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_proxyNamespace"> </a>
+                            <div class="element clickable property  private property_proxyNamespace" data-toggle="collapse" data-target=".property_proxyNamespace .collapse">
+                                <h2>The namespace that contains all proxy classes.</h2>
+                                <pre>proxyNamespace : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_proxyDirectory"> </a>
+                            <div class="element clickable property  private property_proxyDirectory" data-toggle="collapse" data-target=".property_proxyDirectory .collapse">
+                                <h2>The directory that contains all proxy classes.</h2>
+                                <pre>proxyDirectory : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_placeholders"> </a>
+                            <div class="element clickable property  protected property_placeholders" data-toggle="collapse" data-target=".property_placeholders .collapse">
+                                <h2>Map of callables used to fill in placeholders set in the template.</h2>
+                                <pre>placeholders : array&lt;mixed,string&gt;|array&lt;mixed,callable&gt;</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,string&gt;|array&lt;mixed,callable&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_proxyClassTemplate"> </a>
+                            <div class="element clickable property  protected property_proxyClassTemplate" data-toggle="collapse" data-target=".property_proxyClassTemplate .collapse">
+                                <h2>Template used as a blueprint to generate proxies.</h2>
+                                <pre>proxyClassTemplate : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\Common\Proxy\ProxyGenerator"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.Common.Proxy.html">Proxy</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.Common.Proxy.ProxyGenerator.html">ProxyGenerator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:36 +0000.<br/>
+    </footer>
+    </body>
+</html>

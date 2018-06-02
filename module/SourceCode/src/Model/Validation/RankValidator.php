@@ -11,8 +11,17 @@ namespace SourceCode\Model\Validation;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\NotEmpty;
 
+/**
+ * Class RankValidator
+ * Validador dos dados do rank
+ * @package SourceCode\Model\Validation
+ */
 class RankValidator extends InputFilter
 {
+    /**
+     * RankValidator constructor.
+     * @param array $data
+     */
     public function __construct($data = array())
     {
         // id

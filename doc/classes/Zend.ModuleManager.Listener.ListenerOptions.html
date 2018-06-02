@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\ModuleManager\Listener\ListenerOptions
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Constructor">
+            <span class="description">Constructor</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___get" title="__get :: Get a configuration property">
+            <span class="description">Get a configuration property</span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___isset" title="__isset :: Test if a configuration property is null">
+            <span class="description">Test if a configuration property is null</span><pre>__isset</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___set" title="__set :: Set a configuration property">
+            <span class="description">Set a configuration property</span><pre>__set</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___unset" title="__unset :: Set a configuration property to NULL">
+            <span class="description">Set a configuration property to NULL</span><pre>__unset</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCacheDir" title="getCacheDir :: Get the path where cache file(s) are stored">
+            <span class="description">Get the path where cache file(s) are stored</span><pre>getCacheDir</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCheckDependencies" title="getCheckDependencies :: Set whether to check dependencies during module loading or not">
+            <span class="description">Set whether to check dependencies during module loading or not</span><pre>getCheckDependencies</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfigCacheEnabled" title="getConfigCacheEnabled :: Check if the config cache is enabled">
+            <span class="description">Check if the config cache is enabled</span><pre>getConfigCacheEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfigCacheFile" title="getConfigCacheFile :: Get the path to the config cache">
+            <span class="description">Get the path to the config cache</span><pre>getConfigCacheFile</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfigCacheKey" title="getConfigCacheKey :: Get key used to create the cache file name">
+            <span class="description">Get key used to create the cache file name</span><pre>getConfigCacheKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfigGlobPaths" title="getConfigGlobPaths :: Get the glob patterns to load additional config files">
+            <span class="description">Get the glob patterns to load additional config files</span><pre>getConfigGlobPaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfigStaticPaths" title="getConfigStaticPaths :: Get the static paths to load additional config files">
+            <span class="description">Get the static paths to load additional config files</span><pre>getConfigStaticPaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getExtraConfig" title="getExtraConfig :: Get any extra config to merge in.">
+            <span class="description">Get any extra config to merge in.</span><pre>getExtraConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getModuleMapCacheEnabled" title="getModuleMapCacheEnabled :: Check if the module class map cache is enabled">
+            <span class="description">Check if the module class map cache is enabled</span><pre>getModuleMapCacheEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getModuleMapCacheFile" title="getModuleMapCacheFile :: Get the path to the module class map cache">
+            <span class="description">Get the path to the module class map cache</span><pre>getModuleMapCacheFile</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getModuleMapCacheKey" title="getModuleMapCacheKey :: Get key used to create the cache file name">
+            <span class="description">Get key used to create the cache file name</span><pre>getModuleMapCacheKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getModulePaths" title="getModulePaths :: Get an array of paths where modules reside">
+            <span class="description">Get an array of paths where modules reside</span><pre>getModulePaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_normalizePath" title="normalizePath :: Normalize a path for insertion in the stack">
+            <span class="description">Normalize a path for insertion in the stack</span><pre>normalizePath</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCacheDir" title="setCacheDir :: Set the path where cache files can be stored">
+            <span class="description">Set the path where cache files can be stored</span><pre>setCacheDir</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCheckDependencies" title="setCheckDependencies :: Set whether to check dependencies during module loading or not">
+            <span class="description">Set whether to check dependencies during module loading or not</span><pre>setCheckDependencies</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConfigCacheEnabled" title="setConfigCacheEnabled :: Set if the config cache should be enabled or not">
+            <span class="description">Set if the config cache should be enabled or not</span><pre>setConfigCacheEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConfigCacheKey" title="setConfigCacheKey :: Set key used to create the cache file name">
+            <span class="description">Set key used to create the cache file name</span><pre>setConfigCacheKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConfigGlobPaths" title="setConfigGlobPaths :: Set the glob patterns to use for loading additional config files">
+            <span class="description">Set the glob patterns to use for loading additional config files</span><pre>setConfigGlobPaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConfigStaticPaths" title="setConfigStaticPaths :: Set the static paths to use for loading additional config files">
+            <span class="description">Set the static paths to use for loading additional config files</span><pre>setConfigStaticPaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setExtraConfig" title="setExtraConfig :: Add some extra config array to the main config. This is mainly useful
+for unit testing purposes.">
+            <span class="description">Add some extra config array to the main config. This is mainly useful
+for unit testing purposes.</span><pre>setExtraConfig</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setFromArray" title="setFromArray :: Set one or more configuration properties">
+            <span class="description">Set one or more configuration properties</span><pre>setFromArray</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setModuleMapCacheEnabled" title="setModuleMapCacheEnabled :: Set if the module class map cache should be enabled or not">
+            <span class="description">Set if the module class map cache should be enabled or not</span><pre>setModuleMapCacheEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setModuleMapCacheKey" title="setModuleMapCacheKey :: Set key used to create the cache file name">
+            <span class="description">Set key used to create the cache file name</span><pre>setModuleMapCacheKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setModulePaths" title="setModulePaths :: Set an array of paths where modules reside">
+            <span class="description">Set an array of paths where modules reside</span><pre>setModulePaths</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setUseZendLoader" title="setUseZendLoader :: Set a flag indicating if the module manager should use zend-loader">
+            <span class="description">Set a flag indicating if the module manager should use zend-loader</span><pre>setUseZendLoader</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_toArray" title="toArray :: Cast to array">
+            <span class="description">Cast to array</span><pre>toArray</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_useZendLoader" title="useZendLoader :: Whether or not to use zend-loader to autoload modules.">
+            <span class="description">Whether or not to use zend-loader to autoload modules.</span><pre>useZendLoader</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ListenerOptions</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Stdlib.AbstractOptions.html">\Zend\Stdlib\AbstractOptions</a>
+                                                        </small>
+                <p class="short_description">Listener options</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor</h2>
+                            <pre>__construct(array|\Traversable|null $options = null) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array|\Traversable|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>Get a configuration property</h2>
+                            <pre>__get(string $key) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \Zend\Stdlib\ParameterObject::__get()
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Stdlib\Exception\BadMethodCallException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___isset"></a>
+                        <div class="element clickable method public  method___isset inherited" data-toggle="collapse" data-target=".method___isset .collapse">
+                            <h2>Test if a configuration property is null</h2>
+                            <pre>__isset(string $key) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \Zend\Stdlib\ParameterObject::__isset()
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___set"></a>
+                        <div class="element clickable method public  method___set inherited" data-toggle="collapse" data-target=".method___set .collapse">
+                            <h2>Set a configuration property</h2>
+                            <pre>__set(string $key, mixed $value) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \Zend\Stdlib\ParameterObject::__set()
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Stdlib\Exception\BadMethodCallException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___unset"></a>
+                        <div class="element clickable method public  method___unset inherited" data-toggle="collapse" data-target=".method___unset .collapse">
+                            <h2>Set a configuration property to NULL</h2>
+                            <pre>__unset(string $key) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            \Zend\Stdlib\ParameterObject::__unset()
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Stdlib\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCacheDir"></a>
+                        <div class="element clickable method public  method_getCacheDir" data-toggle="collapse" data-target=".method_getCacheDir .collapse">
+                            <h2>Get the path where cache file(s) are stored</h2>
+                            <pre>getCacheDir() : string|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCheckDependencies"></a>
+                        <div class="element clickable method public  method_getCheckDependencies" data-toggle="collapse" data-target=".method_getCheckDependencies .collapse">
+                            <h2>Set whether to check dependencies during module loading or not</h2>
+                            <pre>getCheckDependencies() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfigCacheEnabled"></a>
+                        <div class="element clickable method public  method_getConfigCacheEnabled" data-toggle="collapse" data-target=".method_getConfigCacheEnabled .collapse">
+                            <h2>Check if the config cache is enabled</h2>
+                            <pre>getConfigCacheEnabled() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfigCacheFile"></a>
+                        <div class="element clickable method public  method_getConfigCacheFile" data-toggle="collapse" data-target=".method_getConfigCacheFile .collapse">
+                            <h2>Get the path to the config cache</h2>
+                            <pre>getConfigCacheFile() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Should this be an option, or should the dir option include the
+filename, or should it simply remain hard-coded? Thoughts?</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfigCacheKey"></a>
+                        <div class="element clickable method public  method_getConfigCacheKey" data-toggle="collapse" data-target=".method_getConfigCacheKey .collapse">
+                            <h2>Get key used to create the cache file name</h2>
+                            <pre>getConfigCacheKey() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfigGlobPaths"></a>
+                        <div class="element clickable method public  method_getConfigGlobPaths" data-toggle="collapse" data-target=".method_getConfigGlobPaths .collapse">
+                            <h2>Get the glob patterns to load additional config files</h2>
+                            <pre>getConfigGlobPaths() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfigStaticPaths"></a>
+                        <div class="element clickable method public  method_getConfigStaticPaths" data-toggle="collapse" data-target=".method_getConfigStaticPaths .collapse">
+                            <h2>Get the static paths to load additional config files</h2>
+                            <pre>getConfigStaticPaths() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getExtraConfig"></a>
+                        <div class="element clickable method public  method_getExtraConfig" data-toggle="collapse" data-target=".method_getExtraConfig .collapse">
+                            <h2>Get any extra config to merge in.</h2>
+                            <pre>getExtraConfig() : array|\Traversable</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array|\Traversable</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getModuleMapCacheEnabled"></a>
+                        <div class="element clickable method public  method_getModuleMapCacheEnabled" data-toggle="collapse" data-target=".method_getModuleMapCacheEnabled .collapse">
+                            <h2>Check if the module class map cache is enabled</h2>
+                            <pre>getModuleMapCacheEnabled() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getModuleMapCacheFile"></a>
+                        <div class="element clickable method public  method_getModuleMapCacheFile" data-toggle="collapse" data-target=".method_getModuleMapCacheFile .collapse">
+                            <h2>Get the path to the module class map cache</h2>
+                            <pre>getModuleMapCacheFile() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getModuleMapCacheKey"></a>
+                        <div class="element clickable method public  method_getModuleMapCacheKey" data-toggle="collapse" data-target=".method_getModuleMapCacheKey .collapse">
+                            <h2>Get key used to create the cache file name</h2>
+                            <pre>getModuleMapCacheKey() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getModulePaths"></a>
+                        <div class="element clickable method public  method_getModulePaths" data-toggle="collapse" data-target=".method_getModulePaths .collapse">
+                            <h2>Get an array of paths where modules reside</h2>
+                            <pre>getModulePaths() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_normalizePath"></a>
+                        <div class="element clickable method public  method_normalizePath" data-toggle="collapse" data-target=".method_normalizePath .collapse">
+                            <h2>Normalize a path for insertion in the stack</h2>
+                            <pre>normalizePath(string $path) : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$path</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCacheDir"></a>
+                        <div class="element clickable method public  method_setCacheDir" data-toggle="collapse" data-target=".method_setCacheDir .collapse">
+                            <h2>Set the path where cache files can be stored</h2>
+                            <pre>setCacheDir(string|null $cacheDir) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cacheDir</h4>
+                                                <code>string|null</code><p><p>the value to be set</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCheckDependencies"></a>
+                        <div class="element clickable method public  method_setCheckDependencies" data-toggle="collapse" data-target=".method_setCheckDependencies .collapse">
+                            <h2>Set whether to check dependencies during module loading or not</h2>
+                            <pre>setCheckDependencies(boolean $checkDependencies) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$checkDependencies</h4>
+                                                <code>boolean</code><p><p>the value to be set</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConfigCacheEnabled"></a>
+                        <div class="element clickable method public  method_setConfigCacheEnabled" data-toggle="collapse" data-target=".method_setConfigCacheEnabled .collapse">
+                            <h2>Set if the config cache should be enabled or not</h2>
+                            <pre>setConfigCacheEnabled(boolean $enabled) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$enabled</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConfigCacheKey"></a>
+                        <div class="element clickable method public  method_setConfigCacheKey" data-toggle="collapse" data-target=".method_setConfigCacheKey .collapse">
+                            <h2>Set key used to create the cache file name</h2>
+                            <pre>setConfigCacheKey(string $configCacheKey) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$configCacheKey</h4>
+                                                <code>string</code><p><p>the value to be set</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConfigGlobPaths"></a>
+                        <div class="element clickable method public  method_setConfigGlobPaths" data-toggle="collapse" data-target=".method_setConfigGlobPaths .collapse">
+                            <h2>Set the glob patterns to use for loading additional config files</h2>
+                            <pre>setConfigGlobPaths(array|\Traversable $configGlobPaths) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ModuleManager\Listener\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$configGlobPaths</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p><p>Provides fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConfigStaticPaths"></a>
+                        <div class="element clickable method public  method_setConfigStaticPaths" data-toggle="collapse" data-target=".method_setConfigStaticPaths .collapse">
+                            <h2>Set the static paths to use for loading additional config files</h2>
+                            <pre>setConfigStaticPaths(array|\Traversable $configStaticPaths) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ModuleManager\Listener\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$configStaticPaths</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p><p>Provides fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setExtraConfig"></a>
+                        <div class="element clickable method public  method_setExtraConfig" data-toggle="collapse" data-target=".method_setExtraConfig .collapse">
+                            <h2>Add some extra config array to the main config. This is mainly useful
+for unit testing purposes.</h2>
+                            <pre>setExtraConfig(array|\Traversable $extraConfig) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ModuleManager\Listener\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$extraConfig</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p><p>Provides fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFromArray"></a>
+                        <div class="element clickable method public  method_setFromArray inherited" data-toggle="collapse" data-target=".method_setFromArray .collapse">
+                            <h2>Set one or more configuration properties</h2>
+                            <pre>setFromArray(array|\Traversable|\Zend\Stdlib\AbstractOptions $options) : \Zend\Stdlib\AbstractOptions</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Stdlib\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array|\Traversable|<a href="../classes/Zend.Stdlib.AbstractOptions.html">\Zend\Stdlib\AbstractOptions</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Stdlib.AbstractOptions.html">\Zend\Stdlib\AbstractOptions</a></code><p><p>Provides fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setModuleMapCacheEnabled"></a>
+                        <div class="element clickable method public  method_setModuleMapCacheEnabled" data-toggle="collapse" data-target=".method_setModuleMapCacheEnabled .collapse">
+                            <h2>Set if the module class map cache should be enabled or not</h2>
+                            <pre>setModuleMapCacheEnabled(boolean $enabled) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$enabled</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setModuleMapCacheKey"></a>
+                        <div class="element clickable method public  method_setModuleMapCacheKey" data-toggle="collapse" data-target=".method_setModuleMapCacheKey .collapse">
+                            <h2>Set key used to create the cache file name</h2>
+                            <pre>setModuleMapCacheKey(string $moduleMapCacheKey) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$moduleMapCacheKey</h4>
+                                                <code>string</code><p><p>the value to be set</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setModulePaths"></a>
+                        <div class="element clickable method public  method_setModulePaths" data-toggle="collapse" data-target=".method_setModulePaths .collapse">
+                            <h2>Set an array of paths where modules reside</h2>
+                            <pre>setModulePaths(array|\Traversable $modulePaths) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ModuleManager\Listener\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$modulePaths</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p><p>Provides fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setUseZendLoader"></a>
+                        <div class="element clickable method public  method_setUseZendLoader" data-toggle="collapse" data-target=".method_setUseZendLoader .collapse">
+                            <h2>Set a flag indicating if the module manager should use zend-loader</h2>
+                            <pre>setUseZendLoader(boolean $flag) : \Zend\ModuleManager\Listener\ListenerOptions</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Setting this option to false will disable ModuleAutoloader, requiring
+other means of autoloading to be used (e.g., Composer).</p>
+<p>If disabled, the AutoloaderProvider feature will be disabled as well</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">\Zend\ModuleManager\Listener\ListenerOptions</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_toArray"></a>
+                        <div class="element clickable method public  method_toArray inherited" data-toggle="collapse" data-target=".method_toArray .collapse">
+                            <h2>Cast to array</h2>
+                            <pre>toArray() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_useZendLoader"></a>
+                        <div class="element clickable method public  method_useZendLoader" data-toggle="collapse" data-target=".method_useZendLoader .collapse">
+                            <h2>Whether or not to use zend-loader to autoload modules.</h2>
+                            <pre>useZendLoader() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_modulePaths"> </a>
+                            <div class="element clickable property  protected property_modulePaths" data-toggle="collapse" data-target=".property_modulePaths .collapse">
+                                <h2>modulePaths</h2>
+                                <pre>modulePaths : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configGlobPaths"> </a>
+                            <div class="element clickable property  protected property_configGlobPaths" data-toggle="collapse" data-target=".property_configGlobPaths .collapse">
+                                <h2>configGlobPaths</h2>
+                                <pre>configGlobPaths : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configStaticPaths"> </a>
+                            <div class="element clickable property  protected property_configStaticPaths" data-toggle="collapse" data-target=".property_configStaticPaths .collapse">
+                                <h2>configStaticPaths</h2>
+                                <pre>configStaticPaths : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_extraConfig"> </a>
+                            <div class="element clickable property  protected property_extraConfig" data-toggle="collapse" data-target=".property_extraConfig .collapse">
+                                <h2>extraConfig</h2>
+                                <pre>extraConfig : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configCacheEnabled"> </a>
+                            <div class="element clickable property  protected property_configCacheEnabled" data-toggle="collapse" data-target=".property_configCacheEnabled .collapse">
+                                <h2>configCacheEnabled</h2>
+                                <pre>configCacheEnabled : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configCacheKey"> </a>
+                            <div class="element clickable property  protected property_configCacheKey" data-toggle="collapse" data-target=".property_configCacheKey .collapse">
+                                <h2>configCacheKey</h2>
+                                <pre>configCacheKey : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_cacheDir"> </a>
+                            <div class="element clickable property  protected property_cacheDir" data-toggle="collapse" data-target=".property_cacheDir .collapse">
+                                <h2>cacheDir</h2>
+                                <pre>cacheDir : string|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_checkDependencies"> </a>
+                            <div class="element clickable property  protected property_checkDependencies" data-toggle="collapse" data-target=".property_checkDependencies .collapse">
+                                <h2>checkDependencies</h2>
+                                <pre>checkDependencies : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_moduleMapCacheEnabled"> </a>
+                            <div class="element clickable property  protected property_moduleMapCacheEnabled" data-toggle="collapse" data-target=".property_moduleMapCacheEnabled .collapse">
+                                <h2>moduleMapCacheEnabled</h2>
+                                <pre>moduleMapCacheEnabled : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_moduleMapCacheKey"> </a>
+                            <div class="element clickable property  protected property_moduleMapCacheKey" data-toggle="collapse" data-target=".property_moduleMapCacheKey .collapse">
+                                <h2>moduleMapCacheKey</h2>
+                                <pre>moduleMapCacheKey : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_useZendLoader"> </a>
+                            <div class="element clickable property  protected property_useZendLoader" data-toggle="collapse" data-target=".property_useZendLoader .collapse">
+                                <h2>useZendLoader</h2>
+                                <pre>useZendLoader : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property___strictMode__"> </a>
+                            <div class="element clickable property  protected property___strictMode__ inherited" data-toggle="collapse" data-target=".property___strictMode__ .collapse">
+                                <h2>We use the __ prefix to avoid collisions with properties in
+user-implementations.</h2>
+                                <pre>__strictMode__ : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\ModuleManager\Listener\ListenerOptions"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.ModuleManager.Listener.html">Listener</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.ModuleManager.Listener.ListenerOptions.html">ListenerOptions</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:00:59 +0000.<br/>
+    </footer>
+    </body>
+</html>

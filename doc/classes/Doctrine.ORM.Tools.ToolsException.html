@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Tools\ToolsException
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method_cantUseInOperatorOnCompositeKeys" title="cantUseInOperatorOnCompositeKeys :: ">
+            <span class="description"></span><pre>cantUseInOperatorOnCompositeKeys</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_couldNotMapDoctrine1Type" title="couldNotMapDoctrine1Type :: ">
+            <span class="description"></span><pre>couldNotMapDoctrine1Type</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_entityManagerClosed" title="entityManagerClosed :: ">
+            <span class="description"></span><pre>entityManagerClosed</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_entityMissingAssignedIdForField" title="entityMissingAssignedIdForField :: ">
+            <span class="description"></span><pre>entityMissingAssignedIdForField</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_entityMissingForeignAssignedId" title="entityMissingForeignAssignedId :: ">
+            <span class="description"></span><pre>entityMissingForeignAssignedId</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_findByRequiresParameter" title="findByRequiresParameter :: ">
+            <span class="description"></span><pre>findByRequiresParameter</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidEntityRepository" title="invalidEntityRepository :: ">
+            <span class="description"></span><pre>invalidEntityRepository</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidFindByCall" title="invalidFindByCall :: ">
+            <span class="description"></span><pre>invalidFindByCall</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidFindByInverseAssociation" title="invalidFindByInverseAssociation :: ">
+            <span class="description"></span><pre>invalidFindByInverseAssociation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidFlushMode" title="invalidFlushMode :: ">
+            <span class="description"></span><pre>invalidFlushMode</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidHydrationMode" title="invalidHydrationMode :: ">
+            <span class="description"></span><pre>invalidHydrationMode</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidOrientation" title="invalidOrientation :: ">
+            <span class="description"></span><pre>invalidOrientation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_invalidResultCacheDriver" title="invalidResultCacheDriver :: ">
+            <span class="description"></span><pre>invalidResultCacheDriver</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_metadataCacheNotConfigured" title="metadataCacheNotConfigured :: ">
+            <span class="description"></span><pre>metadataCacheNotConfigured</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_metadataCacheUsesNonPersistentCache" title="metadataCacheUsesNonPersistentCache :: ">
+            <span class="description"></span><pre>metadataCacheUsesNonPersistentCache</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_mismatchedEventManager" title="mismatchedEventManager :: ">
+            <span class="description"></span><pre>mismatchedEventManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_missingIdentifierField" title="missingIdentifierField :: ">
+            <span class="description"></span><pre>missingIdentifierField</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_missingMappingDriverImpl" title="missingMappingDriverImpl :: ">
+            <span class="description"></span><pre>missingMappingDriverImpl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_namedNativeQueryNotFound" title="namedNativeQueryNotFound :: ">
+            <span class="description"></span><pre>namedNativeQueryNotFound</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_namedQueryNotFound" title="namedQueryNotFound :: ">
+            <span class="description"></span><pre>namedQueryNotFound</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_notSupported" title="notSupported :: ">
+            <span class="description"></span><pre>notSupported</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_overwriteInternalDQLFunctionNotAllowed" title="overwriteInternalDQLFunctionNotAllowed :: ">
+            <span class="description"></span><pre>overwriteInternalDQLFunctionNotAllowed</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_proxyClassesAlwaysRegenerating" title="proxyClassesAlwaysRegenerating :: ">
+            <span class="description"></span><pre>proxyClassesAlwaysRegenerating</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_queryCacheNotConfigured" title="queryCacheNotConfigured :: ">
+            <span class="description"></span><pre>queryCacheNotConfigured</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_queryCacheUsesNonPersistentCache" title="queryCacheUsesNonPersistentCache :: ">
+            <span class="description"></span><pre>queryCacheUsesNonPersistentCache</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_schemaToolFailure" title="schemaToolFailure :: ">
+            <span class="description"></span><pre>schemaToolFailure</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_unexpectedAssociationValue" title="unexpectedAssociationValue :: ">
+            <span class="description"></span><pre>unexpectedAssociationValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_unknownEntityNamespace" title="unknownEntityNamespace :: ">
+            <span class="description"></span><pre>unknownEntityNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_unrecognizedField" title="unrecognizedField :: ">
+            <span class="description"></span><pre>unrecognizedField</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_unrecognizedIdentifierFields" title="unrecognizedIdentifierFields :: ">
+            <span class="description"></span><pre>unrecognizedIdentifierFields</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ToolsException</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a>
+                                                        </small>
+                <p class="short_description">Tools related Exceptions.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Benjamin Eberlei <a href="mailto:kontakt@beberlei.de">kontakt@beberlei.de</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_cantUseInOperatorOnCompositeKeys"></a>
+                        <div class="element clickable method public  method_cantUseInOperatorOnCompositeKeys inherited" data-toggle="collapse" data-target=".method_cantUseInOperatorOnCompositeKeys .collapse">
+                            <h2>cantUseInOperatorOnCompositeKeys</h2>
+                            <pre>cantUseInOperatorOnCompositeKeys() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_couldNotMapDoctrine1Type"></a>
+                        <div class="element clickable method public  method_couldNotMapDoctrine1Type" data-toggle="collapse" data-target=".method_couldNotMapDoctrine1Type .collapse">
+                            <h2>couldNotMapDoctrine1Type</h2>
+                            <pre>couldNotMapDoctrine1Type(string $type) : \Doctrine\ORM\Tools\ToolsException</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Tools.ToolsException.html">\Doctrine\ORM\Tools\ToolsException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_entityManagerClosed"></a>
+                        <div class="element clickable method public  method_entityManagerClosed inherited" data-toggle="collapse" data-target=".method_entityManagerClosed .collapse">
+                            <h2>entityManagerClosed</h2>
+                            <pre>entityManagerClosed() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_entityMissingAssignedIdForField"></a>
+                        <div class="element clickable method public  method_entityMissingAssignedIdForField inherited" data-toggle="collapse" data-target=".method_entityMissingAssignedIdForField .collapse">
+                            <h2>entityMissingAssignedIdForField</h2>
+                            <pre>entityMissingAssignedIdForField(object $entity, string $field) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$field</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_entityMissingForeignAssignedId"></a>
+                        <div class="element clickable method public  method_entityMissingForeignAssignedId inherited" data-toggle="collapse" data-target=".method_entityMissingForeignAssignedId .collapse">
+                            <h2>entityMissingForeignAssignedId</h2>
+                            <pre>entityMissingForeignAssignedId(object $entity, object $relatedEntity) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$relatedEntity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_findByRequiresParameter"></a>
+                        <div class="element clickable method public  method_findByRequiresParameter inherited" data-toggle="collapse" data-target=".method_findByRequiresParameter .collapse">
+                            <h2>findByRequiresParameter</h2>
+                            <pre>findByRequiresParameter(string $methodName) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$methodName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidEntityRepository"></a>
+                        <div class="element clickable method public  method_invalidEntityRepository inherited" data-toggle="collapse" data-target=".method_invalidEntityRepository .collapse">
+                            <h2>invalidEntityRepository</h2>
+                            <pre>invalidEntityRepository(string $className) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidFindByCall"></a>
+                        <div class="element clickable method public  method_invalidFindByCall inherited" data-toggle="collapse" data-target=".method_invalidFindByCall .collapse">
+                            <h2>invalidFindByCall</h2>
+                            <pre>invalidFindByCall(string $entityName, string $fieldName, string $method) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entityName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidFindByInverseAssociation"></a>
+                        <div class="element clickable method public  method_invalidFindByInverseAssociation inherited" data-toggle="collapse" data-target=".method_invalidFindByInverseAssociation .collapse">
+                            <h2>invalidFindByInverseAssociation</h2>
+                            <pre>invalidFindByInverseAssociation(string $entityName, string $associationFieldName) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entityName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$associationFieldName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidFlushMode"></a>
+                        <div class="element clickable method public  method_invalidFlushMode inherited" data-toggle="collapse" data-target=".method_invalidFlushMode .collapse">
+                            <h2>invalidFlushMode</h2>
+                            <pre>invalidFlushMode(string $mode) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mode</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidHydrationMode"></a>
+                        <div class="element clickable method public  method_invalidHydrationMode inherited" data-toggle="collapse" data-target=".method_invalidHydrationMode .collapse">
+                            <h2>invalidHydrationMode</h2>
+                            <pre>invalidHydrationMode(string $mode) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mode</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidOrientation"></a>
+                        <div class="element clickable method public  method_invalidOrientation inherited" data-toggle="collapse" data-target=".method_invalidOrientation .collapse">
+                            <h2>invalidOrientation</h2>
+                            <pre>invalidOrientation(string $className, string $field) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$field</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_invalidResultCacheDriver"></a>
+                        <div class="element clickable method public  method_invalidResultCacheDriver inherited" data-toggle="collapse" data-target=".method_invalidResultCacheDriver .collapse">
+                            <h2>invalidResultCacheDriver</h2>
+                            <pre>invalidResultCacheDriver() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_metadataCacheNotConfigured"></a>
+                        <div class="element clickable method public  method_metadataCacheNotConfigured inherited" data-toggle="collapse" data-target=".method_metadataCacheNotConfigured .collapse">
+                            <h2>metadataCacheNotConfigured</h2>
+                            <pre>metadataCacheNotConfigured() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_metadataCacheUsesNonPersistentCache"></a>
+                        <div class="element clickable method public  method_metadataCacheUsesNonPersistentCache inherited" data-toggle="collapse" data-target=".method_metadataCacheUsesNonPersistentCache .collapse">
+                            <h2>metadataCacheUsesNonPersistentCache</h2>
+                            <pre>metadataCacheUsesNonPersistentCache(\Doctrine\Common\Cache\Cache $cache) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cache</h4>
+                                                <code><a href="../classes/Doctrine.Common.Cache.Cache.html">\Doctrine\Common\Cache\Cache</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mismatchedEventManager"></a>
+                        <div class="element clickable method public  method_mismatchedEventManager inherited" data-toggle="collapse" data-target=".method_mismatchedEventManager .collapse">
+                            <h2>mismatchedEventManager</h2>
+                            <pre>mismatchedEventManager() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_missingIdentifierField"></a>
+                        <div class="element clickable method public  method_missingIdentifierField inherited" data-toggle="collapse" data-target=".method_missingIdentifierField .collapse">
+                            <h2>missingIdentifierField</h2>
+                            <pre>missingIdentifierField(string $className, string $fieldName) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_missingMappingDriverImpl"></a>
+                        <div class="element clickable method public  method_missingMappingDriverImpl inherited" data-toggle="collapse" data-target=".method_missingMappingDriverImpl .collapse">
+                            <h2>missingMappingDriverImpl</h2>
+                            <pre>missingMappingDriverImpl() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_namedNativeQueryNotFound"></a>
+                        <div class="element clickable method public  method_namedNativeQueryNotFound inherited" data-toggle="collapse" data-target=".method_namedNativeQueryNotFound .collapse">
+                            <h2>namedNativeQueryNotFound</h2>
+                            <pre>namedNativeQueryNotFound(string $nativeQueryName) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$nativeQueryName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_namedQueryNotFound"></a>
+                        <div class="element clickable method public  method_namedQueryNotFound inherited" data-toggle="collapse" data-target=".method_namedQueryNotFound .collapse">
+                            <h2>namedQueryNotFound</h2>
+                            <pre>namedQueryNotFound(string $queryName) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$queryName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_notSupported"></a>
+                        <div class="element clickable method public  method_notSupported inherited" data-toggle="collapse" data-target=".method_notSupported .collapse">
+                            <h2>notSupported</h2>
+                            <pre>notSupported() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_overwriteInternalDQLFunctionNotAllowed"></a>
+                        <div class="element clickable method public  method_overwriteInternalDQLFunctionNotAllowed inherited" data-toggle="collapse" data-target=".method_overwriteInternalDQLFunctionNotAllowed .collapse">
+                            <h2>overwriteInternalDQLFunctionNotAllowed</h2>
+                            <pre>overwriteInternalDQLFunctionNotAllowed(string $functionName) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$functionName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_proxyClassesAlwaysRegenerating"></a>
+                        <div class="element clickable method public  method_proxyClassesAlwaysRegenerating inherited" data-toggle="collapse" data-target=".method_proxyClassesAlwaysRegenerating .collapse">
+                            <h2>proxyClassesAlwaysRegenerating</h2>
+                            <pre>proxyClassesAlwaysRegenerating() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_queryCacheNotConfigured"></a>
+                        <div class="element clickable method public  method_queryCacheNotConfigured inherited" data-toggle="collapse" data-target=".method_queryCacheNotConfigured .collapse">
+                            <h2>queryCacheNotConfigured</h2>
+                            <pre>queryCacheNotConfigured() : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_queryCacheUsesNonPersistentCache"></a>
+                        <div class="element clickable method public  method_queryCacheUsesNonPersistentCache inherited" data-toggle="collapse" data-target=".method_queryCacheUsesNonPersistentCache .collapse">
+                            <h2>queryCacheUsesNonPersistentCache</h2>
+                            <pre>queryCacheUsesNonPersistentCache(\Doctrine\Common\Cache\Cache $cache) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cache</h4>
+                                                <code><a href="../classes/Doctrine.Common.Cache.Cache.html">\Doctrine\Common\Cache\Cache</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_schemaToolFailure"></a>
+                        <div class="element clickable method public  method_schemaToolFailure" data-toggle="collapse" data-target=".method_schemaToolFailure .collapse">
+                            <h2>schemaToolFailure</h2>
+                            <pre>schemaToolFailure(string $sql, \Exception $e) : \Doctrine\ORM\Tools\ToolsException</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sql</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$e</h4>
+                                                <code>\Exception</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Tools.ToolsException.html">\Doctrine\ORM\Tools\ToolsException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_unexpectedAssociationValue"></a>
+                        <div class="element clickable method public  method_unexpectedAssociationValue inherited" data-toggle="collapse" data-target=".method_unexpectedAssociationValue .collapse">
+                            <h2>unexpectedAssociationValue</h2>
+                            <pre>unexpectedAssociationValue(string $class, string $association, string $given, string $expected) : \Doctrine\ORM\ORMInvalidArgumentException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$association</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$given</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$expected</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMInvalidArgumentException.html">\Doctrine\ORM\ORMInvalidArgumentException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_unknownEntityNamespace"></a>
+                        <div class="element clickable method public  method_unknownEntityNamespace inherited" data-toggle="collapse" data-target=".method_unknownEntityNamespace .collapse">
+                            <h2>unknownEntityNamespace</h2>
+                            <pre>unknownEntityNamespace(string $entityNamespaceAlias) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entityNamespaceAlias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_unrecognizedField"></a>
+                        <div class="element clickable method public  method_unrecognizedField inherited" data-toggle="collapse" data-target=".method_unrecognizedField .collapse">
+                            <h2>unrecognizedField</h2>
+                            <pre>unrecognizedField(string $field) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$field</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_unrecognizedIdentifierFields"></a>
+                        <div class="element clickable method public  method_unrecognizedIdentifierFields inherited" data-toggle="collapse" data-target=".method_unrecognizedIdentifierFields .collapse">
+                            <h2>unrecognizedIdentifierFields</h2>
+                            <pre>unrecognizedIdentifierFields(string $className,  $fieldNames) : \Doctrine\ORM\ORMException</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldNames</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.ORMException.html">\Doctrine\ORM\ORMException</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                        </div>
+            </div>
+            <a id="\Doctrine\ORM\Tools\ToolsException"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Tools.html">Tools</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Tools.ToolsException.html">ToolsException</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:30 +0000.<br/>
+    </footer>
+    </body>
+</html>

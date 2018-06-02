@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Mail\Storage\Maildir
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Create instance with parameters">
+            <span class="description">Create instance with parameters</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___destruct" title="__destruct :: Destructor calls close() and therefore closes the resource.">
+            <span class="description">Destructor calls close() and therefore closes the resource.</span><pre>__destruct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___get" title="__get :: Getter for has-properties. The standard has properties
+are: hasFolder, hasUniqueid, hasDelete, hasCreate, hasTop">
+            <span class="description">Getter for has-properties. The standard has properties
+are: hasFolder, hasUniqueid, hasDelete, hasCreate, hasTop</span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_close" title="close :: Close resource for mail lib. If you need to control, when the resource
+is closed. Otherwise the destructor would call this.">
+            <span class="description">Close resource for mail lib. If you need to control, when the resource
+is closed. Otherwise the destructor would call this.</span><pre>close</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_count" title="count :: Countable::count()">
+            <span class="description">Countable::count()</span><pre>count</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_countMessages" title="countMessages :: Count messages messages in current box/folder">
+            <span class="description">Count messages messages in current box/folder</span><pre>countMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_current" title="current :: Iterator::current()">
+            <span class="description">Iterator::current()</span><pre>current</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getCapabilities" title="getCapabilities :: Get a full list of features supported by the specific mail lib and the server">
+            <span class="description">Get a full list of features supported by the specific mail lib and the server</span><pre>getCapabilities</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_getMessage" title="getMessage :: Get a message with headers and body">
+            <span class="description">Get a message with headers and body</span><pre>getMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getNumberByUniqueId" title="getNumberByUniqueId :: get a message number from a unique id">
+            <span class="description">get a message number from a unique id</span><pre>getNumberByUniqueId</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRawContent" title="getRawContent :: Get raw content of message or part">
+            <span class="description">Get raw content of message or part</span><pre>getRawContent</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRawHeader" title="getRawHeader :: Get raw header of message or part">
+            <span class="description">Get raw header of message or part</span><pre>getRawHeader</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getSize" title="getSize :: Get a list of messages with number and size">
+            <span class="description">Get a list of messages with number and size</span><pre>getSize</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getUniqueId" title="getUniqueId :: get unique id for one or all messages">
+            <span class="description">get unique id for one or all messages</span><pre>getUniqueId</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_key" title="key :: Iterator::key()">
+            <span class="description">Iterator::key()</span><pre>key</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_next" title="next :: Iterator::next()">
+            <span class="description">Iterator::next()</span><pre>next</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_noop" title="noop :: Keep the resource alive.">
+            <span class="description">Keep the resource alive.</span><pre>noop</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetExists" title="offsetExists :: ArrayAccess::offsetExists()">
+            <span class="description">ArrayAccess::offsetExists()</span><pre>offsetExists</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetGet" title="offsetGet :: ArrayAccess::offsetGet()">
+            <span class="description">ArrayAccess::offsetGet()</span><pre>offsetGet</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetSet" title="offsetSet :: ArrayAccess::offsetSet()">
+            <span class="description">ArrayAccess::offsetSet()</span><pre>offsetSet</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_offsetUnset" title="offsetUnset :: ArrayAccess::offsetUnset()">
+            <span class="description">ArrayAccess::offsetUnset()</span><pre>offsetUnset</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_removeMessage" title="removeMessage :: delete a message from current box/folder">
+            <span class="description">delete a message from current box/folder</span><pre>removeMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_rewind" title="rewind :: Iterator::rewind()">
+            <span class="description">Iterator::rewind()</span><pre>rewind</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_seek" title="seek :: SeekableIterator::seek()">
+            <span class="description">SeekableIterator::seek()</span><pre>seek</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_valid" title="valid :: Iterator::valid()">
+            <span class="description">Iterator::valid()</span><pre>valid</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                            <li class="method protected">
+                            <a href="#method_getFileData" title="getFileData :: Get one or all fields from file structure. Also checks if message is valid">
+                                <span class="description">Get one or all fields from file structure. Also checks if message is valid</span><pre>getFileData</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_getMaildirFiles" title="getMaildirFiles :: find all files in opened dir handle and add to maildir files">
+                                <span class="description">find all files in opened dir handle and add to maildir files</span><pre>getMaildirFiles</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                        <li class="method protected">
+                            <a href="#method_isMaildir" title="isMaildir :: check if a given dir is a valid maildir">
+                                <span class="description">check if a given dir is a valid maildir</span><pre>isMaildir</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                            <li class="method protected">
+                            <a href="#method_openMaildir" title="openMaildir :: open given dir as current maildir">
+                                <span class="description">open given dir as current maildir</span><pre>openMaildir</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Maildir</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Mail.Storage.AbstractStorage.html">\Zend\Mail\Storage\AbstractStorage</a>
+                                                        </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                                                                                                                                                                            </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Create instance with parameters</h2>
+                            <pre>__construct(array $params) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\ExceptionInterface</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$params</h4>
+                                                <code>array</code><p><p>mail reader specific parameters</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___destruct"></a>
+                        <div class="element clickable method public  method___destruct inherited" data-toggle="collapse" data-target=".method___destruct .collapse">
+                            <h2>Destructor calls close() and therefore closes the resource.</h2>
+                            <pre>__destruct() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>Getter for has-properties. The standard has properties
+are: hasFolder, hasUniqueid, hasDelete, hasCreate, hasTop</h2>
+                            <pre>__get(string $var) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The valid values for the has-properties are:</p>
+<ul>
+<li>true if a feature is supported</li>
+<li>false if a feature is not supported</li>
+<li>null is it's not yet known or it can't be know if a feature is supported</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$var</h4>
+                                                <code>string</code><p><p>property name</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>supported or not</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_close"></a>
+                        <div class="element clickable method public  method_close inherited" data-toggle="collapse" data-target=".method_close .collapse">
+                            <h2>Close resource for mail lib. If you need to control, when the resource
+is closed. Otherwise the destructor would call this.</h2>
+                            <pre>close() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_count"></a>
+                        <div class="element clickable method public  method_count inherited" data-toggle="collapse" data-target=".method_count .collapse">
+                            <h2>Countable::count()</h2>
+                            <pre>count() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_countMessages"></a>
+                        <div class="element clickable method public  method_countMessages inherited" data-toggle="collapse" data-target=".method_countMessages .collapse">
+                            <h2>Count messages messages in current box/folder</h2>
+                            <pre>countMessages() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\ExceptionInterface</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>number of messages</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_current"></a>
+                        <div class="element clickable method public  method_current inherited" data-toggle="collapse" data-target=".method_current .collapse">
+                            <h2>Iterator::current()</h2>
+                            <pre>current() : \Zend\Mail\Storage\Message</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Storage.Message.html">\Zend\Mail\Storage\Message</a></code><p><p>current message</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCapabilities"></a>
+                        <div class="element clickable method public  method_getCapabilities inherited" data-toggle="collapse" data-target=".method_getCapabilities .collapse">
+                            <h2>Get a full list of features supported by the specific mail lib and the server</h2>
+                            <pre>getCapabilities() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>list of features as array(feature_name =&gt; true|false[|null])</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFileData"></a>
+                        <div class="element clickable method protected  method_getFileData" data-toggle="collapse" data-target=".method_getFileData .collapse">
+                            <h2>Get one or all fields from file structure. Also checks if message is valid</h2>
+                            <pre>getFileData(integer $id, string|null $field = null) : string|array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p><p>message number</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$field</h4>
+                                                <code>string|null</code><p><p>wanted field</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string|array</code><p><p>wanted field or all fields as array</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMaildirFiles"></a>
+                        <div class="element clickable method protected  method_getMaildirFiles" data-toggle="collapse" data-target=".method_getMaildirFiles .collapse">
+                            <h2>find all files in opened dir handle and add to maildir files</h2>
+                            <pre>getMaildirFiles(resource $dh, string $dirname, array $defaultFlags = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dh</h4>
+                                                <code>resource</code><p><p>dir handle used for search</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dirname</h4>
+                                                <code>string</code><p><p>dirname of dir in $dh</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultFlags</h4>
+                                                <code>array</code><p><p>default flags for given dir</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessage"></a>
+                        <div class="element clickable method public  method_getMessage inherited" data-toggle="collapse" data-target=".method_getMessage .collapse">
+                            <h2>Get a message with headers and body</h2>
+                            <pre>getMessage( $id) : \Zend\Mail\Storage\Message</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code></code><p><p>int number of message</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Storage.Message.html">\Zend\Mail\Storage\Message</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNumberByUniqueId"></a>
+                        <div class="element clickable method public  method_getNumberByUniqueId inherited" data-toggle="collapse" data-target=".method_getNumberByUniqueId .collapse">
+                            <h2>get a message number from a unique id</h2>
+                            <pre>getNumberByUniqueId(string $id) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>I.e. if you have a webmailer that supports deleting messages you should use unique ids
+as parameter and use this method to translate it to message number right before calling removeMessage()</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\ExceptionInterface</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>string</code><p><p>unique id</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>message number</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRawContent"></a>
+                        <div class="element clickable method public  method_getRawContent inherited" data-toggle="collapse" data-target=".method_getRawContent .collapse">
+                            <h2>Get raw content of message or part</h2>
+                            <pre>getRawContent(integer $id, null|array|string $part = null) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p><p>number of message</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$part</h4>
+                                                <code>null|array|string</code><p><p>path to part or null for message content</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>raw content</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRawHeader"></a>
+                        <div class="element clickable method public  method_getRawHeader inherited" data-toggle="collapse" data-target=".method_getRawHeader .collapse">
+                            <h2>Get raw header of message or part</h2>
+                            <pre>getRawHeader(integer $id, null|array|string $part = null, integer $topLines) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p><p>number of message</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$part</h4>
+                                                <code>null|array|string</code><p><p>path to part or null for message header</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$topLines</h4>
+                                                <code>integer</code><p><p>include this many lines with header (after an empty line)</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>raw header</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSize"></a>
+                        <div class="element clickable method public  method_getSize inherited" data-toggle="collapse" data-target=".method_getSize .collapse">
+                            <h2>Get a list of messages with number and size</h2>
+                            <pre>getSize(integer $id) : integer|array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p><p>number of message</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer|array</code><p><p>size of given message of list with all messages as array(num =&gt; size)</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getUniqueId"></a>
+                        <div class="element clickable method public  method_getUniqueId inherited" data-toggle="collapse" data-target=".method_getUniqueId .collapse">
+                            <h2>get unique id for one or all messages</h2>
+                            <pre>getUniqueId(integer|null $id = null) : array|string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>if storage does not support unique ids it's the same as the message number</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\ExceptionInterface</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer|null</code><p><p>message number</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array|string</code><p><p>message number for given message or all messages as array</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isMaildir"></a>
+                        <div class="element clickable method protected  method_isMaildir" data-toggle="collapse" data-target=".method_isMaildir .collapse">
+                            <h2>check if a given dir is a valid maildir</h2>
+                            <pre>isMaildir(string $dirname) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dirname</h4>
+                                                <code>string</code><p><p>name of dir</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>dir is valid maildir</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_key"></a>
+                        <div class="element clickable method public  method_key inherited" data-toggle="collapse" data-target=".method_key .collapse">
+                            <h2>Iterator::key()</h2>
+                            <pre>key() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>id of current position</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_next"></a>
+                        <div class="element clickable method public  method_next inherited" data-toggle="collapse" data-target=".method_next .collapse">
+                            <h2>Iterator::next()</h2>
+                            <pre>next() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_noop"></a>
+                        <div class="element clickable method public  method_noop inherited" data-toggle="collapse" data-target=".method_noop .collapse">
+                            <h2>Keep the resource alive.</h2>
+                            <pre>noop() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetExists"></a>
+                        <div class="element clickable method public  method_offsetExists inherited" data-toggle="collapse" data-target=".method_offsetExists .collapse">
+                            <h2>ArrayAccess::offsetExists()</h2>
+                            <pre>offsetExists(integer $id) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetGet"></a>
+                        <div class="element clickable method public  method_offsetGet inherited" data-toggle="collapse" data-target=".method_offsetGet .collapse">
+                            <h2>ArrayAccess::offsetGet()</h2>
+                            <pre>offsetGet(integer $id) : \Zend\Mail\Storage\Message</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Mail.Storage.Message.html">\Zend\Mail\Storage\Message</a></code><p><p>message object</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetSet"></a>
+                        <div class="element clickable method public  method_offsetSet inherited" data-toggle="collapse" data-target=".method_offsetSet .collapse">
+                            <h2>ArrayAccess::offsetSet()</h2>
+                            <pre>offsetSet(mixed $id, mixed $value) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_offsetUnset"></a>
+                        <div class="element clickable method public  method_offsetUnset inherited" data-toggle="collapse" data-target=".method_offsetUnset .collapse">
+                            <h2>ArrayAccess::offsetUnset()</h2>
+                            <pre>offsetUnset(integer $id) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>success</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_openMaildir"></a>
+                        <div class="element clickable method protected  method_openMaildir" data-toggle="collapse" data-target=".method_openMaildir .collapse">
+                            <h2>open given dir as current maildir</h2>
+                            <pre>openMaildir(string $dirname) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dirname</h4>
+                                                <code>string</code><p><p>name of maildir</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_removeMessage"></a>
+                        <div class="element clickable method public  method_removeMessage inherited" data-toggle="collapse" data-target=".method_removeMessage .collapse">
+                            <h2>delete a message from current box/folder</h2>
+                            <pre>removeMessage( $id) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_rewind"></a>
+                        <div class="element clickable method public  method_rewind inherited" data-toggle="collapse" data-target=".method_rewind .collapse">
+                            <h2>Iterator::rewind()</h2>
+                            <pre>rewind() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Rewind always gets the new count from the storage. Thus if you use
+the interfaces and your scripts take long you should use reset()
+from time to time.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_seek"></a>
+                        <div class="element clickable method public  method_seek inherited" data-toggle="collapse" data-target=".method_seek .collapse">
+                            <h2>SeekableIterator::seek()</h2>
+                            <pre>seek(integer $pos) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Storage\Exception\OutOfBoundsException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$pos</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_valid"></a>
+                        <div class="element clickable method public  method_valid inherited" data-toggle="collapse" data-target=".method_valid .collapse">
+                            <h2>Iterator::valid()</h2>
+                            <pre>valid() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_messageClass"> </a>
+                            <div class="element clickable property  protected property_messageClass inherited" data-toggle="collapse" data-target=".property_messageClass .collapse">
+                                <h2>used message class, change it in an extended class to extend the returned message class</h2>
+                                <pre>messageClass : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_files"> </a>
+                            <div class="element clickable property  protected property_files" data-toggle="collapse" data-target=".property_files .collapse">
+                                <h2>data of found message files in maildir dir</h2>
+                                <pre>files : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_knownFlags"> </a>
+                            <div class="element clickable property  protected property_knownFlags" data-toggle="collapse" data-target=".property_knownFlags .collapse">
+                                <h2>known flag chars in filenames</h2>
+                                <pre>knownFlags : array</pre>
+                                <div class="labels">
+                                                                        <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>This list has to be in alphabetical order for setFlags()</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_has"> </a>
+                            <div class="element clickable property  protected property_has inherited" data-toggle="collapse" data-target=".property_has .collapse">
+                                <h2>class capabilities with default values</h2>
+                                <pre>has : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_iterationPos"> </a>
+                            <div class="element clickable property  protected property_iterationPos inherited" data-toggle="collapse" data-target=".property_iterationPos .collapse">
+                                <h2>current iteration position</h2>
+                                <pre>iterationPos : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_iterationMax"> </a>
+                            <div class="element clickable property  protected property_iterationMax inherited" data-toggle="collapse" data-target=".property_iterationMax .collapse">
+                                <h2>maximum iteration position (= message count)</h2>
+                                <pre>iterationMax : null|integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Mail\Storage\Maildir"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Mail.Storage.html">Storage</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Mail.Storage.Maildir.html">Maildir</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:17 +0000.<br/>
+    </footer>
+    </body>
+</html>

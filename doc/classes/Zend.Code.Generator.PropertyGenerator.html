@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Code\Generator\PropertyGenerator
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addFlag" title="addFlag :: ">
+            <span class="description"></span><pre>addFlag</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_fromArray" title="fromArray :: Generate from array">
+            <span class="description">Generate from array</span><pre>fromArray</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_fromReflection" title="fromReflection :: ">
+            <span class="description"></span><pre>fromReflection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_generate" title="generate :: ">
+            <span class="description"></span><pre>generate</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getDefaultValue" title="getDefaultValue :: ">
+            <span class="description"></span><pre>getDefaultValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getDocBlock" title="getDocBlock :: ">
+            <span class="description"></span><pre>getDocBlock</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getIndentation" title="getIndentation :: ">
+            <span class="description"></span><pre>getIndentation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getName" title="getName :: ">
+            <span class="description"></span><pre>getName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getSourceContent" title="getSourceContent :: ">
+            <span class="description"></span><pre>getSourceContent</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getVisibility" title="getVisibility :: ">
+            <span class="description"></span><pre>getVisibility</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isAbstract" title="isAbstract :: ">
+            <span class="description"></span><pre>isAbstract</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isConst" title="isConst :: ">
+            <span class="description"></span><pre>isConst</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isFinal" title="isFinal :: ">
+            <span class="description"></span><pre>isFinal</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isInterface" title="isInterface :: ">
+            <span class="description"></span><pre>isInterface</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isSourceDirty" title="isSourceDirty :: ">
+            <span class="description"></span><pre>isSourceDirty</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isStatic" title="isStatic :: ">
+            <span class="description"></span><pre>isStatic</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_removeFlag" title="removeFlag :: ">
+            <span class="description"></span><pre>removeFlag</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setAbstract" title="setAbstract :: ">
+            <span class="description"></span><pre>setAbstract</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setConst" title="setConst :: ">
+            <span class="description"></span><pre>setConst</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setDefaultValue" title="setDefaultValue :: ">
+            <span class="description"></span><pre>setDefaultValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setDocBlock" title="setDocBlock :: ">
+            <span class="description"></span><pre>setDocBlock</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setFinal" title="setFinal :: ">
+            <span class="description"></span><pre>setFinal</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setFlags" title="setFlags :: ">
+            <span class="description"></span><pre>setFlags</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setIndentation" title="setIndentation :: ">
+            <span class="description"></span><pre>setIndentation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setInterface" title="setInterface :: ">
+            <span class="description"></span><pre>setInterface</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setName" title="setName :: ">
+            <span class="description"></span><pre>setName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setOptions" title="setOptions :: ">
+            <span class="description"></span><pre>setOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setSourceContent" title="setSourceContent :: ">
+            <span class="description"></span><pre>setSourceContent</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setSourceDirty" title="setSourceDirty :: ">
+            <span class="description"></span><pre>setSourceDirty</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setStatic" title="setStatic :: ">
+            <span class="description"></span><pre>setStatic</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setVisibility" title="setVisibility :: ">
+            <span class="description"></span><pre>setVisibility</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_ABSTRACT" title="FLAG_ABSTRACT :: ">
+                        <span class="description"></span><pre>FLAG_ABSTRACT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_CONSTANT" title="FLAG_CONSTANT :: ">
+                        <span class="description"></span><pre>FLAG_CONSTANT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_FINAL" title="FLAG_FINAL :: ">
+                        <span class="description"></span><pre>FLAG_FINAL</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_INTERFACE" title="FLAG_INTERFACE :: ">
+                        <span class="description"></span><pre>FLAG_INTERFACE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_PRIVATE" title="FLAG_PRIVATE :: ">
+                        <span class="description"></span><pre>FLAG_PRIVATE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_PROTECTED" title="FLAG_PROTECTED :: ">
+                        <span class="description"></span><pre>FLAG_PROTECTED</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_PUBLIC" title="FLAG_PUBLIC :: ">
+                        <span class="description"></span><pre>FLAG_PUBLIC</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLAG_STATIC" title="FLAG_STATIC :: ">
+                        <span class="description"></span><pre>FLAG_STATIC</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_LINE_FEED" title="LINE_FEED :: Line feed to use in place of EOL">
+                        <span class="description">Line feed to use in place of EOL</span><pre>LINE_FEED</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_VISIBILITY_PRIVATE" title="VISIBILITY_PRIVATE :: ">
+                        <span class="description"></span><pre>VISIBILITY_PRIVATE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_VISIBILITY_PROTECTED" title="VISIBILITY_PROTECTED :: ">
+                        <span class="description"></span><pre>VISIBILITY_PROTECTED</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_VISIBILITY_PUBLIC" title="VISIBILITY_PUBLIC :: ">
+                        <span class="description"></span><pre>VISIBILITY_PUBLIC</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>PropertyGenerator</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a>
+                                                        </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(array $options = array()) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addFlag"></a>
+                        <div class="element clickable method public  method_addFlag inherited" data-toggle="collapse" data-target=".method_addFlag .collapse">
+                            <h2>addFlag</h2>
+                            <pre>addFlag(integer $flag) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fromArray"></a>
+                        <div class="element clickable method public  method_fromArray" data-toggle="collapse" data-target=".method_fromArray .collapse">
+                            <h2>Generate from array</h2>
+                            <pre>fromArray(array $array) : \Zend\Code\Generator\PropertyGenerator</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    configkey
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>name         string                                          [required] Class Name</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>const        bool</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>defaultvalue null|bool|string|int|float|array|ValueGenerator</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>flags        int</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>abstract     bool</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>final        bool</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>static       bool</p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>visibility   string</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Code\Generator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$array</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.PropertyGenerator.html">\Zend\Code\Generator\PropertyGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_fromReflection"></a>
+                        <div class="element clickable method public  method_fromReflection" data-toggle="collapse" data-target=".method_fromReflection .collapse">
+                            <h2>fromReflection</h2>
+                            <pre>fromReflection(\Zend\Code\Reflection\PropertyReflection $reflectionProperty) : \Zend\Code\Generator\PropertyGenerator</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$reflectionProperty</h4>
+                                                <code><a href="../classes/Zend.Code.Reflection.PropertyReflection.html">\Zend\Code\Reflection\PropertyReflection</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.PropertyGenerator.html">\Zend\Code\Generator\PropertyGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generate"></a>
+                        <div class="element clickable method public  method_generate" data-toggle="collapse" data-target=".method_generate .collapse">
+                            <h2>generate</h2>
+                            <pre>generate() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Code\Generator\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefaultValue"></a>
+                        <div class="element clickable method public  method_getDefaultValue" data-toggle="collapse" data-target=".method_getDefaultValue .collapse">
+                            <h2>getDefaultValue</h2>
+                            <pre>getDefaultValue() : \Zend\Code\Generator\PropertyValueGenerator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.PropertyValueGenerator.html">\Zend\Code\Generator\PropertyValueGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDocBlock"></a>
+                        <div class="element clickable method public  method_getDocBlock inherited" data-toggle="collapse" data-target=".method_getDocBlock .collapse">
+                            <h2>getDocBlock</h2>
+                            <pre>getDocBlock() : \Zend\Code\Generator\DocBlockGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.DocBlockGenerator.html">\Zend\Code\Generator\DocBlockGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getIndentation"></a>
+                        <div class="element clickable method public  method_getIndentation inherited" data-toggle="collapse" data-target=".method_getIndentation .collapse">
+                            <h2>getIndentation</h2>
+                            <pre>getIndentation() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getName"></a>
+                        <div class="element clickable method public  method_getName inherited" data-toggle="collapse" data-target=".method_getName .collapse">
+                            <h2>getName</h2>
+                            <pre>getName() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSourceContent"></a>
+                        <div class="element clickable method public  method_getSourceContent inherited" data-toggle="collapse" data-target=".method_getSourceContent .collapse">
+                            <h2>getSourceContent</h2>
+                            <pre>getSourceContent() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getVisibility"></a>
+                        <div class="element clickable method public  method_getVisibility inherited" data-toggle="collapse" data-target=".method_getVisibility .collapse">
+                            <h2>getVisibility</h2>
+                            <pre>getVisibility() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isAbstract"></a>
+                        <div class="element clickable method public  method_isAbstract inherited" data-toggle="collapse" data-target=".method_isAbstract .collapse">
+                            <h2>isAbstract</h2>
+                            <pre>isAbstract() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isConst"></a>
+                        <div class="element clickable method public  method_isConst" data-toggle="collapse" data-target=".method_isConst .collapse">
+                            <h2>isConst</h2>
+                            <pre>isConst() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isFinal"></a>
+                        <div class="element clickable method public  method_isFinal inherited" data-toggle="collapse" data-target=".method_isFinal .collapse">
+                            <h2>isFinal</h2>
+                            <pre>isFinal() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isInterface"></a>
+                        <div class="element clickable method public  method_isInterface inherited" data-toggle="collapse" data-target=".method_isInterface .collapse">
+                            <h2>isInterface</h2>
+                            <pre>isInterface() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isSourceDirty"></a>
+                        <div class="element clickable method public  method_isSourceDirty inherited" data-toggle="collapse" data-target=".method_isSourceDirty .collapse">
+                            <h2>isSourceDirty</h2>
+                            <pre>isSourceDirty() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isStatic"></a>
+                        <div class="element clickable method public  method_isStatic inherited" data-toggle="collapse" data-target=".method_isStatic .collapse">
+                            <h2>isStatic</h2>
+                            <pre>isStatic() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_removeFlag"></a>
+                        <div class="element clickable method public  method_removeFlag inherited" data-toggle="collapse" data-target=".method_removeFlag .collapse">
+                            <h2>removeFlag</h2>
+                            <pre>removeFlag(integer $flag) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setAbstract"></a>
+                        <div class="element clickable method public  method_setAbstract inherited" data-toggle="collapse" data-target=".method_setAbstract .collapse">
+                            <h2>setAbstract</h2>
+                            <pre>setAbstract(boolean $isAbstract) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isAbstract</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setConst"></a>
+                        <div class="element clickable method public  method_setConst" data-toggle="collapse" data-target=".method_setConst .collapse">
+                            <h2>setConst</h2>
+                            <pre>setConst(boolean $const) : \Zend\Code\Generator\PropertyGenerator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$const</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.PropertyGenerator.html">\Zend\Code\Generator\PropertyGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDefaultValue"></a>
+                        <div class="element clickable method public  method_setDefaultValue" data-toggle="collapse" data-target=".method_setDefaultValue .collapse">
+                            <h2>setDefaultValue</h2>
+                            <pre>setDefaultValue(\Zend\Code\Generator\PropertyValueGenerator|mixed $defaultValue, string $defaultValueType = \Zend\Code\Generator\PropertyValueGenerator::TYPE_AUTO, string $defaultValueOutputMode = \Zend\Code\Generator\PropertyValueGenerator::OUTPUT_MULTIPLE_LINE) : \Zend\Code\Generator\PropertyGenerator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultValue</h4>
+                                                <code><a href="../classes/Zend.Code.Generator.PropertyValueGenerator.html">\Zend\Code\Generator\PropertyValueGenerator</a>|mixed</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultValueType</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultValueOutputMode</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.PropertyGenerator.html">\Zend\Code\Generator\PropertyGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDocBlock"></a>
+                        <div class="element clickable method public  method_setDocBlock inherited" data-toggle="collapse" data-target=".method_setDocBlock .collapse">
+                            <h2>setDocBlock</h2>
+                            <pre>setDocBlock(\Zend\Code\Generator\DocBlockGenerator|string $docBlock) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Code\Generator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$docBlock</h4>
+                                                <code><a href="../classes/Zend.Code.Generator.DocBlockGenerator.html">\Zend\Code\Generator\DocBlockGenerator</a>|string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFinal"></a>
+                        <div class="element clickable method public  method_setFinal inherited" data-toggle="collapse" data-target=".method_setFinal .collapse">
+                            <h2>setFinal</h2>
+                            <pre>setFinal(boolean $isFinal) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isFinal</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFlags"></a>
+                        <div class="element clickable method public  method_setFlags inherited" data-toggle="collapse" data-target=".method_setFlags .collapse">
+                            <h2>setFlags</h2>
+                            <pre>setFlags(integer|array $flags) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flags</h4>
+                                                <code>integer|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setIndentation"></a>
+                        <div class="element clickable method public  method_setIndentation inherited" data-toggle="collapse" data-target=".method_setIndentation .collapse">
+                            <h2>setIndentation</h2>
+                            <pre>setIndentation(string $indentation) : \Zend\Code\Generator\AbstractGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$indentation</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractGenerator.html">\Zend\Code\Generator\AbstractGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setInterface"></a>
+                        <div class="element clickable method public  method_setInterface inherited" data-toggle="collapse" data-target=".method_setInterface .collapse">
+                            <h2>setInterface</h2>
+                            <pre>setInterface(boolean $isInterface) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isInterface</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setName"></a>
+                        <div class="element clickable method public  method_setName inherited" data-toggle="collapse" data-target=".method_setName .collapse">
+                            <h2>setName</h2>
+                            <pre>setName(string $name) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setOptions"></a>
+                        <div class="element clickable method public  method_setOptions inherited" data-toggle="collapse" data-target=".method_setOptions .collapse">
+                            <h2>setOptions</h2>
+                            <pre>setOptions(array|\Traversable $options) : \Zend\Code\Generator\AbstractGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Code\Generator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractGenerator.html">\Zend\Code\Generator\AbstractGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSourceContent"></a>
+                        <div class="element clickable method public  method_setSourceContent inherited" data-toggle="collapse" data-target=".method_setSourceContent .collapse">
+                            <h2>setSourceContent</h2>
+                            <pre>setSourceContent(string $sourceContent) : \Zend\Code\Generator\AbstractGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceContent</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractGenerator.html">\Zend\Code\Generator\AbstractGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSourceDirty"></a>
+                        <div class="element clickable method public  method_setSourceDirty inherited" data-toggle="collapse" data-target=".method_setSourceDirty .collapse">
+                            <h2>setSourceDirty</h2>
+                            <pre>setSourceDirty(boolean $isSourceDirty = true) : \Zend\Code\Generator\AbstractGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isSourceDirty</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractGenerator.html">\Zend\Code\Generator\AbstractGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setStatic"></a>
+                        <div class="element clickable method public  method_setStatic inherited" data-toggle="collapse" data-target=".method_setStatic .collapse">
+                            <h2>setStatic</h2>
+                            <pre>setStatic(boolean $isStatic) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isStatic</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setVisibility"></a>
+                        <div class="element clickable method public  method_setVisibility inherited" data-toggle="collapse" data-target=".method_setVisibility .collapse">
+                            <h2>setVisibility</h2>
+                            <pre>setVisibility(string $visibility) : \Zend\Code\Generator\AbstractMemberGenerator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$visibility</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Code.Generator.AbstractMemberGenerator.html">\Zend\Code\Generator\AbstractMemberGenerator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_FLAG_CONSTANT"> </a>
+                            <div class="element clickable constant  constant_FLAG_CONSTANT" data-toggle="collapse" data-target=".constant_FLAG_CONSTANT .collapse">
+                                <h2>FLAG_CONSTANT</h2>
+                                <pre>FLAG_CONSTANT</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_ABSTRACT"> </a>
+                            <div class="element clickable constant  constant_FLAG_ABSTRACT inherited" data-toggle="collapse" data-target=".constant_FLAG_ABSTRACT .collapse">
+                                <h2>FLAG_ABSTRACT</h2>
+                                <pre>FLAG_ABSTRACT</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_FINAL"> </a>
+                            <div class="element clickable constant  constant_FLAG_FINAL inherited" data-toggle="collapse" data-target=".constant_FLAG_FINAL .collapse">
+                                <h2>FLAG_FINAL</h2>
+                                <pre>FLAG_FINAL</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_STATIC"> </a>
+                            <div class="element clickable constant  constant_FLAG_STATIC inherited" data-toggle="collapse" data-target=".constant_FLAG_STATIC .collapse">
+                                <h2>FLAG_STATIC</h2>
+                                <pre>FLAG_STATIC</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_INTERFACE"> </a>
+                            <div class="element clickable constant  constant_FLAG_INTERFACE inherited" data-toggle="collapse" data-target=".constant_FLAG_INTERFACE .collapse">
+                                <h2>FLAG_INTERFACE</h2>
+                                <pre>FLAG_INTERFACE</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_PUBLIC"> </a>
+                            <div class="element clickable constant  constant_FLAG_PUBLIC inherited" data-toggle="collapse" data-target=".constant_FLAG_PUBLIC .collapse">
+                                <h2>FLAG_PUBLIC</h2>
+                                <pre>FLAG_PUBLIC</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_PROTECTED"> </a>
+                            <div class="element clickable constant  constant_FLAG_PROTECTED inherited" data-toggle="collapse" data-target=".constant_FLAG_PROTECTED .collapse">
+                                <h2>FLAG_PROTECTED</h2>
+                                <pre>FLAG_PROTECTED</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLAG_PRIVATE"> </a>
+                            <div class="element clickable constant  constant_FLAG_PRIVATE inherited" data-toggle="collapse" data-target=".constant_FLAG_PRIVATE .collapse">
+                                <h2>FLAG_PRIVATE</h2>
+                                <pre>FLAG_PRIVATE</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_VISIBILITY_PUBLIC"> </a>
+                            <div class="element clickable constant  constant_VISIBILITY_PUBLIC inherited" data-toggle="collapse" data-target=".constant_VISIBILITY_PUBLIC .collapse">
+                                <h2>VISIBILITY_PUBLIC</h2>
+                                <pre>VISIBILITY_PUBLIC</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_VISIBILITY_PROTECTED"> </a>
+                            <div class="element clickable constant  constant_VISIBILITY_PROTECTED inherited" data-toggle="collapse" data-target=".constant_VISIBILITY_PROTECTED .collapse">
+                                <h2>VISIBILITY_PROTECTED</h2>
+                                <pre>VISIBILITY_PROTECTED</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_VISIBILITY_PRIVATE"> </a>
+                            <div class="element clickable constant  constant_VISIBILITY_PRIVATE inherited" data-toggle="collapse" data-target=".constant_VISIBILITY_PRIVATE .collapse">
+                                <h2>VISIBILITY_PRIVATE</h2>
+                                <pre>VISIBILITY_PRIVATE</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_LINE_FEED"> </a>
+                            <div class="element clickable constant  constant_LINE_FEED inherited" data-toggle="collapse" data-target=".constant_LINE_FEED .collapse">
+                                <h2>Line feed to use in place of EOL</h2>
+                                <pre>LINE_FEED</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_isConst"> </a>
+                            <div class="element clickable property  protected property_isConst" data-toggle="collapse" data-target=".property_isConst .collapse">
+                                <h2>isConst</h2>
+                                <pre>isConst : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultValue"> </a>
+                            <div class="element clickable property  protected property_defaultValue" data-toggle="collapse" data-target=".property_defaultValue .collapse">
+                                <h2>defaultValue</h2>
+                                <pre>defaultValue : \Zend\Code\Generator\PropertyValueGenerator</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Code.Generator.PropertyValueGenerator.html">\Zend\Code\Generator\PropertyValueGenerator</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_docBlock"> </a>
+                            <div class="element clickable property  protected property_docBlock inherited" data-toggle="collapse" data-target=".property_docBlock .collapse">
+                                <h2>docBlock</h2>
+                                <pre>docBlock : \Zend\Code\Generator\DocBlockGenerator</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Code.Generator.DocBlockGenerator.html">\Zend\Code\Generator\DocBlockGenerator</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_name"> </a>
+                            <div class="element clickable property  protected property_name inherited" data-toggle="collapse" data-target=".property_name .collapse">
+                                <h2>name</h2>
+                                <pre>name : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_flags"> </a>
+                            <div class="element clickable property  protected property_flags inherited" data-toggle="collapse" data-target=".property_flags .collapse">
+                                <h2>flags</h2>
+                                <pre>flags : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_isSourceDirty"> </a>
+                            <div class="element clickable property  protected property_isSourceDirty inherited" data-toggle="collapse" data-target=".property_isSourceDirty .collapse">
+                                <h2>isSourceDirty</h2>
+                                <pre>isSourceDirty : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_indentation"> </a>
+                            <div class="element clickable property  protected property_indentation inherited" data-toggle="collapse" data-target=".property_indentation .collapse">
+                                <h2>4 spaces by default</h2>
+                                <pre>indentation : integer|string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>4 spaces by default</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer|string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_sourceContent"> </a>
+                            <div class="element clickable property  protected property_sourceContent inherited" data-toggle="collapse" data-target=".property_sourceContent .collapse">
+                                <h2>sourceContent</h2>
+                                <pre>sourceContent : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Code\Generator\PropertyGenerator"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Code.Generator.html">Generator</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Code.Generator.PropertyGenerator.html">PropertyGenerator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:00 +0000.<br/>
+    </footer>
+    </body>
+</html>

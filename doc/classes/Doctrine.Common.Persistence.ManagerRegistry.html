@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\Common\Persistence\ManagerRegistry
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_getAliasNamespace" title="getAliasNamespace :: Resolves a registered namespace alias to the full namespace.">
+            <span class="description">Resolves a registered namespace alias to the full namespace.</span><pre>getAliasNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getConnection" title="getConnection :: Gets the named connection.">
+            <span class="description">Gets the named connection.</span><pre>getConnection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getConnectionNames" title="getConnectionNames :: Gets all connection names.">
+            <span class="description">Gets all connection names.</span><pre>getConnectionNames</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getConnections" title="getConnections :: Gets an array of all registered connections.">
+            <span class="description">Gets an array of all registered connections.</span><pre>getConnections</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getDefaultConnectionName" title="getDefaultConnectionName :: Gets the default connection name.">
+            <span class="description">Gets the default connection name.</span><pre>getDefaultConnectionName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getDefaultManagerName" title="getDefaultManagerName :: Gets the default object manager name.">
+            <span class="description">Gets the default object manager name.</span><pre>getDefaultManagerName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getManager" title="getManager :: Gets a named object manager.">
+            <span class="description">Gets a named object manager.</span><pre>getManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getManagerForClass" title="getManagerForClass :: Gets the object manager associated with a given class.">
+            <span class="description">Gets the object manager associated with a given class.</span><pre>getManagerForClass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getManagerNames" title="getManagerNames :: Gets all connection names.">
+            <span class="description">Gets all connection names.</span><pre>getManagerNames</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getManagers" title="getManagers :: Gets an array of all registered object managers.">
+            <span class="description">Gets an array of all registered object managers.</span><pre>getManagers</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getRepository" title="getRepository :: Gets the ObjectRepository for an persistent object.">
+            <span class="description">Gets the ObjectRepository for an persistent object.</span><pre>getRepository</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_resetManager" title="resetManager :: Resets a named object manager.">
+            <span class="description">Resets a named object manager.</span><pre>resetManager</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ManagerRegistry</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.Common.Persistence.ConnectionRegistry.html">\Doctrine\Common\Persistence\ConnectionRegistry</a>
+                                                        </small>
+                <p class="short_description">Contract covering object managers for a Doctrine persistence layer ManagerRegistry class to implement.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        link
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>www.doctrine-project.org</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.2
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Fabien Potencier <a href="mailto:fabien@symfony.com">fabien@symfony.com</a></p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Benjamin Eberlei <a href="mailto:kontakt@beberlei.de">kontakt@beberlei.de</a></p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Lukas Kahwe Smith <a href="mailto:smith@pooteeweet.org">smith@pooteeweet.org</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                            </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_getAliasNamespace"></a>
+                        <div class="element clickable method public  method_getAliasNamespace" data-toggle="collapse" data-target=".method_getAliasNamespace .collapse">
+                            <h2>Resolves a registered namespace alias to the full namespace.</h2>
+                            <pre>getAliasNamespace(string $alias) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method looks for the alias in all registered object managers.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The alias.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>The full namespace.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConnection"></a>
+                        <div class="element clickable method public  method_getConnection inherited" data-toggle="collapse" data-target=".method_getConnection .collapse">
+                            <h2>Gets the named connection.</h2>
+                            <pre>getConnection(string $name = null) : object</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The connection name (null for the default one).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConnectionNames"></a>
+                        <div class="element clickable method public  method_getConnectionNames inherited" data-toggle="collapse" data-target=".method_getConnectionNames .collapse">
+                            <h2>Gets all connection names.</h2>
+                            <pre>getConnectionNames() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>An array of connection names.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConnections"></a>
+                        <div class="element clickable method public  method_getConnections inherited" data-toggle="collapse" data-target=".method_getConnections .collapse">
+                            <h2>Gets an array of all registered connections.</h2>
+                            <pre>getConnections() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>An array of Connection instances.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefaultConnectionName"></a>
+                        <div class="element clickable method public  method_getDefaultConnectionName inherited" data-toggle="collapse" data-target=".method_getDefaultConnectionName .collapse">
+                            <h2>Gets the default connection name.</h2>
+                            <pre>getDefaultConnectionName() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>The default connection name.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefaultManagerName"></a>
+                        <div class="element clickable method public  method_getDefaultManagerName" data-toggle="collapse" data-target=".method_getDefaultManagerName .collapse">
+                            <h2>Gets the default object manager name.</h2>
+                            <pre>getDefaultManagerName() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>The default object manager name.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getManager"></a>
+                        <div class="element clickable method public  method_getManager" data-toggle="collapse" data-target=".method_getManager .collapse">
+                            <h2>Gets a named object manager.</h2>
+                            <pre>getManager(string $name = null) : \Doctrine\Common\Persistence\ObjectManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The object manager name (null for the default one).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.ObjectManager.html">\Doctrine\Common\Persistence\ObjectManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getManagerForClass"></a>
+                        <div class="element clickable method public  method_getManagerForClass" data-toggle="collapse" data-target=".method_getManagerForClass .collapse">
+                            <h2>Gets the object manager associated with a given class.</h2>
+                            <pre>getManagerForClass(string $class) : \Doctrine\Common\Persistence\ObjectManager|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p><p>A persistent object class name.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.ObjectManager.html">\Doctrine\Common\Persistence\ObjectManager</a>|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getManagerNames"></a>
+                        <div class="element clickable method public  method_getManagerNames" data-toggle="collapse" data-target=".method_getManagerNames .collapse">
+                            <h2>Gets all connection names.</h2>
+                            <pre>getManagerNames() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>An array of connection names.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getManagers"></a>
+                        <div class="element clickable method public  method_getManagers" data-toggle="collapse" data-target=".method_getManagers .collapse">
+                            <h2>Gets an array of all registered object managers.</h2>
+                            <pre>getManagers() : array&lt;mixed,\Doctrine\Common\Persistence\ObjectManager&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Doctrine.Common.Persistence.ObjectManager.html">\Doctrine\Common\Persistence\ObjectManager</a>&gt;</code><p><p>An array of ObjectManager instances</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRepository"></a>
+                        <div class="element clickable method public  method_getRepository" data-toggle="collapse" data-target=".method_getRepository .collapse">
+                            <h2>Gets the ObjectRepository for an persistent object.</h2>
+                            <pre>getRepository(string $persistentObject, string $persistentManagerName = null) : \Doctrine\Common\Persistence\ObjectRepository</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$persistentObject</h4>
+                                                <code>string</code><p><p>The name of the persistent object.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$persistentManagerName</h4>
+                                                <code>string</code><p><p>The object manager name (null for the default one).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.ObjectRepository.html">\Doctrine\Common\Persistence\ObjectRepository</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_resetManager"></a>
+                        <div class="element clickable method public  method_resetManager" data-toggle="collapse" data-target=".method_resetManager .collapse">
+                            <h2>Resets a named object manager.</h2>
+                            <pre>resetManager(string|null $name = null) : \Doctrine\Common\Persistence\ObjectManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method is useful when an object manager has been closed
+because of a rollbacked transaction AND when you think that
+it makes sense to get a new one to replace the closed one.</p>
+<p>Be warned that you will get a brand new object manager as
+the existing one is not useable anymore. This means that any
+other object with a dependency on this object manager will
+hold an obsolete reference. You can inject the registry instead
+to avoid this problem.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string|null</code><p><p>The object manager name (null for the default one).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.ObjectManager.html">\Doctrine\Common\Persistence\ObjectManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                        </div>
+            </div>
+            <a id="\Doctrine\Common\Persistence\ManagerRegistry"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.Common.Persistence.html">Persistence</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.Common.Persistence.ManagerRegistry.html">ManagerRegistry</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:44 +0000.<br/>
+    </footer>
+    </body>
+</html>

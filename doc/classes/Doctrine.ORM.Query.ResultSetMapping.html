@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Query\ResultSetMapping
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_addEntityResult" title="addEntityResult :: Adds an entity result to this ResultSetMapping.">
+            <span class="description">Adds an entity result to this ResultSetMapping.</span><pre>addEntityResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addFieldResult" title="addFieldResult :: Adds a field to the result that belongs to an entity or joined entity.">
+            <span class="description">Adds a field to the result that belongs to an entity or joined entity.</span><pre>addFieldResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addIndexBy" title="addIndexBy :: Sets a field to use for indexing an entity result or joined entity result.">
+            <span class="description">Sets a field to use for indexing an entity result or joined entity result.</span><pre>addIndexBy</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addIndexByColumn" title="addIndexByColumn :: Sets a column to use for indexing an entity or joined entity result by the given alias name.">
+            <span class="description">Sets a column to use for indexing an entity or joined entity result by the given alias name.</span><pre>addIndexByColumn</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addIndexByScalar" title="addIndexByScalar :: Sets to index by a scalar result column name.">
+            <span class="description">Sets to index by a scalar result column name.</span><pre>addIndexByScalar</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addJoinedEntityResult" title="addJoinedEntityResult :: Adds a joined entity result.">
+            <span class="description">Adds a joined entity result.</span><pre>addJoinedEntityResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addMetadataParameterMapping" title="addMetadataParameterMapping :: Adds a metadata parameter mappings.">
+            <span class="description">Adds a metadata parameter mappings.</span><pre>addMetadataParameterMapping</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addMetaResult" title="addMetaResult :: Adds a meta column (foreign key or discriminator column) to the result set.">
+            <span class="description">Adds a meta column (foreign key or discriminator column) to the result set.</span><pre>addMetaResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addScalarResult" title="addScalarResult :: Adds a scalar result mapping.">
+            <span class="description">Adds a scalar result mapping.</span><pre>addScalarResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getAliasMap" title="getAliasMap :: ">
+            <span class="description"></span><pre>getAliasMap</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getClassName" title="getClassName :: Gets the name of the class of an entity result or joined entity result,
+identified by the given unique alias.">
+            <span class="description">Gets the name of the class of an entity result or joined entity result,
+identified by the given unique alias.</span><pre>getClassName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getDeclaringClass" title="getDeclaringClass :: Gets the name of the class that owns a field mapping for the specified column.">
+            <span class="description">Gets the name of the class that owns a field mapping for the specified column.</span><pre>getDeclaringClass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEntityAlias" title="getEntityAlias :: Gets the alias of the class that owns a field mapping for the specified column.">
+            <span class="description">Gets the alias of the class that owns a field mapping for the specified column.</span><pre>getEntityAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEntityResultCount" title="getEntityResultCount :: Gets the number of different entities that appear in the mapped result.">
+            <span class="description">Gets the number of different entities that appear in the mapped result.</span><pre>getEntityResultCount</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getFieldName" title="getFieldName :: Gets the field name for a column name.">
+            <span class="description">Gets the field name for a column name.</span><pre>getFieldName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getParentAlias" title="getParentAlias :: Gets the parent alias of the given alias.">
+            <span class="description">Gets the parent alias of the given alias.</span><pre>getParentAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getRelation" title="getRelation :: ">
+            <span class="description"></span><pre>getRelation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getScalarAlias" title="getScalarAlias :: Gets the field alias for a column that is mapped as a scalar value.">
+            <span class="description">Gets the field alias for a column that is mapped as a scalar value.</span><pre>getScalarAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasIndexBy" title="hasIndexBy :: Checks whether an entity result or joined entity result with a given alias has
+a field set for indexing.">
+            <span class="description">Checks whether an entity result or joined entity result with a given alias has
+a field set for indexing.</span><pre>hasIndexBy</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasParentAlias" title="hasParentAlias :: Checks whether the given alias has a parent alias.">
+            <span class="description">Checks whether the given alias has a parent alias.</span><pre>hasParentAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isFieldResult" title="isFieldResult :: Checks whether the column with the given name is mapped as a field result
+as part of an entity result or joined entity result.">
+            <span class="description">Checks whether the column with the given name is mapped as a field result
+as part of an entity result or joined entity result.</span><pre>isFieldResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isMixedResult" title="isMixedResult :: Checks whether this ResultSetMapping defines a mixed result.">
+            <span class="description">Checks whether this ResultSetMapping defines a mixed result.</span><pre>isMixedResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isRelation" title="isRelation :: ">
+            <span class="description"></span><pre>isRelation</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isScalarResult" title="isScalarResult :: Checks whether a column with a given name is mapped as a scalar result.">
+            <span class="description">Checks whether a column with a given name is mapped as a scalar result.</span><pre>isScalarResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setDiscriminatorColumn" title="setDiscriminatorColumn :: Sets a discriminator column for an entity result or joined entity result.">
+            <span class="description">Sets a discriminator column for an entity result or joined entity result.</span><pre>setDiscriminatorColumn</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ResultSetMapping</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">A ResultSetMapping describes how a result set of an SQL query maps to a Doctrine result.</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>IMPORTANT NOTE:
+The properties of this class are only public for fast internal READ access and to (drastically)
+reduce the size of serialized instances for more effective caching due to better (un-)serialization
+performance.</p>
+<p><b>Users should use the public methods.</b></p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Roman Borschel <a href="mailto:roman@code-factory.org">roman@code-factory.org</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.0
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        todo
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Think about whether the number of lookup maps can be reduced.</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_addEntityResult"></a>
+                        <div class="element clickable method public  method_addEntityResult" data-toggle="collapse" data-target=".method_addEntityResult .collapse">
+                            <h2>Adds an entity result to this ResultSetMapping.</h2>
+                            <pre>addEntityResult(string $class, string $alias, string|null $resultAlias = null) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: addRootEntity</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p><p>The class name of the entity.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The alias for the class. The alias must be unique among all entity
+results or joined entity results within this ResultSetMapping.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultAlias</h4>
+                                                <code>string|null</code><p><p>The result alias with which the entity result should be
+placed in the result structure.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addFieldResult"></a>
+                        <div class="element clickable method public  method_addFieldResult" data-toggle="collapse" data-target=".method_addFieldResult .collapse">
+                            <h2>Adds a field to the result that belongs to an entity or joined entity.</h2>
+                            <pre>addFieldResult(string $alias, string $columnName, string $fieldName, string|null $declaringClass = null) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: addField</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The alias of the root entity or joined entity to which the field belongs.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p><p>The name of the column in the SQL result set.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p><p>The name of the field on the declaring class.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$declaringClass</h4>
+                                                <code>string|null</code><p><p>The name of the class that declares/owns the specified field.
+When $alias refers to a superclass in a mapped hierarchy but
+the field $fieldName is defined on a subclass, specify that here.
+If not specified, the field is assumed to belong to the class
+designated by $alias.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addIndexBy"></a>
+                        <div class="element clickable method public  method_addIndexBy" data-toggle="collapse" data-target=".method_addIndexBy .collapse">
+                            <h2>Sets a field to use for indexing an entity result or joined entity result.</h2>
+                            <pre>addIndexBy(string $alias, string $fieldName) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The alias of an entity result or joined entity result.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p><p>The name of the field to use for indexing.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addIndexByColumn"></a>
+                        <div class="element clickable method public  method_addIndexByColumn" data-toggle="collapse" data-target=".method_addIndexByColumn .collapse">
+                            <h2>Sets a column to use for indexing an entity or joined entity result by the given alias name.</h2>
+                            <pre>addIndexByColumn(string $alias, string $resultColumnName) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultColumnName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addIndexByScalar"></a>
+                        <div class="element clickable method public  method_addIndexByScalar" data-toggle="collapse" data-target=".method_addIndexByScalar .collapse">
+                            <h2>Sets to index by a scalar result column name.</h2>
+                            <pre>addIndexByScalar(string $resultColumnName) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultColumnName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addJoinedEntityResult"></a>
+                        <div class="element clickable method public  method_addJoinedEntityResult" data-toggle="collapse" data-target=".method_addJoinedEntityResult .collapse">
+                            <h2>Adds a joined entity result.</h2>
+                            <pre>addJoinedEntityResult(string $class, string $alias, string $parentAlias, string $relation) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: addJoinedEntity</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p><p>The class name of the joined entity.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The unique alias to use for the joined entity.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parentAlias</h4>
+                                                <code>string</code><p><p>The alias of the entity result that is the parent of this joined result.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$relation</h4>
+                                                <code>string</code><p><p>The association field that connects the parent entity result
+with the joined entity result.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addMetadataParameterMapping"></a>
+                        <div class="element clickable method public  method_addMetadataParameterMapping" data-toggle="collapse" data-target=".method_addMetadataParameterMapping .collapse">
+                            <h2>Adds a metadata parameter mappings.</h2>
+                            <pre>addMetadataParameterMapping(mixed $parameter, string $attribute) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameter</h4>
+                                                <code>mixed</code><p><p>The parameter name in the SQL result set.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$attribute</h4>
+                                                <code>string</code><p><p>The metadata attribute.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addMetaResult"></a>
+                        <div class="element clickable method public  method_addMetaResult" data-toggle="collapse" data-target=".method_addMetaResult .collapse">
+                            <h2>Adds a meta column (foreign key or discriminator column) to the result set.</h2>
+                            <pre>addMetaResult(string $alias, string $columnName, string $fieldName, boolean $isIdentifierColumn = false, string $type = null) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The result alias with which the meta result should be placed in the result structure.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p><p>The name of the column in the SQL result set.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p><p>The name of the field on the declaring class.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isIdentifierColumn</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>The column type</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addScalarResult"></a>
+                        <div class="element clickable method public  method_addScalarResult" data-toggle="collapse" data-target=".method_addScalarResult .collapse">
+                            <h2>Adds a scalar result mapping.</h2>
+                            <pre>addScalarResult(string $columnName, string $alias, string $type = &#039;string&#039;) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: addScalar</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p><p>The name of the column in the SQL result set.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The result alias with which the scalar result should be placed in the result structure.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>The column type</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAliasMap"></a>
+                        <div class="element clickable method public  method_getAliasMap" data-toggle="collapse" data-target=".method_getAliasMap .collapse">
+                            <h2>getAliasMap</h2>
+                            <pre>getAliasMap() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClassName"></a>
+                        <div class="element clickable method public  method_getClassName" data-toggle="collapse" data-target=".method_getClassName .collapse">
+                            <h2>Gets the name of the class of an entity result or joined entity result,
+identified by the given unique alias.</h2>
+                            <pre>getClassName(string $alias) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDeclaringClass"></a>
+                        <div class="element clickable method public  method_getDeclaringClass" data-toggle="collapse" data-target=".method_getDeclaringClass .collapse">
+                            <h2>Gets the name of the class that owns a field mapping for the specified column.</h2>
+                            <pre>getDeclaringClass(string $columnName) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEntityAlias"></a>
+                        <div class="element clickable method public  method_getEntityAlias" data-toggle="collapse" data-target=".method_getEntityAlias .collapse">
+                            <h2>Gets the alias of the class that owns a field mapping for the specified column.</h2>
+                            <pre>getEntityAlias(string $columnName) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEntityResultCount"></a>
+                        <div class="element clickable method public  method_getEntityResultCount" data-toggle="collapse" data-target=".method_getEntityResultCount .collapse">
+                            <h2>Gets the number of different entities that appear in the mapped result.</h2>
+                            <pre>getEntityResultCount() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFieldName"></a>
+                        <div class="element clickable method public  method_getFieldName" data-toggle="collapse" data-target=".method_getFieldName .collapse">
+                            <h2>Gets the field name for a column name.</h2>
+                            <pre>getFieldName(string $columnName) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getParentAlias"></a>
+                        <div class="element clickable method public  method_getParentAlias" data-toggle="collapse" data-target=".method_getParentAlias .collapse">
+                            <h2>Gets the parent alias of the given alias.</h2>
+                            <pre>getParentAlias(string $alias) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRelation"></a>
+                        <div class="element clickable method public  method_getRelation" data-toggle="collapse" data-target=".method_getRelation .collapse">
+                            <h2>getRelation</h2>
+                            <pre>getRelation(string $alias) : \Doctrine\ORM\Query\AssociationMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>\Doctrine\ORM\Query\AssociationMapping</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getScalarAlias"></a>
+                        <div class="element clickable method public  method_getScalarAlias" data-toggle="collapse" data-target=".method_getScalarAlias .collapse">
+                            <h2>Gets the field alias for a column that is mapped as a scalar value.</h2>
+                            <pre>getScalarAlias(string $columnName) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p><p>The name of the column in the SQL result set.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasIndexBy"></a>
+                        <div class="element clickable method public  method_hasIndexBy" data-toggle="collapse" data-target=".method_hasIndexBy .collapse">
+                            <h2>Checks whether an entity result or joined entity result with a given alias has
+a field set for indexing.</h2>
+                            <pre>hasIndexBy(string $alias) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: isIndexed($alias)</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasParentAlias"></a>
+                        <div class="element clickable method public  method_hasParentAlias" data-toggle="collapse" data-target=".method_hasParentAlias .collapse">
+                            <h2>Checks whether the given alias has a parent alias.</h2>
+                            <pre>hasParentAlias(string $alias) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isFieldResult"></a>
+                        <div class="element clickable method public  method_isFieldResult" data-toggle="collapse" data-target=".method_isFieldResult .collapse">
+                            <h2>Checks whether the column with the given name is mapped as a field result
+as part of an entity result or joined entity result.</h2>
+                            <pre>isFieldResult(string $columnName) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: isField</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p><p>The name of the column in the SQL result set.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isMixedResult"></a>
+                        <div class="element clickable method public  method_isMixedResult" data-toggle="collapse" data-target=".method_isMixedResult .collapse">
+                            <h2>Checks whether this ResultSetMapping defines a mixed result.</h2>
+                            <pre>isMixedResult() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Mixed results can only occur in object and array (graph) hydration. In such a
+case a mixed result means that scalar values are mixed with objects/array in
+the result.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isRelation"></a>
+                        <div class="element clickable method public  method_isRelation" data-toggle="collapse" data-target=".method_isRelation .collapse">
+                            <h2>isRelation</h2>
+                            <pre>isRelation(string $alias) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isScalarResult"></a>
+                        <div class="element clickable method public  method_isScalarResult" data-toggle="collapse" data-target=".method_isScalarResult .collapse">
+                            <h2>Checks whether a column with a given name is mapped as a scalar result.</h2>
+                            <pre>isScalarResult(string $columnName) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: isScalar</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p><p>The name of the column in the SQL result set.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDiscriminatorColumn"></a>
+                        <div class="element clickable method public  method_setDiscriminatorColumn" data-toggle="collapse" data-target=".method_setDiscriminatorColumn .collapse">
+                            <h2>Sets a discriminator column for an entity result or joined entity result.</h2>
+                            <pre>setDiscriminatorColumn(string $alias, string $discrColumn) : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The discriminator column will be used to determine the concrete class name to
+instantiate.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Rename: addDiscriminatorColumn</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p><p>The alias of the entity result or joined entity result the discriminator
+column should be used for.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$discrColumn</h4>
+                                                <code>string</code><p><p>The name of the discriminator column in the SQL result set.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>This ResultSetMapping instance.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_isIdentifierColumn"> </a>
+                            <div class="element clickable property  public property_isIdentifierColumn" data-toggle="collapse" data-target=".property_isIdentifierColumn .collapse">
+                                <h2>This is necessary to hydrate derivate foreign keys correctly.</h2>
+                                <pre>isIdentifierColumn : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_newObjectMappings"> </a>
+                            <div class="element clickable property  public property_newObjectMappings" data-toggle="collapse" data-target=".property_newObjectMappings .collapse">
+                                <h2>Maps column names in the result set to field names for each new object expression.</h2>
+                                <pre>newObjectMappings : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_metadataParameterMapping"> </a>
+                            <div class="element clickable property  public property_metadataParameterMapping" data-toggle="collapse" data-target=".property_metadataParameterMapping .collapse">
+                                <h2>Maps metadata parameter names to the metadata attribute.</h2>
+                                <pre>metadataParameterMapping : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\ORM\Query\ResultSetMapping"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Query.html">Query</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">ResultSetMapping</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:32 +0000.<br/>
+    </footer>
+    </body>
+</html>

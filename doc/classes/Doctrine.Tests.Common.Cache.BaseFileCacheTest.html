@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\Tests\Common\Cache\BaseFileCacheTest
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                                                                                                                                                                                            <li class="method public">
+        <a href="#method_getPathLengthsToTest" title="getPathLengthsToTest :: ">
+            <span class="description"></span><pre>getPathLengthsToTest</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_provideCacheIds" title="provideCacheIds :: Returns cache ids with special characters that should still work.">
+            <span class="description">Returns cache ids with special characters that should still work.</span><pre>provideCacheIds</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_provideDataToCache" title="provideDataToCache :: ">
+            <span class="description"></span><pre>provideDataToCache</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_testCacheKeyIsCaseSensitive" title="testCacheKeyIsCaseSensitive :: ">
+            <span class="description"></span><pre>testCacheKeyIsCaseSensitive</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testCanHandleSpecialCacheIds" title="testCanHandleSpecialCacheIds :: ">
+            <span class="description"></span><pre>testCanHandleSpecialCacheIds</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testDeleteAll" title="testDeleteAll :: ">
+            <span class="description"></span><pre>testDeleteAll</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testDeleteAllAndNamespaceVersioningBetweenCaches" title="testDeleteAllAndNamespaceVersioningBetweenCaches :: ">
+            <span class="description"></span><pre>testDeleteAllAndNamespaceVersioningBetweenCaches</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testDeleteAllNamespace" title="testDeleteAllNamespace :: ">
+            <span class="description"></span><pre>testDeleteAllNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testDeleteIsSuccessfulWhenKeyDoesNotExist" title="testDeleteIsSuccessfulWhenKeyDoesNotExist :: ">
+            <span class="description"></span><pre>testDeleteIsSuccessfulWhenKeyDoesNotExist</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testFetchMultiple" title="testFetchMultiple :: ">
+            <span class="description"></span><pre>testFetchMultiple</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testFetchMultipleWithNoKeys" title="testFetchMultipleWithNoKeys :: ">
+            <span class="description"></span><pre>testFetchMultipleWithNoKeys</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testFlushAll" title="testFlushAll :: ">
+            <span class="description"></span><pre>testFlushAll</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testFlushAllAndNamespaceVersioningBetweenCaches" title="testFlushAllAndNamespaceVersioningBetweenCaches :: ">
+            <span class="description"></span><pre>testFlushAllAndNamespaceVersioningBetweenCaches</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_testFlushAllRemovesBalancingDirectories" title="testFlushAllRemovesBalancingDirectories :: ">
+            <span class="description"></span><pre>testFlushAllRemovesBalancingDirectories</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testGetStats" title="testGetStats :: ">
+            <span class="description"></span><pre>testGetStats</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testLifetime" title="testLifetime :: ">
+            <span class="description"></span><pre>testLifetime</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testLongLifetime" title="testLongLifetime :: ">
+            <span class="description"></span><pre>testLongLifetime</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testNamespace" title="testNamespace :: ">
+            <span class="description"></span><pre>testNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testNoCacheIdCollisions" title="testNoCacheIdCollisions :: ">
+            <span class="description"></span><pre>testNoCacheIdCollisions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testNoExpire" title="testNoExpire :: ">
+            <span class="description"></span><pre>testNoExpire</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testSaveMultiple" title="testSaveMultiple :: ">
+            <span class="description"></span><pre>testSaveMultiple</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testSaveReturnsTrueWithAndWithoutTTlSet" title="testSaveReturnsTrueWithAndWithoutTTlSet :: ">
+            <span class="description"></span><pre>testSaveReturnsTrueWithAndWithoutTTlSet</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testSetContainsFetchDelete" title="testSetContainsFetchDelete :: ">
+            <span class="description"></span><pre>testSetContainsFetchDelete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testUpdateExistingEntry" title="testUpdateExistingEntry :: ">
+            <span class="description"></span><pre>testUpdateExistingEntry</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_testValueThatIsFalseBooleanIsProperlyRetrieved" title="testValueThatIsFalseBooleanIsProperlyRetrieved :: ">
+            <span class="description"></span><pre>testValueThatIsFalseBooleanIsProperlyRetrieved</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_testWindowsPathLengthLimitIsCorrectlyHandled" title="testWindowsPathLengthLimitIsCorrectlyHandled :: ">
+            <span class="description"></span><pre>testWindowsPathLengthLimitIsCorrectlyHandled</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                            <li class="method protected inherited">
+                            <a href="#method__getCacheDriver" title="_getCacheDriver :: ">
+                                <span class="description"></span><pre>_getCacheDriver</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method protected inherited">
+                            <a href="#method_isSharedStorage" title="isSharedStorage :: Return whether multiple cache providers share the same storage.">
+                                <span class="description">Return whether multiple cache providers share the same storage.</span><pre>isSharedStorage</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method protected">
+                            <a href="#method_setUp" title="setUp :: ">
+                                <span class="description"></span><pre>setUp</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_tearDown" title="tearDown :: ">
+                                <span class="description"></span><pre>tearDown</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                <li class="method private">
+                            <a href="#method_getBasePathForWindowsPathLengthTests" title="getBasePathForWindowsPathLengthTests :: ">
+                                <span class="description"></span><pre>getBasePathForWindowsPathLengthTests</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_getKeyAndPathFittingLength" title="getKeyAndPathFittingLength :: ">
+                                <span class="description"></span><pre>getKeyAndPathFittingLength</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>BaseFileCacheTest</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.Tests.Common.Cache.CacheTest.html">\Doctrine\Tests\Common\Cache\CacheTest</a>
+                                                        </small>
+                <p class="short_description">Base testcase class for all Doctrine testcases.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                                                                                                                                                                            </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method__getCacheDriver"></a>
+                        <div class="element clickable method protected  method__getCacheDriver inherited" data-toggle="collapse" data-target=".method__getCacheDriver .collapse">
+                            <h2>_getCacheDriver</h2>
+                            <pre>_getCacheDriver() : \Doctrine\Common\Cache\CacheProvider</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Cache.CacheProvider.html">\Doctrine\Common\Cache\CacheProvider</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBasePathForWindowsPathLengthTests"></a>
+                        <div class="element clickable method private  method_getBasePathForWindowsPathLengthTests" data-toggle="collapse" data-target=".method_getBasePathForWindowsPathLengthTests .collapse">
+                            <h2>getBasePathForWindowsPathLengthTests</h2>
+                            <pre>getBasePathForWindowsPathLengthTests( $pathLength) </pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$pathLength</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getKeyAndPathFittingLength"></a>
+                        <div class="element clickable method private  method_getKeyAndPathFittingLength" data-toggle="collapse" data-target=".method_getKeyAndPathFittingLength .collapse">
+                            <h2>getKeyAndPathFittingLength</h2>
+                            <pre>getKeyAndPathFittingLength(integer $length, string $basePath) : array</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$length</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$basePath</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPathLengthsToTest"></a>
+                        <div class="element clickable method public  method_getPathLengthsToTest" data-toggle="collapse" data-target=".method_getPathLengthsToTest .collapse">
+                            <h2>getPathLengthsToTest</h2>
+                            <pre>getPathLengthsToTest() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isSharedStorage"></a>
+                        <div class="element clickable method protected  method_isSharedStorage inherited" data-toggle="collapse" data-target=".method_isSharedStorage .collapse">
+                            <h2>Return whether multiple cache providers share the same storage.</h2>
+                            <pre>isSharedStorage() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This is used for skipping certain tests for shared storage behavior.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_provideCacheIds"></a>
+                        <div class="element clickable method public  method_provideCacheIds inherited" data-toggle="collapse" data-target=".method_provideCacheIds .collapse">
+                            <h2>Returns cache ids with special characters that should still work.</h2>
+                            <pre>provideCacheIds() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>For example, the characters :\/&lt;&gt;&quot;*?| are not valid in Windows filenames. So they must be encoded properly.
+Each cache id should be considered different from the others.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_provideDataToCache"></a>
+                        <div class="element clickable method public  method_provideDataToCache inherited" data-toggle="collapse" data-target=".method_provideDataToCache .collapse">
+                            <h2>provideDataToCache</h2>
+                            <pre>provideDataToCache() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setUp"></a>
+                        <div class="element clickable method protected  method_setUp" data-toggle="collapse" data-target=".method_setUp .collapse">
+                            <h2>setUp</h2>
+                            <pre>setUp() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_tearDown"></a>
+                        <div class="element clickable method protected  method_tearDown" data-toggle="collapse" data-target=".method_tearDown .collapse">
+                            <h2>tearDown</h2>
+                            <pre>tearDown() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testCacheKeyIsCaseSensitive"></a>
+                        <div class="element clickable method public  method_testCacheKeyIsCaseSensitive inherited" data-toggle="collapse" data-target=".method_testCacheKeyIsCaseSensitive .collapse">
+                            <h2>testCacheKeyIsCaseSensitive</h2>
+                            <pre>testCacheKeyIsCaseSensitive() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testCanHandleSpecialCacheIds"></a>
+                        <div class="element clickable method public  method_testCanHandleSpecialCacheIds inherited" data-toggle="collapse" data-target=".method_testCanHandleSpecialCacheIds .collapse">
+                            <h2>testCanHandleSpecialCacheIds</h2>
+                            <pre>testCanHandleSpecialCacheIds( $id) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    dataProvider
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>provideCacheIds</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testDeleteAll"></a>
+                        <div class="element clickable method public  method_testDeleteAll inherited" data-toggle="collapse" data-target=".method_testDeleteAll .collapse">
+                            <h2>testDeleteAll</h2>
+                            <pre>testDeleteAll() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testDeleteAllAndNamespaceVersioningBetweenCaches"></a>
+                        <div class="element clickable method public  method_testDeleteAllAndNamespaceVersioningBetweenCaches inherited" data-toggle="collapse" data-target=".method_testDeleteAllAndNamespaceVersioningBetweenCaches .collapse">
+                            <h2>testDeleteAllAndNamespaceVersioningBetweenCaches</h2>
+                            <pre>testDeleteAllAndNamespaceVersioningBetweenCaches() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testDeleteAllNamespace"></a>
+                        <div class="element clickable method public  method_testDeleteAllNamespace inherited" data-toggle="collapse" data-target=".method_testDeleteAllNamespace .collapse">
+                            <h2>testDeleteAllNamespace</h2>
+                            <pre>testDeleteAllNamespace() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testDeleteIsSuccessfulWhenKeyDoesNotExist"></a>
+                        <div class="element clickable method public  method_testDeleteIsSuccessfulWhenKeyDoesNotExist inherited" data-toggle="collapse" data-target=".method_testDeleteIsSuccessfulWhenKeyDoesNotExist .collapse">
+                            <h2>testDeleteIsSuccessfulWhenKeyDoesNotExist</h2>
+                            <pre>testDeleteIsSuccessfulWhenKeyDoesNotExist() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testFetchMultiple"></a>
+                        <div class="element clickable method public  method_testFetchMultiple inherited" data-toggle="collapse" data-target=".method_testFetchMultiple .collapse">
+                            <h2>testFetchMultiple</h2>
+                            <pre>testFetchMultiple() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testFetchMultipleWithNoKeys"></a>
+                        <div class="element clickable method public  method_testFetchMultipleWithNoKeys inherited" data-toggle="collapse" data-target=".method_testFetchMultipleWithNoKeys .collapse">
+                            <h2>testFetchMultipleWithNoKeys</h2>
+                            <pre>testFetchMultipleWithNoKeys() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testFlushAll"></a>
+                        <div class="element clickable method public  method_testFlushAll inherited" data-toggle="collapse" data-target=".method_testFlushAll .collapse">
+                            <h2>testFlushAll</h2>
+                            <pre>testFlushAll() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testFlushAllAndNamespaceVersioningBetweenCaches"></a>
+                        <div class="element clickable method public  method_testFlushAllAndNamespaceVersioningBetweenCaches inherited" data-toggle="collapse" data-target=".method_testFlushAllAndNamespaceVersioningBetweenCaches .collapse">
+                            <h2>testFlushAllAndNamespaceVersioningBetweenCaches</h2>
+                            <pre>testFlushAllAndNamespaceVersioningBetweenCaches() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testFlushAllRemovesBalancingDirectories"></a>
+                        <div class="element clickable method public  method_testFlushAllRemovesBalancingDirectories" data-toggle="collapse" data-target=".method_testFlushAllRemovesBalancingDirectories .collapse">
+                            <h2>testFlushAllRemovesBalancingDirectories</h2>
+                            <pre>testFlushAllRemovesBalancingDirectories() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testGetStats"></a>
+                        <div class="element clickable method public  method_testGetStats inherited" data-toggle="collapse" data-target=".method_testGetStats .collapse">
+                            <h2>testGetStats</h2>
+                            <pre>testGetStats() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    group
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>DCOM-43</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testLifetime"></a>
+                        <div class="element clickable method public  method_testLifetime inherited" data-toggle="collapse" data-target=".method_testLifetime .collapse">
+                            <h2>testLifetime</h2>
+                            <pre>testLifetime() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testLongLifetime"></a>
+                        <div class="element clickable method public  method_testLongLifetime inherited" data-toggle="collapse" data-target=".method_testLongLifetime .collapse">
+                            <h2>testLongLifetime</h2>
+                            <pre>testLongLifetime() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testNamespace"></a>
+                        <div class="element clickable method public  method_testNamespace inherited" data-toggle="collapse" data-target=".method_testNamespace .collapse">
+                            <h2>testNamespace</h2>
+                            <pre>testNamespace() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testNoCacheIdCollisions"></a>
+                        <div class="element clickable method public  method_testNoCacheIdCollisions inherited" data-toggle="collapse" data-target=".method_testNoCacheIdCollisions .collapse">
+                            <h2>testNoCacheIdCollisions</h2>
+                            <pre>testNoCacheIdCollisions() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testNoExpire"></a>
+                        <div class="element clickable method public  method_testNoExpire inherited" data-toggle="collapse" data-target=".method_testNoExpire .collapse">
+                            <h2>testNoExpire</h2>
+                            <pre>testNoExpire() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testSaveMultiple"></a>
+                        <div class="element clickable method public  method_testSaveMultiple inherited" data-toggle="collapse" data-target=".method_testSaveMultiple .collapse">
+                            <h2>testSaveMultiple</h2>
+                            <pre>testSaveMultiple() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testSaveReturnsTrueWithAndWithoutTTlSet"></a>
+                        <div class="element clickable method public  method_testSaveReturnsTrueWithAndWithoutTTlSet inherited" data-toggle="collapse" data-target=".method_testSaveReturnsTrueWithAndWithoutTTlSet .collapse">
+                            <h2>testSaveReturnsTrueWithAndWithoutTTlSet</h2>
+                            <pre>testSaveReturnsTrueWithAndWithoutTTlSet() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testSetContainsFetchDelete"></a>
+                        <div class="element clickable method public  method_testSetContainsFetchDelete inherited" data-toggle="collapse" data-target=".method_testSetContainsFetchDelete .collapse">
+                            <h2>testSetContainsFetchDelete</h2>
+                            <pre>testSetContainsFetchDelete( $value) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    dataProvider
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>provideDataToCache</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testUpdateExistingEntry"></a>
+                        <div class="element clickable method public  method_testUpdateExistingEntry inherited" data-toggle="collapse" data-target=".method_testUpdateExistingEntry .collapse">
+                            <h2>testUpdateExistingEntry</h2>
+                            <pre>testUpdateExistingEntry( $value) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    dataProvider
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>provideDataToCache</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testValueThatIsFalseBooleanIsProperlyRetrieved"></a>
+                        <div class="element clickable method public  method_testValueThatIsFalseBooleanIsProperlyRetrieved inherited" data-toggle="collapse" data-target=".method_testValueThatIsFalseBooleanIsProperlyRetrieved .collapse">
+                            <h2>testValueThatIsFalseBooleanIsProperlyRetrieved</h2>
+                            <pre>testValueThatIsFalseBooleanIsProperlyRetrieved() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_testWindowsPathLengthLimitIsCorrectlyHandled"></a>
+                        <div class="element clickable method public  method_testWindowsPathLengthLimitIsCorrectlyHandled" data-toggle="collapse" data-target=".method_testWindowsPathLengthLimitIsCorrectlyHandled .collapse">
+                            <h2>testWindowsPathLengthLimitIsCorrectlyHandled</h2>
+                            <pre>testWindowsPathLengthLimitIsCorrectlyHandled(integer $length, boolean $pathShouldBeHashed) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    dataProvider
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>getPathLengthsToTest</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$length</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$pathShouldBeHashed</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_directory"> </a>
+                            <div class="element clickable property  protected property_directory" data-toggle="collapse" data-target=".property_directory .collapse">
+                                <h2>directory</h2>
+                                <pre>directory : </pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\Tests\Common\Cache\BaseFileCacheTest"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.Tests.Common.Cache.html">Cache</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.Tests.Common.Cache.BaseFileCacheTest.html">BaseFileCacheTest</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:22 +0000.<br/>
+    </footer>
+    </body>
+</html>

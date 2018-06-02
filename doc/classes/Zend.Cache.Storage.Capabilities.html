@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Cache\Storage\Capabilities
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: Constructor">
+            <span class="description">Constructor</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getAdapter" title="getAdapter :: Get the storage adapter">
+            <span class="description">Get the storage adapter</span><pre>getAdapter</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_getExpiredRead" title="getExpiredRead :: Get if expired items are readable">
+            <span class="description">Get if expired items are readable</span><pre>getExpiredRead</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getMaxKeyLength" title="getMaxKeyLength :: Get maximum key lenth">
+            <span class="description">Get maximum key lenth</span><pre>getMaxKeyLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getMaxTtl" title="getMaxTtl :: Get maximum supported time-to-live">
+            <span class="description">Get maximum supported time-to-live</span><pre>getMaxTtl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getMinTtl" title="getMinTtl :: Get minimum supported time-to-live">
+            <span class="description">Get minimum supported time-to-live</span><pre>getMinTtl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getNamespaceIsPrefix" title="getNamespaceIsPrefix :: Get if namespace support is implemented as prefix">
+            <span class="description">Get if namespace support is implemented as prefix</span><pre>getNamespaceIsPrefix</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getNamespaceSeparator" title="getNamespaceSeparator :: Get namespace separator if namespace is implemented as prefix">
+            <span class="description">Get namespace separator if namespace is implemented as prefix</span><pre>getNamespaceSeparator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getStaticTtl" title="getStaticTtl :: Is the time-to-live handled static (on write)
+or dynamic (on read)">
+            <span class="description">Is the time-to-live handled static (on write)
+or dynamic (on read)</span><pre>getStaticTtl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSupportedDatatypes" title="getSupportedDatatypes :: Get supported datatypes">
+            <span class="description">Get supported datatypes</span><pre>getSupportedDatatypes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getSupportedMetadata" title="getSupportedMetadata :: Get supported metadata">
+            <span class="description">Get supported metadata</span><pre>getSupportedMetadata</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getTtlPrecision" title="getTtlPrecision :: Get time-to-live precision">
+            <span class="description">Get time-to-live precision</span><pre>getTtlPrecision</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getUseRequestTime" title="getUseRequestTime :: Get use request time">
+            <span class="description">Get use request time</span><pre>getUseRequestTime</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_setExpiredRead" title="setExpiredRead :: Set if expired items are readable">
+            <span class="description">Set if expired items are readable</span><pre>setExpiredRead</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setMaxKeyLength" title="setMaxKeyLength :: Set maximum key length">
+            <span class="description">Set maximum key length</span><pre>setMaxKeyLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setMaxTtl" title="setMaxTtl :: Set maximum supported time-to-live">
+            <span class="description">Set maximum supported time-to-live</span><pre>setMaxTtl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setMinTtl" title="setMinTtl :: Set minimum supported time-to-live">
+            <span class="description">Set minimum supported time-to-live</span><pre>setMinTtl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setNamespaceIsPrefix" title="setNamespaceIsPrefix :: Set if namespace support is implemented as prefix">
+            <span class="description">Set if namespace support is implemented as prefix</span><pre>setNamespaceIsPrefix</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setNamespaceSeparator" title="setNamespaceSeparator :: Set the namespace separator if namespace is implemented as prefix">
+            <span class="description">Set the namespace separator if namespace is implemented as prefix</span><pre>setNamespaceSeparator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setStaticTtl" title="setStaticTtl :: Set if the time-to-live handled static (on write) or dynamic (on read)">
+            <span class="description">Set if the time-to-live handled static (on write) or dynamic (on read)</span><pre>setStaticTtl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setSupportedDatatypes" title="setSupportedDatatypes :: Set supported datatypes">
+            <span class="description">Set supported datatypes</span><pre>setSupportedDatatypes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setSupportedMetadata" title="setSupportedMetadata :: Set supported metadata">
+            <span class="description">Set supported metadata</span><pre>setSupportedMetadata</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTtlPrecision" title="setTtlPrecision :: Set time-to-live precision">
+            <span class="description">Set time-to-live precision</span><pre>setTtlPrecision</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setUseRequestTime" title="setUseRequestTime :: Set use request time">
+            <span class="description">Set use request time</span><pre>setUseRequestTime</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                    <li class="method protected">
+                            <a href="#method_getCapability" title="getCapability :: Get a capability">
+                                <span class="description">Get a capability</span><pre>getCapability</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li class="method protected">
+                            <a href="#method_setCapability" title="setCapability :: Change a capability">
+                                <span class="description">Change a capability</span><pre>setCapability</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Capabilities</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor</h2>
+                            <pre>__construct(\Zend\Cache\Storage\StorageInterface $storage, \stdClass $marker, array $capabilities = array(), null|\Zend\Cache\Storage\Capabilities $baseCapabilities = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$storage</h4>
+                                                <code><a href="../classes/Zend.Cache.Storage.StorageInterface.html">\Zend\Cache\Storage\StorageInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$capabilities</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$baseCapabilities</h4>
+                                                <code>null|<a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAdapter"></a>
+                        <div class="element clickable method public  method_getAdapter" data-toggle="collapse" data-target=".method_getAdapter .collapse">
+                            <h2>Get the storage adapter</h2>
+                            <pre>getAdapter() : \Zend\Cache\Storage\StorageInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.StorageInterface.html">\Zend\Cache\Storage\StorageInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCapability"></a>
+                        <div class="element clickable method protected  method_getCapability" data-toggle="collapse" data-target=".method_getCapability .collapse">
+                            <h2>Get a capability</h2>
+                            <pre>getCapability(string $property, mixed $default = null) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$property</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$default</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getExpiredRead"></a>
+                        <div class="element clickable method public deprecated method_getExpiredRead" data-toggle="collapse" data-target=".method_getExpiredRead .collapse">
+                            <h2>Get if expired items are readable</h2>
+                            <pre>getExpiredRead() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    deprecated
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>This capability has been deprecated and will be removed in the future.
+Please use getStaticTtl() instead</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMaxKeyLength"></a>
+                        <div class="element clickable method public  method_getMaxKeyLength" data-toggle="collapse" data-target=".method_getMaxKeyLength .collapse">
+                            <h2>Get maximum key lenth</h2>
+                            <pre>getMaxKeyLength() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>-1 means unknown, 0 means infinite</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMaxTtl"></a>
+                        <div class="element clickable method public  method_getMaxTtl" data-toggle="collapse" data-target=".method_getMaxTtl .collapse">
+                            <h2>Get maximum supported time-to-live</h2>
+                            <pre>getMaxTtl() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>0 means infinite</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMinTtl"></a>
+                        <div class="element clickable method public  method_getMinTtl" data-toggle="collapse" data-target=".method_getMinTtl .collapse">
+                            <h2>Get minimum supported time-to-live</h2>
+                            <pre>getMinTtl() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>0 means items never expire</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespaceIsPrefix"></a>
+                        <div class="element clickable method public  method_getNamespaceIsPrefix" data-toggle="collapse" data-target=".method_getNamespaceIsPrefix .collapse">
+                            <h2>Get if namespace support is implemented as prefix</h2>
+                            <pre>getNamespaceIsPrefix() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespaceSeparator"></a>
+                        <div class="element clickable method public  method_getNamespaceSeparator" data-toggle="collapse" data-target=".method_getNamespaceSeparator .collapse">
+                            <h2>Get namespace separator if namespace is implemented as prefix</h2>
+                            <pre>getNamespaceSeparator() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getStaticTtl"></a>
+                        <div class="element clickable method public  method_getStaticTtl" data-toggle="collapse" data-target=".method_getStaticTtl .collapse">
+                            <h2>Is the time-to-live handled static (on write)
+or dynamic (on read)</h2>
+                            <pre>getStaticTtl() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSupportedDatatypes"></a>
+                        <div class="element clickable method public  method_getSupportedDatatypes" data-toggle="collapse" data-target=".method_getSupportedDatatypes .collapse">
+                            <h2>Get supported datatypes</h2>
+                            <pre>getSupportedDatatypes() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSupportedMetadata"></a>
+                        <div class="element clickable method public  method_getSupportedMetadata" data-toggle="collapse" data-target=".method_getSupportedMetadata .collapse">
+                            <h2>Get supported metadata</h2>
+                            <pre>getSupportedMetadata() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTtlPrecision"></a>
+                        <div class="element clickable method public  method_getTtlPrecision" data-toggle="collapse" data-target=".method_getTtlPrecision .collapse">
+                            <h2>Get time-to-live precision</h2>
+                            <pre>getTtlPrecision() : float</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>float</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getUseRequestTime"></a>
+                        <div class="element clickable method public  method_getUseRequestTime" data-toggle="collapse" data-target=".method_getUseRequestTime .collapse">
+                            <h2>Get use request time</h2>
+                            <pre>getUseRequestTime() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCapability"></a>
+                        <div class="element clickable method protected  method_setCapability" data-toggle="collapse" data-target=".method_setCapability .collapse">
+                            <h2>Change a capability</h2>
+                            <pre>setCapability(\stdClass $marker, string $property, mixed $value) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$property</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setExpiredRead"></a>
+                        <div class="element clickable method public deprecated method_setExpiredRead" data-toggle="collapse" data-target=".method_setExpiredRead .collapse">
+                            <h2>Set if expired items are readable</h2>
+                            <pre>setExpiredRead(\stdClass $marker, boolean $flag) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    deprecated
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>This capability has been deprecated and will be removed in the future.
+Please use setStaticTtl() instead</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMaxKeyLength"></a>
+                        <div class="element clickable method public  method_setMaxKeyLength" data-toggle="collapse" data-target=".method_setMaxKeyLength .collapse">
+                            <h2>Set maximum key length</h2>
+                            <pre>setMaxKeyLength(\stdClass $marker, integer $maxKeyLength) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$maxKeyLength</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMaxTtl"></a>
+                        <div class="element clickable method public  method_setMaxTtl" data-toggle="collapse" data-target=".method_setMaxTtl .collapse">
+                            <h2>Set maximum supported time-to-live</h2>
+                            <pre>setMaxTtl(\stdClass $marker, integer $maxTtl) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$maxTtl</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMinTtl"></a>
+                        <div class="element clickable method public  method_setMinTtl" data-toggle="collapse" data-target=".method_setMinTtl .collapse">
+                            <h2>Set minimum supported time-to-live</h2>
+                            <pre>setMinTtl(\stdClass $marker, integer $minTtl) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$minTtl</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setNamespaceIsPrefix"></a>
+                        <div class="element clickable method public  method_setNamespaceIsPrefix" data-toggle="collapse" data-target=".method_setNamespaceIsPrefix .collapse">
+                            <h2>Set if namespace support is implemented as prefix</h2>
+                            <pre>setNamespaceIsPrefix(\stdClass $marker, boolean $flag) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setNamespaceSeparator"></a>
+                        <div class="element clickable method public  method_setNamespaceSeparator" data-toggle="collapse" data-target=".method_setNamespaceSeparator .collapse">
+                            <h2>Set the namespace separator if namespace is implemented as prefix</h2>
+                            <pre>setNamespaceSeparator(\stdClass $marker, string $separator) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$separator</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setStaticTtl"></a>
+                        <div class="element clickable method public  method_setStaticTtl" data-toggle="collapse" data-target=".method_setStaticTtl .collapse">
+                            <h2>Set if the time-to-live handled static (on write) or dynamic (on read)</h2>
+                            <pre>setStaticTtl(\stdClass $marker, boolean $flag) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSupportedDatatypes"></a>
+                        <div class="element clickable method public  method_setSupportedDatatypes" data-toggle="collapse" data-target=".method_setSupportedDatatypes .collapse">
+                            <h2>Set supported datatypes</h2>
+                            <pre>setSupportedDatatypes(\stdClass $marker, array $datatypes) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$datatypes</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSupportedMetadata"></a>
+                        <div class="element clickable method public  method_setSupportedMetadata" data-toggle="collapse" data-target=".method_setSupportedMetadata .collapse">
+                            <h2>Set supported metadata</h2>
+                            <pre>setSupportedMetadata(\stdClass $marker, array&lt;mixed,string&gt; $metadata) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$metadata</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTtlPrecision"></a>
+                        <div class="element clickable method public  method_setTtlPrecision" data-toggle="collapse" data-target=".method_setTtlPrecision .collapse">
+                            <h2>Set time-to-live precision</h2>
+                            <pre>setTtlPrecision(\stdClass $marker, float $ttlPrecision) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Cache\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$ttlPrecision</h4>
+                                                <code>float</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setUseRequestTime"></a>
+                        <div class="element clickable method public  method_setUseRequestTime" data-toggle="collapse" data-target=".method_setUseRequestTime .collapse">
+                            <h2>Set use request time</h2>
+                            <pre>setUseRequestTime(\stdClass $marker, boolean $flag) : \Zend\Cache\Storage\Capabilities</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$marker</h4>
+                                                <code>\stdClass</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code><p><p>Fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_storage"> </a>
+                            <div class="element clickable property  protected property_storage" data-toggle="collapse" data-target=".property_storage .collapse">
+                                <h2>The storage instance</h2>
+                                <pre>storage : \Zend\Cache\Storage\StorageInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Cache.Storage.StorageInterface.html">\Zend\Cache\Storage\StorageInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_marker"> </a>
+                            <div class="element clickable property  protected property_marker" data-toggle="collapse" data-target=".property_marker .collapse">
+                                <h2>A marker to set/change capabilities</h2>
+                                <pre>marker : \stdClass</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\stdClass</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_baseCapabilities"> </a>
+                            <div class="element clickable property  protected property_baseCapabilities" data-toggle="collapse" data-target=".property_baseCapabilities .collapse">
+                                <h2>Base capabilities</h2>
+                                <pre>baseCapabilities : null|\Zend\Cache\Storage\Capabilities</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|<a href="../classes/Zend.Cache.Storage.Capabilities.html">\Zend\Cache\Storage\Capabilities</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_maxKeyLength"> </a>
+                            <div class="element clickable property  protected property_maxKeyLength" data-toggle="collapse" data-target=".property_maxKeyLength .collapse">
+                                <h2>Max. key length</h2>
+                                <pre>maxKeyLength : null|integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_minTtl"> </a>
+                            <div class="element clickable property  protected property_minTtl" data-toggle="collapse" data-target=".property_minTtl .collapse">
+                                <h2>Min. TTL (0 means items never expire)</h2>
+                                <pre>minTtl : null|integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_maxTtl"> </a>
+                            <div class="element clickable property  protected property_maxTtl" data-toggle="collapse" data-target=".property_maxTtl .collapse">
+                                <h2>Max. TTL (0 means infinite)</h2>
+                                <pre>maxTtl : null|integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_namespaceIsPrefix"> </a>
+                            <div class="element clickable property  protected property_namespaceIsPrefix" data-toggle="collapse" data-target=".property_namespaceIsPrefix .collapse">
+                                <h2>Namespace is prefix</h2>
+                                <pre>namespaceIsPrefix : null|boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_namespaceSeparator"> </a>
+                            <div class="element clickable property  protected property_namespaceSeparator" data-toggle="collapse" data-target=".property_namespaceSeparator .collapse">
+                                <h2>Namespace separator</h2>
+                                <pre>namespaceSeparator : null|string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_staticTtl"> </a>
+                            <div class="element clickable property  protected property_staticTtl" data-toggle="collapse" data-target=".property_staticTtl .collapse">
+                                <h2>Static ttl</h2>
+                                <pre>staticTtl : null|boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_supportedDatatypes"> </a>
+                            <div class="element clickable property  protected property_supportedDatatypes" data-toggle="collapse" data-target=".property_supportedDatatypes .collapse">
+                                <h2>Supported datatypes</h2>
+                                <pre>supportedDatatypes : null|array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_supportedMetadata"> </a>
+                            <div class="element clickable property  protected property_supportedMetadata" data-toggle="collapse" data-target=".property_supportedMetadata .collapse">
+                                <h2>Supported metdata</h2>
+                                <pre>supportedMetadata : null|array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_ttlPrecision"> </a>
+                            <div class="element clickable property  protected property_ttlPrecision" data-toggle="collapse" data-target=".property_ttlPrecision .collapse">
+                                <h2>TTL precision</h2>
+                                <pre>ttlPrecision : null|integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_useRequestTime"> </a>
+                            <div class="element clickable property  protected property_useRequestTime" data-toggle="collapse" data-target=".property_useRequestTime .collapse">
+                                <h2>Use request time</h2>
+                                <pre>useRequestTime : null|boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>If it's NULL the capability isn't set and the getter
+returns the base capability or the default value.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Cache\Storage\Capabilities"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Cache.Storage.html">Storage</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Cache.Storage.Capabilities.html">Capabilities</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:18 +0000.<br/>
+    </footer>
+    </body>
+</html>

@@ -8,8 +8,8 @@ namespace SourceCode\Model;
 use SourceCode\Model\Entity\BypassCommand;
 
 /**
- * Classe que armazena o comando de desvio pertencente ao código fonte
  * Class CodeBypassCommand
+ * Classe que armazena o comando de desvio pertencente ao código fonte
  * @package SourceCode\Model
  */
 class CodeBypassCommand
@@ -173,6 +173,10 @@ class CodeBypassCommand
         $this->bypassCommandLanguage = $bypassCommandLanguage;
     }
 
+    /**
+     * Retorna os dados do CodeBypassCommand em formato de array
+     * @return array
+     */
     public function toArray() {
         return array(
             'name' => $this->name,

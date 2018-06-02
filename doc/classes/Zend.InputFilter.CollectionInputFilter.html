@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\InputFilter\CollectionInputFilter
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method_add" title="add :: Add an input to the input filter">
+            <span class="description">Add an input to the input filter</span><pre>add</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearRawValues" title="clearRawValues :: Clear collectionRawValues">
+            <span class="description">Clear collectionRawValues</span><pre>clearRawValues</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_clearValues" title="clearValues :: Clear collectionValues">
+            <span class="description">Clear collectionValues</span><pre>clearValues</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_count" title="count :: Countable: number of inputs in this input filter">
+            <span class="description">Countable: number of inputs in this input filter</span><pre>count</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_get" title="get :: Retrieve a named input">
+            <span class="description">Retrieve a named input</span><pre>get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCount" title="getCount :: Get the count of data to validate, use the count of data by default">
+            <span class="description">Get the count of data to validate, use the count of data by default</span><pre>getCount</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getFactory" title="getFactory :: Get factory to use when adding inputs and filters by spec">
+            <span class="description">Get factory to use when adding inputs and filters by spec</span><pre>getFactory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getInputFilter" title="getInputFilter :: Get the input filter used when looping the data">
+            <span class="description">Get the input filter used when looping the data</span><pre>getInputFilter</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getInputs" title="getInputs :: Get an array of all inputs">
+            <span class="description">Get an array of all inputs</span><pre>getInputs</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getInvalidInput" title="getInvalidInput :: Return a list of inputs that were invalid.">
+            <span class="description">Return a list of inputs that were invalid.</span><pre>getInvalidInput</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getIsRequired" title="getIsRequired :: Get if collection can be empty">
+            <span class="description">Get if collection can be empty</span><pre>getIsRequired</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMessages" title="getMessages :: Return a list of validation failure messages">
+            <span class="description">Return a list of validation failure messages</span><pre>getMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRawValue" title="getRawValue :: Retrieve a raw (unfiltered) value from a named input">
+            <span class="description">Retrieve a raw (unfiltered) value from a named input</span><pre>getRawValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRawValues" title="getRawValues :: Return a list of unfiltered values">
+            <span class="description">Return a list of unfiltered values</span><pre>getRawValues</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getUnknown" title="getUnknown :: Return the unknown input">
+            <span class="description">Return the unknown input</span><pre>getUnknown</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getValidInput" title="getValidInput :: Return a list of inputs that were valid.">
+            <span class="description">Return a list of inputs that were valid.</span><pre>getValidInput</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getValue" title="getValue :: Retrieve a value from a named input">
+            <span class="description">Retrieve a value from a named input</span><pre>getValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getValues" title="getValues :: Return a list of filtered values">
+            <span class="description">Return a list of filtered values</span><pre>getValues</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_has" title="has :: Test if an input or input filter by the given name is attached">
+            <span class="description">Test if an input or input filter by the given name is attached</span><pre>has</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_hasUnknown" title="hasUnknown :: Is the data set has unknown input ?">
+            <span class="description">Is the data set has unknown input ?</span><pre>hasUnknown</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_init" title="init :: This function is automatically called when creating element with factory. It
+allows to perform various operations (add elements.">
+            <span class="description">This function is automatically called when creating element with factory. It
+allows to perform various operations (add elements.</span><pre>init</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isValid" title="isValid :: Is the data set valid?">
+            <span class="description">Is the data set valid?</span><pre>isValid</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_merge" title="merge :: Merges the inputs from an InputFilter into the current one">
+            <span class="description">Merges the inputs from an InputFilter into the current one</span><pre>merge</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_remove" title="remove :: Remove a named input">
+            <span class="description">Remove a named input</span><pre>remove</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_replace" title="replace :: Replace a named input">
+            <span class="description">Replace a named input</span><pre>replace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCount" title="setCount :: Set the count of data to validate">
+            <span class="description">Set the count of data to validate</span><pre>setCount</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setData" title="setData :: Set data to use when validating and filtering">
+            <span class="description">Set data to use when validating and filtering</span><pre>setData</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setFactory" title="setFactory :: Set factory to use when adding inputs and filters by spec">
+            <span class="description">Set factory to use when adding inputs and filters by spec</span><pre>setFactory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setInputFilter" title="setInputFilter :: Set the input filter to use when looping the data">
+            <span class="description">Set the input filter to use when looping the data</span><pre>setInputFilter</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setIsRequired" title="setIsRequired :: Set if the collection can be empty">
+            <span class="description">Set if the collection can be empty</span><pre>setIsRequired</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setValidationGroup" title="setValidationGroup :: Provide a list of one or more elements indicating the complete set to validate">
+            <span class="description">Provide a list of one or more elements indicating the complete set to validate</span><pre>setValidationGroup</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
+                            <a href="#method_populate" title="populate :: Populate the values of all attached inputs">
+                                <span class="description">Populate the values of all attached inputs</span><pre>populate</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_validateInputs" title="validateInputs :: Validate a set of inputs against the current data">
+                                <span class="description">Validate a set of inputs against the current data</span><pre>validateInputs</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_validateValidationGroup" title="validateValidationGroup :: Ensure all names of a validation group exist as input in the filter">
+                                <span class="description">Ensure all names of a validation group exist as input in the filter</span><pre>validateValidationGroup</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>CollectionInputFilter</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.InputFilter.InputFilter.html">\Zend\InputFilter\InputFilter</a>
+                                                        </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_add"></a>
+                        <div class="element clickable method public  method_add inherited" data-toggle="collapse" data-target=".method_add .collapse">
+                            <h2>Add an input to the input filter</h2>
+                            <pre>add(\Zend\InputFilter\InputInterface|\Zend\InputFilter\InputFilterInterface $input, null|string $name = null) : \Zend\InputFilter\InputFilterInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$input</h4>
+                                                <code><a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>|<a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a></code><p><p>Implementations MUST handle at least one of the specified types, and
+raise an exception for any they cannot process.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>null|string</code><p><p>Name used to retrieve this input</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearRawValues"></a>
+                        <div class="element clickable method public  method_clearRawValues" data-toggle="collapse" data-target=".method_clearRawValues .collapse">
+                            <h2>Clear collectionRawValues</h2>
+                            <pre>clearRawValues() : array&lt;mixed,array&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,array&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clearValues"></a>
+                        <div class="element clickable method public  method_clearValues" data-toggle="collapse" data-target=".method_clearValues .collapse">
+                            <h2>Clear collectionValues</h2>
+                            <pre>clearValues() : array&lt;mixed,array&gt;</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,array&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_count"></a>
+                        <div class="element clickable method public  method_count inherited" data-toggle="collapse" data-target=".method_count .collapse">
+                            <h2>Countable: number of inputs in this input filter</h2>
+                            <pre>count() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Only details the number of direct children.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_get"></a>
+                        <div class="element clickable method public  method_get inherited" data-toggle="collapse" data-target=".method_get .collapse">
+                            <h2>Retrieve a named input</h2>
+                            <pre>get(string $name) : \Zend\InputFilter\InputInterface|\Zend\InputFilter\InputFilterInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>|<a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCount"></a>
+                        <div class="element clickable method public  method_getCount" data-toggle="collapse" data-target=".method_getCount .collapse">
+                            <h2>Get the count of data to validate, use the count of data by default</h2>
+                            <pre>getCount() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFactory"></a>
+                        <div class="element clickable method public  method_getFactory inherited" data-toggle="collapse" data-target=".method_getFactory .collapse">
+                            <h2>Get factory to use when adding inputs and filters by spec</h2>
+                            <pre>getFactory() : \Zend\InputFilter\Factory</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Lazy-loads a Factory instance if none attached.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.Factory.html">\Zend\InputFilter\Factory</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInputFilter"></a>
+                        <div class="element clickable method public  method_getInputFilter" data-toggle="collapse" data-target=".method_getInputFilter .collapse">
+                            <h2>Get the input filter used when looping the data</h2>
+                            <pre>getInputFilter() : \Zend\InputFilter\BaseInputFilter</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.BaseInputFilter.html">\Zend\InputFilter\BaseInputFilter</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInputs"></a>
+                        <div class="element clickable method public  method_getInputs inherited" data-toggle="collapse" data-target=".method_getInputs .collapse">
+                            <h2>Get an array of all inputs</h2>
+                            <pre>getInputs() : array&lt;mixed,\Zend\InputFilter\InputInterface&gt;|array&lt;mixed,\Zend\InputFilter\InputFilterInterface&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>&gt;|array&lt;mixed,<a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInvalidInput"></a>
+                        <div class="element clickable method public  method_getInvalidInput inherited" data-toggle="collapse" data-target=".method_getInvalidInput .collapse">
+                            <h2>Return a list of inputs that were invalid.</h2>
+                            <pre>getInvalidInput() : array&lt;mixed,\Zend\InputFilter\InputInterface&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Implementations should return an associative array of name/input pairs
+that failed validation.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getIsRequired"></a>
+                        <div class="element clickable method public  method_getIsRequired" data-toggle="collapse" data-target=".method_getIsRequired .collapse">
+                            <h2>Get if collection can be empty</h2>
+                            <pre>getIsRequired() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessages"></a>
+                        <div class="element clickable method public  method_getMessages inherited" data-toggle="collapse" data-target=".method_getMessages .collapse">
+                            <h2>Return a list of validation failure messages</h2>
+                            <pre>getMessages() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Should return an associative array of named input/message list pairs.
+Pairs should only be returned for inputs that failed validation.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRawValue"></a>
+                        <div class="element clickable method public  method_getRawValue inherited" data-toggle="collapse" data-target=".method_getRawValue .collapse">
+                            <h2>Retrieve a raw (unfiltered) value from a named input</h2>
+                            <pre>getRawValue(string $name) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRawValues"></a>
+                        <div class="element clickable method public  method_getRawValues inherited" data-toggle="collapse" data-target=".method_getRawValues .collapse">
+                            <h2>Return a list of unfiltered values</h2>
+                            <pre>getRawValues() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>List should be an associative array of named input/value pairs,
+with the values unfiltered.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getUnknown"></a>
+                        <div class="element clickable method public  method_getUnknown inherited" data-toggle="collapse" data-target=".method_getUnknown .collapse">
+                            <h2>Return the unknown input</h2>
+                            <pre>getUnknown() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getValidInput"></a>
+                        <div class="element clickable method public  method_getValidInput inherited" data-toggle="collapse" data-target=".method_getValidInput .collapse">
+                            <h2>Return a list of inputs that were valid.</h2>
+                            <pre>getValidInput() : array&lt;mixed,\Zend\InputFilter\InputInterface&gt;</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Implementations should return an associative array of name/input pairs
+that passed validation.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array&lt;mixed,<a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>&gt;</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getValue"></a>
+                        <div class="element clickable method public  method_getValue inherited" data-toggle="collapse" data-target=".method_getValue .collapse">
+                            <h2>Retrieve a value from a named input</h2>
+                            <pre>getValue(string $name) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getValues"></a>
+                        <div class="element clickable method public  method_getValues inherited" data-toggle="collapse" data-target=".method_getValues .collapse">
+                            <h2>Return a list of filtered values</h2>
+                            <pre>getValues() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>List should be an associative array, with the values filtered. If
+validation failed, this should raise an exception.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_has"></a>
+                        <div class="element clickable method public  method_has inherited" data-toggle="collapse" data-target=".method_has .collapse">
+                            <h2>Test if an input or input filter by the given name is attached</h2>
+                            <pre>has(string $name) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasUnknown"></a>
+                        <div class="element clickable method public  method_hasUnknown inherited" data-toggle="collapse" data-target=".method_hasUnknown .collapse">
+                            <h2>Is the data set has unknown input ?</h2>
+                            <pre>hasUnknown() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_init"></a>
+                        <div class="element clickable method public  method_init inherited" data-toggle="collapse" data-target=".method_init .collapse">
+                            <h2>This function is automatically called when creating element with factory. It
+allows to perform various operations (add elements.</h2>
+                            <pre>init() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>..)</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isValid"></a>
+                        <div class="element clickable method public  method_isValid inherited" data-toggle="collapse" data-target=".method_isValid .collapse">
+                            <h2>Is the data set valid?</h2>
+                            <pre>isValid(mixed|null $context = null) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$context</h4>
+                                                <code>mixed|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_merge"></a>
+                        <div class="element clickable method public  method_merge inherited" data-toggle="collapse" data-target=".method_merge .collapse">
+                            <h2>Merges the inputs from an InputFilter into the current one</h2>
+                            <pre>merge(\Zend\InputFilter\BaseInputFilter $inputFilter) : self</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inputFilter</h4>
+                                                <code><a href="../classes/Zend.InputFilter.BaseInputFilter.html">\Zend\InputFilter\BaseInputFilter</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_populate"></a>
+                        <div class="element clickable method protected  method_populate inherited" data-toggle="collapse" data-target=".method_populate .collapse">
+                            <h2>Populate the values of all attached inputs</h2>
+                            <pre>populate() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_remove"></a>
+                        <div class="element clickable method public  method_remove inherited" data-toggle="collapse" data-target=".method_remove .collapse">
+                            <h2>Remove a named input</h2>
+                            <pre>remove(string $name) : \Zend\InputFilter\InputFilterInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_replace"></a>
+                        <div class="element clickable method public  method_replace inherited" data-toggle="collapse" data-target=".method_replace .collapse">
+                            <h2>Replace a named input</h2>
+                            <pre>replace(mixed $input, string $name) : self</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd><p>If input to replace not exists.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$input</h4>
+                                                <code>mixed</code><p><p>Any of the input types allowed on add() method.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Name of the input to replace</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCount"></a>
+                        <div class="element clickable method public  method_setCount" data-toggle="collapse" data-target=".method_setCount .collapse">
+                            <h2>Set the count of data to validate</h2>
+                            <pre>setCount(integer $count) : \Zend\InputFilter\CollectionInputFilter</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$count</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.CollectionInputFilter.html">\Zend\InputFilter\CollectionInputFilter</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setData"></a>
+                        <div class="element clickable method public  method_setData inherited" data-toggle="collapse" data-target=".method_setData .collapse">
+                            <h2>Set data to use when validating and filtering</h2>
+                            <pre>setData(null|array|\Traversable $data) : \Zend\InputFilter\InputFilterInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>null|array|\Traversable</code><p><p>null is cast to an empty array.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFactory"></a>
+                        <div class="element clickable method public  method_setFactory inherited" data-toggle="collapse" data-target=".method_setFactory .collapse">
+                            <h2>Set factory to use when adding inputs and filters by spec</h2>
+                            <pre>setFactory(\Zend\InputFilter\Factory $factory) : \Zend\InputFilter\InputFilter</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$factory</h4>
+                                                <code><a href="../classes/Zend.InputFilter.Factory.html">\Zend\InputFilter\Factory</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.InputFilter.html">\Zend\InputFilter\InputFilter</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setInputFilter"></a>
+                        <div class="element clickable method public  method_setInputFilter" data-toggle="collapse" data-target=".method_setInputFilter .collapse">
+                            <h2>Set the input filter to use when looping the data</h2>
+                            <pre>setInputFilter(\Zend\InputFilter\BaseInputFilter|array|\Traversable $inputFilter) : \Zend\InputFilter\CollectionInputFilter</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inputFilter</h4>
+                                                <code><a href="../classes/Zend.InputFilter.BaseInputFilter.html">\Zend\InputFilter\BaseInputFilter</a>|array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.CollectionInputFilter.html">\Zend\InputFilter\CollectionInputFilter</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setIsRequired"></a>
+                        <div class="element clickable method public  method_setIsRequired" data-toggle="collapse" data-target=".method_setIsRequired .collapse">
+                            <h2>Set if the collection can be empty</h2>
+                            <pre>setIsRequired(boolean $isRequired) : \Zend\InputFilter\CollectionInputFilter</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isRequired</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.CollectionInputFilter.html">\Zend\InputFilter\CollectionInputFilter</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setValidationGroup"></a>
+                        <div class="element clickable method public  method_setValidationGroup inherited" data-toggle="collapse" data-target=".method_setValidationGroup .collapse">
+                            <h2>Provide a list of one or more elements indicating the complete set to validate</h2>
+                            <pre>setValidationGroup(mixed $name) : \Zend\InputFilter\InputFilterInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>When provided, calls to \isValid() will only validate the provided set.</p>
+<p>If the initial value is \VALIDATE_ALL, the current validation group, if
+any, should be cleared.</p>
+<p>Implementations should allow passing a single array value, or multiple arguments,
+each specifying a single input.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validateInputs"></a>
+                        <div class="element clickable method protected  method_validateInputs inherited" data-toggle="collapse" data-target=".method_validateInputs .collapse">
+                            <h2>Validate a set of inputs against the current data</h2>
+                            <pre>validateInputs(array&lt;mixed,string&gt; $inputs, array|\ArrayAccess $data = array(), mixed|null $context = null) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inputs</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p><p>Array of input names.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>array|\ArrayAccess</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$context</h4>
+                                                <code>mixed|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validateValidationGroup"></a>
+                        <div class="element clickable method protected  method_validateValidationGroup inherited" data-toggle="collapse" data-target=".method_validateValidationGroup .collapse">
+                            <h2>Ensure all names of a validation group exist as input in the filter</h2>
+                            <pre>validateValidationGroup(array&lt;mixed,string&gt; $inputs) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\InputFilter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inputs</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p><p>Input names</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_isRequired"> </a>
+                            <div class="element clickable property  protected property_isRequired" data-toggle="collapse" data-target=".property_isRequired .collapse">
+                                <h2>isRequired</h2>
+                                <pre>isRequired : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_count"> </a>
+                            <div class="element clickable property  protected property_count" data-toggle="collapse" data-target=".property_count .collapse">
+                                <h2>count</h2>
+                                <pre>count : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_collectionValues"> </a>
+                            <div class="element clickable property  protected property_collectionValues" data-toggle="collapse" data-target=".property_collectionValues .collapse">
+                                <h2>collectionValues</h2>
+                                <pre>collectionValues : array&lt;mixed,array&gt;</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,array&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_collectionRawValues"> </a>
+                            <div class="element clickable property  protected property_collectionRawValues" data-toggle="collapse" data-target=".property_collectionRawValues .collapse">
+                                <h2>collectionRawValues</h2>
+                                <pre>collectionRawValues : array&lt;mixed,array&gt;</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,array&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_collectionMessages"> </a>
+                            <div class="element clickable property  protected property_collectionMessages" data-toggle="collapse" data-target=".property_collectionMessages .collapse">
+                                <h2>collectionMessages</h2>
+                                <pre>collectionMessages : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_inputFilter"> </a>
+                            <div class="element clickable property  protected property_inputFilter" data-toggle="collapse" data-target=".property_inputFilter .collapse">
+                                <h2>inputFilter</h2>
+                                <pre>inputFilter : \Zend\InputFilter\BaseInputFilter</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.InputFilter.BaseInputFilter.html">\Zend\InputFilter\BaseInputFilter</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_factory"> </a>
+                            <div class="element clickable property  protected property_factory inherited" data-toggle="collapse" data-target=".property_factory .collapse">
+                                <h2>factory</h2>
+                                <pre>factory : \Zend\InputFilter\Factory</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.InputFilter.Factory.html">\Zend\InputFilter\Factory</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_data"> </a>
+                            <div class="element clickable property  protected property_data inherited" data-toggle="collapse" data-target=".property_data .collapse">
+                                <h2>data</h2>
+                                <pre>data : null|array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_inputs"> </a>
+                            <div class="element clickable property  protected property_inputs inherited" data-toggle="collapse" data-target=".property_inputs .collapse">
+                                <h2>inputs</h2>
+                                <pre>inputs : array&lt;mixed,\Zend\InputFilter\InputInterface&gt;|array&lt;mixed,\Zend\InputFilter\InputFilterInterface&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,<a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>&gt;|array&lt;mixed,<a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a>&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_invalidInputs"> </a>
+                            <div class="element clickable property  protected property_invalidInputs inherited" data-toggle="collapse" data-target=".property_invalidInputs .collapse">
+                                <h2>invalidInputs</h2>
+                                <pre>invalidInputs : array&lt;mixed,\Zend\InputFilter\InputInterface&gt;|array&lt;mixed,\Zend\InputFilter\InputFilterInterface&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,<a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>&gt;|array&lt;mixed,<a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a>&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_validationGroup"> </a>
+                            <div class="element clickable property  protected property_validationGroup inherited" data-toggle="collapse" data-target=".property_validationGroup .collapse">
+                                <h2>Input names</h2>
+                                <pre>validationGroup : null|array&lt;mixed,string&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>Input names</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|array&lt;mixed,string&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_validInputs"> </a>
+                            <div class="element clickable property  protected property_validInputs inherited" data-toggle="collapse" data-target=".property_validInputs .collapse">
+                                <h2>validInputs</h2>
+                                <pre>validInputs : array&lt;mixed,\Zend\InputFilter\InputInterface&gt;|array&lt;mixed,\Zend\InputFilter\InputFilterInterface&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,<a href="../classes/Zend.InputFilter.InputInterface.html">\Zend\InputFilter\InputInterface</a>&gt;|array&lt;mixed,<a href="../classes/Zend.InputFilter.InputFilterInterface.html">\Zend\InputFilter\InputFilterInterface</a>&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\InputFilter\CollectionInputFilter"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.InputFilter.html">InputFilter</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.InputFilter.CollectionInputFilter.html">CollectionInputFilter</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:00:57 +0000.<br/>
+    </footer>
+    </body>
+</html>

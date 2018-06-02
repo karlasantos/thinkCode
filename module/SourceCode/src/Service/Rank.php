@@ -15,10 +15,23 @@ use SourceCode\Model\Validation\RankValidator;
 use SourceCode\Model\Entity\Rank as RankEntity;
 use SourceCode\Model\Entity\SourceCode as SourceCodeEntity;
 
+/**
+ * Class Rank
+ * Serviço responsável pela atualização dos dados do Rank de códigos fonte da aplicação
+ * @package SourceCode\Service
+ */
 class Rank
 {
+    /**
+     * Gerenciador de entidades
+     * @var EntityManager
+     */
     protected $entityManager;
 
+    /**
+     * Rank constructor.
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -27,8 +40,8 @@ class Rank
     /**
      * Atualiza o Ranking do sistema de acordo com a nova submissão
      *
-     * @param $data
-     * @param SourceCodeEntity $sourceCode
+     * @param array $data dados a serem inseridos no rank
+     * @param SourceCodeEntity $sourceCode código fonte submetido
      * @return int|string
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException

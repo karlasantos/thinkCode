@@ -239,7 +239,7 @@ $(document).ready(function() {
         return [];
     }
 
-    // Hide API Documentation menu if it's empty
+    // Hide ThinkCode Documentation menu if it's empty
     $('.nav .dropdown a[href=#api]').next().filter(function(el) {
         if ($(el).children().length == 0) {
             return true;

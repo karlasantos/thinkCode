@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Db\TableGateway\Feature\EventFeature
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___call" title="__call :: ">
+            <span class="description"></span><pre>__call</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___clone" title="__clone :: __clone">
+            <span class="description">__clone</span><pre>__clone</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___get" title="__get :: __get">
+            <span class="description">__get</span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___set" title="__set :: ">
+            <span class="description"></span><pre>__set</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_delete" title="delete :: Delete">
+            <span class="description">Delete</span><pre>delete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_deleteWith" title="deleteWith :: ">
+            <span class="description"></span><pre>deleteWith</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_getAdapter" title="getAdapter :: Get adapter">
+            <span class="description">Get adapter</span><pre>getAdapter</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getColumns" title="getColumns :: ">
+            <span class="description"></span><pre>getColumns</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEvent" title="getEvent :: Retrieve composed event instance">
+            <span class="description">Retrieve composed event instance</span><pre>getEvent</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEventManager" title="getEventManager :: Retrieve composed event manager instance">
+            <span class="description">Retrieve composed event manager instance</span><pre>getEventManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getFeatureSet" title="getFeatureSet :: ">
+            <span class="description"></span><pre>getFeatureSet</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getLastInsertValue" title="getLastInsertValue :: Get last insert value">
+            <span class="description">Get last insert value</span><pre>getLastInsertValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMagicMethodSpecifications" title="getMagicMethodSpecifications :: ">
+            <span class="description"></span><pre>getMagicMethodSpecifications</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getName" title="getName :: ">
+            <span class="description"></span><pre>getName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getResultSetPrototype" title="getResultSetPrototype :: Get select result prototype">
+            <span class="description">Get select result prototype</span><pre>getResultSetPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getSql" title="getSql :: ">
+            <span class="description"></span><pre>getSql</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getTable" title="getTable :: Get table name">
+            <span class="description">Get table name</span><pre>getTable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_initialize" title="initialize :: Initialize">
+            <span class="description">Initialize</span><pre>initialize</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_insert" title="insert :: Insert">
+            <span class="description">Insert</span><pre>insert</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_insertWith" title="insertWith :: ">
+            <span class="description"></span><pre>insertWith</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isInitialized" title="isInitialized :: ">
+            <span class="description"></span><pre>isInitialized</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_postDelete" title="postDelete :: Trigger the &quot;postDelete&quot; event">
+            <span class="description">Trigger the &quot;postDelete&quot; event</span><pre>postDelete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_postInitialize" title="postInitialize :: Trigger the &quot;postInitialize&quot; event">
+            <span class="description">Trigger the &quot;postInitialize&quot; event</span><pre>postInitialize</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_postInsert" title="postInsert :: Trigger the &quot;postInsert&quot; event">
+            <span class="description">Trigger the &quot;postInsert&quot; event</span><pre>postInsert</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_postSelect" title="postSelect :: Trigger the &quot;postSelect&quot; event">
+            <span class="description">Trigger the &quot;postSelect&quot; event</span><pre>postSelect</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_postUpdate" title="postUpdate :: Trigger the &quot;postUpdate&quot; event">
+            <span class="description">Trigger the &quot;postUpdate&quot; event</span><pre>postUpdate</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_preDelete" title="preDelete :: Trigger the &quot;preDelete&quot; event">
+            <span class="description">Trigger the &quot;preDelete&quot; event</span><pre>preDelete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_preInitialize" title="preInitialize :: Initialize feature and trigger &quot;preInitialize&quot; event">
+            <span class="description">Initialize feature and trigger &quot;preInitialize&quot; event</span><pre>preInitialize</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_preInsert" title="preInsert :: Trigger the &quot;preInsert&quot; event">
+            <span class="description">Trigger the &quot;preInsert&quot; event</span><pre>preInsert</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_preSelect" title="preSelect :: Trigger the &quot;preSelect&quot; event">
+            <span class="description">Trigger the &quot;preSelect&quot; event</span><pre>preSelect</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_preUpdate" title="preUpdate :: Trigger the &quot;preUpdate&quot; event">
+            <span class="description">Trigger the &quot;preUpdate&quot; event</span><pre>preUpdate</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_select" title="select :: Select">
+            <span class="description">Select</span><pre>select</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_selectWith" title="selectWith :: ">
+            <span class="description"></span><pre>selectWith</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setTableGateway" title="setTableGateway :: ">
+            <span class="description"></span><pre>setTableGateway</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_update" title="update :: Update">
+            <span class="description">Update</span><pre>update</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_updateWith" title="updateWith :: ">
+            <span class="description"></span><pre>updateWith</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
+                            <a href="#method_executeDelete" title="executeDelete :: ">
+                                <span class="description"></span><pre>executeDelete</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_executeInsert" title="executeInsert :: ">
+                                <span class="description"></span><pre>executeInsert</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_executeSelect" title="executeSelect :: ">
+                                <span class="description"></span><pre>executeSelect</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_executeUpdate" title="executeUpdate :: ">
+                                <span class="description"></span><pre>executeUpdate</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>EventFeature</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Db.TableGateway.Feature.AbstractFeature.html">\Zend\Db\TableGateway\Feature\AbstractFeature</a>
+                                                                Implements <a href="../classes/Zend.Db.TableGateway.Feature.EventFeatureEventsInterface.html">\Zend\Db\TableGateway\Feature\EventFeatureEventsInterface</a>, <a href="../classes/Zend.EventManager.EventsCapableInterface.html">\Zend\EventManager\EventsCapableInterface</a>
+                                    </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___call"></a>
+                        <div class="element clickable method public  method___call inherited" data-toggle="collapse" data-target=".method___call .collapse">
+                            <h2>__call</h2>
+                            <pre>__call( $method,  $arguments) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$method</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$arguments</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___clone"></a>
+                        <div class="element clickable method public  method___clone inherited" data-toggle="collapse" data-target=".method___clone .collapse">
+                            <h2>__clone</h2>
+                            <pre>__clone() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(\Zend\EventManager\EventManagerInterface $eventManager = null, \Zend\Db\TableGateway\Feature\EventFeature\TableGatewayEvent $tableGatewayEvent = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$eventManager</h4>
+                                                <code><a href="../classes/Zend.EventManager.EventManagerInterface.html">\Zend\EventManager\EventManagerInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableGatewayEvent</h4>
+                                                <code><a href="../classes/Zend.Db.TableGateway.Feature.EventFeature.TableGatewayEvent.html">\Zend\Db\TableGateway\Feature\EventFeature\TableGatewayEvent</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>__get</h2>
+                            <pre>__get(string $property) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$property</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___set"></a>
+                        <div class="element clickable method public  method___set inherited" data-toggle="collapse" data-target=".method___set .collapse">
+                            <h2>__set</h2>
+                            <pre>__set(string $property, mixed $value) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$property</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete"></a>
+                        <div class="element clickable method public  method_delete inherited" data-toggle="collapse" data-target=".method_delete .collapse">
+                            <h2>Delete</h2>
+                            <pre>delete(\Zend\Db\Sql\Where|\Closure|string|array $where) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$where</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Where.html">\Zend\Db\Sql\Where</a>|\Closure|string|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_deleteWith"></a>
+                        <div class="element clickable method public  method_deleteWith inherited" data-toggle="collapse" data-target=".method_deleteWith .collapse">
+                            <h2>deleteWith</h2>
+                            <pre>deleteWith(\Zend\Db\Sql\Delete $delete) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$delete</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Delete.html">\Zend\Db\Sql\Delete</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_executeDelete"></a>
+                        <div class="element clickable method protected  method_executeDelete inherited" data-toggle="collapse" data-target=".method_executeDelete .collapse">
+                            <h2>executeDelete</h2>
+                            <pre>executeDelete(\Zend\Db\Sql\Delete $delete) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>add $columns support</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$delete</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Delete.html">\Zend\Db\Sql\Delete</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_executeInsert"></a>
+                        <div class="element clickable method protected  method_executeInsert inherited" data-toggle="collapse" data-target=".method_executeInsert .collapse">
+                            <h2>executeInsert</h2>
+                            <pre>executeInsert(\Zend\Db\Sql\Insert $insert) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>add $columns support</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$insert</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Insert.html">\Zend\Db\Sql\Insert</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_executeSelect"></a>
+                        <div class="element clickable method protected  method_executeSelect inherited" data-toggle="collapse" data-target=".method_executeSelect .collapse">
+                            <h2>executeSelect</h2>
+                            <pre>executeSelect(\Zend\Db\Sql\Select $select) : \Zend\Db\ResultSet\ResultSet</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$select</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Select.html">\Zend\Db\Sql\Select</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.ResultSet.ResultSet.html">\Zend\Db\ResultSet\ResultSet</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_executeUpdate"></a>
+                        <div class="element clickable method protected  method_executeUpdate inherited" data-toggle="collapse" data-target=".method_executeUpdate .collapse">
+                            <h2>executeUpdate</h2>
+                            <pre>executeUpdate(\Zend\Db\Sql\Update $update) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>add $columns support</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$update</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Update.html">\Zend\Db\Sql\Update</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAdapter"></a>
+                        <div class="element clickable method public  method_getAdapter inherited" data-toggle="collapse" data-target=".method_getAdapter .collapse">
+                            <h2>Get adapter</h2>
+                            <pre>getAdapter() : \Zend\Db\Adapter\AdapterInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.AdapterInterface.html">\Zend\Db\Adapter\AdapterInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getColumns"></a>
+                        <div class="element clickable method public  method_getColumns inherited" data-toggle="collapse" data-target=".method_getColumns .collapse">
+                            <h2>getColumns</h2>
+                            <pre>getColumns() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEvent"></a>
+                        <div class="element clickable method public  method_getEvent" data-toggle="collapse" data-target=".method_getEvent .collapse">
+                            <h2>Retrieve composed event instance</h2>
+                            <pre>getEvent() : \Zend\Db\TableGateway\Feature\EventFeature\TableGatewayEvent</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.TableGateway.Feature.EventFeature.TableGatewayEvent.html">\Zend\Db\TableGateway\Feature\EventFeature\TableGatewayEvent</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEventManager"></a>
+                        <div class="element clickable method public  method_getEventManager" data-toggle="collapse" data-target=".method_getEventManager .collapse">
+                            <h2>Retrieve composed event manager instance</h2>
+                            <pre>getEventManager() : \Zend\EventManager\EventManagerInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Lazy-loads an EventManager instance if none registered.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.EventManager.EventManagerInterface.html">\Zend\EventManager\EventManagerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFeatureSet"></a>
+                        <div class="element clickable method public  method_getFeatureSet inherited" data-toggle="collapse" data-target=".method_getFeatureSet .collapse">
+                            <h2>getFeatureSet</h2>
+                            <pre>getFeatureSet() : \Zend\Db\TableGateway\Feature\FeatureSet</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.TableGateway.Feature.FeatureSet.html">\Zend\Db\TableGateway\Feature\FeatureSet</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getLastInsertValue"></a>
+                        <div class="element clickable method public  method_getLastInsertValue inherited" data-toggle="collapse" data-target=".method_getLastInsertValue .collapse">
+                            <h2>Get last insert value</h2>
+                            <pre>getLastInsertValue() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMagicMethodSpecifications"></a>
+                        <div class="element clickable method public  method_getMagicMethodSpecifications inherited" data-toggle="collapse" data-target=".method_getMagicMethodSpecifications .collapse">
+                            <h2>getMagicMethodSpecifications</h2>
+                            <pre>getMagicMethodSpecifications() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getName"></a>
+                        <div class="element clickable method public  method_getName inherited" data-toggle="collapse" data-target=".method_getName .collapse">
+                            <h2>getName</h2>
+                            <pre>getName() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getResultSetPrototype"></a>
+                        <div class="element clickable method public  method_getResultSetPrototype inherited" data-toggle="collapse" data-target=".method_getResultSetPrototype .collapse">
+                            <h2>Get select result prototype</h2>
+                            <pre>getResultSetPrototype() : \Zend\Db\ResultSet\ResultSet</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.ResultSet.ResultSet.html">\Zend\Db\ResultSet\ResultSet</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSql"></a>
+                        <div class="element clickable method public  method_getSql inherited" data-toggle="collapse" data-target=".method_getSql .collapse">
+                            <h2>getSql</h2>
+                            <pre>getSql() : \Zend\Db\Sql\Sql</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Sql.Sql.html">\Zend\Db\Sql\Sql</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTable"></a>
+                        <div class="element clickable method public  method_getTable inherited" data-toggle="collapse" data-target=".method_getTable .collapse">
+                            <h2>Get table name</h2>
+                            <pre>getTable() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_initialize"></a>
+                        <div class="element clickable method public  method_initialize inherited" data-toggle="collapse" data-target=".method_initialize .collapse">
+                            <h2>Initialize</h2>
+                            <pre>initialize() : null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\TableGateway\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_insert"></a>
+                        <div class="element clickable method public  method_insert inherited" data-toggle="collapse" data-target=".method_insert .collapse">
+                            <h2>Insert</h2>
+                            <pre>insert(array $set) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$set</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_insertWith"></a>
+                        <div class="element clickable method public  method_insertWith inherited" data-toggle="collapse" data-target=".method_insertWith .collapse">
+                            <h2>insertWith</h2>
+                            <pre>insertWith(\Zend\Db\Sql\Insert $insert) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$insert</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Insert.html">\Zend\Db\Sql\Insert</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isInitialized"></a>
+                        <div class="element clickable method public  method_isInitialized inherited" data-toggle="collapse" data-target=".method_isInitialized .collapse">
+                            <h2>isInitialized</h2>
+                            <pre>isInitialized() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_postDelete"></a>
+                        <div class="element clickable method public  method_postDelete" data-toggle="collapse" data-target=".method_postDelete .collapse">
+                            <h2>Trigger the &quot;postDelete&quot; event</h2>
+                            <pre>postDelete(\Zend\Db\Adapter\Driver\StatementInterface $statement, \Zend\Db\Adapter\Driver\ResultInterface $result) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;postDelete&quot; event mapping the following parameters:</p>
+<ul>
+<li>$statement as &quot;statement&quot;</li>
+<li>$result as &quot;result&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$statement</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.ResultInterface.html">\Zend\Db\Adapter\Driver\ResultInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_postInitialize"></a>
+                        <div class="element clickable method public  method_postInitialize" data-toggle="collapse" data-target=".method_postInitialize .collapse">
+                            <h2>Trigger the &quot;postInitialize&quot; event</h2>
+                            <pre>postInitialize() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_postInsert"></a>
+                        <div class="element clickable method public  method_postInsert" data-toggle="collapse" data-target=".method_postInsert .collapse">
+                            <h2>Trigger the &quot;postInsert&quot; event</h2>
+                            <pre>postInsert(\Zend\Db\Adapter\Driver\StatementInterface $statement, \Zend\Db\Adapter\Driver\ResultInterface $result) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;postInsert&quot; event mapping the following parameters:</p>
+<ul>
+<li>$statement as &quot;statement&quot;</li>
+<li>$result as &quot;result&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$statement</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.ResultInterface.html">\Zend\Db\Adapter\Driver\ResultInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_postSelect"></a>
+                        <div class="element clickable method public  method_postSelect" data-toggle="collapse" data-target=".method_postSelect .collapse">
+                            <h2>Trigger the &quot;postSelect&quot; event</h2>
+                            <pre>postSelect(\Zend\Db\Adapter\Driver\StatementInterface $statement, \Zend\Db\Adapter\Driver\ResultInterface $result, \Zend\Db\ResultSet\ResultSetInterface $resultSet) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;postSelect&quot; event mapping the following parameters:</p>
+<ul>
+<li>$statement as &quot;statement&quot;</li>
+<li>$result as &quot;result&quot;</li>
+<li>$resultSet as &quot;result_set&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$statement</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.ResultInterface.html">\Zend\Db\Adapter\Driver\ResultInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultSet</h4>
+                                                <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_postUpdate"></a>
+                        <div class="element clickable method public  method_postUpdate" data-toggle="collapse" data-target=".method_postUpdate .collapse">
+                            <h2>Trigger the &quot;postUpdate&quot; event</h2>
+                            <pre>postUpdate(\Zend\Db\Adapter\Driver\StatementInterface $statement, \Zend\Db\Adapter\Driver\ResultInterface $result) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;postUpdate&quot; event mapping the following parameters:</p>
+<ul>
+<li>$statement as &quot;statement&quot;</li>
+<li>$result as &quot;result&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$statement</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.ResultInterface.html">\Zend\Db\Adapter\Driver\ResultInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_preDelete"></a>
+                        <div class="element clickable method public  method_preDelete" data-toggle="collapse" data-target=".method_preDelete .collapse">
+                            <h2>Trigger the &quot;preDelete&quot; event</h2>
+                            <pre>preDelete(\Zend\Db\Sql\Delete $delete) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;preDelete&quot; event mapping the following parameters:</p>
+<ul>
+<li>$delete as &quot;delete&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$delete</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Delete.html">\Zend\Db\Sql\Delete</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_preInitialize"></a>
+                        <div class="element clickable method public  method_preInitialize" data-toggle="collapse" data-target=".method_preInitialize .collapse">
+                            <h2>Initialize feature and trigger &quot;preInitialize&quot; event</h2>
+                            <pre>preInitialize() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Ensures that the composed TableGateway has identifiers based on the
+class name, and that the event target is set to the TableGateway
+instance. It then triggers the &quot;preInitialize&quot; event.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_preInsert"></a>
+                        <div class="element clickable method public  method_preInsert" data-toggle="collapse" data-target=".method_preInsert .collapse">
+                            <h2>Trigger the &quot;preInsert&quot; event</h2>
+                            <pre>preInsert(\Zend\Db\Sql\Insert $insert) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;preInsert&quot; event mapping the following parameters:</p>
+<ul>
+<li>$insert as &quot;insert&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$insert</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Insert.html">\Zend\Db\Sql\Insert</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_preSelect"></a>
+                        <div class="element clickable method public  method_preSelect" data-toggle="collapse" data-target=".method_preSelect .collapse">
+                            <h2>Trigger the &quot;preSelect&quot; event</h2>
+                            <pre>preSelect(\Zend\Db\Sql\Select $select) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;preSelect&quot; event mapping the following parameters:</p>
+<ul>
+<li>$select as &quot;select&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$select</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Select.html">\Zend\Db\Sql\Select</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_preUpdate"></a>
+                        <div class="element clickable method public  method_preUpdate" data-toggle="collapse" data-target=".method_preUpdate .collapse">
+                            <h2>Trigger the &quot;preUpdate&quot; event</h2>
+                            <pre>preUpdate(\Zend\Db\Sql\Update $update) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Triggers the &quot;preUpdate&quot; event mapping the following parameters:</p>
+<ul>
+<li>$update as &quot;update&quot;</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$update</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Update.html">\Zend\Db\Sql\Update</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_select"></a>
+                        <div class="element clickable method public  method_select inherited" data-toggle="collapse" data-target=".method_select .collapse">
+                            <h2>Select</h2>
+                            <pre>select(\Zend\Db\Sql\Where|\Closure|string|array $where = null) : \Zend\Db\ResultSet\ResultSet</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$where</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Where.html">\Zend\Db\Sql\Where</a>|\Closure|string|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.ResultSet.ResultSet.html">\Zend\Db\ResultSet\ResultSet</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_selectWith"></a>
+                        <div class="element clickable method public  method_selectWith inherited" data-toggle="collapse" data-target=".method_selectWith .collapse">
+                            <h2>selectWith</h2>
+                            <pre>selectWith(\Zend\Db\Sql\Select $select) : \Zend\Db\ResultSet\ResultSetInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$select</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Select.html">\Zend\Db\Sql\Select</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTableGateway"></a>
+                        <div class="element clickable method public  method_setTableGateway inherited" data-toggle="collapse" data-target=".method_setTableGateway .collapse">
+                            <h2>setTableGateway</h2>
+                            <pre>setTableGateway(\Zend\Db\TableGateway\AbstractTableGateway $tableGateway) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableGateway</h4>
+                                                <code><a href="../classes/Zend.Db.TableGateway.AbstractTableGateway.html">\Zend\Db\TableGateway\AbstractTableGateway</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_update"></a>
+                        <div class="element clickable method public  method_update inherited" data-toggle="collapse" data-target=".method_update .collapse">
+                            <h2>Update</h2>
+                            <pre>update(array $set, string|array|\Closure $where = null, null|array $joins = null) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$set</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$where</h4>
+                                                <code>string|array|\Closure</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$joins</h4>
+                                                <code>null|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_updateWith"></a>
+                        <div class="element clickable method public  method_updateWith inherited" data-toggle="collapse" data-target=".method_updateWith .collapse">
+                            <h2>updateWith</h2>
+                            <pre>updateWith(\Zend\Db\Sql\Update $update) : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$update</h4>
+                                                <code><a href="../classes/Zend.Db.Sql.Update.html">\Zend\Db\Sql\Update</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_eventManager"> </a>
+                            <div class="element clickable property  protected property_eventManager" data-toggle="collapse" data-target=".property_eventManager .collapse">
+                                <h2>eventManager</h2>
+                                <pre>eventManager : \Zend\EventManager\EventManagerInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.EventManager.EventManagerInterface.html">\Zend\EventManager\EventManagerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_event"> </a>
+                            <div class="element clickable property  protected property_event" data-toggle="collapse" data-target=".property_event .collapse">
+                                <h2>event</h2>
+                                <pre>event : null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_tableGateway"> </a>
+                            <div class="element clickable property  protected property_tableGateway inherited" data-toggle="collapse" data-target=".property_tableGateway .collapse">
+                                <h2>tableGateway</h2>
+                                <pre>tableGateway : \Zend\Db\TableGateway\AbstractTableGateway</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.TableGateway.AbstractTableGateway.html">\Zend\Db\TableGateway\AbstractTableGateway</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_sharedData"> </a>
+                            <div class="element clickable property  protected property_sharedData inherited" data-toggle="collapse" data-target=".property_sharedData .collapse">
+                                <h2>sharedData</h2>
+                                <pre>sharedData : </pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_isInitialized"> </a>
+                            <div class="element clickable property  protected property_isInitialized inherited" data-toggle="collapse" data-target=".property_isInitialized .collapse">
+                                <h2>isInitialized</h2>
+                                <pre>isInitialized : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_adapter"> </a>
+                            <div class="element clickable property  protected property_adapter inherited" data-toggle="collapse" data-target=".property_adapter .collapse">
+                                <h2>adapter</h2>
+                                <pre>adapter : \Zend\Db\Adapter\AdapterInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.AdapterInterface.html">\Zend\Db\Adapter\AdapterInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_table"> </a>
+                            <div class="element clickable property  protected property_table inherited" data-toggle="collapse" data-target=".property_table .collapse">
+                                <h2>table</h2>
+                                <pre>table : string|array|\Zend\Db\Sql\TableIdentifier</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|array|<a href="../classes/Zend.Db.Sql.TableIdentifier.html">\Zend\Db\Sql\TableIdentifier</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_columns"> </a>
+                            <div class="element clickable property  protected property_columns inherited" data-toggle="collapse" data-target=".property_columns .collapse">
+                                <h2>columns</h2>
+                                <pre>columns : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_featureSet"> </a>
+                            <div class="element clickable property  protected property_featureSet inherited" data-toggle="collapse" data-target=".property_featureSet .collapse">
+                                <h2>featureSet</h2>
+                                <pre>featureSet : \Zend\Db\TableGateway\Feature\FeatureSet</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.TableGateway.Feature.FeatureSet.html">\Zend\Db\TableGateway\Feature\FeatureSet</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_resultSetPrototype"> </a>
+                            <div class="element clickable property  protected property_resultSetPrototype inherited" data-toggle="collapse" data-target=".property_resultSetPrototype .collapse">
+                                <h2>resultSetPrototype</h2>
+                                <pre>resultSetPrototype : \Zend\Db\ResultSet\ResultSetInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_sql"> </a>
+                            <div class="element clickable property  protected property_sql inherited" data-toggle="collapse" data-target=".property_sql .collapse">
+                                <h2>sql</h2>
+                                <pre>sql : \Zend\Db\Sql\Sql</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Sql.Sql.html">\Zend\Db\Sql\Sql</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_lastInsertValue"> </a>
+                            <div class="element clickable property  protected property_lastInsertValue inherited" data-toggle="collapse" data-target=".property_lastInsertValue .collapse">
+                                <h2>lastInsertValue</h2>
+                                <pre>lastInsertValue : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_adapter"> </a>
+                            <div class="element clickable property  public property_adapter inherited" data-toggle="collapse" data-target=".property_adapter .collapse">
+                                <h2>adapter</h2>
+                                <pre>adapter : \Zend\Db\Adapter\AdapterInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Zend\Db\Adapter\AdapterInterface</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_lastInsertValue"> </a>
+                            <div class="element clickable property  public property_lastInsertValue inherited" data-toggle="collapse" data-target=".property_lastInsertValue .collapse">
+                                <h2>lastInsertValue</h2>
+                                <pre>lastInsertValue : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_table"> </a>
+                            <div class="element clickable property  public property_table inherited" data-toggle="collapse" data-target=".property_table .collapse">
+                                <h2>table</h2>
+                                <pre>table : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Db\TableGateway\Feature\EventFeature"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Db.TableGateway.Feature.html">Feature</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Db.TableGateway.Feature.EventFeature.html">EventFeature</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:07 +0000.<br/>
+    </footer>
+    </body>
+</html>

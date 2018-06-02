@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addDiscriminatorMapClass" title="addDiscriminatorMapClass :: Adds a subclass to this inheritance hierarchy.">
+            <span class="description">Adds a subclass to this inheritance hierarchy.</span><pre>addDiscriminatorMapClass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addEmbedded" title="addEmbedded :: Adds and embedded class">
+            <span class="description">Adds and embedded class</span><pre>addEmbedded</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addField" title="addField :: Adds Field.">
+            <span class="description">Adds Field.</span><pre>addField</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addIndex" title="addIndex :: Adds Index.">
+            <span class="description">Adds Index.</span><pre>addIndex</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addInverseManyToMany" title="addInverseManyToMany :: Adds a simple inverse many to many association.">
+            <span class="description">Adds a simple inverse many to many association.</span><pre>addInverseManyToMany</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addInverseOneToOne" title="addInverseOneToOne :: Adds simple inverse one-to-one association.">
+            <span class="description">Adds simple inverse one-to-one association.</span><pre>addInverseOneToOne</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addLifecycleEvent" title="addLifecycleEvent :: Adds lifecycle event.">
+            <span class="description">Adds lifecycle event.</span><pre>addLifecycleEvent</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addManyToOne" title="addManyToOne :: Adds a simple many to one association, optionally with the inversed by field.">
+            <span class="description">Adds a simple many to one association, optionally with the inversed by field.</span><pre>addManyToOne</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addNamedQuery" title="addNamedQuery :: Adds named query.">
+            <span class="description">Adds named query.</span><pre>addNamedQuery</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addOneToMany" title="addOneToMany :: Adds simple OneToMany association.">
+            <span class="description">Adds simple OneToMany association.</span><pre>addOneToMany</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addOwningManyToMany" title="addOwningManyToMany :: Adds a simple owning many to many association.">
+            <span class="description">Adds a simple owning many to many association.</span><pre>addOwningManyToMany</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addOwningOneToOne" title="addOwningOneToOne :: Adds simple owning one-to-one association.">
+            <span class="description">Adds simple owning one-to-one association.</span><pre>addOwningOneToOne</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addUniqueConstraint" title="addUniqueConstraint :: Adds Unique Constraint.">
+            <span class="description">Adds Unique Constraint.</span><pre>addUniqueConstraint</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createEmbedded" title="createEmbedded :: Creates an embedded builder.">
+            <span class="description">Creates an embedded builder.</span><pre>createEmbedded</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createField" title="createField :: Creates a field builder.">
+            <span class="description">Creates a field builder.</span><pre>createField</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createManyToMany" title="createManyToMany :: Creates a ManyToMany Association Builder.">
+            <span class="description">Creates a ManyToMany Association Builder.</span><pre>createManyToMany</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createManyToOne" title="createManyToOne :: Creates a ManyToOne Association Builder.">
+            <span class="description">Creates a ManyToOne Association Builder.</span><pre>createManyToOne</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createOneToMany" title="createOneToMany :: Creates a one to many association builder.">
+            <span class="description">Creates a one to many association builder.</span><pre>createOneToMany</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createOneToOne" title="createOneToOne :: Creates a OneToOne Association Builder.">
+            <span class="description">Creates a OneToOne Association Builder.</span><pre>createOneToOne</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getClassMetadata" title="getClassMetadata :: ">
+            <span class="description"></span><pre>getClassMetadata</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setChangeTrackingPolicyDeferredExplicit" title="setChangeTrackingPolicyDeferredExplicit :: Sets deferred explicit change tracking policy.">
+            <span class="description">Sets deferred explicit change tracking policy.</span><pre>setChangeTrackingPolicyDeferredExplicit</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setChangeTrackingPolicyNotify" title="setChangeTrackingPolicyNotify :: Sets notify change tracking policy.">
+            <span class="description">Sets notify change tracking policy.</span><pre>setChangeTrackingPolicyNotify</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCustomRepositoryClass" title="setCustomRepositoryClass :: Sets custom Repository class name.">
+            <span class="description">Sets custom Repository class name.</span><pre>setCustomRepositoryClass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setDiscriminatorColumn" title="setDiscriminatorColumn :: Sets the discriminator column details.">
+            <span class="description">Sets the discriminator column details.</span><pre>setDiscriminatorColumn</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setEmbeddable" title="setEmbeddable :: Marks the class as embeddable.">
+            <span class="description">Marks the class as embeddable.</span><pre>setEmbeddable</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setJoinedTableInheritance" title="setJoinedTableInheritance :: Sets class as root of a joined table inheritance hierarchy.">
+            <span class="description">Sets class as root of a joined table inheritance hierarchy.</span><pre>setJoinedTableInheritance</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setMappedSuperClass" title="setMappedSuperClass :: Marks the class as mapped superclass.">
+            <span class="description">Marks the class as mapped superclass.</span><pre>setMappedSuperClass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setReadOnly" title="setReadOnly :: Marks class read only.">
+            <span class="description">Marks class read only.</span><pre>setReadOnly</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setSingleTableInheritance" title="setSingleTableInheritance :: Sets class as root of a single table inheritance hierarchy.">
+            <span class="description">Sets class as root of a single table inheritance hierarchy.</span><pre>setSingleTableInheritance</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTable" title="setTable :: Sets the table name.">
+            <span class="description">Sets the table name.</span><pre>setTable</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ClassMetadataBuilder</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Builder Object for ClassMetadata</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        license
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p><a href="http://www.opensource.org/licenses/mit-license.php">http://www.opensource.org/licenses/mit-license.php</a> MIT</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        link
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>www.doctrine-project.com</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.2
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Benjamin Eberlei <a href="mailto:kontakt@beberlei.de">kontakt@beberlei.de</a></p>
+                                    </td>
+                                </tr>
+                                                            <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Guilherme Blanco <a href="mailto:guilhermeblanco@hotmail.com">guilhermeblanco@hotmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(\Doctrine\ORM\Mapping\ClassMetadataInfo $cm) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cm</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadataInfo.html">\Doctrine\ORM\Mapping\ClassMetadataInfo</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addDiscriminatorMapClass"></a>
+                        <div class="element clickable method public  method_addDiscriminatorMapClass" data-toggle="collapse" data-target=".method_addDiscriminatorMapClass .collapse">
+                            <h2>Adds a subclass to this inheritance hierarchy.</h2>
+                            <pre>addDiscriminatorMapClass(string $name, string $class) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addEmbedded"></a>
+                        <div class="element clickable method public  method_addEmbedded" data-toggle="collapse" data-target=".method_addEmbedded .collapse">
+                            <h2>Adds and embedded class</h2>
+                            <pre>addEmbedded(string $fieldName, string $class, string|null $columnPrefix = null) : $this</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnPrefix</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>$this</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addField"></a>
+                        <div class="element clickable method public  method_addField" data-toggle="collapse" data-target=".method_addField .collapse">
+                            <h2>Adds Field.</h2>
+                            <pre>addField(string $name, string $type, array $mapping = array()) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mapping</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addIndex"></a>
+                        <div class="element clickable method public  method_addIndex" data-toggle="collapse" data-target=".method_addIndex .collapse">
+                            <h2>Adds Index.</h2>
+                            <pre>addIndex(array $columns, string $name) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columns</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addInverseManyToMany"></a>
+                        <div class="element clickable method public  method_addInverseManyToMany" data-toggle="collapse" data-target=".method_addInverseManyToMany .collapse">
+                            <h2>Adds a simple inverse many to many association.</h2>
+                            <pre>addInverseManyToMany(string $name, string $targetEntity, string $mappedBy) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mappedBy</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addInverseOneToOne"></a>
+                        <div class="element clickable method public  method_addInverseOneToOne" data-toggle="collapse" data-target=".method_addInverseOneToOne .collapse">
+                            <h2>Adds simple inverse one-to-one association.</h2>
+                            <pre>addInverseOneToOne(string $name, string $targetEntity, string $mappedBy) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mappedBy</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addLifecycleEvent"></a>
+                        <div class="element clickable method public  method_addLifecycleEvent" data-toggle="collapse" data-target=".method_addLifecycleEvent .collapse">
+                            <h2>Adds lifecycle event.</h2>
+                            <pre>addLifecycleEvent(string $methodName, string $event) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$methodName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$event</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addManyToOne"></a>
+                        <div class="element clickable method public  method_addManyToOne" data-toggle="collapse" data-target=".method_addManyToOne .collapse">
+                            <h2>Adds a simple many to one association, optionally with the inversed by field.</h2>
+                            <pre>addManyToOne(string $name, string $targetEntity, string|null $inversedBy = null) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inversedBy</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addNamedQuery"></a>
+                        <div class="element clickable method public  method_addNamedQuery" data-toggle="collapse" data-target=".method_addNamedQuery .collapse">
+                            <h2>Adds named query.</h2>
+                            <pre>addNamedQuery(string $name, string $dqlQuery) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dqlQuery</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addOneToMany"></a>
+                        <div class="element clickable method public  method_addOneToMany" data-toggle="collapse" data-target=".method_addOneToMany .collapse">
+                            <h2>Adds simple OneToMany association.</h2>
+                            <pre>addOneToMany(string $name, string $targetEntity, string $mappedBy) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mappedBy</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addOwningManyToMany"></a>
+                        <div class="element clickable method public  method_addOwningManyToMany" data-toggle="collapse" data-target=".method_addOwningManyToMany .collapse">
+                            <h2>Adds a simple owning many to many association.</h2>
+                            <pre>addOwningManyToMany(string $name, string $targetEntity, string|null $inversedBy = null) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inversedBy</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addOwningOneToOne"></a>
+                        <div class="element clickable method public  method_addOwningOneToOne" data-toggle="collapse" data-target=".method_addOwningOneToOne .collapse">
+                            <h2>Adds simple owning one-to-one association.</h2>
+                            <pre>addOwningOneToOne(string $name, string $targetEntity, string|null $inversedBy = null) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inversedBy</h4>
+                                                <code>string|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addUniqueConstraint"></a>
+                        <div class="element clickable method public  method_addUniqueConstraint" data-toggle="collapse" data-target=".method_addUniqueConstraint .collapse">
+                            <h2>Adds Unique Constraint.</h2>
+                            <pre>addUniqueConstraint(array $columns, string $name) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columns</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createEmbedded"></a>
+                        <div class="element clickable method public  method_createEmbedded" data-toggle="collapse" data-target=".method_createEmbedded .collapse">
+                            <h2>Creates an embedded builder.</h2>
+                            <pre>createEmbedded(string $fieldName, string $class) : \Doctrine\ORM\Mapping\Builder\EmbeddedBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.EmbeddedBuilder.html">\Doctrine\ORM\Mapping\Builder\EmbeddedBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createField"></a>
+                        <div class="element clickable method public  method_createField" data-toggle="collapse" data-target=".method_createField .collapse">
+                            <h2>Creates a field builder.</h2>
+                            <pre>createField(string $name, string $type) : \Doctrine\ORM\Mapping\Builder\FieldBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.FieldBuilder.html">\Doctrine\ORM\Mapping\Builder\FieldBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createManyToMany"></a>
+                        <div class="element clickable method public  method_createManyToMany" data-toggle="collapse" data-target=".method_createManyToMany .collapse">
+                            <h2>Creates a ManyToMany Association Builder.</h2>
+                            <pre>createManyToMany(string $name, string $targetEntity) : \Doctrine\ORM\Mapping\Builder\ManyToManyAssociationBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ManyToManyAssociationBuilder.html">\Doctrine\ORM\Mapping\Builder\ManyToManyAssociationBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createManyToOne"></a>
+                        <div class="element clickable method public  method_createManyToOne" data-toggle="collapse" data-target=".method_createManyToOne .collapse">
+                            <h2>Creates a ManyToOne Association Builder.</h2>
+                            <pre>createManyToOne(string $name, string $targetEntity) : \Doctrine\ORM\Mapping\Builder\AssociationBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Note: This method does not add the association, you have to call build() on the AssociationBuilder.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.AssociationBuilder.html">\Doctrine\ORM\Mapping\Builder\AssociationBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createOneToMany"></a>
+                        <div class="element clickable method public  method_createOneToMany" data-toggle="collapse" data-target=".method_createOneToMany .collapse">
+                            <h2>Creates a one to many association builder.</h2>
+                            <pre>createOneToMany(string $name, string $targetEntity) : \Doctrine\ORM\Mapping\Builder\OneToManyAssociationBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.OneToManyAssociationBuilder.html">\Doctrine\ORM\Mapping\Builder\OneToManyAssociationBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createOneToOne"></a>
+                        <div class="element clickable method public  method_createOneToOne" data-toggle="collapse" data-target=".method_createOneToOne .collapse">
+                            <h2>Creates a OneToOne Association Builder.</h2>
+                            <pre>createOneToOne(string $name, string $targetEntity) : \Doctrine\ORM\Mapping\Builder\AssociationBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$targetEntity</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.AssociationBuilder.html">\Doctrine\ORM\Mapping\Builder\AssociationBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClassMetadata"></a>
+                        <div class="element clickable method public  method_getClassMetadata" data-toggle="collapse" data-target=".method_getClassMetadata .collapse">
+                            <h2>getClassMetadata</h2>
+                            <pre>getClassMetadata() : \Doctrine\ORM\Mapping\ClassMetadata</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setChangeTrackingPolicyDeferredExplicit"></a>
+                        <div class="element clickable method public  method_setChangeTrackingPolicyDeferredExplicit" data-toggle="collapse" data-target=".method_setChangeTrackingPolicyDeferredExplicit .collapse">
+                            <h2>Sets deferred explicit change tracking policy.</h2>
+                            <pre>setChangeTrackingPolicyDeferredExplicit() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setChangeTrackingPolicyNotify"></a>
+                        <div class="element clickable method public  method_setChangeTrackingPolicyNotify" data-toggle="collapse" data-target=".method_setChangeTrackingPolicyNotify .collapse">
+                            <h2>Sets notify change tracking policy.</h2>
+                            <pre>setChangeTrackingPolicyNotify() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCustomRepositoryClass"></a>
+                        <div class="element clickable method public  method_setCustomRepositoryClass" data-toggle="collapse" data-target=".method_setCustomRepositoryClass .collapse">
+                            <h2>Sets custom Repository class name.</h2>
+                            <pre>setCustomRepositoryClass(string $repositoryClassName) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$repositoryClassName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDiscriminatorColumn"></a>
+                        <div class="element clickable method public  method_setDiscriminatorColumn" data-toggle="collapse" data-target=".method_setDiscriminatorColumn .collapse">
+                            <h2>Sets the discriminator column details.</h2>
+                            <pre>setDiscriminatorColumn(string $name, string $type = &#039;string&#039;, integer $length = 255) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$length</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setEmbeddable"></a>
+                        <div class="element clickable method public  method_setEmbeddable" data-toggle="collapse" data-target=".method_setEmbeddable .collapse">
+                            <h2>Marks the class as embeddable.</h2>
+                            <pre>setEmbeddable() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setJoinedTableInheritance"></a>
+                        <div class="element clickable method public  method_setJoinedTableInheritance" data-toggle="collapse" data-target=".method_setJoinedTableInheritance .collapse">
+                            <h2>Sets class as root of a joined table inheritance hierarchy.</h2>
+                            <pre>setJoinedTableInheritance() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMappedSuperClass"></a>
+                        <div class="element clickable method public  method_setMappedSuperClass" data-toggle="collapse" data-target=".method_setMappedSuperClass .collapse">
+                            <h2>Marks the class as mapped superclass.</h2>
+                            <pre>setMappedSuperClass() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setReadOnly"></a>
+                        <div class="element clickable method public  method_setReadOnly" data-toggle="collapse" data-target=".method_setReadOnly .collapse">
+                            <h2>Marks class read only.</h2>
+                            <pre>setReadOnly() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setSingleTableInheritance"></a>
+                        <div class="element clickable method public  method_setSingleTableInheritance" data-toggle="collapse" data-target=".method_setSingleTableInheritance .collapse">
+                            <h2>Sets class as root of a single table inheritance hierarchy.</h2>
+                            <pre>setSingleTableInheritance() : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTable"></a>
+                        <div class="element clickable method public  method_setTable" data-toggle="collapse" data-target=".method_setTable .collapse">
+                            <h2>Sets the table name.</h2>
+                            <pre>setTable(string $name) : \Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_cm"> </a>
+                            <div class="element clickable property  private property_cm" data-toggle="collapse" data-target=".property_cm .collapse">
+                                <h2>cm</h2>
+                                <pre>cm : \Doctrine\ORM\Mapping\ClassMetadataInfo</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadataInfo.html">\Doctrine\ORM\Mapping\ClassMetadataInfo</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Mapping.Builder.html">Builder</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Mapping.Builder.ClassMetadataBuilder.html">ClassMetadataBuilder</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:31 +0000.<br/>
+    </footer>
+    </body>
+</html>

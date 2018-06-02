@@ -74,9 +74,11 @@ module.exports = function ($scope, $http, SweetAlert, cytoData) {
                 oldSelected.selected = false;
             }
 
-            $scope.submissionTools.problem.rank[index].selected = value;
-            $scope.submissionTools.submissionData.userCompareId = $scope.submissionTools.problem.rank[index].sourceCode.user.id;
-            $scope.submissionTools.submissionData.sourceCodeCompareId = $scope.submissionTools.problem.rank[index].sourceCode.id;
+            if(value === true) {
+                $scope.submissionTools.problem.rank[index].selected = value;
+                $scope.submissionTools.submissionData.userCompareId = $scope.submissionTools.problem.rank[index].sourceCode.user.id;
+                $scope.submissionTools.submissionData.sourceCodeCompareId = $scope.submissionTools.problem.rank[index].sourceCode.id;
+            }
         },
 
         /**

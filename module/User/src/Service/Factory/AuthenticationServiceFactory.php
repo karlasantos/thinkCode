@@ -10,7 +10,11 @@ namespace User\Service\Factory;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
-
+/**
+ * Class AuthenticationServiceFactory
+ * Definição da fábrica do serviço de autenticação
+ * @package User\Service\Factory
+ */
 class AuthenticationServiceFactory implements FactoryInterface
 {
     /**

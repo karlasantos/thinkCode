@@ -15,8 +15,8 @@ use SourceCode\Model\Entity\Language;
 
 /**
  * Class User
- *
- * @ORM\Entity
+ * Usuário do sistema
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="users")
  * @package User\Model\Entity
  */

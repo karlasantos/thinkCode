@@ -13,9 +13,8 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
 /**
- * Classe fabricadora genérica de Controller
- *
  * Class ControllerFactory
+ * Fábrica genérica de Controller
  * @package Application\Controller\Factory
  */
 class ControllerFactory implements FactoryInterface

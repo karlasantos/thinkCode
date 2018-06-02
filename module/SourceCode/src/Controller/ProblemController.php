@@ -27,6 +27,9 @@ use Zend\View\Model\ViewModel;
  */
 class ProblemController extends RestfulController
 {
+    /**
+     * Mensagem de problema não encontrado
+     */
     const PROBLEM_NOT_FOUND = 'Problema não encontrado.';
 
     /**
@@ -51,6 +54,7 @@ class ProblemController extends RestfulController
 
     /**
      * Retorna todos os problemas cadastrados
+     * @api
      * @return mixed|JsonModel
      */
     public function getList()
@@ -65,13 +69,22 @@ class ProblemController extends RestfulController
 
         //prepara o template de ordenação
         $order = new OrderTemplate();
-        $order->add(array(
-            'title'        => 'problem.title',
-            'categoryName' => 'cat.name'
-        ));
 
         //define os parâmetros DES ou ASC
-        $order->setParamsFromRoute($sort);
+        if($sort != null) {
+            $order->add(array(
+                'title'        => 'problem.title',
+                'categoryName' => 'cat.name'
+            ));
+
+            $order->setParamsFromRoute($sort);
+        }
+        else {
+            //prepara o template de ordenação caso nenhuma ordenação seja enviada
+            $order = new OrderTemplate();
+            $order->setField('problem.id');
+            $order->setMode('asc');
+        }
 
         $problems = $this->entityManager->createQueryBuilder()
                         ->select('partial problem.{id, title}, partial cat.{id, name}')
@@ -116,7 +129,8 @@ class ProblemController extends RestfulController
     /**
      * Retorna os dados de um problema específico
      *
-     * @param mixed $id
+     * @api
+     * @param integer $id Id de identificação de um problema
      * @return mixed|JsonModel
      */
     public function get($id)
@@ -182,7 +196,7 @@ class ProblemController extends RestfulController
     /**
      * Retorna os ids dos problemas resulvidos por um usuário através de deu id
      *
-     * @param $userId
+     * @param integer $userId Id de identificação de um usuário
      * @return array
      */
     private function getUserProblemsResolved($userId)
@@ -207,8 +221,8 @@ class ProblemController extends RestfulController
     /**
      * Retorna os dados do problema resolvido pelo usuário
      *
-     * @param $userId
-     * @param $problemId
+     * @param integer $userId Id de identificação do usuário
+     * @param integer $problemId Id de identificação do problema
      * @return array
      */
     private function getProblemResolved($userId, $problemId)

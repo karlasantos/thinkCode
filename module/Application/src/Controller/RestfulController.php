@@ -11,9 +11,8 @@ use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractRestfulController;
 
 /**
- *  Define o modelo dos RestfulControllers do sistema
- *
  * Class RestfulController
+ * Define o modelo dos RestfulControllers do sistema
  * @package Application\Controller
  * @abstract
  */
@@ -26,19 +25,14 @@ abstract class RestfulController extends AbstractRestfulController
      */
     protected $entityManager;
 
+    /**
+     * Construtor da classe
+     *
+     * RestfulController constructor.
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-    }
-
-
-    protected function getSession()
-    {
-
-    }
-
-    protected function getService()
-    {
-
     }
 }

@@ -7,37 +7,51 @@
 
 namespace Application\Model\Entity;
 
-/*
-$order = new OrderTemplate;
+/**
+ * Class OrderTemplate
+ * Ordenador de registros.
+ * @package Application\Model\Entity
+ * @example order = new OrderTemplate;
 
-$order->add('id', 'c.id');
-$order->add('created', 'c.created');
+    $order->add('id', 'rank.id');
 
-$order->add(array(
-    'nomeFantasia' => 'pj.nomeFantasia',
-    'nome' => 'p.nome',
-    'id' => 'c.id',
-    'data' => 'p.created'
-));
-
-$order->setParamsFromRoute($this->params()->fromRoute('sort'));
-
-$qb->select(array('c.id, c.codigo, p.nome, p.ativo, p.created, pf.cpf, pj.cnpj, pj.nomeFantasia'))
-    ->from('Pessoa\Entity\Cliente', 'c')
-    ->leftJoin('c.pessoa', 'p')
-    ->leftJoin('Pessoa\Entity\PessoaFisica', 'pf', Join::WITH, 'pf.id = p.id')
-    ->leftJoin('Pessoa\Entity\PessoaJuridica', 'pj', Join::WITH, 'pj.id = p.id')
-    ->orderBy($order->getField(), $order->getMode());
-*/
-
+    $order->setParamsFromRoute($this->params()->fromRoute('sort'));
+    $qb->select('rank')
+        ->from('SourceCode\Entity\Rank', 'rank')->orderBy($order->getField(), $order->getMode());
+ *
+ */
 class OrderTemplate
 {
+    /**
+     * Array de mapeamento de aliases e valores de ordenação
+     *
+     * @var array
+     */
     private $map = array();
 
+    /**
+     * Atributo a ser ordenado
+     *
+     * @var string
+     */
     private $field;
 
+    /**
+     * Mode de ordenação:
+     * - ASC: crescente
+     * - DESC: decrescente
+     *
+     * @var string
+     */
     private $mode;
 
+    /**
+     * Construtor da classe
+     *
+     * OrderTemplate constructor.
+     * @param string $alias alias do atributo no array de ordenação
+     * @param string $field nome do atributo a ser ordenado
+     */
     public function __construct($alias = null, $field = null)
     {
         if (! is_null($alias)) {
@@ -45,6 +59,12 @@ class OrderTemplate
         }
     }
 
+    /**
+     * Método de adição de ordenação
+     *
+     * @param array|string $alias alias do atributo no array de ordenação
+     * @param string|null $field nome do atributo a ser ordenado
+     */
     public function add($alias, $field = null)
     {
         if (is_string($alias)) {
@@ -54,26 +74,51 @@ class OrderTemplate
         }
     }
 
+    /**
+     * Define o atributo a ser ordenado
+     *
+     * @param $field string
+     */
     public function setField($field)
     {
         $this->field = $field;
     }
 
+    /**
+     * Retorna o atributo a ser ordenado
+     *
+     * @return string
+     */
     public function getField()
     {
         return $this->field;
     }
 
+    /**
+     * Define o modo de ordenação (ASC ou DESC)
+     *
+     * @param $mode string
+     */
     public function setMode($mode)
     {
         $this->mode = $mode;
     }
 
+    /**
+     * Retorna o modo de ordenação (ASC ou DESC)
+     *
+     * @return string
+     */
     public function getMode()
     {
         return $this->mode;
     }
 
+    /**
+     * Define os atributos de ordenação através de parâmetros retornados na requisição
+     *
+     * @param $params array
+     */
     public function setParamsFromRoute($params)
     {
         if (empty($params) || strpos($params, ':') === null) {

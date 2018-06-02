@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Db\Adapter\Adapter
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method___get" title="__get :: ">
+            <span class="description"></span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                <li class="method public">
+        <a href="#method_createStatement" title="createStatement :: Create statement">
+            <span class="description">Create statement</span><pre>createStatement</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrentSchema" title="getCurrentSchema :: ">
+            <span class="description"></span><pre>getCurrentSchema</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getDriver" title="getDriver :: getDriver()">
+            <span class="description">getDriver()</span><pre>getDriver</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getHelpers" title="getHelpers :: ">
+            <span class="description"></span><pre>getHelpers</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getPlatform" title="getPlatform :: ">
+            <span class="description"></span><pre>getPlatform</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getProfiler" title="getProfiler :: ">
+            <span class="description"></span><pre>getProfiler</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getQueryResultSetPrototype" title="getQueryResultSetPrototype :: ">
+            <span class="description"></span><pre>getQueryResultSetPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_query" title="query :: query() is a convenience function">
+            <span class="description">query() is a convenience function</span><pre>query</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setProfiler" title="setProfiler :: ">
+            <span class="description"></span><pre>setProfiler</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                    <li class="method protected">
+                            <a href="#method_createDriver" title="createDriver :: ">
+                                <span class="description"></span><pre>createDriver</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_createDriverFromParameters" title="createDriverFromParameters :: ">
+                                <span class="description"></span><pre>createDriverFromParameters</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_createPlatform" title="createPlatform :: ">
+                                <span class="description"></span><pre>createPlatform</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_createPlatformFromDriver" title="createPlatformFromDriver :: ">
+                                <span class="description"></span><pre>createPlatformFromDriver</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_createProfiler" title="createProfiler :: ">
+                                <span class="description"></span><pre>createProfiler</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_FUNCTION_FORMAT_PARAMETER_NAME" title="FUNCTION_FORMAT_PARAMETER_NAME :: ">
+                        <span class="description"></span><pre>FUNCTION_FORMAT_PARAMETER_NAME</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FUNCTION_QUOTE_IDENTIFIER" title="FUNCTION_QUOTE_IDENTIFIER :: ">
+                        <span class="description"></span><pre>FUNCTION_QUOTE_IDENTIFIER</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FUNCTION_QUOTE_VALUE" title="FUNCTION_QUOTE_VALUE :: ">
+                        <span class="description"></span><pre>FUNCTION_QUOTE_VALUE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_PREPARE_TYPE_NAMED" title="PREPARE_TYPE_NAMED :: ">
+                        <span class="description"></span><pre>PREPARE_TYPE_NAMED</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_PREPARE_TYPE_POSITIONAL" title="PREPARE_TYPE_POSITIONAL :: Prepare Type Constants">
+                        <span class="description">Prepare Type Constants</span><pre>PREPARE_TYPE_POSITIONAL</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_QUERY_MODE_EXECUTE" title="QUERY_MODE_EXECUTE :: Query Mode Constants">
+                        <span class="description">Query Mode Constants</span><pre>QUERY_MODE_EXECUTE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_QUERY_MODE_PREPARE" title="QUERY_MODE_PREPARE :: ">
+                        <span class="description"></span><pre>QUERY_MODE_PREPARE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_VALUE_QUOTE_SEPARATOR" title="VALUE_QUOTE_SEPARATOR :: ">
+                        <span class="description"></span><pre>VALUE_QUOTE_SEPARATOR</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Adapter</h1>
+                <small style="display: block; text-align: right">
+                                                                Implements <a href="../classes/Zend.Db.Adapter.AdapterInterface.html">\Zend\Db\Adapter\AdapterInterface</a>, <a href="../classes/Zend.Db.Adapter.Profiler.ProfilerAwareInterface.html">\Zend\Db\Adapter\Profiler\ProfilerAwareInterface</a>
+                                    </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                                                                        <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(\Zend\Db\Adapter\Driver\DriverInterface|array $driver, \Zend\Db\Adapter\Platform\PlatformInterface $platform = null, \Zend\Db\ResultSet\ResultSetInterface $queryResultPrototype = null, \Zend\Db\Adapter\Profiler\ProfilerInterface $profiler = null) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$driver</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a>|array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Platform.PlatformInterface.html">\Zend\Db\Adapter\Platform\PlatformInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$queryResultPrototype</h4>
+                                                <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$profiler</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>__get</h2>
+                            <pre>__get( $name) : \Zend\Db\Adapter\Driver\DriverInterface|\Zend\Db\Adapter\Platform\PlatformInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a>|<a href="../classes/Zend.Db.Adapter.Platform.PlatformInterface.html">\Zend\Db\Adapter\Platform\PlatformInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createDriver"></a>
+                        <div class="element clickable method protected  method_createDriver" data-toggle="collapse" data-target=".method_createDriver .collapse">
+                            <h2>createDriver</h2>
+                            <pre>createDriver(array $parameters) : \Zend\Db\Adapter\Driver\DriverInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createDriverFromParameters"></a>
+                        <div class="element clickable method protected deprecated method_createDriverFromParameters" data-toggle="collapse" data-target=".method_createDriverFromParameters .collapse">
+                            <h2>createDriverFromParameters</h2>
+                            <pre>createDriverFromParameters(array $parameters) : \Zend\Db\Adapter\Driver\DriverInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    deprecated
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createPlatform"></a>
+                        <div class="element clickable method protected  method_createPlatform" data-toggle="collapse" data-target=".method_createPlatform .collapse">
+                            <h2>createPlatform</h2>
+                            <pre>createPlatform(array $parameters) : \Zend\Db\Adapter\Platform\PlatformInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Platform.PlatformInterface.html">\Zend\Db\Adapter\Platform\PlatformInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createPlatformFromDriver"></a>
+                        <div class="element clickable method protected deprecated method_createPlatformFromDriver" data-toggle="collapse" data-target=".method_createPlatformFromDriver .collapse">
+                            <h2>createPlatformFromDriver</h2>
+                            <pre>createPlatformFromDriver(\Zend\Db\Adapter\Driver\DriverInterface $driver) : \Zend\Db\Adapter\Platform\PlatformInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    deprecated
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$driver</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Platform.PlatformInterface.html">\Zend\Db\Adapter\Platform\PlatformInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createProfiler"></a>
+                        <div class="element clickable method protected  method_createProfiler" data-toggle="collapse" data-target=".method_createProfiler .collapse">
+                            <h2>createProfiler</h2>
+                            <pre>createProfiler(array $parameters) : \Zend\Db\Adapter\Profiler\ProfilerInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parameters</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createStatement"></a>
+                        <div class="element clickable method public  method_createStatement" data-toggle="collapse" data-target=".method_createStatement .collapse">
+                            <h2>Create statement</h2>
+                            <pre>createStatement(string $initialSql = null, \Zend\Db\Adapter\ParameterContainer $initialParameters = null) : \Zend\Db\Adapter\Driver\StatementInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$initialSql</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$initialParameters</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.ParameterContainer.html">\Zend\Db\Adapter\ParameterContainer</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCurrentSchema"></a>
+                        <div class="element clickable method public  method_getCurrentSchema" data-toggle="collapse" data-target=".method_getCurrentSchema .collapse">
+                            <h2>getCurrentSchema</h2>
+                            <pre>getCurrentSchema() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDriver"></a>
+                        <div class="element clickable method public  method_getDriver" data-toggle="collapse" data-target=".method_getDriver .collapse">
+                            <h2>getDriver()</h2>
+                            <pre>getDriver() : \Zend\Db\Adapter\Driver\DriverInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHelpers"></a>
+                        <div class="element clickable method public  method_getHelpers" data-toggle="collapse" data-target=".method_getHelpers .collapse">
+                            <h2>getHelpers</h2>
+                            <pre>getHelpers() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPlatform"></a>
+                        <div class="element clickable method public  method_getPlatform" data-toggle="collapse" data-target=".method_getPlatform .collapse">
+                            <h2>getPlatform</h2>
+                            <pre>getPlatform() : \Zend\Db\Adapter\Platform\PlatformInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Platform.PlatformInterface.html">\Zend\Db\Adapter\Platform\PlatformInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getProfiler"></a>
+                        <div class="element clickable method public  method_getProfiler" data-toggle="collapse" data-target=".method_getProfiler .collapse">
+                            <h2>getProfiler</h2>
+                            <pre>getProfiler() : null|\Zend\Db\Adapter\Profiler\ProfilerInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getQueryResultSetPrototype"></a>
+                        <div class="element clickable method public  method_getQueryResultSetPrototype" data-toggle="collapse" data-target=".method_getQueryResultSetPrototype .collapse">
+                            <h2>getQueryResultSetPrototype</h2>
+                            <pre>getQueryResultSetPrototype() : \Zend\Db\ResultSet\ResultSetInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_query"></a>
+                        <div class="element clickable method public  method_query" data-toggle="collapse" data-target=".method_query .collapse">
+                            <h2>query() is a convenience function</h2>
+                            <pre>query(string $sql, string|array|\Zend\Db\Adapter\ParameterContainer $parametersOrQueryMode = self::QUERY_MODE_PREPARE, \Zend\Db\ResultSet\ResultSetInterface $resultPrototype = null) : \Zend\Db\Adapter\Driver\StatementInterface|\Zend\Db\ResultSet\ResultSet</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sql</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$parametersOrQueryMode</h4>
+                                                <code>string|array|<a href="../classes/Zend.Db.Adapter.ParameterContainer.html">\Zend\Db\Adapter\ParameterContainer</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultPrototype</h4>
+                                                <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a>|<a href="../classes/Zend.Db.ResultSet.ResultSet.html">\Zend\Db\ResultSet\ResultSet</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setProfiler"></a>
+                        <div class="element clickable method public  method_setProfiler" data-toggle="collapse" data-target=".method_setProfiler .collapse">
+                            <h2>setProfiler</h2>
+                            <pre>setProfiler(\Zend\Db\Adapter\Profiler\ProfilerInterface $profiler) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$profiler</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_QUERY_MODE_EXECUTE"> </a>
+                            <div class="element clickable constant  constant_QUERY_MODE_EXECUTE" data-toggle="collapse" data-target=".constant_QUERY_MODE_EXECUTE .collapse">
+                                <h2>Query Mode Constants</h2>
+                                <pre>QUERY_MODE_EXECUTE</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_QUERY_MODE_PREPARE"> </a>
+                            <div class="element clickable constant  constant_QUERY_MODE_PREPARE" data-toggle="collapse" data-target=".constant_QUERY_MODE_PREPARE .collapse">
+                                <h2>QUERY_MODE_PREPARE</h2>
+                                <pre>QUERY_MODE_PREPARE</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_PREPARE_TYPE_POSITIONAL"> </a>
+                            <div class="element clickable constant  constant_PREPARE_TYPE_POSITIONAL" data-toggle="collapse" data-target=".constant_PREPARE_TYPE_POSITIONAL .collapse">
+                                <h2>Prepare Type Constants</h2>
+                                <pre>PREPARE_TYPE_POSITIONAL</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_PREPARE_TYPE_NAMED"> </a>
+                            <div class="element clickable constant  constant_PREPARE_TYPE_NAMED" data-toggle="collapse" data-target=".constant_PREPARE_TYPE_NAMED .collapse">
+                                <h2>PREPARE_TYPE_NAMED</h2>
+                                <pre>PREPARE_TYPE_NAMED</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FUNCTION_FORMAT_PARAMETER_NAME"> </a>
+                            <div class="element clickable constant  constant_FUNCTION_FORMAT_PARAMETER_NAME" data-toggle="collapse" data-target=".constant_FUNCTION_FORMAT_PARAMETER_NAME .collapse">
+                                <h2>FUNCTION_FORMAT_PARAMETER_NAME</h2>
+                                <pre>FUNCTION_FORMAT_PARAMETER_NAME</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FUNCTION_QUOTE_IDENTIFIER"> </a>
+                            <div class="element clickable constant  constant_FUNCTION_QUOTE_IDENTIFIER" data-toggle="collapse" data-target=".constant_FUNCTION_QUOTE_IDENTIFIER .collapse">
+                                <h2>FUNCTION_QUOTE_IDENTIFIER</h2>
+                                <pre>FUNCTION_QUOTE_IDENTIFIER</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FUNCTION_QUOTE_VALUE"> </a>
+                            <div class="element clickable constant  constant_FUNCTION_QUOTE_VALUE" data-toggle="collapse" data-target=".constant_FUNCTION_QUOTE_VALUE .collapse">
+                                <h2>FUNCTION_QUOTE_VALUE</h2>
+                                <pre>FUNCTION_QUOTE_VALUE</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_VALUE_QUOTE_SEPARATOR"> </a>
+                            <div class="element clickable constant  constant_VALUE_QUOTE_SEPARATOR" data-toggle="collapse" data-target=".constant_VALUE_QUOTE_SEPARATOR .collapse">
+                                <h2>VALUE_QUOTE_SEPARATOR</h2>
+                                <pre>VALUE_QUOTE_SEPARATOR</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_driver"> </a>
+                            <div class="element clickable property  protected property_driver" data-toggle="collapse" data-target=".property_driver .collapse">
+                                <h2>driver</h2>
+                                <pre>driver : \Zend\Db\Adapter\Driver\DriverInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_platform"> </a>
+                            <div class="element clickable property  protected property_platform" data-toggle="collapse" data-target=".property_platform .collapse">
+                                <h2>platform</h2>
+                                <pre>platform : \Zend\Db\Adapter\Platform\PlatformInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Platform.PlatformInterface.html">\Zend\Db\Adapter\Platform\PlatformInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_profiler"> </a>
+                            <div class="element clickable property  protected property_profiler" data-toggle="collapse" data-target=".property_profiler .collapse">
+                                <h2>profiler</h2>
+                                <pre>profiler : \Zend\Db\Adapter\Profiler\ProfilerInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_queryResultSetPrototype"> </a>
+                            <div class="element clickable property  protected property_queryResultSetPrototype" data-toggle="collapse" data-target=".property_queryResultSetPrototype .collapse">
+                                <h2>queryResultSetPrototype</h2>
+                                <pre>queryResultSetPrototype : \Zend\Db\ResultSet\ResultSetInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.ResultSet.ResultSetInterface.html">\Zend\Db\ResultSet\ResultSetInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_lastPreparedStatement"> </a>
+                            <div class="element clickable property  protected property_lastPreparedStatement" data-toggle="collapse" data-target=".property_lastPreparedStatement .collapse">
+                                <h2>lastPreparedStatement</h2>
+                                <pre>lastPreparedStatement : \Zend\Db\Adapter\Driver\StatementInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Driver.StatementInterface.html">\Zend\Db\Adapter\Driver\StatementInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_driver"> </a>
+                            <div class="element clickable property  public property_driver" data-toggle="collapse" data-target=".property_driver .collapse">
+                                <h2>driver</h2>
+                                <pre>driver : \Zend\Db\Adapter\Driver\DriverInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Zend\Db\Adapter\Driver\DriverInterface</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_platform"> </a>
+                            <div class="element clickable property  public property_platform" data-toggle="collapse" data-target=".property_platform .collapse">
+                                <h2>platform</h2>
+                                <pre>platform : \Zend\Db\Adapter\Platform\PlatformInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Zend\Db\Adapter\Platform\PlatformInterface</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Db\Adapter\Adapter"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Db.Adapter.html">Adapter</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Db.Adapter.Adapter.html">Adapter</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:10 +0000.<br/>
+    </footer>
+    </body>
+</html>

@@ -38,6 +38,7 @@ class AuthController extends RestfulController
 
     /**
      * E-mail do remetente
+     *
      */
     const EMAIL_SENDER = "karlacc.uri@gmail.com";
 
@@ -48,8 +49,8 @@ class AuthController extends RestfulController
 
     /**
      * AuthController constructor.
-     * @param EntityManager $entityManager
-     * @param AuthenticationServiceInterface $authService
+     * @param EntityManager $entityManager gerenciador de entidades
+     * @param AuthenticationServiceInterface $authService serviço de autenticação
      */
     public function __construct(EntityManager $entityManager, AuthenticationServiceInterface $authService)
     {
@@ -60,10 +61,10 @@ class AuthController extends RestfulController
     /**
      * Gera uma senha aleatória
      *
-     * @param int $length
-     * @param bool $useUppercases
-     * @param bool $useNumbers
-     * @param bool $useSymbols
+     * @param int $length tamanho da senha
+     * @param bool $useUppercases define a utilização de letras maiúsculas
+     * @param bool $useNumbers define a utilização de números
+     * @param bool $useSymbols define a utilização de símbolos
      * @return string
      */
     private function generatePassword($length = 8, $useUppercases = true, $useNumbers = true, $useSymbols = false)

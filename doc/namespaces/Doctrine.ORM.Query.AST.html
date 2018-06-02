@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>     &raquo; \Doctrine\ORM\Query\AST
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            
+    <div class="row">
+
+        <div class="span4">
+            <div class="btn-group view pull-right" data-toggle="buttons-radio">
+                <button class="btn details" title="Show descriptions and method names">
+                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
+                    <i class="icon-align-justify"></i>
+                </button>
+            </div>
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">
+                    <i class="icon-map-marker"></i> Namespaces
+                </li>
+                <a href="../namespaces/Doctrine.ORM.Query.AST.html" title="AST">
+                    <i class="icon-th"></i> AST
+                </a>
+                <ul class="nav nav-list nav-namespaces">
+                        
+        <li>
+        <a href="../namespaces/Doctrine.ORM.Query.AST.Functions.html" title="Functions">
+            <i class="icon-th"></i> Functions
+        </a>
+        <ul class="nav nav-list nav-namespaces">
+                
+    
+        </ul>
+    </li>
+    
+                </ul>
+            </ul>
+        </div>
+
+        <div class="span8 namespace-contents">
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.html">Doctrine</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.html">ORM</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Query.html">Query</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Query.AST.html">AST</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                
+                                        <div id="class_AggregateExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_AggregateExpression .collapse">
+        <h1>AggregateExpression<a href="../classes/Doctrine.ORM.Query.AST.AggregateExpression.html">¶</a></h1>
+        <p class="short_description">Description of AggregateExpression.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.AggregateExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ArithmeticExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ArithmeticExpression .collapse">
+        <h1>ArithmeticExpression<a href="../classes/Doctrine.ORM.Query.AST.ArithmeticExpression.html">¶</a></h1>
+        <p class="short_description">ArithmeticExpression ::= SimpleArithmeticExpression | &quot;(&quot; Subselect &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ArithmeticExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ArithmeticFactor" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ArithmeticFactor .collapse">
+        <h1>ArithmeticFactor<a href="../classes/Doctrine.ORM.Query.AST.ArithmeticFactor.html">¶</a></h1>
+        <p class="short_description">ArithmeticFactor ::= [(&quot;+&quot; | &quot;-&quot;)] ArithmeticPrimary</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ArithmeticFactor.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ArithmeticTerm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ArithmeticTerm .collapse">
+        <h1>ArithmeticTerm<a href="../classes/Doctrine.ORM.Query.AST.ArithmeticTerm.html">¶</a></h1>
+        <p class="short_description">ArithmeticTerm ::= ArithmeticFactor {(&quot;*&quot; | &quot;/&quot;) ArithmeticFactor}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ArithmeticTerm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ASTException" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ASTException .collapse">
+        <h1>ASTException<a href="../classes/Doctrine.ORM.Query.AST.ASTException.html">¶</a></h1>
+        <p class="short_description">Base exception class for AST exceptions.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ASTException.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_BetweenExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_BetweenExpression .collapse">
+        <h1>BetweenExpression<a href="../classes/Doctrine.ORM.Query.AST.BetweenExpression.html">¶</a></h1>
+        <p class="short_description">Description of BetweenExpression.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.BetweenExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_CoalesceExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CoalesceExpression .collapse">
+        <h1>CoalesceExpression<a href="../classes/Doctrine.ORM.Query.AST.CoalesceExpression.html">¶</a></h1>
+        <p class="short_description">CoalesceExpression ::= &quot;COALESCE&quot; &quot;(&quot; ScalarExpression {&quot;,&quot; ScalarExpression}* &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.CoalesceExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_CollectionMemberExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CollectionMemberExpression .collapse">
+        <h1>CollectionMemberExpression<a href="../classes/Doctrine.ORM.Query.AST.CollectionMemberExpression.html">¶</a></h1>
+        <p class="short_description">CollectionMemberExpression ::= EntityExpression [&quot;NOT&quot;] &quot;MEMBER&quot; [&quot;OF&quot;] CollectionValuedPathExpression</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.CollectionMemberExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ComparisonExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ComparisonExpression .collapse">
+        <h1>ComparisonExpression<a href="../classes/Doctrine.ORM.Query.AST.ComparisonExpression.html">¶</a></h1>
+        <p class="short_description">ComparisonExpression ::= ArithmeticExpression ComparisonOperator ( QuantifiedExpression | ArithmeticExpression ) |
+                         StringExpression ComparisonOperator (StringExpression | QuantifiedExpression) |
+                         BooleanExpression (&quot;=&quot; | &quot;&lt;&gt;&quot; | &quot;!=&quot;) (BooleanExpression | QuantifiedExpression) |
+                         EnumExpression (&quot;=&quot; | &quot;&lt;&gt;&quot; | &quot;!=&quot;) (EnumExpression | QuantifiedExpression) |
+                         DatetimeExpression ComparisonOperator (DatetimeExpression | QuantifiedExpression) |
+                         EntityExpression (&quot;=&quot; | &quot;&lt;&gt;&quot;) (EntityExpression | QuantifiedExpression)</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ComparisonExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ConditionalExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConditionalExpression .collapse">
+        <h1>ConditionalExpression<a href="../classes/Doctrine.ORM.Query.AST.ConditionalExpression.html">¶</a></h1>
+        <p class="short_description">ConditionalExpression ::= ConditionalTerm {&quot;OR&quot; ConditionalTerm}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ConditionalExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ConditionalFactor" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConditionalFactor .collapse">
+        <h1>ConditionalFactor<a href="../classes/Doctrine.ORM.Query.AST.ConditionalFactor.html">¶</a></h1>
+        <p class="short_description">ConditionalFactor ::= [&quot;NOT&quot;] ConditionalPrimary</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ConditionalFactor.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ConditionalPrimary" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConditionalPrimary .collapse">
+        <h1>ConditionalPrimary<a href="../classes/Doctrine.ORM.Query.AST.ConditionalPrimary.html">¶</a></h1>
+        <p class="short_description">ConditionalPrimary ::= SimpleConditionalExpression | &quot;(&quot; ConditionalExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ConditionalPrimary.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ConditionalTerm" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConditionalTerm .collapse">
+        <h1>ConditionalTerm<a href="../classes/Doctrine.ORM.Query.AST.ConditionalTerm.html">¶</a></h1>
+        <p class="short_description">ConditionalTerm ::= ConditionalFactor {&quot;AND&quot; ConditionalFactor}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ConditionalTerm.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DeleteClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DeleteClause .collapse">
+        <h1>DeleteClause<a href="../classes/Doctrine.ORM.Query.AST.DeleteClause.html">¶</a></h1>
+        <p class="short_description">DeleteClause ::= &quot;DELETE&quot; [&quot;FROM&quot;] AbstractSchemaName [[&quot;AS&quot;] AliasIdentificationVariable]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.DeleteClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DeleteStatement" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DeleteStatement .collapse">
+        <h1>DeleteStatement<a href="../classes/Doctrine.ORM.Query.AST.DeleteStatement.html">¶</a></h1>
+        <p class="short_description">DeleteStatement = DeleteClause [WhereClause]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.DeleteStatement.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_EmptyCollectionComparisonExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_EmptyCollectionComparisonExpression .collapse">
+        <h1>EmptyCollectionComparisonExpression<a href="../classes/Doctrine.ORM.Query.AST.EmptyCollectionComparisonExpression.html">¶</a></h1>
+        <p class="short_description">EmptyCollectionComparisonExpression ::= CollectionValuedPathExpression &quot;IS&quot; [&quot;NOT&quot;] &quot;EMPTY&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.EmptyCollectionComparisonExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ExistsExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ExistsExpression .collapse">
+        <h1>ExistsExpression<a href="../classes/Doctrine.ORM.Query.AST.ExistsExpression.html">¶</a></h1>
+        <p class="short_description">ExistsExpression ::= [&quot;NOT&quot;] &quot;EXISTS&quot; &quot;(&quot; Subselect &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ExistsExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_FromClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_FromClause .collapse">
+        <h1>FromClause<a href="../classes/Doctrine.ORM.Query.AST.FromClause.html">¶</a></h1>
+        <p class="short_description">FromClause ::= &quot;FROM&quot; IdentificationVariableDeclaration {&quot;,&quot; IdentificationVariableDeclaration}</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.FromClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_GeneralCaseExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_GeneralCaseExpression .collapse">
+        <h1>GeneralCaseExpression<a href="../classes/Doctrine.ORM.Query.AST.GeneralCaseExpression.html">¶</a></h1>
+        <p class="short_description">GeneralCaseExpression ::= &quot;CASE&quot; WhenClause {WhenClause}* &quot;ELSE&quot; ScalarExpression &quot;END&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.GeneralCaseExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_GroupByClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_GroupByClause .collapse">
+        <h1>GroupByClause<a href="../classes/Doctrine.ORM.Query.AST.GroupByClause.html">¶</a></h1>
+        <p class="short_description">Description of GroupByClause.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.GroupByClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_HavingClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_HavingClause .collapse">
+        <h1>HavingClause<a href="../classes/Doctrine.ORM.Query.AST.HavingClause.html">¶</a></h1>
+        <p class="short_description">Description of HavingClause.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.HavingClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_IdentificationVariableDeclaration" class="element ajax clickable class" data-toggle="collapse" data-target="#class_IdentificationVariableDeclaration .collapse">
+        <h1>IdentificationVariableDeclaration<a href="../classes/Doctrine.ORM.Query.AST.IdentificationVariableDeclaration.html">¶</a></h1>
+        <p class="short_description">IdentificationVariableDeclaration ::= RangeVariableDeclaration [IndexBy] {JoinVariableDeclaration}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.IdentificationVariableDeclaration.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_IndexBy" class="element ajax clickable class" data-toggle="collapse" data-target="#class_IndexBy .collapse">
+        <h1>IndexBy<a href="../classes/Doctrine.ORM.Query.AST.IndexBy.html">¶</a></h1>
+        <p class="short_description">IndexBy ::= &quot;INDEX&quot; &quot;BY&quot; SimpleStateFieldPathExpression</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.IndexBy.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_InExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_InExpression .collapse">
+        <h1>InExpression<a href="../classes/Doctrine.ORM.Query.AST.InExpression.html">¶</a></h1>
+        <p class="short_description">InExpression ::= StateFieldPathExpression [&quot;NOT&quot;] &quot;IN&quot; &quot;(&quot; (Literal {&quot;,&quot; Literal}* | Subselect) &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.InExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_InputParameter" class="element ajax clickable class" data-toggle="collapse" data-target="#class_InputParameter .collapse">
+        <h1>InputParameter<a href="../classes/Doctrine.ORM.Query.AST.InputParameter.html">¶</a></h1>
+        <p class="short_description">Description of InputParameter.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.InputParameter.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_InstanceOfExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_InstanceOfExpression .collapse">
+        <h1>InstanceOfExpression<a href="../classes/Doctrine.ORM.Query.AST.InstanceOfExpression.html">¶</a></h1>
+        <p class="short_description">InstanceOfExpression ::= IdentificationVariable [&quot;NOT&quot;] &quot;INSTANCE&quot; [&quot;OF&quot;] (InstanceOfParameter | &quot;(&quot; InstanceOfParameter {&quot;,&quot; InstanceOfParameter}* &quot;)&quot;)
+InstanceOfParameter  ::= AbstractSchemaName | InputParameter</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.InstanceOfExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Join" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Join .collapse">
+        <h1>Join<a href="../classes/Doctrine.ORM.Query.AST.Join.html">¶</a></h1>
+        <p class="short_description">Join ::= [&quot;LEFT&quot; [&quot;OUTER&quot;] | &quot;INNER&quot;] &quot;JOIN&quot; JoinAssociationPathExpression
+         [&quot;AS&quot;] AliasIdentificationVariable [(&quot;ON&quot; | &quot;WITH&quot;) ConditionalExpression]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Join.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_JoinAssociationDeclaration" class="element ajax clickable class" data-toggle="collapse" data-target="#class_JoinAssociationDeclaration .collapse">
+        <h1>JoinAssociationDeclaration<a href="../classes/Doctrine.ORM.Query.AST.JoinAssociationDeclaration.html">¶</a></h1>
+        <p class="short_description">JoinAssociationDeclaration ::= JoinAssociationPathExpression [&quot;AS&quot;] AliasIdentificationVariable</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.JoinAssociationDeclaration.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_JoinAssociationPathExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_JoinAssociationPathExpression .collapse">
+        <h1>JoinAssociationPathExpression<a href="../classes/Doctrine.ORM.Query.AST.JoinAssociationPathExpression.html">¶</a></h1>
+        <p class="short_description">JoinAssociationPathExpression ::= IdentificationVariable &quot;.&quot; (SingleValuedAssociationField | CollectionValuedAssociationField)</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.JoinAssociationPathExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_JoinClassPathExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_JoinClassPathExpression .collapse">
+        <h1>JoinClassPathExpression<a href="../classes/Doctrine.ORM.Query.AST.JoinClassPathExpression.html">¶</a></h1>
+        <p class="short_description">JoinClassPathExpression ::= AbstractSchemaName [&quot;AS&quot;] AliasIdentificationVariable</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.JoinClassPathExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_JoinVariableDeclaration" class="element ajax clickable class" data-toggle="collapse" data-target="#class_JoinVariableDeclaration .collapse">
+        <h1>JoinVariableDeclaration<a href="../classes/Doctrine.ORM.Query.AST.JoinVariableDeclaration.html">¶</a></h1>
+        <p class="short_description">JoinVariableDeclaration ::= Join [IndexBy]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.JoinVariableDeclaration.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_LikeExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_LikeExpression .collapse">
+        <h1>LikeExpression<a href="../classes/Doctrine.ORM.Query.AST.LikeExpression.html">¶</a></h1>
+        <p class="short_description">LikeExpression ::= StringExpression [&quot;NOT&quot;] &quot;LIKE&quot; string [&quot;ESCAPE&quot; char]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.LikeExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Literal" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Literal .collapse">
+        <h1>Literal<a href="../classes/Doctrine.ORM.Query.AST.Literal.html">¶</a></h1>
+        <p class="short_description">Abstract class of an AST node.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Literal.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_NewObjectExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_NewObjectExpression .collapse">
+        <h1>NewObjectExpression<a href="../classes/Doctrine.ORM.Query.AST.NewObjectExpression.html">¶</a></h1>
+        <p class="short_description">NewObjectExpression ::= &quot;NEW&quot; IdentificationVariable &quot;(&quot; NewObjectArg {&quot;,&quot; NewObjectArg}* &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.NewObjectExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Node" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Node .collapse">
+        <h1>Node<a href="../classes/Doctrine.ORM.Query.AST.Node.html">¶</a></h1>
+        <p class="short_description">Abstract class of an AST node.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Node.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_NullComparisonExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_NullComparisonExpression .collapse">
+        <h1>NullComparisonExpression<a href="../classes/Doctrine.ORM.Query.AST.NullComparisonExpression.html">¶</a></h1>
+        <p class="short_description">NullComparisonExpression ::= (SingleValuedPathExpression | InputParameter) &quot;IS&quot; [&quot;NOT&quot;] &quot;NULL&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.NullComparisonExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_NullIfExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_NullIfExpression .collapse">
+        <h1>NullIfExpression<a href="../classes/Doctrine.ORM.Query.AST.NullIfExpression.html">¶</a></h1>
+        <p class="short_description">NullIfExpression ::= &quot;NULLIF&quot; &quot;(&quot; ScalarExpression &quot;,&quot; ScalarExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.NullIfExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_OrderByClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_OrderByClause .collapse">
+        <h1>OrderByClause<a href="../classes/Doctrine.ORM.Query.AST.OrderByClause.html">¶</a></h1>
+        <p class="short_description">OrderByClause ::= &quot;ORDER&quot; &quot;BY&quot; OrderByItem {&quot;,&quot; OrderByItem}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.OrderByClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_OrderByItem" class="element ajax clickable class" data-toggle="collapse" data-target="#class_OrderByItem .collapse">
+        <h1>OrderByItem<a href="../classes/Doctrine.ORM.Query.AST.OrderByItem.html">¶</a></h1>
+        <p class="short_description">OrderByItem ::= (ResultVariable | StateFieldPathExpression) [&quot;ASC&quot; | &quot;DESC&quot;]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.OrderByItem.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ParenthesisExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ParenthesisExpression .collapse">
+        <h1>ParenthesisExpression<a href="../classes/Doctrine.ORM.Query.AST.ParenthesisExpression.html">¶</a></h1>
+        <p class="short_description">ParenthesisExpression ::= &quot;(&quot; ArithmeticPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.ParenthesisExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_PartialObjectExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PartialObjectExpression .collapse">
+        <h1>PartialObjectExpression<a href="../classes/Doctrine.ORM.Query.AST.PartialObjectExpression.html">¶</a></h1>
+        <p class="short_description">Abstract class of an AST node.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.PartialObjectExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_PathExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_PathExpression .collapse">
+        <h1>PathExpression<a href="../classes/Doctrine.ORM.Query.AST.PathExpression.html">¶</a></h1>
+        <p class="short_description">AssociationPathExpression ::= CollectionValuedPathExpression | SingleValuedAssociationPathExpression
+SingleValuedPathExpression ::= StateFieldPathExpression | SingleValuedAssociationPathExpression
+StateFieldPathExpression ::= SimpleStateFieldPathExpression | SimpleStateFieldAssociationPathExpression
+SingleValuedAssociationPathExpression ::= IdentificationVariable &quot;.&quot; SingleValuedAssociationField
+CollectionValuedPathExpression ::= IdentificationVariable &quot;.&quot; CollectionValuedAssociationField
+StateField ::= {EmbeddedClassStateField &quot;.&quot;}* SimpleStateField
+SimpleStateFieldPathExpression ::= IdentificationVariable &quot;.&quot; StateField</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.PathExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_QuantifiedExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_QuantifiedExpression .collapse">
+        <h1>QuantifiedExpression<a href="../classes/Doctrine.ORM.Query.AST.QuantifiedExpression.html">¶</a></h1>
+        <p class="short_description">QuantifiedExpression ::= (&quot;ALL&quot; | &quot;ANY&quot; | &quot;SOME&quot;) &quot;(&quot; Subselect &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.QuantifiedExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_RangeVariableDeclaration" class="element ajax clickable class" data-toggle="collapse" data-target="#class_RangeVariableDeclaration .collapse">
+        <h1>RangeVariableDeclaration<a href="../classes/Doctrine.ORM.Query.AST.RangeVariableDeclaration.html">¶</a></h1>
+        <p class="short_description">RangeVariableDeclaration ::= AbstractSchemaName [&quot;AS&quot;] AliasIdentificationVariable</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.RangeVariableDeclaration.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SelectClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SelectClause .collapse">
+        <h1>SelectClause<a href="../classes/Doctrine.ORM.Query.AST.SelectClause.html">¶</a></h1>
+        <p class="short_description">SelectClause = &quot;SELECT&quot; [&quot;DISTINCT&quot;] SelectExpression {&quot;,&quot; SelectExpression}</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SelectClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SelectExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SelectExpression .collapse">
+        <h1>SelectExpression<a href="../classes/Doctrine.ORM.Query.AST.SelectExpression.html">¶</a></h1>
+        <p class="short_description">SelectExpression ::= IdentificationVariable [&quot;.&quot; &quot;*&quot;] | StateFieldPathExpression |
+                    (AggregateExpression | &quot;(&quot; Subselect &quot;)&quot;) [[&quot;AS&quot;] [&quot;HIDDEN&quot;] FieldAliasIdentificationVariable]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SelectExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SelectStatement" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SelectStatement .collapse">
+        <h1>SelectStatement<a href="../classes/Doctrine.ORM.Query.AST.SelectStatement.html">¶</a></h1>
+        <p class="short_description">SelectStatement = SelectClause FromClause [WhereClause] [GroupByClause] [HavingClause] [OrderByClause]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SelectStatement.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SimpleArithmeticExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SimpleArithmeticExpression .collapse">
+        <h1>SimpleArithmeticExpression<a href="../classes/Doctrine.ORM.Query.AST.SimpleArithmeticExpression.html">¶</a></h1>
+        <p class="short_description">SimpleArithmeticExpression ::= ArithmeticTerm {(&quot;+&quot; | &quot;-&quot;) ArithmeticTerm}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SimpleArithmeticExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SimpleCaseExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SimpleCaseExpression .collapse">
+        <h1>SimpleCaseExpression<a href="../classes/Doctrine.ORM.Query.AST.SimpleCaseExpression.html">¶</a></h1>
+        <p class="short_description">SimpleCaseExpression ::= &quot;CASE&quot; CaseOperand SimpleWhenClause {SimpleWhenClause}* &quot;ELSE&quot; ScalarExpression &quot;END&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SimpleCaseExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SimpleSelectClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SimpleSelectClause .collapse">
+        <h1>SimpleSelectClause<a href="../classes/Doctrine.ORM.Query.AST.SimpleSelectClause.html">¶</a></h1>
+        <p class="short_description">SimpleSelectClause  ::= &quot;SELECT&quot; [&quot;DISTINCT&quot;] SimpleSelectExpression</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SimpleSelectClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SimpleSelectExpression" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SimpleSelectExpression .collapse">
+        <h1>SimpleSelectExpression<a href="../classes/Doctrine.ORM.Query.AST.SimpleSelectExpression.html">¶</a></h1>
+        <p class="short_description">SimpleSelectExpression ::= StateFieldPathExpression | IdentificationVariable
+                         | (AggregateExpression [[&quot;AS&quot;] FieldAliasIdentificationVariable])</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SimpleSelectExpression.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SimpleWhenClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SimpleWhenClause .collapse">
+        <h1>SimpleWhenClause<a href="../classes/Doctrine.ORM.Query.AST.SimpleWhenClause.html">¶</a></h1>
+        <p class="short_description">SimpleWhenClause ::= &quot;WHEN&quot; ScalarExpression &quot;THEN&quot; ScalarExpression</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SimpleWhenClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_Subselect" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Subselect .collapse">
+        <h1>Subselect<a href="../classes/Doctrine.ORM.Query.AST.Subselect.html">¶</a></h1>
+        <p class="short_description">Subselect ::= SimpleSelectClause SubselectFromClause [WhereClause] [GroupByClause] [HavingClause] [OrderByClause]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Subselect.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SubselectFromClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SubselectFromClause .collapse">
+        <h1>SubselectFromClause<a href="../classes/Doctrine.ORM.Query.AST.SubselectFromClause.html">¶</a></h1>
+        <p class="short_description">SubselectFromClause ::= &quot;FROM&quot; SubselectIdentificationVariableDeclaration {&quot;,&quot; SubselectIdentificationVariableDeclaration}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SubselectFromClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SubselectIdentificationVariableDeclaration" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SubselectIdentificationVariableDeclaration .collapse">
+        <h1>SubselectIdentificationVariableDeclaration<a href="../classes/Doctrine.ORM.Query.AST.SubselectIdentificationVariableDeclaration.html">¶</a></h1>
+        <p class="short_description">SubselectIdentificationVariableDeclaration ::= AssociationPathExpression [&quot;AS&quot;] AliasIdentificationVariable</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.SubselectIdentificationVariableDeclaration.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_UpdateClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_UpdateClause .collapse">
+        <h1>UpdateClause<a href="../classes/Doctrine.ORM.Query.AST.UpdateClause.html">¶</a></h1>
+        <p class="short_description">UpdateClause ::= &quot;UPDATE&quot; AbstractSchemaName [[&quot;AS&quot;] AliasIdentificationVariable] &quot;SET&quot; UpdateItem {&quot;,&quot; UpdateItem}*</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.UpdateClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_UpdateItem" class="element ajax clickable class" data-toggle="collapse" data-target="#class_UpdateItem .collapse">
+        <h1>UpdateItem<a href="../classes/Doctrine.ORM.Query.AST.UpdateItem.html">¶</a></h1>
+        <p class="short_description">UpdateItem ::= [IdentificationVariable &quot;.&quot;] {StateField | SingleValuedAssociationField} &quot;=&quot; NewValue
+NewValue ::= SimpleArithmeticExpression | StringPrimary | DatetimePrimary | BooleanPrimary |
+             EnumPrimary | SimpleEntityExpression | &quot;NULL&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.UpdateItem.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_UpdateStatement" class="element ajax clickable class" data-toggle="collapse" data-target="#class_UpdateStatement .collapse">
+        <h1>UpdateStatement<a href="../classes/Doctrine.ORM.Query.AST.UpdateStatement.html">¶</a></h1>
+        <p class="short_description">UpdateStatement = UpdateClause [WhereClause]</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.UpdateStatement.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_WhenClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_WhenClause .collapse">
+        <h1>WhenClause<a href="../classes/Doctrine.ORM.Query.AST.WhenClause.html">¶</a></h1>
+        <p class="short_description">WhenClause ::= &quot;WHEN&quot; ConditionalExpression &quot;THEN&quot; ScalarExpression</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.WhenClause.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_WhereClause" class="element ajax clickable class" data-toggle="collapse" data-target="#class_WhereClause .collapse">
+        <h1>WhereClause<a href="../classes/Doctrine.ORM.Query.AST.WhereClause.html">¶</a></h1>
+        <p class="short_description">WhereClause ::= &quot;WHERE&quot; ConditionalExpression</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.WhereClause.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.html">Doctrine</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.html">ORM</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Query.html">Query</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Query.AST.html">AST</a>
+    </li>
+
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Query.AST.Functions.html">Functions</a>
+    </li>
+
+        </ul>
+
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                
+                                        <div id="class_AbsFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_AbsFunction .collapse">
+        <h1>AbsFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.AbsFunction.html">¶</a></h1>
+        <p class="short_description">&quot;ABS&quot; &quot;(&quot; SimpleArithmeticExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.AbsFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_BitAndFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_BitAndFunction .collapse">
+        <h1>BitAndFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.BitAndFunction.html">¶</a></h1>
+        <p class="short_description">&quot;BIT_AND&quot; &quot;(&quot; ArithmeticPrimary &quot;,&quot; ArithmeticPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.BitAndFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_BitOrFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_BitOrFunction .collapse">
+        <h1>BitOrFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.BitOrFunction.html">¶</a></h1>
+        <p class="short_description">&quot;BIT_OR&quot; &quot;(&quot; ArithmeticPrimary &quot;,&quot; ArithmeticPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.BitOrFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ConcatFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ConcatFunction .collapse">
+        <h1>ConcatFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.ConcatFunction.html">¶</a></h1>
+        <p class="short_description">&quot;CONCAT&quot; &quot;(&quot; StringPrimary &quot;,&quot; StringPrimary {&quot;,&quot; StringPrimary }* &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.ConcatFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_CurrentDateFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CurrentDateFunction .collapse">
+        <h1>CurrentDateFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.CurrentDateFunction.html">¶</a></h1>
+        <p class="short_description">&quot;CURRENT_DATE&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.CurrentDateFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_CurrentTimeFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CurrentTimeFunction .collapse">
+        <h1>CurrentTimeFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.CurrentTimeFunction.html">¶</a></h1>
+        <p class="short_description">&quot;CURRENT_TIME&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.CurrentTimeFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_CurrentTimestampFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_CurrentTimestampFunction .collapse">
+        <h1>CurrentTimestampFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.CurrentTimestampFunction.html">¶</a></h1>
+        <p class="short_description">&quot;CURRENT_TIMESTAMP&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.CurrentTimestampFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DateAddFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DateAddFunction .collapse">
+        <h1>DateAddFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.DateAddFunction.html">¶</a></h1>
+        <p class="short_description">&quot;DATE_ADD&quot; &quot;(&quot; ArithmeticPrimary &quot;,&quot; ArithmeticPrimary &quot;,&quot; StringPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.DateAddFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DateDiffFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DateDiffFunction .collapse">
+        <h1>DateDiffFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.DateDiffFunction.html">¶</a></h1>
+        <p class="short_description">&quot;DATE_DIFF&quot; &quot;(&quot; ArithmeticPrimary &quot;,&quot; ArithmeticPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.DateDiffFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_DateSubFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_DateSubFunction .collapse">
+        <h1>DateSubFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.DateSubFunction.html">¶</a></h1>
+        <p class="short_description">&quot;DATE_ADD(date1, interval, unit)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.DateSubFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_FunctionNode" class="element ajax clickable class" data-toggle="collapse" data-target="#class_FunctionNode .collapse">
+        <h1>FunctionNode<a href="../classes/Doctrine.ORM.Query.AST.Functions.FunctionNode.html">¶</a></h1>
+        <p class="short_description">Abstract Function Node.</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.FunctionNode.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_IdentityFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_IdentityFunction .collapse">
+        <h1>IdentityFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.IdentityFunction.html">¶</a></h1>
+        <p class="short_description">&quot;IDENTITY&quot; &quot;(&quot; SingleValuedAssociationPathExpression {&quot;,&quot; string} &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.IdentityFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_LengthFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_LengthFunction .collapse">
+        <h1>LengthFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.LengthFunction.html">¶</a></h1>
+        <p class="short_description">&quot;LENGTH&quot; &quot;(&quot; StringPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.LengthFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_LocateFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_LocateFunction .collapse">
+        <h1>LocateFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.LocateFunction.html">¶</a></h1>
+        <p class="short_description">&quot;LOCATE&quot; &quot;(&quot; StringPrimary &quot;,&quot; StringPrimary [&quot;,&quot; SimpleArithmeticExpression]&quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.LocateFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_LowerFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_LowerFunction .collapse">
+        <h1>LowerFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.LowerFunction.html">¶</a></h1>
+        <p class="short_description">&quot;LOWER&quot; &quot;(&quot; StringPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.LowerFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_ModFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_ModFunction .collapse">
+        <h1>ModFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.ModFunction.html">¶</a></h1>
+        <p class="short_description">&quot;MOD&quot; &quot;(&quot; SimpleArithmeticExpression &quot;,&quot; SimpleArithmeticExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.ModFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SizeFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SizeFunction .collapse">
+        <h1>SizeFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.SizeFunction.html">¶</a></h1>
+        <p class="short_description">&quot;SIZE&quot; &quot;(&quot; CollectionValuedPathExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.SizeFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SqrtFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SqrtFunction .collapse">
+        <h1>SqrtFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.SqrtFunction.html">¶</a></h1>
+        <p class="short_description">&quot;SQRT&quot; &quot;(&quot; SimpleArithmeticExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.SqrtFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_SubstringFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_SubstringFunction .collapse">
+        <h1>SubstringFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.SubstringFunction.html">¶</a></h1>
+        <p class="short_description">&quot;SUBSTRING&quot; &quot;(&quot; StringPrimary &quot;,&quot; SimpleArithmeticExpression &quot;,&quot; SimpleArithmeticExpression &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.SubstringFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_TrimFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_TrimFunction .collapse">
+        <h1>TrimFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.TrimFunction.html">¶</a></h1>
+        <p class="short_description">&quot;TRIM&quot; &quot;(&quot; [[&quot;LEADING&quot; | &quot;TRAILING&quot; | &quot;BOTH&quot;] [char] &quot;FROM&quot;] StringPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.TrimFunction.html" class="more">« More »</a>    </div>
+
+                                        <div id="class_UpperFunction" class="element ajax clickable class" data-toggle="collapse" data-target="#class_UpperFunction .collapse">
+        <h1>UpperFunction<a href="../classes/Doctrine.ORM.Query.AST.Functions.UpperFunction.html">¶</a></h1>
+        <p class="short_description">&quot;UPPER&quot; &quot;(&quot; StringPrimary &quot;)&quot;</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/Doctrine.ORM.Query.AST.Functions.UpperFunction.html" class="more">« More »</a>    </div>
+
+                            </div>
+            
+    
+    
+        </div>
+    </div>
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:00:55 +0000.<br/>
+    </footer>
+    </body>
+</html>

@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class Language
  * Representa as Linguagens de Programação suportadas pela aplicação
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="languages")
  * @package SourceCode\Model\Entity
  */
@@ -330,6 +330,8 @@ class Language extends Entity
     }
 
     /**
+     * Retorna uma coleção de todos os Caracteres Especiais da Linguagem de Programação
+     *
      * @return ArrayCollection
      */
     public function getSpecialCharacters()
@@ -338,7 +340,7 @@ class Language extends Entity
     }
 
     /**
-     * Retorna uma coleção de todos os Caracteres Especiais da Linguagem de Programação
+     * Define uma coleção de todos os Caracteres Especiais da Linguagem de Programação
      *
      * @param ArrayCollection $specialCharacters
      */
@@ -348,8 +350,6 @@ class Language extends Entity
     }
 
     /**
-     * Define uma coleção de todos os Caracteres Especiais da Linguagem de Programação
-     *
      * Retorna todos os dados da Linguagem de Programação em formato de array
      * @inheritdoc
      * @return array

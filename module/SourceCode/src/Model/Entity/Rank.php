@@ -16,7 +16,7 @@ use User\Model\Entity\User;
  * Class Rank
  * Representa o Rank de cada enunciado de problema
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="rank")
  * @package SourceCode\Model\Entity
  */
@@ -190,6 +190,7 @@ class Rank extends Entity
 
     /**
      * Método que retorna os dados do Rank em formato de array
+     * @inheritdoc
      * @return array
      */
     public function toArray()
@@ -197,7 +198,7 @@ class Rank extends Entity
         return array(
             'id' => $this->id,
             'problemId' => $this->problem->getId(),
-            'userId' => $this->user->getId(),
+//            'userId' => $this->user->getId(),
             'ranking' => $this->ranking,
         );
     }

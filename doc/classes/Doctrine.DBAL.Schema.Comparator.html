@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\DBAL\Schema\Comparator
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_compare" title="compare :: Returns a SchemaDiff object containing the differences between the schemas $fromSchema and $toSchema.">
+            <span class="description">Returns a SchemaDiff object containing the differences between the schemas $fromSchema and $toSchema.</span><pre>compare</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_compareSchemas" title="compareSchemas :: ">
+            <span class="description"></span><pre>compareSchemas</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_diffColumn" title="diffColumn :: Returns the difference between the fields $field1 and $field2.">
+            <span class="description">Returns the difference between the fields $field1 and $field2.</span><pre>diffColumn</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_diffForeignKey" title="diffForeignKey :: ">
+            <span class="description"></span><pre>diffForeignKey</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_diffIndex" title="diffIndex :: Finds the difference between the indexes $index1 and $index2.">
+            <span class="description">Finds the difference between the indexes $index1 and $index2.</span><pre>diffIndex</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_diffSequence" title="diffSequence :: ">
+            <span class="description"></span><pre>diffSequence</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_diffTable" title="diffTable :: Returns the difference between the tables $table1 and $table2.">
+            <span class="description">Returns the difference between the tables $table1 and $table2.</span><pre>diffTable</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                    <li class="method private">
+                            <a href="#method_detectColumnRenamings" title="detectColumnRenamings :: Try to find columns that only changed their name, rename operations maybe cheaper than add/drop
+however ambiguities between different possibilities should not lead to renaming at all.">
+                                <span class="description">Try to find columns that only changed their name, rename operations maybe cheaper than add/drop
+however ambiguities between different possibilities should not lead to renaming at all.</span><pre>detectColumnRenamings</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private">
+                            <a href="#method_detectIndexRenamings" title="detectIndexRenamings :: Try to find indexes that only changed their name, rename operations maybe cheaper than add/drop
+however ambiguities between different possibilities should not lead to renaming at all.">
+                                <span class="description">Try to find indexes that only changed their name, rename operations maybe cheaper than add/drop
+however ambiguities between different possibilities should not lead to renaming at all.</span><pre>detectIndexRenamings</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                    <li class="method private">
+                            <a href="#method_isAutoIncrementSequenceInSchema" title="isAutoIncrementSequenceInSchema :: ">
+                                <span class="description"></span><pre>isAutoIncrementSequenceInSchema</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Comparator</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Compares two Schemas and return an instance of SchemaDiff.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        link
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>www.doctrine-project.org</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.0
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Benjamin Eberlei <a href="mailto:kontakt@beberlei.de">kontakt@beberlei.de</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_compare"></a>
+                        <div class="element clickable method public  method_compare" data-toggle="collapse" data-target=".method_compare .collapse">
+                            <h2>Returns a SchemaDiff object containing the differences between the schemas $fromSchema and $toSchema.</h2>
+                            <pre>compare(\Doctrine\DBAL\Schema\Schema $fromSchema, \Doctrine\DBAL\Schema\Schema $toSchema) : \Doctrine\DBAL\Schema\SchemaDiff</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The returned differences are returned in such a way that they contain the
+operations to change the schema stored in $fromSchema to the schema that is
+stored in $toSchema.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fromSchema</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Schema.html">\Doctrine\DBAL\Schema\Schema</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$toSchema</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Schema.html">\Doctrine\DBAL\Schema\Schema</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.SchemaDiff.html">\Doctrine\DBAL\Schema\SchemaDiff</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_compareSchemas"></a>
+                        <div class="element clickable method public  method_compareSchemas" data-toggle="collapse" data-target=".method_compareSchemas .collapse">
+                            <h2>compareSchemas</h2>
+                            <pre>compareSchemas(\Doctrine\DBAL\Schema\Schema $fromSchema, \Doctrine\DBAL\Schema\Schema $toSchema) : \Doctrine\DBAL\Schema\SchemaDiff</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fromSchema</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Schema.html">\Doctrine\DBAL\Schema\Schema</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$toSchema</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Schema.html">\Doctrine\DBAL\Schema\Schema</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.SchemaDiff.html">\Doctrine\DBAL\Schema\SchemaDiff</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_detectColumnRenamings"></a>
+                        <div class="element clickable method private  method_detectColumnRenamings" data-toggle="collapse" data-target=".method_detectColumnRenamings .collapse">
+                            <h2>Try to find columns that only changed their name, rename operations maybe cheaper than add/drop
+however ambiguities between different possibilities should not lead to renaming at all.</h2>
+                            <pre>detectColumnRenamings(\Doctrine\DBAL\Schema\TableDiff $tableDifferences) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableDifferences</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.TableDiff.html">\Doctrine\DBAL\Schema\TableDiff</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_detectIndexRenamings"></a>
+                        <div class="element clickable method private  method_detectIndexRenamings" data-toggle="collapse" data-target=".method_detectIndexRenamings .collapse">
+                            <h2>Try to find indexes that only changed their name, rename operations maybe cheaper than add/drop
+however ambiguities between different possibilities should not lead to renaming at all.</h2>
+                            <pre>detectIndexRenamings(\Doctrine\DBAL\Schema\TableDiff $tableDifferences) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tableDifferences</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.TableDiff.html">\Doctrine\DBAL\Schema\TableDiff</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_diffColumn"></a>
+                        <div class="element clickable method public  method_diffColumn" data-toggle="collapse" data-target=".method_diffColumn .collapse">
+                            <h2>Returns the difference between the fields $field1 and $field2.</h2>
+                            <pre>diffColumn(\Doctrine\DBAL\Schema\Column $column1, \Doctrine\DBAL\Schema\Column $column2) : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If there are differences this method returns $field2, otherwise the
+boolean false.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$column1</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$column2</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_diffForeignKey"></a>
+                        <div class="element clickable method public  method_diffForeignKey" data-toggle="collapse" data-target=".method_diffForeignKey .collapse">
+                            <h2>diffForeignKey</h2>
+                            <pre>diffForeignKey(\Doctrine\DBAL\Schema\ForeignKeyConstraint $key1, \Doctrine\DBAL\Schema\ForeignKeyConstraint $key2) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key1</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.ForeignKeyConstraint.html">\Doctrine\DBAL\Schema\ForeignKeyConstraint</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key2</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.ForeignKeyConstraint.html">\Doctrine\DBAL\Schema\ForeignKeyConstraint</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_diffIndex"></a>
+                        <div class="element clickable method public  method_diffIndex" data-toggle="collapse" data-target=".method_diffIndex .collapse">
+                            <h2>Finds the difference between the indexes $index1 and $index2.</h2>
+                            <pre>diffIndex(\Doctrine\DBAL\Schema\Index $index1, \Doctrine\DBAL\Schema\Index $index2) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Compares $index1 with $index2 and returns $index2 if there are any
+differences or false in case there are no differences.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$index1</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Index.html">\Doctrine\DBAL\Schema\Index</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$index2</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Index.html">\Doctrine\DBAL\Schema\Index</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_diffSequence"></a>
+                        <div class="element clickable method public  method_diffSequence" data-toggle="collapse" data-target=".method_diffSequence .collapse">
+                            <h2>diffSequence</h2>
+                            <pre>diffSequence(\Doctrine\DBAL\Schema\Sequence $sequence1, \Doctrine\DBAL\Schema\Sequence $sequence2) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequence1</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequence2</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_diffTable"></a>
+                        <div class="element clickable method public  method_diffTable" data-toggle="collapse" data-target=".method_diffTable .collapse">
+                            <h2>Returns the difference between the tables $table1 and $table2.</h2>
+                            <pre>diffTable(\Doctrine\DBAL\Schema\Table $table1, \Doctrine\DBAL\Schema\Table $table2) : boolean|\Doctrine\DBAL\Schema\TableDiff</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If there are no differences this method returns the boolean false.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table1</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$table2</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Table.html">\Doctrine\DBAL\Schema\Table</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean|<a href="../classes/Doctrine.DBAL.Schema.TableDiff.html">\Doctrine\DBAL\Schema\TableDiff</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isAutoIncrementSequenceInSchema"></a>
+                        <div class="element clickable method private  method_isAutoIncrementSequenceInSchema" data-toggle="collapse" data-target=".method_isAutoIncrementSequenceInSchema .collapse">
+                            <h2>isAutoIncrementSequenceInSchema</h2>
+                            <pre>isAutoIncrementSequenceInSchema(\Doctrine\DBAL\Schema\Schema $schema, \Doctrine\DBAL\Schema\Sequence $sequence) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$schema</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Schema.html">\Doctrine\DBAL\Schema\Schema</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sequence</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Schema.Sequence.html">\Doctrine\DBAL\Schema\Sequence</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                        </div>
+            </div>
+            <a id="\Doctrine\DBAL\Schema\Comparator"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.DBAL.Schema.html">Schema</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.DBAL.Schema.Comparator.html">Comparator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:23 +0000.<br/>
+    </footer>
+    </body>
+</html>

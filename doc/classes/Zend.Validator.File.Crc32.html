@@ -1,0 +1,1911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Validator\File\Crc32
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Abstract constructor for all validators
+A validator should accept following parameters:
+ - nothing f.e. Validator()
+ - one or multiple scalar values f.e. Validator($first, $second, $third)
+ - an array f.e. Validator(array($first =&gt; &#039;first&#039;, $second =&gt; &#039;second&#039;, $third =&gt; &#039;third&#039;))
+ - an instance of Traversable f.e. Validator($config_instance)">
+            <span class="description">Abstract constructor for all validators
+A validator should accept following parameters:
+ - nothing f.e. Validator()
+ - one or multiple scalar values f.e. Validator($first, $second, $third)
+ - an array f.e. Validator(array($first =&gt; &#039;first&#039;, $second =&gt; &#039;second&#039;, $third =&gt; &#039;third&#039;))
+ - an instance of Traversable f.e. Validator($config_instance)</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___get" title="__get :: Magic function returns the value of the requested property, if and only if it is the value or a
+message variable.">
+            <span class="description">Magic function returns the value of the requested property, if and only if it is the value or a
+message variable.</span><pre>__get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method___invoke" title="__invoke :: Invoke as command">
+            <span class="description">Invoke as command</span><pre>__invoke</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_addCrc32" title="addCrc32 :: Adds the crc32 hash for one or multiple files">
+            <span class="description">Adds the crc32 hash for one or multiple files</span><pre>addCrc32</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addHash" title="addHash :: Adds the hash for one or multiple files">
+            <span class="description">Adds the hash for one or multiple files</span><pre>addHash</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_getCrc32" title="getCrc32 :: Returns all set crc32 hashes">
+            <span class="description">Returns all set crc32 hashes</span><pre>getCrc32</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getDefaultTranslator" title="getDefaultTranslator :: Get default translation object for all validate objects">
+            <span class="description">Get default translation object for all validate objects</span><pre>getDefaultTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getDefaultTranslatorTextDomain" title="getDefaultTranslatorTextDomain :: Get default translation text domain for all validate objects">
+            <span class="description">Get default translation text domain for all validate objects</span><pre>getDefaultTranslatorTextDomain</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getHash" title="getHash :: Returns the set hash values as array, the hash as key and the algorithm the value">
+            <span class="description">Returns the set hash values as array, the hash as key and the algorithm the value</span><pre>getHash</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMessageLength" title="getMessageLength :: Returns the maximum allowed message length">
+            <span class="description">Returns the maximum allowed message length</span><pre>getMessageLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMessages" title="getMessages :: Returns array of validation failure messages">
+            <span class="description">Returns array of validation failure messages</span><pre>getMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMessageTemplates" title="getMessageTemplates :: Returns the message templates from the validator">
+            <span class="description">Returns the message templates from the validator</span><pre>getMessageTemplates</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMessageVariables" title="getMessageVariables :: Returns an array of the names of variables that are used in constructing validation failure messages">
+            <span class="description">Returns an array of the names of variables that are used in constructing validation failure messages</span><pre>getMessageVariables</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getOption" title="getOption :: Returns an option">
+            <span class="description">Returns an option</span><pre>getOption</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getOptions" title="getOptions :: Returns all available options">
+            <span class="description">Returns all available options</span><pre>getOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getTranslator" title="getTranslator :: Return translation object">
+            <span class="description">Return translation object</span><pre>getTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getTranslatorTextDomain" title="getTranslatorTextDomain :: Return the translation text domain">
+            <span class="description">Return the translation text domain</span><pre>getTranslatorTextDomain</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_hasDefaultTranslator" title="hasDefaultTranslator :: Is there a default translation object set?">
+            <span class="description">Is there a default translation object set?</span><pre>hasDefaultTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_hasTranslator" title="hasTranslator :: Does this validator have its own specific translator?">
+            <span class="description">Does this validator have its own specific translator?</span><pre>hasTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isTranslatorEnabled" title="isTranslatorEnabled :: Is translation enabled?">
+            <span class="description">Is translation enabled?</span><pre>isTranslatorEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isValid" title="isValid :: Returns true if and only if the given file confirms the set hash">
+            <span class="description">Returns true if and only if the given file confirms the set hash</span><pre>isValid</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isValueObscured" title="isValueObscured :: Retrieve flag indicating whether or not value should be obfuscated in
+messages">
+            <span class="description">Retrieve flag indicating whether or not value should be obfuscated in
+messages</span><pre>isValueObscured</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCrc32" title="setCrc32 :: Sets the crc32 hash for one or multiple files">
+            <span class="description">Sets the crc32 hash for one or multiple files</span><pre>setCrc32</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setDefaultTranslator" title="setDefaultTranslator :: Set default translation object for all validate objects">
+            <span class="description">Set default translation object for all validate objects</span><pre>setDefaultTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setDefaultTranslatorTextDomain" title="setDefaultTranslatorTextDomain :: Set default translation text domain for all validate objects">
+            <span class="description">Set default translation text domain for all validate objects</span><pre>setDefaultTranslatorTextDomain</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setHash" title="setHash :: Sets the hash for one or multiple files">
+            <span class="description">Sets the hash for one or multiple files</span><pre>setHash</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setMessage" title="setMessage :: Sets the validation failure message template for a particular key">
+            <span class="description">Sets the validation failure message template for a particular key</span><pre>setMessage</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setMessageLength" title="setMessageLength :: Sets the maximum allowed message length">
+            <span class="description">Sets the maximum allowed message length</span><pre>setMessageLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setMessages" title="setMessages :: Sets validation failure message templates given as an array, where the array keys are the message keys,
+and the array values are the message template strings.">
+            <span class="description">Sets validation failure message templates given as an array, where the array keys are the message keys,
+and the array values are the message template strings.</span><pre>setMessages</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setOptions" title="setOptions :: Sets one or multiple options">
+            <span class="description">Sets one or multiple options</span><pre>setOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setTranslator" title="setTranslator :: Set translation object">
+            <span class="description">Set translation object</span><pre>setTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setTranslatorEnabled" title="setTranslatorEnabled :: Indicate whether or not translation should be enabled">
+            <span class="description">Indicate whether or not translation should be enabled</span><pre>setTranslatorEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setTranslatorTextDomain" title="setTranslatorTextDomain :: Set translation text domain">
+            <span class="description">Set translation text domain</span><pre>setTranslatorTextDomain</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_setValueObscured" title="setValueObscured :: Set flag indicating whether or not value should be obfuscated in messages">
+            <span class="description">Set flag indicating whether or not value should be obfuscated in messages</span><pre>setValueObscured</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_createMessage" title="createMessage :: Constructs and returns a validation failure message with the given message key and value.">
+                                <span class="description">Constructs and returns a validation failure message with the given message key and value.</span><pre>createMessage</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_error" title="error :: ">
+                                <span class="description"></span><pre>error</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_getValue" title="getValue :: Returns the validation value">
+                                <span class="description">Returns the validation value</span><pre>getValue</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_setValue" title="setValue :: Sets the value to be validated and clears the messages and errors arrays">
+                                <span class="description">Sets the value to be validated and clears the messages and errors arrays</span><pre>setValue</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_translateMessage" title="translateMessage :: Translate a validation message">
+                                <span class="description">Translate a validation message</span><pre>translateMessage</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_DOES_NOT_MATCH" title="DOES_NOT_MATCH :: ">
+                        <span class="description"></span><pre>DOES_NOT_MATCH</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_NOT_DETECTED" title="NOT_DETECTED :: ">
+                        <span class="description"></span><pre>NOT_DETECTED</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_NOT_FOUND" title="NOT_FOUND :: ">
+                        <span class="description"></span><pre>NOT_FOUND</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Crc32</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Validator.File.Hash.html">\Zend\Validator\File\Hash</a>
+                                                        </small>
+                <p class="short_description">Validator for the crc32 hash of given files</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Abstract constructor for all validators
+A validator should accept following parameters:
+ - nothing f.e. Validator()
+ - one or multiple scalar values f.e. Validator($first, $second, $third)
+ - an array f.e. Validator(array($first =&gt; &#039;first&#039;, $second =&gt; &#039;second&#039;, $third =&gt; &#039;third&#039;))
+ - an instance of Traversable f.e. Validator($config_instance)</h2>
+                            <pre>__construct(array|\Traversable $options = null) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___get"></a>
+                        <div class="element clickable method public  method___get inherited" data-toggle="collapse" data-target=".method___get .collapse">
+                            <h2>Magic function returns the value of the requested property, if and only if it is the value or a
+message variable.</h2>
+                            <pre>__get(string $property) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$property</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___invoke"></a>
+                        <div class="element clickable method public  method___invoke inherited" data-toggle="collapse" data-target=".method___invoke .collapse">
+                            <h2>Invoke as command</h2>
+                            <pre>__invoke(mixed $value) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addCrc32"></a>
+                        <div class="element clickable method public  method_addCrc32" data-toggle="collapse" data-target=".method_addCrc32 .collapse">
+                            <h2>Adds the crc32 hash for one or multiple files</h2>
+                            <pre>addCrc32(string|array $options) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>string|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addHash"></a>
+                        <div class="element clickable method public  method_addHash inherited" data-toggle="collapse" data-target=".method_addHash .collapse">
+                            <h2>Adds the hash for one or multiple files</h2>
+                            <pre>addHash(string|array $options) : self</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>string|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createMessage"></a>
+                        <div class="element clickable method protected  method_createMessage inherited" data-toggle="collapse" data-target=".method_createMessage .collapse">
+                            <h2>Constructs and returns a validation failure message with the given message key and value.</h2>
+                            <pre>createMessage(string $messageKey, string|array|object $value) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Returns null if and only if $messageKey does not correspond to an existing template.</p>
+<p>If a translator is available and a translation exists for $messageKey,
+the translation will be used.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messageKey</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>string|array|object</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_error"></a>
+                        <div class="element clickable method protected  method_error inherited" data-toggle="collapse" data-target=".method_error .collapse">
+                            <h2>error</h2>
+                            <pre>error(string $messageKey, string $value = null) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messageKey</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>string</code><p><p>OPTIONAL</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCrc32"></a>
+                        <div class="element clickable method public  method_getCrc32" data-toggle="collapse" data-target=".method_getCrc32 .collapse">
+                            <h2>Returns all set crc32 hashes</h2>
+                            <pre>getCrc32() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefaultTranslator"></a>
+                        <div class="element clickable method public  method_getDefaultTranslator inherited" data-toggle="collapse" data-target=".method_getDefaultTranslator .collapse">
+                            <h2>Get default translation object for all validate objects</h2>
+                            <pre>getDefaultTranslator() : \Zend\Validator\Translator\TranslatorInterface|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.Translator.TranslatorInterface.html">\Zend\Validator\Translator\TranslatorInterface</a>|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefaultTranslatorTextDomain"></a>
+                        <div class="element clickable method public  method_getDefaultTranslatorTextDomain inherited" data-toggle="collapse" data-target=".method_getDefaultTranslatorTextDomain .collapse">
+                            <h2>Get default translation text domain for all validate objects</h2>
+                            <pre>getDefaultTranslatorTextDomain() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHash"></a>
+                        <div class="element clickable method public  method_getHash inherited" data-toggle="collapse" data-target=".method_getHash .collapse">
+                            <h2>Returns the set hash values as array, the hash as key and the algorithm the value</h2>
+                            <pre>getHash() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessageLength"></a>
+                        <div class="element clickable method public  method_getMessageLength inherited" data-toggle="collapse" data-target=".method_getMessageLength .collapse">
+                            <h2>Returns the maximum allowed message length</h2>
+                            <pre>getMessageLength() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessages"></a>
+                        <div class="element clickable method public  method_getMessages inherited" data-toggle="collapse" data-target=".method_getMessages .collapse">
+                            <h2>Returns array of validation failure messages</h2>
+                            <pre>getMessages() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If isValid() was never called or if the most recent isValid() call
+returned true, then this method returns an empty array.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessageTemplates"></a>
+                        <div class="element clickable method public  method_getMessageTemplates inherited" data-toggle="collapse" data-target=".method_getMessageTemplates .collapse">
+                            <h2>Returns the message templates from the validator</h2>
+                            <pre>getMessageTemplates() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMessageVariables"></a>
+                        <div class="element clickable method public  method_getMessageVariables inherited" data-toggle="collapse" data-target=".method_getMessageVariables .collapse">
+                            <h2>Returns an array of the names of variables that are used in constructing validation failure messages</h2>
+                            <pre>getMessageVariables() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getOption"></a>
+                        <div class="element clickable method public  method_getOption inherited" data-toggle="collapse" data-target=".method_getOption .collapse">
+                            <h2>Returns an option</h2>
+                            <pre>getOption(string $option) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$option</h4>
+                                                <code>string</code><p><p>Option to be returned</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Returned option</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getOptions"></a>
+                        <div class="element clickable method public  method_getOptions inherited" data-toggle="collapse" data-target=".method_getOptions .collapse">
+                            <h2>Returns all available options</h2>
+                            <pre>getOptions() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>Array with all available options</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTranslator"></a>
+                        <div class="element clickable method public  method_getTranslator inherited" data-toggle="collapse" data-target=".method_getTranslator .collapse">
+                            <h2>Return translation object</h2>
+                            <pre>getTranslator() : \Zend\Validator\Translator\TranslatorInterface|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.Translator.TranslatorInterface.html">\Zend\Validator\Translator\TranslatorInterface</a>|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTranslatorTextDomain"></a>
+                        <div class="element clickable method public  method_getTranslatorTextDomain inherited" data-toggle="collapse" data-target=".method_getTranslatorTextDomain .collapse">
+                            <h2>Return the translation text domain</h2>
+                            <pre>getTranslatorTextDomain() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getValue"></a>
+                        <div class="element clickable method protected  method_getValue inherited" data-toggle="collapse" data-target=".method_getValue .collapse">
+                            <h2>Returns the validation value</h2>
+                            <pre>getValue() : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>Value to be validated</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasDefaultTranslator"></a>
+                        <div class="element clickable method public  method_hasDefaultTranslator inherited" data-toggle="collapse" data-target=".method_hasDefaultTranslator .collapse">
+                            <h2>Is there a default translation object set?</h2>
+                            <pre>hasDefaultTranslator() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasTranslator"></a>
+                        <div class="element clickable method public  method_hasTranslator inherited" data-toggle="collapse" data-target=".method_hasTranslator .collapse">
+                            <h2>Does this validator have its own specific translator?</h2>
+                            <pre>hasTranslator() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isTranslatorEnabled"></a>
+                        <div class="element clickable method public  method_isTranslatorEnabled inherited" data-toggle="collapse" data-target=".method_isTranslatorEnabled .collapse">
+                            <h2>Is translation enabled?</h2>
+                            <pre>isTranslatorEnabled() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isValid"></a>
+                        <div class="element clickable method public  method_isValid inherited" data-toggle="collapse" data-target=".method_isValid .collapse">
+                            <h2>Returns true if and only if the given file confirms the set hash</h2>
+                            <pre>isValid(string|array $value, array $file = null) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>string|array</code><p><p>File to check for hash</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$file</h4>
+                                                <code>array</code><p><p>File data from \Zend\File\Transfer\Transfer (optional)</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isValueObscured"></a>
+                        <div class="element clickable method public  method_isValueObscured inherited" data-toggle="collapse" data-target=".method_isValueObscured .collapse">
+                            <h2>Retrieve flag indicating whether or not value should be obfuscated in
+messages</h2>
+                            <pre>isValueObscured() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCrc32"></a>
+                        <div class="element clickable method public  method_setCrc32" data-toggle="collapse" data-target=".method_setCrc32 .collapse">
+                            <h2>Sets the crc32 hash for one or multiple files</h2>
+                            <pre>setCrc32(string|array $options) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>string|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDefaultTranslator"></a>
+                        <div class="element clickable method public  method_setDefaultTranslator inherited" data-toggle="collapse" data-target=".method_setDefaultTranslator .collapse">
+                            <h2>Set default translation object for all validate objects</h2>
+                            <pre>setDefaultTranslator(\Zend\Validator\Translator\TranslatorInterface|null $translator = null, string $textDomain = null) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$translator</h4>
+                                                <code><a href="../classes/Zend.Validator.Translator.TranslatorInterface.html">\Zend\Validator\Translator\TranslatorInterface</a>|null</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$textDomain</h4>
+                                                <code>string</code><p><p>(optional)</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDefaultTranslatorTextDomain"></a>
+                        <div class="element clickable method public  method_setDefaultTranslatorTextDomain inherited" data-toggle="collapse" data-target=".method_setDefaultTranslatorTextDomain .collapse">
+                            <h2>Set default translation text domain for all validate objects</h2>
+                            <pre>setDefaultTranslatorTextDomain(string $textDomain = &#039;default&#039;) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$textDomain</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setHash"></a>
+                        <div class="element clickable method public  method_setHash inherited" data-toggle="collapse" data-target=".method_setHash .collapse">
+                            <h2>Sets the hash for one or multiple files</h2>
+                            <pre>setHash(string|array $options) : self</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>string|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMessage"></a>
+                        <div class="element clickable method public  method_setMessage inherited" data-toggle="collapse" data-target=".method_setMessage .collapse">
+                            <h2>Sets the validation failure message template for a particular key</h2>
+                            <pre>setMessage(string $messageString, string $messageKey = null) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messageString</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messageKey</h4>
+                                                <code>string</code><p><p>OPTIONAL</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMessageLength"></a>
+                        <div class="element clickable method public  method_setMessageLength inherited" data-toggle="collapse" data-target=".method_setMessageLength .collapse">
+                            <h2>Sets the maximum allowed message length</h2>
+                            <pre>setMessageLength(integer $length = -1) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$length</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setMessages"></a>
+                        <div class="element clickable method public  method_setMessages inherited" data-toggle="collapse" data-target=".method_setMessages .collapse">
+                            <h2>Sets validation failure message templates given as an array, where the array keys are the message keys,
+and the array values are the message template strings.</h2>
+                            <pre>setMessages(array $messages) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messages</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setOptions"></a>
+                        <div class="element clickable method public  method_setOptions inherited" data-toggle="collapse" data-target=".method_setOptions .collapse">
+                            <h2>Sets one or multiple options</h2>
+                            <pre>setOptions(array|\Traversable $options = array()) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd><p>If $options is not an array or Traversable</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array|\Traversable</code><p><p>Options to set</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p><p>Provides fluid interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTranslator"></a>
+                        <div class="element clickable method public  method_setTranslator inherited" data-toggle="collapse" data-target=".method_setTranslator .collapse">
+                            <h2>Set translation object</h2>
+                            <pre>setTranslator(\Zend\Validator\Translator\TranslatorInterface|null $translator = null, string $textDomain = null) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Validator\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$translator</h4>
+                                                <code><a href="../classes/Zend.Validator.Translator.TranslatorInterface.html">\Zend\Validator\Translator\TranslatorInterface</a>|null</code><p><p>[optional] translator.
+Default is null, which sets no translator.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$textDomain</h4>
+                                                <code>string</code><p><p>(optional)</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTranslatorEnabled"></a>
+                        <div class="element clickable method public  method_setTranslatorEnabled inherited" data-toggle="collapse" data-target=".method_setTranslatorEnabled .collapse">
+                            <h2>Indicate whether or not translation should be enabled</h2>
+                            <pre>setTranslatorEnabled(boolean $flag = true) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTranslatorTextDomain"></a>
+                        <div class="element clickable method public  method_setTranslatorTextDomain inherited" data-toggle="collapse" data-target=".method_setTranslatorTextDomain .collapse">
+                            <h2>Set translation text domain</h2>
+                            <pre>setTranslatorTextDomain(string $textDomain = &#039;default&#039;) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$textDomain</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setValue"></a>
+                        <div class="element clickable method protected  method_setValue inherited" data-toggle="collapse" data-target=".method_setValue .collapse">
+                            <h2>Sets the value to be validated and clears the messages and errors arrays</h2>
+                            <pre>setValue(mixed $value) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setValueObscured"></a>
+                        <div class="element clickable method public  method_setValueObscured inherited" data-toggle="collapse" data-target=".method_setValueObscured .collapse">
+                            <h2>Set flag indicating whether or not value should be obfuscated in messages</h2>
+                            <pre>setValueObscured(boolean $flag) : \Zend\Validator\AbstractValidator</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Validator.AbstractValidator.html">\Zend\Validator\AbstractValidator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_translateMessage"></a>
+                        <div class="element clickable method protected  method_translateMessage inherited" data-toggle="collapse" data-target=".method_translateMessage .collapse">
+                            <h2>Translate a validation message</h2>
+                            <pre>translateMessage(string $messageKey, string $message) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messageKey</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$message</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_DOES_NOT_MATCH"> </a>
+                            <div class="element clickable constant  constant_DOES_NOT_MATCH inherited" data-toggle="collapse" data-target=".constant_DOES_NOT_MATCH .collapse">
+                                <h2>DOES_NOT_MATCH</h2>
+                                <pre>DOES_NOT_MATCH</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        const
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>string Error constants</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_NOT_DETECTED"> </a>
+                            <div class="element clickable constant  constant_NOT_DETECTED inherited" data-toggle="collapse" data-target=".constant_NOT_DETECTED .collapse">
+                                <h2>NOT_DETECTED</h2>
+                                <pre>NOT_DETECTED</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_NOT_FOUND"> </a>
+                            <div class="element clickable constant  constant_NOT_FOUND inherited" data-toggle="collapse" data-target=".constant_NOT_FOUND .collapse">
+                                <h2>NOT_FOUND</h2>
+                                <pre>NOT_FOUND</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_messageTemplates"> </a>
+                            <div class="element clickable property  protected property_messageTemplates inherited" data-toggle="collapse" data-target=".property_messageTemplates .collapse">
+                                <h2>Error message templates</h2>
+                                <pre>messageTemplates : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>Error message templates</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_options"> </a>
+                            <div class="element clickable property  protected property_options inherited" data-toggle="collapse" data-target=".property_options .collapse">
+                                <h2>Options for this validator</h2>
+                                <pre>options : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_value"> </a>
+                            <div class="element clickable property  protected property_value inherited" data-toggle="collapse" data-target=".property_value .collapse">
+                                <h2>The value to be validated</h2>
+                                <pre>value : mixed</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>mixed</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultTranslator"> </a>
+                            <div class="element clickable property  protected property_defaultTranslator inherited" data-toggle="collapse" data-target=".property_defaultTranslator .collapse">
+                                <h2>Default translation object for all validate objects</h2>
+                                <pre>defaultTranslator : \Zend\Validator\Translator\TranslatorInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                    <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Validator.Translator.TranslatorInterface.html">\Zend\Validator\Translator\TranslatorInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultTranslatorTextDomain"> </a>
+                            <div class="element clickable property  protected property_defaultTranslatorTextDomain inherited" data-toggle="collapse" data-target=".property_defaultTranslatorTextDomain .collapse">
+                                <h2>Default text domain to be used with translator</h2>
+                                <pre>defaultTranslatorTextDomain : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                    <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_messageLength"> </a>
+                            <div class="element clickable property  protected property_messageLength inherited" data-toggle="collapse" data-target=".property_messageLength .collapse">
+                                <h2>Limits the maximum returned length of an error message</h2>
+                                <pre>messageLength : integer</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                    <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_abstractOptions"> </a>
+                            <div class="element clickable property  protected property_abstractOptions inherited" data-toggle="collapse" data-target=".property_abstractOptions .collapse">
+                                <h2>abstractOptions</h2>
+                                <pre>abstractOptions : </pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Validator\File\Crc32"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Validator.File.html">File</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Validator.File.Crc32.html">Crc32</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:02 +0000.<br/>
+    </footer>
+    </body>
+</html>

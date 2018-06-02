@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Initializes a new instance of a class derived from &lt;tt&gt;AbstractHydrator&lt;/tt&gt;.">
+            <span class="description">Initializes a new instance of a class derived from &lt;tt&gt;AbstractHydrator&lt;/tt&gt;.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_hydrateAll" title="hydrateAll :: Hydrates all rows returned by the passed statement instance at once.">
+            <span class="description">Hydrates all rows returned by the passed statement instance at once.</span><pre>hydrateAll</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_hydrateRow" title="hydrateRow :: Hydrates a single row returned by the current statement instance during
+row-by-row hydration with {@link iterate()}.">
+            <span class="description">Hydrates a single row returned by the current statement instance during
+row-by-row hydration with {@link iterate()}.</span><pre>hydrateRow</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_iterate" title="iterate :: Initiates a row-by-row hydration.">
+            <span class="description">Initiates a row-by-row hydration.</span><pre>iterate</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_onClear" title="onClear :: When executed in a hydrate() loop we have to clear internal state to
+decrease memory consumption.">
+            <span class="description">When executed in a hydrate() loop we have to clear internal state to
+decrease memory consumption.</span><pre>onClear</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                <li class="method protected inherited">
+                            <a href="#method_cleanup" title="cleanup :: Executes one-time cleanup tasks at the end of a hydration that was initiated
+through {@link hydrateAll} or {@link iterate()}.">
+                                <span class="description">Executes one-time cleanup tasks at the end of a hydration that was initiated
+through {@link hydrateAll} or {@link iterate()}.</span><pre>cleanup</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_gatherRowData" title="gatherRowData :: Processes a row of the result set.">
+                                <span class="description">Processes a row of the result set.</span><pre>gatherRowData</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_gatherScalarRowData" title="gatherScalarRowData :: Processes a row of the result set.">
+                                <span class="description">Processes a row of the result set.</span><pre>gatherScalarRowData</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_getClassMetadata" title="getClassMetadata :: Retrieve ClassMetadata associated to entity class name.">
+                                <span class="description">Retrieve ClassMetadata associated to entity class name.</span><pre>getClassMetadata</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_hydrateAllData" title="hydrateAllData :: Hydrates all rows from the current statement instance at once.">
+                                <span class="description">Hydrates all rows from the current statement instance at once.</span><pre>hydrateAllData</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_hydrateColumnInfo" title="hydrateColumnInfo :: Retrieve column information from ResultSetMapping.">
+                                <span class="description">Retrieve column information from ResultSetMapping.</span><pre>hydrateColumnInfo</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected inherited">
+                            <a href="#method_hydrateRowData" title="hydrateRowData :: Hydrates a single row from the current statement instance.">
+                                <span class="description">Hydrates a single row from the current statement instance.</span><pre>hydrateRowData</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method protected inherited">
+                            <a href="#method_prepare" title="prepare :: Executes one-time preparation tasks, once each time hydration is started
+through {@link hydrateAll} or {@link iterate()}.">
+                                <span class="description">Executes one-time preparation tasks, once each time hydration is started
+through {@link hydrateAll} or {@link iterate()}.</span><pre>prepare</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method_registerManaged" title="registerManaged :: Register entity as managed in UnitOfWork.">
+                                <span class="description">Register entity as managed in UnitOfWork.</span><pre>registerManaged</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>SimpleObjectHydrator</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.ORM.Internal.Hydration.AbstractHydrator.html">\Doctrine\ORM\Internal\Hydration\AbstractHydrator</a>
+                                                        </small>
+                <p class="short_description">Base class for all hydrators. A hydrator is a class that provides some form
+of transformation of an SQL result set into another structure.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Initializes a new instance of a class derived from &lt;tt&gt;AbstractHydrator&lt;/tt&gt;.</h2>
+                            <pre>__construct(\Doctrine\ORM\EntityManagerInterface $em) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The EntityManager to use.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_cleanup"></a>
+                        <div class="element clickable method protected  method_cleanup inherited" data-toggle="collapse" data-target=".method_cleanup .collapse">
+                            <h2>Executes one-time cleanup tasks at the end of a hydration that was initiated
+through {@link hydrateAll} or {@link iterate()}.</h2>
+                            <pre>cleanup() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_gatherRowData"></a>
+                        <div class="element clickable method protected  method_gatherRowData inherited" data-toggle="collapse" data-target=".method_gatherRowData .collapse">
+                            <h2>Processes a row of the result set.</h2>
+                            <pre>gatherRowData(array $data, array &$id, array &$nonemptyComponents) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Used for identity-based hydration (HYDRATE_OBJECT and HYDRATE_ARRAY).
+Puts the elements of a result row into a new array, grouped by the dql alias
+they belong to. The column names in the result set are mapped to their
+field names during this procedure as well as any necessary conversions on
+the values applied. Scalar values are kept in a specific key 'scalars'.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>array</code><p><p>SQL Result Row.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$nonemptyComponents</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>An array with all the fields (name =&gt; value) of the data row,
+grouped by their component alias.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_gatherScalarRowData"></a>
+                        <div class="element clickable method protected  method_gatherScalarRowData inherited" data-toggle="collapse" data-target=".method_gatherScalarRowData .collapse">
+                            <h2>Processes a row of the result set.</h2>
+                            <pre>gatherScalarRowData(array &$data) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Used for HYDRATE_SCALAR. This is a variant of _gatherRowData() that
+simply converts column names to field names and properly converts the
+values according to their types. The resulting row has the same number
+of elements as before.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>The processed row.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClassMetadata"></a>
+                        <div class="element clickable method protected  method_getClassMetadata inherited" data-toggle="collapse" data-target=".method_getClassMetadata .collapse">
+                            <h2>Retrieve ClassMetadata associated to entity class name.</h2>
+                            <pre>getClassMetadata(string $className) : \Doctrine\ORM\Mapping\ClassMetadata</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hydrateAll"></a>
+                        <div class="element clickable method public  method_hydrateAll inherited" data-toggle="collapse" data-target=".method_hydrateAll .collapse">
+                            <h2>Hydrates all rows returned by the passed statement instance at once.</h2>
+                            <pre>hydrateAll(object $stmt, object $resultSetMapping, array $hints = array()) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$stmt</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultSetMapping</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$hints</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hydrateAllData"></a>
+                        <div class="element clickable method protected  method_hydrateAllData inherited" data-toggle="collapse" data-target=".method_hydrateAllData .collapse">
+                            <h2>Hydrates all rows from the current statement instance at once.</h2>
+                            <pre>hydrateAllData() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hydrateColumnInfo"></a>
+                        <div class="element clickable method protected  method_hydrateColumnInfo inherited" data-toggle="collapse" data-target=".method_hydrateColumnInfo .collapse">
+                            <h2>Retrieve column information from ResultSetMapping.</h2>
+                            <pre>hydrateColumnInfo(string $key) : array|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$key</h4>
+                                                <code>string</code><p><p>Column name</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hydrateRow"></a>
+                        <div class="element clickable method public  method_hydrateRow inherited" data-toggle="collapse" data-target=".method_hydrateRow .collapse">
+                            <h2>Hydrates a single row returned by the current statement instance during
+row-by-row hydration with {@link iterate()}.</h2>
+                            <pre>hydrateRow() : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hydrateRowData"></a>
+                        <div class="element clickable method protected  method_hydrateRowData inherited" data-toggle="collapse" data-target=".method_hydrateRowData .collapse">
+                            <h2>Hydrates a single row from the current statement instance.</h2>
+                            <pre>hydrateRowData(array $data, array &$result) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Template method.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\ORM\Internal\Hydration\HydrationException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>array</code><p><p>The row data.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$result</h4>
+                                                <code>array</code><p><p>The result to fill.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_iterate"></a>
+                        <div class="element clickable method public  method_iterate inherited" data-toggle="collapse" data-target=".method_iterate .collapse">
+                            <h2>Initiates a row-by-row hydration.</h2>
+                            <pre>iterate(object $stmt, object $resultSetMapping, array $hints = array()) : \Doctrine\ORM\Internal\Hydration\IterableResult</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$stmt</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultSetMapping</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$hints</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Internal.Hydration.IterableResult.html">\Doctrine\ORM\Internal\Hydration\IterableResult</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_onClear"></a>
+                        <div class="element clickable method public  method_onClear inherited" data-toggle="collapse" data-target=".method_onClear .collapse">
+                            <h2>When executed in a hydrate() loop we have to clear internal state to
+decrease memory consumption.</h2>
+                            <pre>onClear(mixed $eventArgs) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$eventArgs</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_prepare"></a>
+                        <div class="element clickable method protected  method_prepare inherited" data-toggle="collapse" data-target=".method_prepare .collapse">
+                            <h2>Executes one-time preparation tasks, once each time hydration is started
+through {@link hydrateAll} or {@link iterate()}.</h2>
+                            <pre>prepare() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_registerManaged"></a>
+                        <div class="element clickable method protected  method_registerManaged inherited" data-toggle="collapse" data-target=".method_registerManaged .collapse">
+                            <h2>Register entity as managed in UnitOfWork.</h2>
+                            <pre>registerManaged(\Doctrine\ORM\Mapping\ClassMetadata $class, object $entity, array $data) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>The &quot;$id&quot; generation is the same of UnitOfWork#createEntity. Remove this duplication somehow</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$data</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_class"> </a>
+                            <div class="element clickable property  private property_class" data-toggle="collapse" data-target=".property_class .collapse">
+                                <h2>class</h2>
+                                <pre>class : \Doctrine\ORM\Mapping\ClassMetadata</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__rsm"> </a>
+                            <div class="element clickable property  protected property__rsm inherited" data-toggle="collapse" data-target=".property__rsm .collapse">
+                                <h2>The ResultSetMapping.</h2>
+                                <pre>_rsm : \Doctrine\ORM\Query\ResultSetMapping</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__em"> </a>
+                            <div class="element clickable property  protected property__em inherited" data-toggle="collapse" data-target=".property__em .collapse">
+                                <h2>The EntityManager instance.</h2>
+                                <pre>_em : \Doctrine\ORM\EntityManagerInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__platform"> </a>
+                            <div class="element clickable property  protected property__platform inherited" data-toggle="collapse" data-target=".property__platform .collapse">
+                                <h2>The dbms Platform instance.</h2>
+                                <pre>_platform : \Doctrine\DBAL\Platforms\AbstractPlatform</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__uow"> </a>
+                            <div class="element clickable property  protected property__uow inherited" data-toggle="collapse" data-target=".property__uow .collapse">
+                                <h2>The UnitOfWork of the associated EntityManager.</h2>
+                                <pre>_uow : \Doctrine\ORM\UnitOfWork</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.UnitOfWork.html">\Doctrine\ORM\UnitOfWork</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__metadataCache"> </a>
+                            <div class="element clickable property  protected property__metadataCache inherited" data-toggle="collapse" data-target=".property__metadataCache .collapse">
+                                <h2>Local ClassMetadata cache to avoid going to the EntityManager all the time.</h2>
+                                <pre>_metadataCache : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__cache"> </a>
+                            <div class="element clickable property  protected property__cache inherited" data-toggle="collapse" data-target=".property__cache .collapse">
+                                <h2>The cache used during row-by-row hydration.</h2>
+                                <pre>_cache : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__stmt"> </a>
+                            <div class="element clickable property  protected property__stmt inherited" data-toggle="collapse" data-target=".property__stmt .collapse">
+                                <h2>The statement that provides the data to hydrate.</h2>
+                                <pre>_stmt : \Doctrine\DBAL\Driver\Statement</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.DBAL.Driver.Statement.html">\Doctrine\DBAL\Driver\Statement</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__hints"> </a>
+                            <div class="element clickable property  protected property__hints inherited" data-toggle="collapse" data-target=".property__hints .collapse">
+                                <h2>The query hints.</h2>
+                                <pre>_hints : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Internal.Hydration.html">Hydration</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Internal.Hydration.SimpleObjectHydrator.html">SimpleObjectHydrator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:34 +0000.<br/>
+    </footer>
+    </body>
+</html>

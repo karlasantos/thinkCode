@@ -8,8 +8,8 @@
 namespace SourceCode\Model;
 
 /**
- * Classe que representa o vértice de comando de desvio
  * Class Vertex
+ * Classe que representa o vértice de comando de desvio
  * @package SourceCode\Model
  */
 class Vertex
@@ -138,6 +138,8 @@ class Vertex
     }
 
     /**
+     * Retorna as posições dos vértices ligados a este vértice
+     *
      * @return array
      */
     public function getMoreVertexIndexes()
@@ -146,7 +148,9 @@ class Vertex
     }
 
     /**
-     * @param array $moreVertexIndexes
+     *  Define as posições dos vértices ligados a este vértice
+     *
+     * @param array $moreVertexIndexes posições dos vértices
      */
     public function setMoreVertexIndexes($moreVertexIndexes)
     {
@@ -253,12 +257,17 @@ class Vertex
         $this->endLineNumber = $endLineNumber;
     }
 
+    /**
+     * Retorna os dados do Vertex em formato de array
+     *
+     * @return array
+     */
     public function toArray() {
         return array(
             'name'                 => $this->name,
             'rightVertexIndex'     => $this->rightVertexIndex,
             'leftVertexIndex'      => $this->leftVertexIndex,
-            'moreVertexIndexes' => $this->moreVertexIndexes,
+            'moreVertexIndexes'    => $this->moreVertexIndexes,
             'x'                    => $this->x,
             'y'                    => $this->y,
             'openingVertexIndex'   => $this->openingVertexIndex,

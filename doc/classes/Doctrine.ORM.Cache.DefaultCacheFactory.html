@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Cache\DefaultCacheFactory
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_buildCachedCollectionPersister" title="buildCachedCollectionPersister :: Build a collection persister for the given relation mapping.">
+            <span class="description">Build a collection persister for the given relation mapping.</span><pre>buildCachedCollectionPersister</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_buildCachedEntityPersister" title="buildCachedEntityPersister :: Build an entity persister for the given entity metadata.">
+            <span class="description">Build an entity persister for the given entity metadata.</span><pre>buildCachedEntityPersister</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_buildCollectionHydrator" title="buildCollectionHydrator :: Build a collection hydrator">
+            <span class="description">Build a collection hydrator</span><pre>buildCollectionHydrator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_buildEntityHydrator" title="buildEntityHydrator :: Build an entity hydrator">
+            <span class="description">Build an entity hydrator</span><pre>buildEntityHydrator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_buildQueryCache" title="buildQueryCache :: Build a query cache based on the given region name">
+            <span class="description">Build a query cache based on the given region name</span><pre>buildQueryCache</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createCache" title="createCache :: Build \Doctrine\ORM\Cache">
+            <span class="description">Build \Doctrine\ORM\Cache</span><pre>createCache</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getFileLockRegionDirectory" title="getFileLockRegionDirectory :: ">
+            <span class="description"></span><pre>getFileLockRegionDirectory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getRegion" title="getRegion :: Build a cache region">
+            <span class="description">Build a cache region</span><pre>getRegion</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getTimestampRegion" title="getTimestampRegion :: Build timestamp cache region">
+            <span class="description">Build timestamp cache region</span><pre>getTimestampRegion</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setFileLockRegionDirectory" title="setFileLockRegionDirectory :: ">
+            <span class="description"></span><pre>setFileLockRegionDirectory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setRegion" title="setRegion :: ">
+            <span class="description"></span><pre>setRegion</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTimestampRegion" title="setTimestampRegion :: ">
+            <span class="description"></span><pre>setTimestampRegion</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>DefaultCacheFactory</h1>
+                <small style="display: block; text-align: right">
+                                                                Implements <a href="../classes/Doctrine.ORM.Cache.CacheFactory.html">\Doctrine\ORM\Cache\CacheFactory</a>
+                                    </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.5
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Fabio B. Silva <a href="mailto:fabio.bat.silva@gmail.com">fabio.bat.silva@gmail.com</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(\Doctrine\ORM\Cache\RegionsConfiguration $cacheConfig, \Doctrine\Common\Cache\Cache $cache) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cacheConfig</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Cache.RegionsConfiguration.html">\Doctrine\ORM\Cache\RegionsConfiguration</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cache</h4>
+                                                <code><a href="../classes/Doctrine.Common.Cache.Cache.html">\Doctrine\Common\Cache\Cache</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildCachedCollectionPersister"></a>
+                        <div class="element clickable method public  method_buildCachedCollectionPersister" data-toggle="collapse" data-target=".method_buildCachedCollectionPersister .collapse">
+                            <h2>Build a collection persister for the given relation mapping.</h2>
+                            <pre>buildCachedCollectionPersister(\Doctrine\ORM\EntityManagerInterface $em, \Doctrine\ORM\Persisters\Collection\CollectionPersister $persister, array $mapping) : \Doctrine\ORM\Cache\Persister\Collection\CachedCollectionPersister</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The entity manager.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$persister</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Persisters.Collection.CollectionPersister.html">\Doctrine\ORM\Persisters\Collection\CollectionPersister</a></code><p><p>The collection persister that will be cached.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mapping</h4>
+                                                <code>array</code><p><p>The association mapping.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.Persister.Collection.CachedCollectionPersister.html">\Doctrine\ORM\Cache\Persister\Collection\CachedCollectionPersister</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildCachedEntityPersister"></a>
+                        <div class="element clickable method public  method_buildCachedEntityPersister" data-toggle="collapse" data-target=".method_buildCachedEntityPersister .collapse">
+                            <h2>Build an entity persister for the given entity metadata.</h2>
+                            <pre>buildCachedEntityPersister(\Doctrine\ORM\EntityManagerInterface $em, \Doctrine\ORM\Persisters\Entity\EntityPersister $persister, \Doctrine\ORM\Mapping\ClassMetadata $metadata) : \Doctrine\ORM\Cache\Persister\Entity\CachedEntityPersister</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The entity manager.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$persister</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Persisters.Entity.EntityPersister.html">\Doctrine\ORM\Persisters\Entity\EntityPersister</a></code><p><p>The entity persister that will be cached.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$metadata</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code><p><p>The entity metadata.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.Persister.Entity.CachedEntityPersister.html">\Doctrine\ORM\Cache\Persister\Entity\CachedEntityPersister</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildCollectionHydrator"></a>
+                        <div class="element clickable method public  method_buildCollectionHydrator" data-toggle="collapse" data-target=".method_buildCollectionHydrator .collapse">
+                            <h2>Build a collection hydrator</h2>
+                            <pre>buildCollectionHydrator(\Doctrine\ORM\EntityManagerInterface $em, array $mapping) : \Doctrine\ORM\Cache\CollectionHydrator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The Entity manager.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$mapping</h4>
+                                                <code>array</code><p><p>The association mapping.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.CollectionHydrator.html">\Doctrine\ORM\Cache\CollectionHydrator</a></code><p><p>The built collection hydrator.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildEntityHydrator"></a>
+                        <div class="element clickable method public  method_buildEntityHydrator" data-toggle="collapse" data-target=".method_buildEntityHydrator .collapse">
+                            <h2>Build an entity hydrator</h2>
+                            <pre>buildEntityHydrator(\Doctrine\ORM\EntityManagerInterface $em, \Doctrine\ORM\Mapping\ClassMetadata $metadata) : \Doctrine\ORM\Cache\EntityHydrator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The Entity manager.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$metadata</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Mapping.ClassMetadata.html">\Doctrine\ORM\Mapping\ClassMetadata</a></code><p><p>The entity metadata.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.EntityHydrator.html">\Doctrine\ORM\Cache\EntityHydrator</a></code><p><p>The built entity hydrator.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_buildQueryCache"></a>
+                        <div class="element clickable method public  method_buildQueryCache" data-toggle="collapse" data-target=".method_buildQueryCache .collapse">
+                            <h2>Build a query cache based on the given region name</h2>
+                            <pre>buildQueryCache(\Doctrine\ORM\EntityManagerInterface $em, string $regionName = null) : \Doctrine\ORM\Cache\QueryCache</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p><p>The Entity manager.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$regionName</h4>
+                                                <code>string</code><p><p>The region name.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.QueryCache.html">\Doctrine\ORM\Cache\QueryCache</a></code><p><p>The built query cache.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createCache"></a>
+                        <div class="element clickable method public  method_createCache" data-toggle="collapse" data-target=".method_createCache .collapse">
+                            <h2>Build \Doctrine\ORM\Cache</h2>
+                            <pre>createCache(\Doctrine\ORM\EntityManagerInterface $em) : \Doctrine\ORM\Cache</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$em</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.html">\Doctrine\ORM\Cache</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFileLockRegionDirectory"></a>
+                        <div class="element clickable method public  method_getFileLockRegionDirectory" data-toggle="collapse" data-target=".method_getFileLockRegionDirectory .collapse">
+                            <h2>getFileLockRegionDirectory</h2>
+                            <pre>getFileLockRegionDirectory() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRegion"></a>
+                        <div class="element clickable method public  method_getRegion" data-toggle="collapse" data-target=".method_getRegion .collapse">
+                            <h2>Build a cache region</h2>
+                            <pre>getRegion(array $cache) : \Doctrine\ORM\Cache\Region</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$cache</h4>
+                                                <code>array</code><p><p>The cache configuration.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.Region.html">\Doctrine\ORM\Cache\Region</a></code><p><p>The cache region.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTimestampRegion"></a>
+                        <div class="element clickable method public  method_getTimestampRegion" data-toggle="collapse" data-target=".method_getTimestampRegion .collapse">
+                            <h2>Build timestamp cache region</h2>
+                            <pre>getTimestampRegion() : \Doctrine\ORM\Cache\TimestampRegion</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.TimestampRegion.html">\Doctrine\ORM\Cache\TimestampRegion</a></code><p><p>The timestamp region.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFileLockRegionDirectory"></a>
+                        <div class="element clickable method public  method_setFileLockRegionDirectory" data-toggle="collapse" data-target=".method_setFileLockRegionDirectory .collapse">
+                            <h2>setFileLockRegionDirectory</h2>
+                            <pre>setFileLockRegionDirectory(string $fileLockRegionDirectory) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fileLockRegionDirectory</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setRegion"></a>
+                        <div class="element clickable method public  method_setRegion" data-toggle="collapse" data-target=".method_setRegion .collapse">
+                            <h2>setRegion</h2>
+                            <pre>setRegion(\Doctrine\ORM\Cache\Region $region) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$region</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Cache.Region.html">\Doctrine\ORM\Cache\Region</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTimestampRegion"></a>
+                        <div class="element clickable method public  method_setTimestampRegion" data-toggle="collapse" data-target=".method_setTimestampRegion .collapse">
+                            <h2>setTimestampRegion</h2>
+                            <pre>setTimestampRegion(\Doctrine\ORM\Cache\TimestampRegion $region) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$region</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Cache.TimestampRegion.html">\Doctrine\ORM\Cache\TimestampRegion</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_cache"> </a>
+                            <div class="element clickable property  private property_cache" data-toggle="collapse" data-target=".property_cache .collapse">
+                                <h2>cache</h2>
+                                <pre>cache : \Doctrine\Common\Cache\Cache</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.Common.Cache.Cache.html">\Doctrine\Common\Cache\Cache</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_regionsConfig"> </a>
+                            <div class="element clickable property  private property_regionsConfig" data-toggle="collapse" data-target=".property_regionsConfig .collapse">
+                                <h2>regionsConfig</h2>
+                                <pre>regionsConfig : \Doctrine\ORM\Cache\RegionsConfiguration</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.RegionsConfiguration.html">\Doctrine\ORM\Cache\RegionsConfiguration</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_timestampRegion"> </a>
+                            <div class="element clickable property  private property_timestampRegion" data-toggle="collapse" data-target=".property_timestampRegion .collapse">
+                                <h2>timestampRegion</h2>
+                                <pre>timestampRegion : \Doctrine\ORM\Cache\TimestampRegion|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.ORM.Cache.TimestampRegion.html">\Doctrine\ORM\Cache\TimestampRegion</a>|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_regions"> </a>
+                            <div class="element clickable property  private property_regions" data-toggle="collapse" data-target=".property_regions .collapse">
+                                <h2>regions</h2>
+                                <pre>regions : array&lt;mixed,\Doctrine\ORM\Cache\Region&gt;</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,<a href="../classes/Doctrine.ORM.Cache.Region.html">\Doctrine\ORM\Cache\Region</a>&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_fileLockRegionDirectory"> </a>
+                            <div class="element clickable property  private property_fileLockRegionDirectory" data-toggle="collapse" data-target=".property_fileLockRegionDirectory .collapse">
+                                <h2>fileLockRegionDirectory</h2>
+                                <pre>fileLockRegionDirectory : string|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\ORM\Cache\DefaultCacheFactory"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Cache.html">Cache</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Cache.DefaultCacheFactory.html">DefaultCacheFactory</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:31 +0000.<br/>
+    </footer>
+    </body>
+</html>

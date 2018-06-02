@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\ORM\Decorator\EntityManagerDecorator
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: ">
+            <span class="description"></span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_beginTransaction" title="beginTransaction :: Starts a transaction on the underlying database connection.">
+            <span class="description">Starts a transaction on the underlying database connection.</span><pre>beginTransaction</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_clear" title="clear :: Clears the ObjectManager. All objects that are currently managed
+by this ObjectManager become detached.">
+            <span class="description">Clears the ObjectManager. All objects that are currently managed
+by this ObjectManager become detached.</span><pre>clear</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_close" title="close :: Closes the EntityManager. All entities that are currently managed
+by this EntityManager become detached. The EntityManager may no longer
+be used after it is closed.">
+            <span class="description">Closes the EntityManager. All entities that are currently managed
+by this EntityManager become detached. The EntityManager may no longer
+be used after it is closed.</span><pre>close</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_commit" title="commit :: Commits a transaction on the underlying database connection.">
+            <span class="description">Commits a transaction on the underlying database connection.</span><pre>commit</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_contains" title="contains :: Checks if the object is part of the current UnitOfWork and therefore managed.">
+            <span class="description">Checks if the object is part of the current UnitOfWork and therefore managed.</span><pre>contains</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_copy" title="copy :: Creates a copy of the given entity. Can create a shallow or a deep copy.">
+            <span class="description">Creates a copy of the given entity. Can create a shallow or a deep copy.</span><pre>copy</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createNamedNativeQuery" title="createNamedNativeQuery :: Creates a NativeQuery from a named native query.">
+            <span class="description">Creates a NativeQuery from a named native query.</span><pre>createNamedNativeQuery</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createNamedQuery" title="createNamedQuery :: Creates a Query from a named query.">
+            <span class="description">Creates a Query from a named query.</span><pre>createNamedQuery</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createNativeQuery" title="createNativeQuery :: Creates a native SQL query.">
+            <span class="description">Creates a native SQL query.</span><pre>createNativeQuery</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createQuery" title="createQuery :: Creates a new Query object.">
+            <span class="description">Creates a new Query object.</span><pre>createQuery</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createQueryBuilder" title="createQueryBuilder :: Create a QueryBuilder instance">
+            <span class="description">Create a QueryBuilder instance</span><pre>createQueryBuilder</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_detach" title="detach :: Detaches an object from the ObjectManager, causing a managed object to
+become detached. Unflushed changes made to the object if any
+(including removal of the object), will not be synchronized to the database.">
+            <span class="description">Detaches an object from the ObjectManager, causing a managed object to
+become detached. Unflushed changes made to the object if any
+(including removal of the object), will not be synchronized to the database.</span><pre>detach</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_find" title="find :: Finds an object by its identifier.">
+            <span class="description">Finds an object by its identifier.</span><pre>find</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_flush" title="flush :: Flushes all changes to objects that have been queued up to now to the database.">
+            <span class="description">Flushes all changes to objects that have been queued up to now to the database.</span><pre>flush</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCache" title="getCache :: Returns the cache API for managing the second level cache regions or NULL if the cache is not enabled.">
+            <span class="description">Returns the cache API for managing the second level cache regions or NULL if the cache is not enabled.</span><pre>getCache</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getClassMetadata" title="getClassMetadata :: Returns the ClassMetadata descriptor for a class.">
+            <span class="description">Returns the ClassMetadata descriptor for a class.</span><pre>getClassMetadata</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConfiguration" title="getConfiguration :: Gets the Configuration used by the EntityManager.">
+            <span class="description">Gets the Configuration used by the EntityManager.</span><pre>getConfiguration</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConnection" title="getConnection :: Gets the database connection object used by the EntityManager.">
+            <span class="description">Gets the database connection object used by the EntityManager.</span><pre>getConnection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getEventManager" title="getEventManager :: Gets the EventManager used by the EntityManager.">
+            <span class="description">Gets the EventManager used by the EntityManager.</span><pre>getEventManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getExpressionBuilder" title="getExpressionBuilder :: Gets an ExpressionBuilder used for object-oriented construction of query expressions.">
+            <span class="description">Gets an ExpressionBuilder used for object-oriented construction of query expressions.</span><pre>getExpressionBuilder</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getFilters" title="getFilters :: Gets the enabled filters.">
+            <span class="description">Gets the enabled filters.</span><pre>getFilters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getHydrator" title="getHydrator :: Gets a hydrator for the given hydration mode.">
+            <span class="description">Gets a hydrator for the given hydration mode.</span><pre>getHydrator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMetadataFactory" title="getMetadataFactory :: Gets the metadata factory used to gather the metadata of classes.">
+            <span class="description">Gets the metadata factory used to gather the metadata of classes.</span><pre>getMetadataFactory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getPartialReference" title="getPartialReference :: Gets a partial reference to the entity identified by the given type and identifier
+without actually loading it, if the entity is not yet loaded.">
+            <span class="description">Gets a partial reference to the entity identified by the given type and identifier
+without actually loading it, if the entity is not yet loaded.</span><pre>getPartialReference</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getProxyFactory" title="getProxyFactory :: Gets the proxy factory used by the EntityManager to create entity proxies.">
+            <span class="description">Gets the proxy factory used by the EntityManager to create entity proxies.</span><pre>getProxyFactory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getReference" title="getReference :: Gets a reference to the entity identified by the given type and identifier
+without actually loading it, if the entity is not yet loaded.">
+            <span class="description">Gets a reference to the entity identified by the given type and identifier
+without actually loading it, if the entity is not yet loaded.</span><pre>getReference</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRepository" title="getRepository :: Gets the repository for a class.">
+            <span class="description">Gets the repository for a class.</span><pre>getRepository</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getUnitOfWork" title="getUnitOfWork :: Gets the UnitOfWork used by the EntityManager to coordinate operations.">
+            <span class="description">Gets the UnitOfWork used by the EntityManager to coordinate operations.</span><pre>getUnitOfWork</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasFilters" title="hasFilters :: Checks whether the Entity Manager has filters.">
+            <span class="description">Checks whether the Entity Manager has filters.</span><pre>hasFilters</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_initializeObject" title="initializeObject :: Helper method to initialize a lazy loading proxy or persistent collection.">
+            <span class="description">Helper method to initialize a lazy loading proxy or persistent collection.</span><pre>initializeObject</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isFiltersStateClean" title="isFiltersStateClean :: Checks whether the state of the filter collection is clean.">
+            <span class="description">Checks whether the state of the filter collection is clean.</span><pre>isFiltersStateClean</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_isOpen" title="isOpen :: Check if the Entity manager is open or closed.">
+            <span class="description">Check if the Entity manager is open or closed.</span><pre>isOpen</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_lock" title="lock :: Acquire a lock on the given entity.">
+            <span class="description">Acquire a lock on the given entity.</span><pre>lock</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_merge" title="merge :: Merges the state of a detached object into the persistence context
+of this ObjectManager and returns the managed copy of the object.">
+            <span class="description">Merges the state of a detached object into the persistence context
+of this ObjectManager and returns the managed copy of the object.</span><pre>merge</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_newHydrator" title="newHydrator :: Create a new instance for the given hydration mode.">
+            <span class="description">Create a new instance for the given hydration mode.</span><pre>newHydrator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_persist" title="persist :: Tells the ObjectManager to make an instance managed and persistent.">
+            <span class="description">Tells the ObjectManager to make an instance managed and persistent.</span><pre>persist</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_refresh" title="refresh :: Refreshes the persistent state of an object from the database,
+overriding any local changes that have not yet been persisted.">
+            <span class="description">Refreshes the persistent state of an object from the database,
+overriding any local changes that have not yet been persisted.</span><pre>refresh</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_remove" title="remove :: Removes an object instance.">
+            <span class="description">Removes an object instance.</span><pre>remove</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_rollback" title="rollback :: Performs a rollback on the underlying database connection.">
+            <span class="description">Performs a rollback on the underlying database connection.</span><pre>rollback</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_transactional" title="transactional :: Executes a function in a transaction.">
+            <span class="description">Executes a function in a transaction.</span><pre>transactional</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>EntityManagerDecorator</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.Common.Persistence.ObjectManagerDecorator.html">\Doctrine\Common\Persistence\ObjectManagerDecorator</a>
+                                                                Implements <a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a>
+                                    </small>
+                <p class="short_description">Base class for EntityManager decorators</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.4
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Lars Strojny &lt;lars@strojny.net</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>__construct</h2>
+                            <pre>__construct(\Doctrine\ORM\EntityManagerInterface $wrapped) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$wrapped</h4>
+                                                <code><a href="../classes/Doctrine.ORM.EntityManagerInterface.html">\Doctrine\ORM\EntityManagerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_beginTransaction"></a>
+                        <div class="element clickable method public  method_beginTransaction" data-toggle="collapse" data-target=".method_beginTransaction .collapse">
+                            <h2>Starts a transaction on the underlying database connection.</h2>
+                            <pre>beginTransaction() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_clear"></a>
+                        <div class="element clickable method public  method_clear inherited" data-toggle="collapse" data-target=".method_clear .collapse">
+                            <h2>Clears the ObjectManager. All objects that are currently managed
+by this ObjectManager become detached.</h2>
+                            <pre>clear(string|null $objectName = null) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$objectName</h4>
+                                                <code>string|null</code><p><p>if given, only objects of this type will get detached.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_close"></a>
+                        <div class="element clickable method public  method_close" data-toggle="collapse" data-target=".method_close .collapse">
+                            <h2>Closes the EntityManager. All entities that are currently managed
+by this EntityManager become detached. The EntityManager may no longer
+be used after it is closed.</h2>
+                            <pre>close() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_commit"></a>
+                        <div class="element clickable method public  method_commit" data-toggle="collapse" data-target=".method_commit .collapse">
+                            <h2>Commits a transaction on the underlying database connection.</h2>
+                            <pre>commit() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_contains"></a>
+                        <div class="element clickable method public  method_contains inherited" data-toggle="collapse" data-target=".method_contains .collapse">
+                            <h2>Checks if the object is part of the current UnitOfWork and therefore managed.</h2>
+                            <pre>contains(object $object) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_copy"></a>
+                        <div class="element clickable method public  method_copy" data-toggle="collapse" data-target=".method_copy .collapse">
+                            <h2>Creates a copy of the given entity. Can create a shallow or a deep copy.</h2>
+                            <pre>copy(object $entity, boolean $deep = false) : object</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p><p>The entity to copy.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$deep</h4>
+                                                <code>boolean</code><p><p>FALSE for a shallow copy, TRUE for a deep copy.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p><p>The new entity.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createNamedNativeQuery"></a>
+                        <div class="element clickable method public  method_createNamedNativeQuery" data-toggle="collapse" data-target=".method_createNamedNativeQuery .collapse">
+                            <h2>Creates a NativeQuery from a named native query.</h2>
+                            <pre>createNamedNativeQuery(string $name) : \Doctrine\ORM\NativeQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.NativeQuery.html">\Doctrine\ORM\NativeQuery</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createNamedQuery"></a>
+                        <div class="element clickable method public  method_createNamedQuery" data-toggle="collapse" data-target=".method_createNamedQuery .collapse">
+                            <h2>Creates a Query from a named query.</h2>
+                            <pre>createNamedQuery(string $name) : \Doctrine\ORM\Query</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.html">\Doctrine\ORM\Query</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createNativeQuery"></a>
+                        <div class="element clickable method public  method_createNativeQuery" data-toggle="collapse" data-target=".method_createNativeQuery .collapse">
+                            <h2>Creates a native SQL query.</h2>
+                            <pre>createNativeQuery(string $sql, \Doctrine\ORM\Query\ResultSetMapping $rsm) : \Doctrine\ORM\NativeQuery</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sql</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$rsm</h4>
+                                                <code><a href="../classes/Doctrine.ORM.Query.ResultSetMapping.html">\Doctrine\ORM\Query\ResultSetMapping</a></code><p><p>The ResultSetMapping to use.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.NativeQuery.html">\Doctrine\ORM\NativeQuery</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createQuery"></a>
+                        <div class="element clickable method public  method_createQuery" data-toggle="collapse" data-target=".method_createQuery .collapse">
+                            <h2>Creates a new Query object.</h2>
+                            <pre>createQuery(string $dql = &#039;&#039;) : \Doctrine\ORM\Query</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dql</h4>
+                                                <code>string</code><p><p>The DQL string.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.html">\Doctrine\ORM\Query</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createQueryBuilder"></a>
+                        <div class="element clickable method public  method_createQueryBuilder" data-toggle="collapse" data-target=".method_createQueryBuilder .collapse">
+                            <h2>Create a QueryBuilder instance</h2>
+                            <pre>createQueryBuilder() : \Doctrine\ORM\QueryBuilder</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.QueryBuilder.html">\Doctrine\ORM\QueryBuilder</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_detach"></a>
+                        <div class="element clickable method public  method_detach inherited" data-toggle="collapse" data-target=".method_detach .collapse">
+                            <h2>Detaches an object from the ObjectManager, causing a managed object to
+become detached. Unflushed changes made to the object if any
+(including removal of the object), will not be synchronized to the database.</h2>
+                            <pre>detach(object $object) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Objects which previously referenced the detached object will continue to
+reference it.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>object</code><p><p>The object to detach.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_find"></a>
+                        <div class="element clickable method public  method_find inherited" data-toggle="collapse" data-target=".method_find .collapse">
+                            <h2>Finds an object by its identifier.</h2>
+                            <pre>find(string $className, mixed $id) : object</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This is just a convenient shortcut for getRepository($className)-&gt;find($id).</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p><p>The class name of the object to find.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>mixed</code><p><p>The identity of the object to find.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p><p>The found object.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_flush"></a>
+                        <div class="element clickable method public  method_flush inherited" data-toggle="collapse" data-target=".method_flush .collapse">
+                            <h2>Flushes all changes to objects that have been queued up to now to the database.</h2>
+                            <pre>flush() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This effectively synchronizes the in-memory state of managed objects with the
+database.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCache"></a>
+                        <div class="element clickable method public  method_getCache" data-toggle="collapse" data-target=".method_getCache .collapse">
+                            <h2>Returns the cache API for managing the second level cache regions or NULL if the cache is not enabled.</h2>
+                            <pre>getCache() : \Doctrine\ORM\Cache|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Cache.html">\Doctrine\ORM\Cache</a>|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getClassMetadata"></a>
+                        <div class="element clickable method public  method_getClassMetadata inherited" data-toggle="collapse" data-target=".method_getClassMetadata .collapse">
+                            <h2>Returns the ClassMetadata descriptor for a class.</h2>
+                            <pre>getClassMetadata(string $className) : \Doctrine\Common\Persistence\Mapping\ClassMetadata</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The class name must be the fully-qualified class name without a leading backslash
+(as it is returned by get_class($obj)).</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadata.html">\Doctrine\Common\Persistence\Mapping\ClassMetadata</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConfiguration"></a>
+                        <div class="element clickable method public  method_getConfiguration" data-toggle="collapse" data-target=".method_getConfiguration .collapse">
+                            <h2>Gets the Configuration used by the EntityManager.</h2>
+                            <pre>getConfiguration() : \Doctrine\ORM\Configuration</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Configuration.html">\Doctrine\ORM\Configuration</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConnection"></a>
+                        <div class="element clickable method public  method_getConnection" data-toggle="collapse" data-target=".method_getConnection .collapse">
+                            <h2>Gets the database connection object used by the EntityManager.</h2>
+                            <pre>getConnection() : \Doctrine\DBAL\Connection</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Connection.html">\Doctrine\DBAL\Connection</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getEventManager"></a>
+                        <div class="element clickable method public  method_getEventManager" data-toggle="collapse" data-target=".method_getEventManager .collapse">
+                            <h2>Gets the EventManager used by the EntityManager.</h2>
+                            <pre>getEventManager() : \Doctrine\Common\EventManager</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.EventManager.html">\Doctrine\Common\EventManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getExpressionBuilder"></a>
+                        <div class="element clickable method public  method_getExpressionBuilder" data-toggle="collapse" data-target=".method_getExpressionBuilder .collapse">
+                            <h2>Gets an ExpressionBuilder used for object-oriented construction of query expressions.</h2>
+                            <pre>getExpressionBuilder() : \Doctrine\ORM\Query\Expr</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Example:</p>
+<p><code>
+$qb = $em-&gt;createQueryBuilder();
+$expr = $em-&gt;getExpressionBuilder();
+$qb-&gt;select('u')-&gt;from('User', 'u')
+-&gt;where($expr-&gt;orX($expr-&gt;eq('u.id', 1), $expr-&gt;eq('u.id', 2)));
+</code></p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.Expr.html">\Doctrine\ORM\Query\Expr</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFilters"></a>
+                        <div class="element clickable method public  method_getFilters" data-toggle="collapse" data-target=".method_getFilters .collapse">
+                            <h2>Gets the enabled filters.</h2>
+                            <pre>getFilters() : \Doctrine\ORM\Query\FilterCollection</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Query.FilterCollection.html">\Doctrine\ORM\Query\FilterCollection</a></code><p><p>The active filter collection.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getHydrator"></a>
+                        <div class="element clickable method public  method_getHydrator" data-toggle="collapse" data-target=".method_getHydrator .collapse">
+                            <h2>Gets a hydrator for the given hydration mode.</h2>
+                            <pre>getHydrator(integer $hydrationMode) : \Doctrine\ORM\Internal\Hydration\AbstractHydrator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method caches the hydrator instances which is used for all queries that don't
+selectively iterate over the result.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$hydrationMode</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Internal.Hydration.AbstractHydrator.html">\Doctrine\ORM\Internal\Hydration\AbstractHydrator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMetadataFactory"></a>
+                        <div class="element clickable method public  method_getMetadataFactory inherited" data-toggle="collapse" data-target=".method_getMetadataFactory .collapse">
+                            <h2>Gets the metadata factory used to gather the metadata of classes.</h2>
+                            <pre>getMetadataFactory() : \Doctrine\Common\Persistence\Mapping\ClassMetadataFactory</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.Mapping.ClassMetadataFactory.html">\Doctrine\Common\Persistence\Mapping\ClassMetadataFactory</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPartialReference"></a>
+                        <div class="element clickable method public  method_getPartialReference" data-toggle="collapse" data-target=".method_getPartialReference .collapse">
+                            <h2>Gets a partial reference to the entity identified by the given type and identifier
+without actually loading it, if the entity is not yet loaded.</h2>
+                            <pre>getPartialReference(string $entityName, mixed $identifier) : object</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The returned reference may be a partial object if the entity is not yet loaded/managed.
+If it is a partial object it will not initialize the rest of the entity state on access.
+Thus you can only ever safely access the identifier of an entity obtained through
+this method.</p>
+<p>The use-cases for partial references involve maintaining bidirectional associations
+without loading one side of the association or to update an entity without loading it.
+Note, however, that in the latter case the original (persistent) entity data will
+never be visible to the application (especially not event listeners) as it will
+never be loaded in the first place.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entityName</h4>
+                                                <code>string</code><p><p>The name of the entity type.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$identifier</h4>
+                                                <code>mixed</code><p><p>The entity identifier.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p><p>The (partial) entity reference.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getProxyFactory"></a>
+                        <div class="element clickable method public  method_getProxyFactory" data-toggle="collapse" data-target=".method_getProxyFactory .collapse">
+                            <h2>Gets the proxy factory used by the EntityManager to create entity proxies.</h2>
+                            <pre>getProxyFactory() : \Doctrine\ORM\Proxy\ProxyFactory</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Proxy.ProxyFactory.html">\Doctrine\ORM\Proxy\ProxyFactory</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getReference"></a>
+                        <div class="element clickable method public  method_getReference" data-toggle="collapse" data-target=".method_getReference .collapse">
+                            <h2>Gets a reference to the entity identified by the given type and identifier
+without actually loading it, if the entity is not yet loaded.</h2>
+                            <pre>getReference(string $entityName, mixed $id) : object</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entityName</h4>
+                                                <code>string</code><p><p>The name of the entity type.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$id</h4>
+                                                <code>mixed</code><p><p>The entity identifier.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p><p>The entity reference.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRepository"></a>
+                        <div class="element clickable method public  method_getRepository inherited" data-toggle="collapse" data-target=".method_getRepository .collapse">
+                            <h2>Gets the repository for a class.</h2>
+                            <pre>getRepository(string $className) : \Doctrine\Common\Persistence\ObjectRepository</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.Common.Persistence.ObjectRepository.html">\Doctrine\Common\Persistence\ObjectRepository</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getUnitOfWork"></a>
+                        <div class="element clickable method public  method_getUnitOfWork" data-toggle="collapse" data-target=".method_getUnitOfWork .collapse">
+                            <h2>Gets the UnitOfWork used by the EntityManager to coordinate operations.</h2>
+                            <pre>getUnitOfWork() : \Doctrine\ORM\UnitOfWork</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.UnitOfWork.html">\Doctrine\ORM\UnitOfWork</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasFilters"></a>
+                        <div class="element clickable method public  method_hasFilters" data-toggle="collapse" data-target=".method_hasFilters .collapse">
+                            <h2>Checks whether the Entity Manager has filters.</h2>
+                            <pre>hasFilters() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True, if the EM has a filter collection.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_initializeObject"></a>
+                        <div class="element clickable method public  method_initializeObject inherited" data-toggle="collapse" data-target=".method_initializeObject .collapse">
+                            <h2>Helper method to initialize a lazy loading proxy or persistent collection.</h2>
+                            <pre>initializeObject(object $obj) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method is a no-op for other objects.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$obj</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isFiltersStateClean"></a>
+                        <div class="element clickable method public  method_isFiltersStateClean" data-toggle="collapse" data-target=".method_isFiltersStateClean .collapse">
+                            <h2>Checks whether the state of the filter collection is clean.</h2>
+                            <pre>isFiltersStateClean() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>True, if the filter collection is clean.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isOpen"></a>
+                        <div class="element clickable method public  method_isOpen" data-toggle="collapse" data-target=".method_isOpen .collapse">
+                            <h2>Check if the Entity manager is open or closed.</h2>
+                            <pre>isOpen() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_lock"></a>
+                        <div class="element clickable method public  method_lock" data-toggle="collapse" data-target=".method_lock .collapse">
+                            <h2>Acquire a lock on the given entity.</h2>
+                            <pre>lock(object $entity, integer $lockMode, integer|null $lockVersion = null) : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$entity</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lockMode</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lockVersion</h4>
+                                                <code>integer|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_merge"></a>
+                        <div class="element clickable method public  method_merge inherited" data-toggle="collapse" data-target=".method_merge .collapse">
+                            <h2>Merges the state of a detached object into the persistence context
+of this ObjectManager and returns the managed copy of the object.</h2>
+                            <pre>merge(object $object) : object</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The object passed to merge will not become associated/managed with this ObjectManager.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_newHydrator"></a>
+                        <div class="element clickable method public  method_newHydrator" data-toggle="collapse" data-target=".method_newHydrator .collapse">
+                            <h2>Create a new instance for the given hydration mode.</h2>
+                            <pre>newHydrator(integer $hydrationMode) : \Doctrine\ORM\Internal\Hydration\AbstractHydrator</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$hydrationMode</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.ORM.Internal.Hydration.AbstractHydrator.html">\Doctrine\ORM\Internal\Hydration\AbstractHydrator</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_persist"></a>
+                        <div class="element clickable method public  method_persist inherited" data-toggle="collapse" data-target=".method_persist .collapse">
+                            <h2>Tells the ObjectManager to make an instance managed and persistent.</h2>
+                            <pre>persist(object $object) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The object will be entered into the database as a result of the flush operation.</p>
+<p>NOTE: The persist operation always considers objects that are not yet known to
+this ObjectManager as NEW. Do not pass detached objects to the persist operation.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>object</code><p><p>The instance to make managed and persistent.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_refresh"></a>
+                        <div class="element clickable method public  method_refresh inherited" data-toggle="collapse" data-target=".method_refresh .collapse">
+                            <h2>Refreshes the persistent state of an object from the database,
+overriding any local changes that have not yet been persisted.</h2>
+                            <pre>refresh(object $object) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>object</code><p><p>The object to refresh.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_remove"></a>
+                        <div class="element clickable method public  method_remove inherited" data-toggle="collapse" data-target=".method_remove .collapse">
+                            <h2>Removes an object instance.</h2>
+                            <pre>remove(object $object) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>A removed object will be removed from the database as a result of the flush operation.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$object</h4>
+                                                <code>object</code><p><p>The object instance to remove.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_rollback"></a>
+                        <div class="element clickable method public  method_rollback" data-toggle="collapse" data-target=".method_rollback .collapse">
+                            <h2>Performs a rollback on the underlying database connection.</h2>
+                            <pre>rollback() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_transactional"></a>
+                        <div class="element clickable method public  method_transactional" data-toggle="collapse" data-target=".method_transactional .collapse">
+                            <h2>Executes a function in a transaction.</h2>
+                            <pre>transactional(callable $func) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The function gets passed this EntityManager instance as an (optional) parameter.</p>
+<p>\flush is invoked prior to transaction commit.</p>
+<p>If an exception occurs during execution of the function or flushing or transaction commit,
+the transaction is rolled back, the EntityManager closed and the exception re-thrown.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$func</h4>
+                                                <code>callable</code><p><p>The function to execute transactionally.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>The non-empty value returned from the closure or true instead.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_wrapped"> </a>
+                            <div class="element clickable property  protected property_wrapped inherited" data-toggle="collapse" data-target=".property_wrapped .collapse">
+                                <h2>wrapped</h2>
+                                <pre>wrapped : \Doctrine\Common\Persistence\ObjectManager</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.Common.Persistence.ObjectManager.html">\Doctrine\Common\Persistence\ObjectManager</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\ORM\Decorator\EntityManagerDecorator"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.ORM.Decorator.html">Decorator</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.ORM.Decorator.EntityManagerDecorator.html">EntityManagerDecorator</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:34 +0000.<br/>
+    </footer>
+    </body>
+</html>

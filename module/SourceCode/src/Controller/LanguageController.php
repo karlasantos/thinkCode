@@ -27,6 +27,10 @@ use Zend\View\Model\JsonModel;
 class LanguageController extends RestfulController
 {
 
+    /**
+     * LanguageController constructor.
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
@@ -35,6 +39,7 @@ class LanguageController extends RestfulController
     /**
      * Retorna todas as linguagens de programação cadastradas
      *
+     * @api
      * @return mixed|JsonModel
      */
     public function getList()
@@ -58,10 +63,5 @@ class LanguageController extends RestfulController
             'results' => $languages,
             'total' => count($languages),
         ));
-    }
-
-    public function get($id)
-    {
-
     }
 }

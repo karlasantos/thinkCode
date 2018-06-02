@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Class LogicalConnective
  * Representa o Operador Lógico de uma determinada Linguagem de Programação
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="logical_connectives")
  * @package SourceCode\Model\Entity
  */

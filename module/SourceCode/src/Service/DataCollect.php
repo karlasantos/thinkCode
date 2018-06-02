@@ -51,19 +51,19 @@ class DataCollect
 
     /**
      * Quantidade de linhas úteis do código fonte
-     * @var int
+     * @var integer
      */
     private $usefulLineCounter;
 
     /**
      * Quantidade de variáveis declaradas no código fonte
-     * @var int
+     * @var integer
      */
     private $variableCounter;
 
     /**
      * Quantidade de conectivos lógicos utilizados no código fonte
-     * @var int
+     * @var integer
      */
     private $logicalConnectiveCounter;
 
@@ -148,7 +148,7 @@ class DataCollect
      * Retira os dados dos comandos de desvio do código
      *
      * @param SourceCode $sourceCode
-     * @return null
+     * @return array
      * @throws \Exception
      */
     public function getDataFromCode(SourceCode $sourceCode)
@@ -505,7 +505,7 @@ class DataCollect
     /**
      * Informa se uma linha contém comando de desvio
      *
-     * @param $line
+     * @param string $line
      * @return bool
      */
     private function lineContainsInitialBypassCommand($line)
@@ -523,7 +523,7 @@ class DataCollect
     /**
      * Informa se uma linha contém comando de desvio
      *
-     * @param $line
+     * @param string $line
      * @return bool
      */
     private function lineContainsTerminalBypassCommand($line)
@@ -544,8 +544,8 @@ class DataCollect
     /**
      * Verifica se a linha contém a estrutura inicial do código
      *
-     * @param $line
-     * @param $initialCodeStructures
+     * @param string $line
+     * @param string $initialCodeStructures
      * @return bool
      */
     private function lineContainsInitialCodeStructure($line, $initialCodeStructures)
@@ -562,8 +562,8 @@ class DataCollect
     /**
      * Verifica se uma determinada linha contém um determinado token
      *
-     * @param $line
-     * @param $token
+     * @param string $line
+     * @param string $token
      * @return bool
      */
     private function lineContainsToken($line, $token = null)
@@ -583,7 +583,7 @@ class DataCollect
     /**
      * Verifica se uma determinada linha contém os comandos de desvio case ou default
      *
-     * @param $line
+     * @param string $line
      * @return bool
      */
     private function lineContainsInitialBypassCommandCaseOrDefault($line)
@@ -600,7 +600,7 @@ class DataCollect
     /**
      * Verifica se a linha contém um tipo de dados
      *
-     * @param $line
+     * @param string $line
      * @return bool
      */
     private function lineContainsDataType($line)
@@ -614,7 +614,7 @@ class DataCollect
     }
     /**
      * Verifica o número de conectivos lógicos contidos na linha
-     * @param $line
+     * @param string $line
      * @return int
      */
     private function numberOfLogicalConnectivesInLine($line)
@@ -638,8 +638,8 @@ class DataCollect
     /**
      * Verifica se um determinado token é o terminal de comando do último comando de desvio adicionado a lista de comandos do código
      *
-     * @param $previusBypassCommand
-     * @param $token
+     * @param CodeBypassCommand $previusBypassCommand
+     * @param string $token
      * @return bool
      */
     private function isTerminalBypassCommandLastCodeCommand(CodeBypassCommand $previusBypassCommand, $token)
@@ -660,8 +660,8 @@ class DataCollect
 
     /**
      * Adiciona o token na lista de comandos de desvio do código
-     * @param $token
-     * @param $lineNumber
+     * @param string $token
+     * @param integer $lineNumber
      */
     private function addToken($token, $lineNumber)
     {
@@ -740,7 +740,7 @@ class DataCollect
 
     /**
      * Adiciona o token de terminal de comando Do While
-     * @param $lineNumber
+     * @param integer $lineNumber
      */
     private function addTokenTerminalDoWhile($lineNumber) {
         end($this->codeCommands);

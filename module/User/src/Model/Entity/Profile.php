@@ -13,8 +13,8 @@ use SourceCode\Model\Entity\Language;
 
 /**
  * Class Profile
- *
- * @ORM\Entity
+ * Perfil de um usuário do sistema
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="profiles")
  * @package User\Model\Entity
  */

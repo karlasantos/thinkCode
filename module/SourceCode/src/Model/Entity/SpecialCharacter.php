@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: karla
- * Date: 16/04/18
- * Time: 15:47
+ * TCC - Ciência da Computação, URI Santo Ângelo
+ * Orientador: Denílson Rodrigues da Silva <deniro@san.uri.br>
+ * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
 namespace SourceCode\Model\Entity;
@@ -19,7 +18,7 @@ use User\Model\Entity\User;
  * Class SpecialCharacter
  * Representa um elemento do grafo de controle de fluxo
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="special_characters")
  * @package SourceCode\Model\Entity
  */
@@ -106,8 +105,9 @@ class SpecialCharacter extends Entity
     }
 
     /**
-     * Método abstrato que retorna os dados do objeto em formato de array
-     * @return mixed
+     * Método que retorna os dados do SpecialCharacter em formato de array
+     * @inheritdoc
+     * @return array
      */
     public function toArray()
     {

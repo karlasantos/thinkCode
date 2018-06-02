@@ -19,16 +19,46 @@ use SourceCode\Model\Entity\SourceCode as SourceCodeEntity;
  */
 class AnalysisStructure
 {
+    /**
+     * Gerenciador de entidades
+     *
+     * @var EntityManager
+     */
     protected $entityManager;
 
+    /**
+     * Array de vértices gerados
+     * @var array
+     */
     protected $vertices;
 
+    /**
+     * Serviço de carregamento e verificação dos dados da linguagem
+     * @var Language
+     */
     protected $languageService;
 
+    /**
+     * Serviço de coleta de dados do código fonte
+     *
+     * @var DataCollect
+     */
     protected $dataCollectService;
 
+    /**
+     * Resultados da análise
+     *
+     * @var AnalysisResults
+     */
     protected $analysisResults;
 
+    /**
+     * AnalysisStructure constructor.
+     * @param EntityManager $entityManager Gerenciador de entidades
+     * @param Language $languageService Serviço de carregamento e verificação dos dados da linguage
+     * @param array $vertices vértices do grafo
+     * @param DataCollect $dataCollectService serviço de coleta de dados
+     */
     public function __construct(EntityManager $entityManager, LanguageService $languageService, $vertices, DataCollect $dataCollectService)
     {
         $this->entityManager = $entityManager;
@@ -37,6 +67,12 @@ class AnalysisStructure
         $this->dataCollectService = $dataCollectService;
     }
 
+    /**
+     * Calcula a complexidade ciclomática de acordo com o código fonte enviado
+     *
+     * @param SourceCodeEntity $sourceCode
+     * @return AnalysisResults
+     */
     public function calculateCyclomaticComplexity(SourceCodeEntity $sourceCode)
     {
         $counterEdges = 0;
@@ -74,6 +110,11 @@ class AnalysisStructure
         return $this->analysisResults;
     }
 
+    /**
+     * Gera o array representando grafo em JSON de um código fonte enviado
+     *
+     * @param SourceCodeEntity $sourceCode
+     */
     public function generateJsonGraph(SourceCodeEntity $sourceCode)
     {
         $language = $sourceCode->getLanguage();

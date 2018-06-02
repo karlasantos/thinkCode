@@ -10,8 +10,17 @@ namespace SourceCode\Model\Validation;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\NotEmpty;
 
+/**
+ * Class SourceCodeValidator
+ * Validador dos dados do Código Fonte
+ * @package SourceCode\Model\Validation
+ */
 class SourceCodeValidator extends InputFilter
 {
+    /**
+     * SourceCodeValidator constructor.
+     * @param array $data
+     */
     public function __construct($data = array())
     {
         // id

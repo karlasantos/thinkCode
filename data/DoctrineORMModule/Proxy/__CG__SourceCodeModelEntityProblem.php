@@ -330,15 +330,4 @@ class Problem extends \SourceCode\Model\Entity\Problem implements \Doctrine\ORM\
         return parent::setData($data);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getData(\Doctrine\ORM\EntityManager $em)
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getData', [$em]);
-
-        return parent::getData($em);
-    }
-
 }

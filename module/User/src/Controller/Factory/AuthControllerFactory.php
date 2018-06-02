@@ -13,6 +13,11 @@ use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
+/**
+ * Class AuthControllerFactory
+ * Fábrica do controller de autenticação
+ * @package User\Controller\Factory
+ */
 class AuthControllerFactory implements FactoryInterface
 {
     /**

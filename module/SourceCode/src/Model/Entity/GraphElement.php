@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class GraphElement
  * Representa um elemento do grafo de controle de fluxo
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="graph_elements")
  * @package SourceCode\Model\Entity
  */
@@ -129,8 +129,9 @@ class GraphElement extends Entity
     }
 
     /**
-     * Método abstrato que retorna os dados do objeto em formato de array
-     * @return mixed
+     * Método que retorna os dados do GraphElement em formato de array
+     * @inheritdoc
+     * @return array
      */
     public function toArray()
     {

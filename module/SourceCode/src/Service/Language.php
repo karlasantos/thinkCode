@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: karla
- * Date: 05/05/18
- * Time: 16:20
+ * TCC - Ciência da Computação, URI Santo Ângelo
+ * Orientador: Denílson Rodrigues da Silva <deniro@san.uri.br>
+ * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
 namespace SourceCode\Service;
@@ -16,6 +15,11 @@ use SourceCode\Model\Entity\LogicalConnective;
 use SourceCode\Model\Entity\SpecialCharacter;
 use SourceCode\Model\Entity\Language as LanguageEntity;
 
+/**
+ * Class Language
+ * Serviço responsável pelo carregamento e verificação dos dados da linguagem
+ * @package SourceCode\Service
+ */
 class Language
 {
     /**
@@ -130,7 +134,7 @@ class Language
     /**
      * Retorna os elementos da linguagem de programação (Tipos de Dados, Caracteres Especiais, Conectivos Lógicos e Comandos de Desvio)
      *
-     * @return EntityManager
+     * @return array
      */
     public function getElementsOfLanguage()
     {
@@ -140,7 +144,7 @@ class Language
     /**
      * Informa se um token é um comando de desvio da Linguagem de Programação ou não
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommand($token)
@@ -153,7 +157,7 @@ class Language
     /**
      * Retorna o index de um comando de desvio condicional através do nome de seu elemento gráfico
      *
-     * @param $graphElementName
+     * @param string $graphElementName
      * @return array
      */
     private function indexOfConditionalBypassCommand($graphElementName)
@@ -168,7 +172,7 @@ class Language
     /**
      * Retorna o index de um comando de desvio de repetição através do nome de seu elemento gráfico
      *
-     * @param $graphElementName
+     * @param string $graphElementName
      * @return false|int|string
      */
     private function indexOfLoopBypassCommand($graphElementName)
@@ -181,7 +185,7 @@ class Language
 
     /**
      * Retorna o comando de desvio if da linguagem em formato de array
-     * @return mixed
+     * @return array
      */
     public function getBypassCommandIf()
     {
@@ -193,7 +197,7 @@ class Language
 
     /**
      * Informa se o token representa o comando de desvio "IF"
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandIf($token)
@@ -206,7 +210,7 @@ class Language
     /**
      * Retorna o comando de desvio else da linguagem em formato de array
      *
-     * @return mixed
+     * @return array
      */
     public function getBypassCommandElse()
     {
@@ -219,7 +223,7 @@ class Language
     /**
      *  Informa se o token representa o comando de desvio "ELSE"
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandElse($token)
@@ -229,6 +233,11 @@ class Language
 
     }
 
+    /**
+     * Retorna o nome inicial do comando de desvio else if
+     *
+     * @return string
+     */
     public function getInitialBypassCommandElseIf()
     {
         $bypassCommandElse = $this->getBypassCommandElse()['initialCommandName'];
@@ -239,7 +248,7 @@ class Language
     /**
      * Verifica se determinado token é o comando de desvio elfseif (junção de comandos else seguido de if)
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandElseIf($token)
@@ -251,7 +260,7 @@ class Language
     /**
      * Retorna todos os dados do comando de desvio do-while da linguagem
      *
-     * @return mixed
+     * @return array
      */
     public function getBypassCommandDoWhile()
     {
@@ -263,7 +272,7 @@ class Language
 
     /**
      * Informa se o token é representa o comando desvio com elemento do grafo representando o do-while
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandDoWhile($token)
@@ -276,7 +285,7 @@ class Language
     /**
      * Informa se o token é um comando de desvio for
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandFor($token)
@@ -290,7 +299,7 @@ class Language
     /**
      * Informa se o token é um comando de desvio while
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandWhile($token)
@@ -314,7 +323,7 @@ class Language
 
     /**
      * Retorna o comando de desvio switch case
-     * @return mixed
+     * @return array
      */
     public function getBypassCommandSwitch()
     {
@@ -337,7 +346,7 @@ class Language
     /**
      * Informa se o token é um comando de desvio switch
      *
-     * @param $token
+     * @param string $token
      * @return mixed
      */
     public function isInitialBypassCommandSwitch($token)
@@ -348,6 +357,8 @@ class Language
     }
 
     /**
+     * Retorna os iniciais de comandos case e default da linguagem
+     *
      * @return array
      */
     public function getInitialBypassCommandsCaseAndDefault()
@@ -370,7 +381,7 @@ class Language
     /**
      * Informa se o token é um comando de desvio case ou default
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isInitialBypassCommandCaseOrDefault($token)
@@ -393,6 +404,12 @@ class Language
         return false;
     }
 
+    /**
+     * Retorna se um token é um comando de desvio Default
+     *
+     * @param string $token
+     * @return bool
+     */
     public function isInitialBypassCommandDefault($token)
     {
         $commandName = null;
@@ -415,7 +432,7 @@ class Language
     /**
      * Retorna se o token é o terminal de comando do switch
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isTerminalBypassCommandSwitch($token)
@@ -427,7 +444,7 @@ class Language
     /**
      * Informa se o token é um comando de desvio da Linguagem de Programação ou não
      *
-     * @param $token
+     * @param string $token
      * @return bool
      */
     public function isTerminalBypassCommand($token)
@@ -446,7 +463,7 @@ class Language
     /**
      * Informa se o caractere é um caractere especial da Linguagem de Programação
      *
-     * @param $character
+     * @param string $character
      * @return bool
      */
     public function isSpecialCharacter($character)
@@ -459,7 +476,7 @@ class Language
     /**
      * Retorna todos os dados do comando de desvio for da linguagem
      *
-     * @return mixed
+     * @return array
      */
     public function getBypassCommandFor()
     {
@@ -472,7 +489,7 @@ class Language
     /**
      * Retorna todos os dados do comando de desvio for da linguagem
      *
-     * @return mixed
+     * @return array
      */
     public function getBypassCommandWhile()
     {
@@ -485,7 +502,7 @@ class Language
     /**
      * Retorna a estrutura final do código fonte
      *
-     * @return mixed
+     * @return string
      */
     public function getEndCodeStructure()
     {

@@ -14,8 +14,8 @@ use Doctrine\ORM\TransactionRequiredException;
 use SourceCode\Model\Entity\Language;
 use User\Model\Entity\Profile;
 use User\Model\Entity\User;
-use User\Validation\ProfileValidator;
-use User\Validation\UserValidator;
+use User\Model\Validation\ProfileValidator;
+use User\Model\Validation\UserValidator;
 use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
@@ -31,35 +31,40 @@ use Exception;
  */
 class UserController extends RestfulController
 {
+    /**
+     * Mensagem de erro interno
+     */
     const INTERNAL_ERROR_SAVE = 'Ocorreu um erro interno e não foi possível salvar o usuário.';
+
+    /**
+     * Mensagem de suário não encontrado
+     */
     const USER_NOT_FOUND = 'Usuário não encontrado';
 
+    /**
+     * UserController constructor.
+     * @param EntityManager $entityManager gerenciador de entidades
+     */
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
     }
 
-    public function indexAction()
-    {
-        return new ViewModel();
-    }
-
+    /**
+     * Retorna a página HTML de visualização das configurações de conta do usuário
+     *
+     * @return ViewModel
+     */
     public function settingsAction()
     {
         return new ViewModel(array('id' => $_SESSION['Zend_Auth']->getArrayCopy()['storage']['id']));
     }
 
-    public function getList()
-    {
-        return new JsonModel([
-            'results' => array(),
-        ]);
-    }
-
     /**
      * Retorna todos os dados de um usuário através de seu id
      *
-     * @param int $id
+     * @api
+     * @param int $id Id de identificação do usuário
      * @return JsonModel
      */
     public function get($id)
@@ -165,6 +170,7 @@ class UserController extends RestfulController
     /**
      * Atualiza um usuário já cadastrado
      *
+     * @api
      * @param int $id id de identificação do usuário
      * @param array $data dados atualizados para usuário
      * @return JsonModel
@@ -273,6 +279,13 @@ class UserController extends RestfulController
         ]);
     }
 
+    /**
+     * Desativa a conta de usuário
+     *
+     * @api
+     * @param mixed $id Id de identificação do usuário
+     * @return mixed|JsonModel
+     */
     public function delete($id)
     {
         try {

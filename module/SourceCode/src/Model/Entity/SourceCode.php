@@ -17,7 +17,7 @@ use User\Model\Entity\User;
  * Class SourceCode
  *  Representa os Códigos Fonte submetidos
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="source_codes")
  * @package SourceCode\Model\Entity
  */
@@ -51,14 +51,6 @@ class SourceCode extends Entity
      * @var DateTime
      */
     private $submissionDate;
-
-//    /**
-//     * Indica se esse código fonte é referencial ou não
-//     *
-//     * @ORM\Column(type="boolean", nullable=false, options={"default": false})
-//     * @var boolean
-//     */
-//    private $referential;
 
     /**
      * O problema que este Código Fonte soluciona
@@ -163,24 +155,6 @@ class SourceCode extends Entity
 
         $this->submissionDate = $submissionDate;
     }
-
-//    /**
-//     * Retorna se o Código Fonte é referencial ou não
-//     * @return bool
-//     */
-//    public function isReferential()
-//    {
-//        return $this->referential;
-//    }
-//
-//    /**
-//     * Define se o Código Fonte é referencial ou não
-//     * @param bool $referential
-//     */
-//    public function setReferential($referential)
-//    {
-//        $this->referential = $referential;
-//    }
 
     /**
      * Retorna o problema que este Código Fonte soluciona
@@ -288,7 +262,6 @@ class SourceCode extends Entity
             'id'             => $this->id,
             'content'        => $this->content,
             'submissionDate' => $this->submissionDate->format('d-m-Y H:i:s'),
-//            'referential'    => $this->referential,
             'problem'        => $this->problem->toArray()
         );
     }

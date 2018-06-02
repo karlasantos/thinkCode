@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Mail\Protocol\Pop3
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: Public constructor">
+            <span class="description">Public constructor</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method___destruct" title="__destruct :: Public destructor">
+            <span class="description">Public destructor</span><pre>__destruct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_capa" title="capa :: Get capabilities from POP3 server">
+            <span class="description">Get capabilities from POP3 server</span><pre>capa</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_connect" title="connect :: Open connection to POP3 server">
+            <span class="description">Open connection to POP3 server</span><pre>connect</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_delete" title="delete :: Make a DELE count to remove a message">
+            <span class="description">Make a DELE count to remove a message</span><pre>delete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getCryptoMethod" title="getCryptoMethod :: ">
+            <span class="description"></span><pre>getCryptoMethod</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getList" title="getList :: Make LIST call for size of message(s)">
+            <span class="description">Make LIST call for size of message(s)</span><pre>getList</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_login" title="login :: Login to POP3 server. Can use APOP">
+            <span class="description">Login to POP3 server. Can use APOP</span><pre>login</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_logout" title="logout :: End communication with POP3 server (also closes socket)">
+            <span class="description">End communication with POP3 server (also closes socket)</span><pre>logout</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_noop" title="noop :: Make a NOOP call, maybe needed for keeping the server happy">
+            <span class="description">Make a NOOP call, maybe needed for keeping the server happy</span><pre>noop</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_readResponse" title="readResponse :: read a response">
+            <span class="description">read a response</span><pre>readResponse</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_request" title="request :: Send request and get response">
+            <span class="description">Send request and get response</span><pre>request</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_retrieve" title="retrieve :: Make a RETR call for retrieving a full message with headers and body">
+            <span class="description">Make a RETR call for retrieving a full message with headers and body</span><pre>retrieve</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_sendRequest" title="sendRequest :: Send a request">
+            <span class="description">Send a request</span><pre>sendRequest</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_status" title="status :: Make STAT call for message count and size sum">
+            <span class="description">Make STAT call for message count and size sum</span><pre>status</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_top" title="top :: Make TOP call for getting headers and maybe some body lines
+This method also sets hasTop - before it it&#039;s not known if top is supported">
+            <span class="description">Make TOP call for getting headers and maybe some body lines
+This method also sets hasTop - before it it&#039;s not known if top is supported</span><pre>top</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_undelete" title="undelete :: Make RSET call, which rollbacks delete requests">
+            <span class="description">Make RSET call, which rollbacks delete requests</span><pre>undelete</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_uniqueid" title="uniqueid :: Make UIDL call for getting a uniqueid">
+            <span class="description">Make UIDL call for getting a uniqueid</span><pre>uniqueid</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_TIMEOUT_CONNECTION" title="TIMEOUT_CONNECTION :: Default timeout in seconds for initiating session">
+                        <span class="description">Default timeout in seconds for initiating session</span><pre>TIMEOUT_CONNECTION</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Pop3</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Public constructor</h2>
+                            <pre>__construct(string $host = &#039;&#039;, integer|null $port = null, boolean|string $ssl = false) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$host</h4>
+                                                <code>string</code><p><p>hostname or IP address of POP3 server, if given connect() is called</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$port</h4>
+                                                <code>integer|null</code><p><p>port of POP3 server, null for default (110 or 995 for ssl)</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$ssl</h4>
+                                                <code>boolean|string</code><p><p>use ssl? 'SSL', 'TLS' or false</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___destruct"></a>
+                        <div class="element clickable method public  method___destruct" data-toggle="collapse" data-target=".method___destruct .collapse">
+                            <h2>Public destructor</h2>
+                            <pre>__destruct() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_capa"></a>
+                        <div class="element clickable method public  method_capa" data-toggle="collapse" data-target=".method_capa .collapse">
+                            <h2>Get capabilities from POP3 server</h2>
+                            <pre>capa() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p><p>list of capabilities</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_connect"></a>
+                        <div class="element clickable method public  method_connect" data-toggle="collapse" data-target=".method_connect .collapse">
+                            <h2>Open connection to POP3 server</h2>
+                            <pre>connect(string $host, integer|null $port = null, string|boolean $ssl = false) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Protocol\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$host</h4>
+                                                <code>string</code><p><p>hostname or IP address of POP3 server</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$port</h4>
+                                                <code>integer|null</code><p><p>of POP3 server, default is 110 (995 for ssl)</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$ssl</h4>
+                                                <code>string|boolean</code><p><p>use 'SSL', 'TLS' or false</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>welcome message</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_delete"></a>
+                        <div class="element clickable method public  method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
+                            <h2>Make a DELE count to remove a message</h2>
+                            <pre>delete( $msgno) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$msgno</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCryptoMethod"></a>
+                        <div class="element clickable method public  method_getCryptoMethod inherited" data-toggle="collapse" data-target=".method_getCryptoMethod .collapse">
+                            <h2>getCryptoMethod</h2>
+                            <pre>getCryptoMethod() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getList"></a>
+                        <div class="element clickable method public  method_getList" data-toggle="collapse" data-target=".method_getList .collapse">
+                            <h2>Make LIST call for size of message(s)</h2>
+                            <pre>getList(integer|null $msgno = null) : integer|array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$msgno</h4>
+                                                <code>integer|null</code><p><p>number of message, null for all</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer|array</code><p><p>size of given message or list with array(num =&gt; size)</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_login"></a>
+                        <div class="element clickable method public  method_login" data-toggle="collapse" data-target=".method_login .collapse">
+                            <h2>Login to POP3 server. Can use APOP</h2>
+                            <pre>login(string $user, string $password, boolean $tryApop = true) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$user</h4>
+                                                <code>string</code><p><p>username</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$password</h4>
+                                                <code>string</code><p><p>password</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$tryApop</h4>
+                                                <code>boolean</code><p><p>should APOP be tried?</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_logout"></a>
+                        <div class="element clickable method public  method_logout" data-toggle="collapse" data-target=".method_logout .collapse">
+                            <h2>End communication with POP3 server (also closes socket)</h2>
+                            <pre>logout() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_noop"></a>
+                        <div class="element clickable method public  method_noop" data-toggle="collapse" data-target=".method_noop .collapse">
+                            <h2>Make a NOOP call, maybe needed for keeping the server happy</h2>
+                            <pre>noop() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_readResponse"></a>
+                        <div class="element clickable method public  method_readResponse" data-toggle="collapse" data-target=".method_readResponse .collapse">
+                            <h2>read a response</h2>
+                            <pre>readResponse(boolean $multiline = false) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Protocol\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$multiline</h4>
+                                                <code>boolean</code><p><p>response has multiple lines and should be read until &quot;<nl>.<nl>&quot;</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>response</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_request"></a>
+                        <div class="element clickable method public  method_request" data-toggle="collapse" data-target=".method_request .collapse">
+                            <h2>Send request and get response</h2>
+                            <pre>request(string $request, boolean $multiline = false) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Mail.Protocol.Pop3.html#method_sendRequest">\Zend\Mail\Protocol\Pop3::sendRequest()</a>
+                                                                                                                
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Mail.Protocol.Pop3.html#method_readResponse">\Zend\Mail\Protocol\Pop3::readResponse()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$request</h4>
+                                                <code>string</code><p><p>request</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$multiline</h4>
+                                                <code>boolean</code><p><p>multiline response?</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>result from readResponse()</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_retrieve"></a>
+                        <div class="element clickable method public  method_retrieve" data-toggle="collapse" data-target=".method_retrieve .collapse">
+                            <h2>Make a RETR call for retrieving a full message with headers and body</h2>
+                            <pre>retrieve(integer $msgno) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$msgno</h4>
+                                                <code>integer</code><p><p>message number</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>message</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_sendRequest"></a>
+                        <div class="element clickable method public  method_sendRequest" data-toggle="collapse" data-target=".method_sendRequest .collapse">
+                            <h2>Send a request</h2>
+                            <pre>sendRequest(string $request) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Protocol\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$request</h4>
+                                                <code>string</code><p><p>your request without newline</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_status"></a>
+                        <div class="element clickable method public  method_status" data-toggle="collapse" data-target=".method_status .collapse">
+                            <h2>Make STAT call for message count and size sum</h2>
+                            <pre>status(integer &$messages, integer &$octets) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$messages</h4>
+                                                <code>integer</code><p><p>out parameter with count of messages</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$octets</h4>
+                                                <code>integer</code><p><p>out parameter with size in octets of messages</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_top"></a>
+                        <div class="element clickable method public  method_top" data-toggle="collapse" data-target=".method_top .collapse">
+                            <h2>Make TOP call for getting headers and maybe some body lines
+This method also sets hasTop - before it it&#039;s not known if top is supported</h2>
+                            <pre>top(integer $msgno, integer $lines, boolean $fallback = false) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>The fallback makes normal RETR call, which retrieves the whole message. Additional
+lines are not removed.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Mail\Protocol\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                            <dt>\Zend\Mail\Protocol\Exception\ExceptionInterface</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$msgno</h4>
+                                                <code>integer</code><p><p>number of message</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$lines</h4>
+                                                <code>integer</code><p><p>number of wanted body lines (empty line is inserted after header lines)</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fallback</h4>
+                                                <code>boolean</code><p><p>fallback with full retrieve if top is not supported</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>message headers with wanted body lines</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_undelete"></a>
+                        <div class="element clickable method public  method_undelete" data-toggle="collapse" data-target=".method_undelete .collapse">
+                            <h2>Make RSET call, which rollbacks delete requests</h2>
+                            <pre>undelete() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_uniqueid"></a>
+                        <div class="element clickable method public  method_uniqueid" data-toggle="collapse" data-target=".method_uniqueid .collapse">
+                            <h2>Make UIDL call for getting a uniqueid</h2>
+                            <pre>uniqueid(integer|null $msgno = null) : string|array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$msgno</h4>
+                                                <code>integer|null</code><p><p>number of message, null for all</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string|array</code><p><p>uniqueid of message or list with array(num =&gt; uniqueid)</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_TIMEOUT_CONNECTION"> </a>
+                            <div class="element clickable constant  constant_TIMEOUT_CONNECTION" data-toggle="collapse" data-target=".constant_TIMEOUT_CONNECTION .collapse">
+                                <h2>Default timeout in seconds for initiating session</h2>
+                                <pre>TIMEOUT_CONNECTION</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_hasTop"> </a>
+                            <div class="element clickable property  public property_hasTop" data-toggle="collapse" data-target=".property_hasTop .collapse">
+                                <h2>saves if server supports top</h2>
+                                <pre>hasTop : null|boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_socket"> </a>
+                            <div class="element clickable property  protected property_socket" data-toggle="collapse" data-target=".property_socket .collapse">
+                                <h2>socket to pop3</h2>
+                                <pre>socket : null|resource</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|resource</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_timestamp"> </a>
+                            <div class="element clickable property  protected property_timestamp" data-toggle="collapse" data-target=".property_timestamp .collapse">
+                                <h2>greeting timestamp for apop</h2>
+                                <pre>timestamp : null|string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Mail\Protocol\Pop3"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Mail.Protocol.html">Protocol</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Mail.Protocol.Pop3.html">Pop3</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:16 +0000.<br/>
+    </footer>
+    </body>
+</html>

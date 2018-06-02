@@ -18,7 +18,7 @@ use Zend\View\Model\JsonModel;
  * Class AnalysisResults
  *  Representa os Resultados da Análise dos Códigos Fonte submetidos
  *
- * @ORM\Entity
+ * @ORM\Entity Mapeamento Objeto Relacional
  * @ORM\Table(name="analysis_results")
  * @package SourceCode\Model\Entity
  */

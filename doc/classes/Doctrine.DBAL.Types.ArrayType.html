@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\DBAL\Types\ArrayType
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                                                                            <li class="method public inherited">
+        <a href="#method___toString" title="__toString :: ">
+            <span class="description"></span><pre>__toString</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addType" title="addType :: Adds a custom type to the type map.">
+            <span class="description">Adds a custom type to the type map.</span><pre>addType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_canRequireSQLConversion" title="canRequireSQLConversion :: Does working with this column require SQL conversion functions?">
+            <span class="description">Does working with this column require SQL conversion functions?</span><pre>canRequireSQLConversion</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_convertToDatabaseValue" title="convertToDatabaseValue :: Converts a value from its PHP representation to its database representation
+of this type.">
+            <span class="description">Converts a value from its PHP representation to its database representation
+of this type.</span><pre>convertToDatabaseValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_convertToDatabaseValueSQL" title="convertToDatabaseValueSQL :: Modifies the SQL expression (identifier, parameter) to convert to a database value.">
+            <span class="description">Modifies the SQL expression (identifier, parameter) to convert to a database value.</span><pre>convertToDatabaseValueSQL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_convertToPHPValue" title="convertToPHPValue :: Converts a value from its database representation to its PHP representation
+of this type.">
+            <span class="description">Converts a value from its database representation to its PHP representation
+of this type.</span><pre>convertToPHPValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_convertToPHPValueSQL" title="convertToPHPValueSQL :: Modifies the SQL expression (identifier, parameter) to convert to a PHP value.">
+            <span class="description">Modifies the SQL expression (identifier, parameter) to convert to a PHP value.</span><pre>convertToPHPValueSQL</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getBindingType" title="getBindingType :: Gets the (preferred) binding type for values of this type that
+can be used when binding parameters to prepared statements.">
+            <span class="description">Gets the (preferred) binding type for values of this type that
+can be used when binding parameters to prepared statements.</span><pre>getBindingType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getDefaultLength" title="getDefaultLength :: Gets the default length of this type.">
+            <span class="description">Gets the default length of this type.</span><pre>getDefaultLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getMappedDatabaseTypes" title="getMappedDatabaseTypes :: Gets an array of database types that map to this Doctrine type.">
+            <span class="description">Gets an array of database types that map to this Doctrine type.</span><pre>getMappedDatabaseTypes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getName" title="getName :: Gets the name of this type.">
+            <span class="description">Gets the name of this type.</span><pre>getName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getSQLDeclaration" title="getSQLDeclaration :: Gets the SQL declaration snippet for a field of this type.">
+            <span class="description">Gets the SQL declaration snippet for a field of this type.</span><pre>getSQLDeclaration</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getType" title="getType :: Factory method to create type instances.">
+            <span class="description">Factory method to create type instances.</span><pre>getType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getTypesMap" title="getTypesMap :: Gets the types array map which holds all registered types and the corresponding
+type class">
+            <span class="description">Gets the types array map which holds all registered types and the corresponding
+type class</span><pre>getTypesMap</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_hasType" title="hasType :: Checks if exists support for a type.">
+            <span class="description">Checks if exists support for a type.</span><pre>hasType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_overrideType" title="overrideType :: Overrides an already defined type to use a different implementation.">
+            <span class="description">Overrides an already defined type to use a different implementation.</span><pre>overrideType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_requiresSQLCommentHint" title="requiresSQLCommentHint :: If this Doctrine Type maps to an already mapped database type,
+reverse schema engineering can&#039;t take them apart. You need to mark
+one of those types as commented, which will have Doctrine use an SQL
+comment to typehint the actual Doctrine Type.">
+            <span class="description">If this Doctrine Type maps to an already mapped database type,
+reverse schema engineering can&#039;t take them apart. You need to mark
+one of those types as commented, which will have Doctrine use an SQL
+comment to typehint the actual Doctrine Type.</span><pre>requiresSQLCommentHint</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                            <li class="method private inherited">
+                            <a href="#method___construct" title="__construct :: Prevents instantiation and forces use of the factory method.">
+                                <span class="description">Prevents instantiation and forces use of the factory method.</span><pre>__construct</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_BIGINT" title="BIGINT :: ">
+                        <span class="description"></span><pre>BIGINT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_BINARY" title="BINARY :: ">
+                        <span class="description"></span><pre>BINARY</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_BLOB" title="BLOB :: ">
+                        <span class="description"></span><pre>BLOB</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_BOOLEAN" title="BOOLEAN :: ">
+                        <span class="description"></span><pre>BOOLEAN</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_DATE" title="DATE :: ">
+                        <span class="description"></span><pre>DATE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_DATETIME" title="DATETIME :: ">
+                        <span class="description"></span><pre>DATETIME</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_DATETIMETZ" title="DATETIMETZ :: ">
+                        <span class="description"></span><pre>DATETIMETZ</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_DECIMAL" title="DECIMAL :: ">
+                        <span class="description"></span><pre>DECIMAL</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_FLOAT" title="FLOAT :: ">
+                        <span class="description"></span><pre>FLOAT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_GUID" title="GUID :: ">
+                        <span class="description"></span><pre>GUID</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_INTEGER" title="INTEGER :: ">
+                        <span class="description"></span><pre>INTEGER</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_JSON_ARRAY" title="JSON_ARRAY :: ">
+                        <span class="description"></span><pre>JSON_ARRAY</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_OBJECT" title="OBJECT :: ">
+                        <span class="description"></span><pre>OBJECT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_SIMPLE_ARRAY" title="SIMPLE_ARRAY :: ">
+                        <span class="description"></span><pre>SIMPLE_ARRAY</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_SMALLINT" title="SMALLINT :: ">
+                        <span class="description"></span><pre>SMALLINT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_STRING" title="STRING :: ">
+                        <span class="description"></span><pre>STRING</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_TARRAY" title="TARRAY :: ">
+                        <span class="description"></span><pre>TARRAY</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_TEXT" title="TEXT :: ">
+                        <span class="description"></span><pre>TEXT</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_TIME" title="TIME :: ">
+                        <span class="description"></span><pre>TIME</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>ArrayType</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.DBAL.Types.Type.html">\Doctrine\DBAL\Types\Type</a>
+                                                        </small>
+                <p class="short_description">Type that maps a PHP array to a clob SQL type.</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>A Type object is obtained by calling the static \Doctrine\DBAL\Types\getType() method.</p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.0
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method private  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Prevents instantiation and forces use of the factory method.</h2>
+                            <pre>__construct() </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                <span class="label">final</span>                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method___toString"></a>
+                        <div class="element clickable method public  method___toString inherited" data-toggle="collapse" data-target=".method___toString .collapse">
+                            <h2>__toString</h2>
+                            <pre>__toString() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addType"></a>
+                        <div class="element clickable method public  method_addType inherited" data-toggle="collapse" data-target=".method_addType .collapse">
+                            <h2>Adds a custom type to the type map.</h2>
+                            <pre>addType(string $name, string $className) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\DBAL\DBALException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the type. This should correspond to what getName() returns.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p><p>The class name of the custom type.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_canRequireSQLConversion"></a>
+                        <div class="element clickable method public  method_canRequireSQLConversion inherited" data-toggle="collapse" data-target=".method_canRequireSQLConversion .collapse">
+                            <h2>Does working with this column require SQL conversion functions?</h2>
+                            <pre>canRequireSQLConversion() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This is a metadata function that is required for example in the ORM.
+Usage of \convertToDatabaseValueSQL and
+\convertToPHPValueSQL works for any type and mostly
+does nothing. This method can additionally be used for optimization purposes.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_convertToDatabaseValue"></a>
+                        <div class="element clickable method public  method_convertToDatabaseValue inherited" data-toggle="collapse" data-target=".method_convertToDatabaseValue .collapse">
+                            <h2>Converts a value from its PHP representation to its database representation
+of this type.</h2>
+                            <pre>convertToDatabaseValue(mixed $value, \Doctrine\DBAL\Platforms\AbstractPlatform $platform) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>The value to convert.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p><p>The currently used database platform.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>The database representation of the value.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_convertToDatabaseValueSQL"></a>
+                        <div class="element clickable method public  method_convertToDatabaseValueSQL inherited" data-toggle="collapse" data-target=".method_convertToDatabaseValueSQL .collapse">
+                            <h2>Modifies the SQL expression (identifier, parameter) to convert to a database value.</h2>
+                            <pre>convertToDatabaseValueSQL(string $sqlExpr, \Doctrine\DBAL\Platforms\AbstractPlatform $platform) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sqlExpr</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_convertToPHPValue"></a>
+                        <div class="element clickable method public  method_convertToPHPValue inherited" data-toggle="collapse" data-target=".method_convertToPHPValue .collapse">
+                            <h2>Converts a value from its database representation to its PHP representation
+of this type.</h2>
+                            <pre>convertToPHPValue(mixed $value, \Doctrine\DBAL\Platforms\AbstractPlatform $platform) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p><p>The value to convert.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p><p>The currently used database platform.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p><p>The PHP representation of the value.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_convertToPHPValueSQL"></a>
+                        <div class="element clickable method public  method_convertToPHPValueSQL inherited" data-toggle="collapse" data-target=".method_convertToPHPValueSQL .collapse">
+                            <h2>Modifies the SQL expression (identifier, parameter) to convert to a PHP value.</h2>
+                            <pre>convertToPHPValueSQL(string $sqlExpr, \Doctrine\DBAL\Platforms\AbstractPlatform $platform) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sqlExpr</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBindingType"></a>
+                        <div class="element clickable method public  method_getBindingType inherited" data-toggle="collapse" data-target=".method_getBindingType .collapse">
+                            <h2>Gets the (preferred) binding type for values of this type that
+can be used when binding parameters to prepared statements.</h2>
+                            <pre>getBindingType() : integer</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This method should return one of the PDO::PARAM_* constants, that is, one of:</p>
+<p>PDO::PARAM_BOOL
+PDO::PARAM_NULL
+PDO::PARAM_INT
+PDO::PARAM_STR
+PDO::PARAM_LOB</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefaultLength"></a>
+                        <div class="element clickable method public  method_getDefaultLength inherited" data-toggle="collapse" data-target=".method_getDefaultLength .collapse">
+                            <h2>Gets the default length of this type.</h2>
+                            <pre>getDefaultLength(\Doctrine\DBAL\Platforms\AbstractPlatform $platform) : integer|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Needed?</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>integer|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getMappedDatabaseTypes"></a>
+                        <div class="element clickable method public  method_getMappedDatabaseTypes inherited" data-toggle="collapse" data-target=".method_getMappedDatabaseTypes .collapse">
+                            <h2>Gets an array of database types that map to this Doctrine type.</h2>
+                            <pre>getMappedDatabaseTypes(\Doctrine\DBAL\Platforms\AbstractPlatform $platform) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getName"></a>
+                        <div class="element clickable method public  method_getName inherited" data-toggle="collapse" data-target=".method_getName .collapse">
+                            <h2>Gets the name of this type.</h2>
+                            <pre>getName() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    todo
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>Needed?</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getSQLDeclaration"></a>
+                        <div class="element clickable method public  method_getSQLDeclaration inherited" data-toggle="collapse" data-target=".method_getSQLDeclaration .collapse">
+                            <h2>Gets the SQL declaration snippet for a field of this type.</h2>
+                            <pre>getSQLDeclaration(array $fieldDeclaration, \Doctrine\DBAL\Platforms\AbstractPlatform $platform) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                <span class="label">abstract</span>                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fieldDeclaration</h4>
+                                                <code>array</code><p><p>The field declaration.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p><p>The currently used database platform.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getType"></a>
+                        <div class="element clickable method public  method_getType inherited" data-toggle="collapse" data-target=".method_getType .collapse">
+                            <h2>Factory method to create type instances.</h2>
+                            <pre>getType(string $name) : \Doctrine\DBAL\Types\Type</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Type instances are implemented as flyweights.</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\DBAL\DBALException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the type (as returned by getName()).</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Types.Type.html">\Doctrine\DBAL\Types\Type</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTypesMap"></a>
+                        <div class="element clickable method public  method_getTypesMap inherited" data-toggle="collapse" data-target=".method_getTypesMap .collapse">
+                            <h2>Gets the types array map which holds all registered types and the corresponding
+type class</h2>
+                            <pre>getTypesMap() : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasType"></a>
+                        <div class="element clickable method public  method_hasType inherited" data-toggle="collapse" data-target=".method_hasType .collapse">
+                            <h2>Checks if exists support for a type.</h2>
+                            <pre>hasType(string $name) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>The name of the type.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>TRUE if type is supported; FALSE otherwise.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_overrideType"></a>
+                        <div class="element clickable method public  method_overrideType inherited" data-toggle="collapse" data-target=".method_overrideType .collapse">
+                            <h2>Overrides an already defined type to use a different implementation.</h2>
+                            <pre>overrideType(string $name, string $className) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Doctrine\DBAL\DBALException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$className</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_requiresSQLCommentHint"></a>
+                        <div class="element clickable method public  method_requiresSQLCommentHint inherited" data-toggle="collapse" data-target=".method_requiresSQLCommentHint .collapse">
+                            <h2>If this Doctrine Type maps to an already mapped database type,
+reverse schema engineering can&#039;t take them apart. You need to mark
+one of those types as commented, which will have Doctrine use an SQL
+comment to typehint the actual Doctrine Type.</h2>
+                            <pre>requiresSQLCommentHint(\Doctrine\DBAL\Platforms\AbstractPlatform $platform) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_TARRAY"> </a>
+                            <div class="element clickable constant  constant_TARRAY inherited" data-toggle="collapse" data-target=".constant_TARRAY .collapse">
+                                <h2>TARRAY</h2>
+                                <pre>TARRAY</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_SIMPLE_ARRAY"> </a>
+                            <div class="element clickable constant  constant_SIMPLE_ARRAY inherited" data-toggle="collapse" data-target=".constant_SIMPLE_ARRAY .collapse">
+                                <h2>SIMPLE_ARRAY</h2>
+                                <pre>SIMPLE_ARRAY</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_JSON_ARRAY"> </a>
+                            <div class="element clickable constant  constant_JSON_ARRAY inherited" data-toggle="collapse" data-target=".constant_JSON_ARRAY .collapse">
+                                <h2>JSON_ARRAY</h2>
+                                <pre>JSON_ARRAY</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_BIGINT"> </a>
+                            <div class="element clickable constant  constant_BIGINT inherited" data-toggle="collapse" data-target=".constant_BIGINT .collapse">
+                                <h2>BIGINT</h2>
+                                <pre>BIGINT</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_BOOLEAN"> </a>
+                            <div class="element clickable constant  constant_BOOLEAN inherited" data-toggle="collapse" data-target=".constant_BOOLEAN .collapse">
+                                <h2>BOOLEAN</h2>
+                                <pre>BOOLEAN</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_DATETIME"> </a>
+                            <div class="element clickable constant  constant_DATETIME inherited" data-toggle="collapse" data-target=".constant_DATETIME .collapse">
+                                <h2>DATETIME</h2>
+                                <pre>DATETIME</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_DATETIMETZ"> </a>
+                            <div class="element clickable constant  constant_DATETIMETZ inherited" data-toggle="collapse" data-target=".constant_DATETIMETZ .collapse">
+                                <h2>DATETIMETZ</h2>
+                                <pre>DATETIMETZ</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_DATE"> </a>
+                            <div class="element clickable constant  constant_DATE inherited" data-toggle="collapse" data-target=".constant_DATE .collapse">
+                                <h2>DATE</h2>
+                                <pre>DATE</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_TIME"> </a>
+                            <div class="element clickable constant  constant_TIME inherited" data-toggle="collapse" data-target=".constant_TIME .collapse">
+                                <h2>TIME</h2>
+                                <pre>TIME</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_DECIMAL"> </a>
+                            <div class="element clickable constant  constant_DECIMAL inherited" data-toggle="collapse" data-target=".constant_DECIMAL .collapse">
+                                <h2>DECIMAL</h2>
+                                <pre>DECIMAL</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_INTEGER"> </a>
+                            <div class="element clickable constant  constant_INTEGER inherited" data-toggle="collapse" data-target=".constant_INTEGER .collapse">
+                                <h2>INTEGER</h2>
+                                <pre>INTEGER</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_OBJECT"> </a>
+                            <div class="element clickable constant  constant_OBJECT inherited" data-toggle="collapse" data-target=".constant_OBJECT .collapse">
+                                <h2>OBJECT</h2>
+                                <pre>OBJECT</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_SMALLINT"> </a>
+                            <div class="element clickable constant  constant_SMALLINT inherited" data-toggle="collapse" data-target=".constant_SMALLINT .collapse">
+                                <h2>SMALLINT</h2>
+                                <pre>SMALLINT</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_STRING"> </a>
+                            <div class="element clickable constant  constant_STRING inherited" data-toggle="collapse" data-target=".constant_STRING .collapse">
+                                <h2>STRING</h2>
+                                <pre>STRING</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_TEXT"> </a>
+                            <div class="element clickable constant  constant_TEXT inherited" data-toggle="collapse" data-target=".constant_TEXT .collapse">
+                                <h2>TEXT</h2>
+                                <pre>TEXT</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_BINARY"> </a>
+                            <div class="element clickable constant  constant_BINARY inherited" data-toggle="collapse" data-target=".constant_BINARY .collapse">
+                                <h2>BINARY</h2>
+                                <pre>BINARY</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_BLOB"> </a>
+                            <div class="element clickable constant  constant_BLOB inherited" data-toggle="collapse" data-target=".constant_BLOB .collapse">
+                                <h2>BLOB</h2>
+                                <pre>BLOB</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_FLOAT"> </a>
+                            <div class="element clickable constant  constant_FLOAT inherited" data-toggle="collapse" data-target=".constant_FLOAT .collapse">
+                                <h2>FLOAT</h2>
+                                <pre>FLOAT</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_GUID"> </a>
+                            <div class="element clickable constant  constant_GUID inherited" data-toggle="collapse" data-target=".constant_GUID .collapse">
+                                <h2>GUID</h2>
+                                <pre>GUID</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property__typeObjects"> </a>
+                            <div class="element clickable property  private property__typeObjects inherited" data-toggle="collapse" data-target=".property__typeObjects .collapse">
+                                <h2>Map of already instantiated type objects. One instance per type (flyweight).</h2>
+                                <pre>_typeObjects : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                    <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__typesMap"> </a>
+                            <div class="element clickable property  private property__typesMap inherited" data-toggle="collapse" data-target=".property__typesMap .collapse">
+                                <h2>The map of supported doctrine mapping types.</h2>
+                                <pre>_typesMap : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                    <span class="label">static</span>                                </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\DBAL\Types\ArrayType"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.DBAL.Types.html">Types</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.DBAL.Types.ArrayType.html">ArrayType</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:28 +0000.<br/>
+    </footer>
+    </body>
+</html>

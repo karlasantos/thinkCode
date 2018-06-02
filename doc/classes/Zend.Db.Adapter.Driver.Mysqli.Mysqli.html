@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Db\Adapter\Driver\Mysqli\Mysqli
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: Constructor">
+            <span class="description">Constructor</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_checkEnvironment" title="checkEnvironment :: Check environment">
+            <span class="description">Check environment</span><pre>checkEnvironment</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createResult" title="createResult :: Create result">
+            <span class="description">Create result</span><pre>createResult</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_createStatement" title="createStatement :: Create statement">
+            <span class="description">Create statement</span><pre>createStatement</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_formatParameterName" title="formatParameterName :: Format parameter name">
+            <span class="description">Format parameter name</span><pre>formatParameterName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getConnection" title="getConnection :: Get connection">
+            <span class="description">Get connection</span><pre>getConnection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getDatabasePlatformName" title="getDatabasePlatformName :: Get database platform name">
+            <span class="description">Get database platform name</span><pre>getDatabasePlatformName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getLastGeneratedValue" title="getLastGeneratedValue :: Get last generated value">
+            <span class="description">Get last generated value</span><pre>getLastGeneratedValue</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getPrepareType" title="getPrepareType :: Get prepare type">
+            <span class="description">Get prepare type</span><pre>getPrepareType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getProfiler" title="getProfiler :: ">
+            <span class="description"></span><pre>getProfiler</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getResultPrototype" title="getResultPrototype :: ">
+            <span class="description"></span><pre>getResultPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getStatementPrototype" title="getStatementPrototype :: Get statement prototype">
+            <span class="description">Get statement prototype</span><pre>getStatementPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_registerConnection" title="registerConnection :: Register connection">
+            <span class="description">Register connection</span><pre>registerConnection</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_registerResultPrototype" title="registerResultPrototype :: Register result prototype">
+            <span class="description">Register result prototype</span><pre>registerResultPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_registerStatementPrototype" title="registerStatementPrototype :: Register statement prototype">
+            <span class="description">Register statement prototype</span><pre>registerStatementPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setProfiler" title="setProfiler :: ">
+            <span class="description"></span><pre>setProfiler</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Mysqli</h1>
+                <small style="display: block; text-align: right">
+                                                                Implements <a href="../classes/Zend.Db.Adapter.Driver.DriverInterface.html">\Zend\Db\Adapter\Driver\DriverInterface</a>, <a href="../classes/Zend.Db.Adapter.Profiler.ProfilerAwareInterface.html">\Zend\Db\Adapter\Profiler\ProfilerAwareInterface</a>
+                                    </small>
+                <p class="short_description"></p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor</h2>
+                            <pre>__construct(array|\Zend\Db\Adapter\Driver\Mysqli\Connection|\mysqli $connection, null|\Zend\Db\Adapter\Driver\Mysqli\Statement $statementPrototype = null, null|\Zend\Db\Adapter\Driver\Mysqli\Result $resultPrototype = null, array $options = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$connection</h4>
+                                                <code>array|<a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Connection.html">\Zend\Db\Adapter\Driver\Mysqli\Connection</a>|\mysqli</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$statementPrototype</h4>
+                                                <code>null|<a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Statement.html">\Zend\Db\Adapter\Driver\Mysqli\Statement</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultPrototype</h4>
+                                                <code>null|<a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Result.html">\Zend\Db\Adapter\Driver\Mysqli\Result</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_checkEnvironment"></a>
+                        <div class="element clickable method public  method_checkEnvironment" data-toggle="collapse" data-target=".method_checkEnvironment .collapse">
+                            <h2>Check environment</h2>
+                            <pre>checkEnvironment() : void</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Db\Adapter\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createResult"></a>
+                        <div class="element clickable method public  method_createResult" data-toggle="collapse" data-target=".method_createResult .collapse">
+                            <h2>Create result</h2>
+                            <pre>createResult(resource $resource, null|boolean $isBuffered = null) : \Zend\Db\Adapter\Driver\Mysqli\Result</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resource</h4>
+                                                <code>resource</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$isBuffered</h4>
+                                                <code>null|boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Result.html">\Zend\Db\Adapter\Driver\Mysqli\Result</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createStatement"></a>
+                        <div class="element clickable method public  method_createStatement" data-toggle="collapse" data-target=".method_createStatement .collapse">
+                            <h2>Create statement</h2>
+                            <pre>createStatement(string $sqlOrResource = null) : \Zend\Db\Adapter\Driver\Mysqli\Statement</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sqlOrResource</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Statement.html">\Zend\Db\Adapter\Driver\Mysqli\Statement</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_formatParameterName"></a>
+                        <div class="element clickable method public  method_formatParameterName" data-toggle="collapse" data-target=".method_formatParameterName .collapse">
+                            <h2>Format parameter name</h2>
+                            <pre>formatParameterName(string $name, mixed $type = null) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getConnection"></a>
+                        <div class="element clickable method public  method_getConnection" data-toggle="collapse" data-target=".method_getConnection .collapse">
+                            <h2>Get connection</h2>
+                            <pre>getConnection() : \Zend\Db\Adapter\Driver\Mysqli\Connection</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Connection.html">\Zend\Db\Adapter\Driver\Mysqli\Connection</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDatabasePlatformName"></a>
+                        <div class="element clickable method public  method_getDatabasePlatformName" data-toggle="collapse" data-target=".method_getDatabasePlatformName .collapse">
+                            <h2>Get database platform name</h2>
+                            <pre>getDatabasePlatformName(string $nameFormat = self::NAME_FORMAT_CAMELCASE) : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$nameFormat</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getLastGeneratedValue"></a>
+                        <div class="element clickable method public  method_getLastGeneratedValue" data-toggle="collapse" data-target=".method_getLastGeneratedValue .collapse">
+                            <h2>Get last generated value</h2>
+                            <pre>getLastGeneratedValue() : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPrepareType"></a>
+                        <div class="element clickable method public  method_getPrepareType" data-toggle="collapse" data-target=".method_getPrepareType .collapse">
+                            <h2>Get prepare type</h2>
+                            <pre>getPrepareType() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getProfiler"></a>
+                        <div class="element clickable method public  method_getProfiler" data-toggle="collapse" data-target=".method_getProfiler .collapse">
+                            <h2>getProfiler</h2>
+                            <pre>getProfiler() : null|\Zend\Db\Adapter\Profiler\ProfilerInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getResultPrototype"></a>
+                        <div class="element clickable method public  method_getResultPrototype" data-toggle="collapse" data-target=".method_getResultPrototype .collapse">
+                            <h2>getResultPrototype</h2>
+                            <pre>getResultPrototype() : null|\Zend\Db\Adapter\Driver\Mysqli\Result</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Result.html">\Zend\Db\Adapter\Driver\Mysqli\Result</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getStatementPrototype"></a>
+                        <div class="element clickable method public  method_getStatementPrototype" data-toggle="collapse" data-target=".method_getStatementPrototype .collapse">
+                            <h2>Get statement prototype</h2>
+                            <pre>getStatementPrototype() : null|\Zend\Db\Adapter\Driver\Mysqli\Statement</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>null|<a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Statement.html">\Zend\Db\Adapter\Driver\Mysqli\Statement</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_registerConnection"></a>
+                        <div class="element clickable method public  method_registerConnection" data-toggle="collapse" data-target=".method_registerConnection .collapse">
+                            <h2>Register connection</h2>
+                            <pre>registerConnection(\Zend\Db\Adapter\Driver\Mysqli\Connection $connection) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$connection</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Connection.html">\Zend\Db\Adapter\Driver\Mysqli\Connection</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_registerResultPrototype"></a>
+                        <div class="element clickable method public  method_registerResultPrototype" data-toggle="collapse" data-target=".method_registerResultPrototype .collapse">
+                            <h2>Register result prototype</h2>
+                            <pre>registerResultPrototype(\Zend\Db\Adapter\Driver\Mysqli\Result $resultPrototype) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resultPrototype</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Result.html">\Zend\Db\Adapter\Driver\Mysqli\Result</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_registerStatementPrototype"></a>
+                        <div class="element clickable method public  method_registerStatementPrototype" data-toggle="collapse" data-target=".method_registerStatementPrototype .collapse">
+                            <h2>Register statement prototype</h2>
+                            <pre>registerStatementPrototype(\Zend\Db\Adapter\Driver\Mysqli\Statement $statementPrototype) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$statementPrototype</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Statement.html">\Zend\Db\Adapter\Driver\Mysqli\Statement</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setProfiler"></a>
+                        <div class="element clickable method public  method_setProfiler" data-toggle="collapse" data-target=".method_setProfiler .collapse">
+                            <h2>setProfiler</h2>
+                            <pre>setProfiler(\Zend\Db\Adapter\Profiler\ProfilerInterface $profiler) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$profiler</h4>
+                                                <code><a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p><p>Provides a fluent interface</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_connection"> </a>
+                            <div class="element clickable property  protected property_connection" data-toggle="collapse" data-target=".property_connection .collapse">
+                                <h2>connection</h2>
+                                <pre>connection : \Zend\Db\Adapter\Driver\Mysqli\Connection</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Connection.html">\Zend\Db\Adapter\Driver\Mysqli\Connection</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_statementPrototype"> </a>
+                            <div class="element clickable property  protected property_statementPrototype" data-toggle="collapse" data-target=".property_statementPrototype .collapse">
+                                <h2>statementPrototype</h2>
+                                <pre>statementPrototype : \Zend\Db\Adapter\Driver\Mysqli\Statement</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Statement.html">\Zend\Db\Adapter\Driver\Mysqli\Statement</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_resultPrototype"> </a>
+                            <div class="element clickable property  protected property_resultPrototype" data-toggle="collapse" data-target=".property_resultPrototype .collapse">
+                                <h2>resultPrototype</h2>
+                                <pre>resultPrototype : \Zend\Db\Adapter\Driver\Mysqli\Result</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Result.html">\Zend\Db\Adapter\Driver\Mysqli\Result</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_profiler"> </a>
+                            <div class="element clickable property  protected property_profiler" data-toggle="collapse" data-target=".property_profiler .collapse">
+                                <h2>profiler</h2>
+                                <pre>profiler : \Zend\Db\Adapter\Profiler\ProfilerInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Db.Adapter.Profiler.ProfilerInterface.html">\Zend\Db\Adapter\Profiler\ProfilerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_options"> </a>
+                            <div class="element clickable property  protected property_options" data-toggle="collapse" data-target=".property_options .collapse">
+                                <h2>options</h2>
+                                <pre>options : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Db\Adapter\Driver\Mysqli\Mysqli"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Db.Adapter.Driver.Mysqli.html">Mysqli</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Db.Adapter.Driver.Mysqli.Mysqli.html">Mysqli</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:09 +0000.<br/>
+    </footer>
+    </body>
+</html>

@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Doctrine\DBAL\Schema\Column
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method___construct" title="__construct :: Creates a new Column.">
+            <span class="description">Creates a new Column.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_getAutoincrement" title="getAutoincrement :: ">
+            <span class="description"></span><pre>getAutoincrement</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getColumnDefinition" title="getColumnDefinition :: ">
+            <span class="description"></span><pre>getColumnDefinition</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getComment" title="getComment :: ">
+            <span class="description"></span><pre>getComment</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCustomSchemaOption" title="getCustomSchemaOption :: ">
+            <span class="description"></span><pre>getCustomSchemaOption</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getCustomSchemaOptions" title="getCustomSchemaOptions :: ">
+            <span class="description"></span><pre>getCustomSchemaOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getDefault" title="getDefault :: ">
+            <span class="description"></span><pre>getDefault</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getFixed" title="getFixed :: ">
+            <span class="description"></span><pre>getFixed</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getFullQualifiedName" title="getFullQualifiedName :: The normalized name is full-qualified and lowerspaced. Lowerspacing is
+actually wrong, but we have to do it to keep our sanity. If you are
+using database objects that only differentiate in the casing (FOO vs
+Foo) then you will NOT be able to use Doctrine Schema abstraction.">
+            <span class="description">The normalized name is full-qualified and lowerspaced. Lowerspacing is
+actually wrong, but we have to do it to keep our sanity. If you are
+using database objects that only differentiate in the casing (FOO vs
+Foo) then you will NOT be able to use Doctrine Schema abstraction.</span><pre>getFullQualifiedName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getLength" title="getLength :: ">
+            <span class="description"></span><pre>getLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getName" title="getName :: Returns the name of this schema asset.">
+            <span class="description">Returns the name of this schema asset.</span><pre>getName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getNamespaceName" title="getNamespaceName :: Gets the namespace name of this asset.">
+            <span class="description">Gets the namespace name of this asset.</span><pre>getNamespaceName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getNotnull" title="getNotnull :: ">
+            <span class="description"></span><pre>getNotnull</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getPlatformOption" title="getPlatformOption :: ">
+            <span class="description"></span><pre>getPlatformOption</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getPlatformOptions" title="getPlatformOptions :: ">
+            <span class="description"></span><pre>getPlatformOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getPrecision" title="getPrecision :: ">
+            <span class="description"></span><pre>getPrecision</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getQuotedName" title="getQuotedName :: Gets the quoted representation of this asset but only if it was defined with one. Otherwise
+return the plain unquoted value as inserted.">
+            <span class="description">Gets the quoted representation of this asset but only if it was defined with one. Otherwise
+return the plain unquoted value as inserted.</span><pre>getQuotedName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getScale" title="getScale :: ">
+            <span class="description"></span><pre>getScale</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getShortestName" title="getShortestName :: The shortest name is stripped of the default namespace. All other
+namespaced elements are returned as full-qualified names.">
+            <span class="description">The shortest name is stripped of the default namespace. All other
+namespaced elements are returned as full-qualified names.</span><pre>getShortestName</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getType" title="getType :: ">
+            <span class="description"></span><pre>getType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getUnsigned" title="getUnsigned :: ">
+            <span class="description"></span><pre>getUnsigned</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasCustomSchemaOption" title="hasCustomSchemaOption :: ">
+            <span class="description"></span><pre>hasCustomSchemaOption</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasPlatformOption" title="hasPlatformOption :: ">
+            <span class="description"></span><pre>hasPlatformOption</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_isInDefaultNamespace" title="isInDefaultNamespace :: Is this asset in the default namespace?">
+            <span class="description">Is this asset in the default namespace?</span><pre>isInDefaultNamespace</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_isQuoted" title="isQuoted :: Checks if this asset&#039;s name is quoted.">
+            <span class="description">Checks if this asset&#039;s name is quoted.</span><pre>isQuoted</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setAutoincrement" title="setAutoincrement :: ">
+            <span class="description"></span><pre>setAutoincrement</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setColumnDefinition" title="setColumnDefinition :: ">
+            <span class="description"></span><pre>setColumnDefinition</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setComment" title="setComment :: ">
+            <span class="description"></span><pre>setComment</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCustomSchemaOption" title="setCustomSchemaOption :: ">
+            <span class="description"></span><pre>setCustomSchemaOption</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setCustomSchemaOptions" title="setCustomSchemaOptions :: ">
+            <span class="description"></span><pre>setCustomSchemaOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setDefault" title="setDefault :: ">
+            <span class="description"></span><pre>setDefault</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setFixed" title="setFixed :: ">
+            <span class="description"></span><pre>setFixed</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setLength" title="setLength :: ">
+            <span class="description"></span><pre>setLength</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setNotnull" title="setNotnull :: ">
+            <span class="description"></span><pre>setNotnull</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setOptions" title="setOptions :: ">
+            <span class="description"></span><pre>setOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setPlatformOption" title="setPlatformOption :: ">
+            <span class="description"></span><pre>setPlatformOption</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setPlatformOptions" title="setPlatformOptions :: ">
+            <span class="description"></span><pre>setPlatformOptions</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setPrecision" title="setPrecision :: ">
+            <span class="description"></span><pre>setPrecision</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setScale" title="setScale :: ">
+            <span class="description"></span><pre>setScale</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setType" title="setType :: ">
+            <span class="description"></span><pre>setType</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setUnsigned" title="setUnsigned :: ">
+            <span class="description"></span><pre>setUnsigned</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_toArray" title="toArray :: ">
+            <span class="description"></span><pre>toArray</pre>
+        </a>
+    </li>
+
+                                                                                                        </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                <li class="method protected inherited">
+                            <a href="#method__generateIdentifierName" title="_generateIdentifierName :: Generates an identifier from a list of column names obeying a certain string length.">
+                                <span class="description">Generates an identifier from a list of column names obeying a certain string length.</span><pre>_generateIdentifierName</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__setName" title="_setName :: Sets the name of this asset.">
+                                <span class="description">Sets the name of this asset.</span><pre>_setName</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method protected inherited">
+                            <a href="#method_isIdentifierQuoted" title="isIdentifierQuoted :: Checks if this identifier is quoted.">
+                                <span class="description">Checks if this identifier is quoted.</span><pre>isIdentifierQuoted</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <li class="method protected inherited">
+                            <a href="#method_trimQuotes" title="trimQuotes :: Trim quotes from the identifier.">
+                                <span class="description">Trim quotes from the identifier.</span><pre>trimQuotes</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Column</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Doctrine.DBAL.Schema.AbstractAsset.html">\Doctrine\DBAL\Schema\AbstractAsset</a>
+                                                        </small>
+                <p class="short_description">Object representation of a database column.</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>This encapsulation hack is necessary to keep a consistent state of the database schema. Say we have a list of tables
+array($tableName =&gt; Table($tableName)); if you want to rename the table, you have to make sure</p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        link
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>www.doctrine-project.org</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        since
+                                                                            </th>
+                                    <td>
+                                                                                    2.0
+                                                                                
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        author
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Benjamin Eberlei <a href="mailto:kontakt@beberlei.de">kontakt@beberlei.de</a></p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Creates a new Column.</h2>
+                            <pre>__construct(string $columnName, \Doctrine\DBAL\Types\Type $type, array $options = array()) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Types.Type.html">\Doctrine\DBAL\Types\Type</a></code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__generateIdentifierName"></a>
+                        <div class="element clickable method protected  method__generateIdentifierName inherited" data-toggle="collapse" data-target=".method__generateIdentifierName .collapse">
+                            <h2>Generates an identifier from a list of column names obeying a certain string length.</h2>
+                            <pre>_generateIdentifierName(array $columnNames, string $prefix = &#039;&#039;, integer $maxSize = 30) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This is especially important for Oracle, since it does not allow identifiers larger than 30 chars,
+however building idents automatically for foreign keys, composite keys or such can easily create
+very long names.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$columnNames</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$prefix</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$maxSize</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__setName"></a>
+                        <div class="element clickable method protected  method__setName inherited" data-toggle="collapse" data-target=".method__setName .collapse">
+                            <h2>Sets the name of this asset.</h2>
+                            <pre>_setName(string $name) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAutoincrement"></a>
+                        <div class="element clickable method public  method_getAutoincrement" data-toggle="collapse" data-target=".method_getAutoincrement .collapse">
+                            <h2>getAutoincrement</h2>
+                            <pre>getAutoincrement() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getColumnDefinition"></a>
+                        <div class="element clickable method public  method_getColumnDefinition" data-toggle="collapse" data-target=".method_getColumnDefinition .collapse">
+                            <h2>getColumnDefinition</h2>
+                            <pre>getColumnDefinition() : string|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getComment"></a>
+                        <div class="element clickable method public  method_getComment" data-toggle="collapse" data-target=".method_getComment .collapse">
+                            <h2>getComment</h2>
+                            <pre>getComment() : string|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCustomSchemaOption"></a>
+                        <div class="element clickable method public  method_getCustomSchemaOption" data-toggle="collapse" data-target=".method_getCustomSchemaOption .collapse">
+                            <h2>getCustomSchemaOption</h2>
+                            <pre>getCustomSchemaOption(string $name) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getCustomSchemaOptions"></a>
+                        <div class="element clickable method public  method_getCustomSchemaOptions" data-toggle="collapse" data-target=".method_getCustomSchemaOptions .collapse">
+                            <h2>getCustomSchemaOptions</h2>
+                            <pre>getCustomSchemaOptions() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getDefault"></a>
+                        <div class="element clickable method public  method_getDefault" data-toggle="collapse" data-target=".method_getDefault .collapse">
+                            <h2>getDefault</h2>
+                            <pre>getDefault() : string|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFixed"></a>
+                        <div class="element clickable method public  method_getFixed" data-toggle="collapse" data-target=".method_getFixed .collapse">
+                            <h2>getFixed</h2>
+                            <pre>getFixed() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFullQualifiedName"></a>
+                        <div class="element clickable method public  method_getFullQualifiedName inherited" data-toggle="collapse" data-target=".method_getFullQualifiedName .collapse">
+                            <h2>The normalized name is full-qualified and lowerspaced. Lowerspacing is
+actually wrong, but we have to do it to keep our sanity. If you are
+using database objects that only differentiate in the casing (FOO vs
+Foo) then you will NOT be able to use Doctrine Schema abstraction.</h2>
+                            <pre>getFullQualifiedName(string $defaultNamespaceName) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Every non-namespaced element is prefixed with the default namespace
+name which is passed as argument to this method.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultNamespaceName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getLength"></a>
+                        <div class="element clickable method public  method_getLength" data-toggle="collapse" data-target=".method_getLength .collapse">
+                            <h2>getLength</h2>
+                            <pre>getLength() : integer|null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getName"></a>
+                        <div class="element clickable method public  method_getName inherited" data-toggle="collapse" data-target=".method_getName .collapse">
+                            <h2>Returns the name of this schema asset.</h2>
+                            <pre>getName() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNamespaceName"></a>
+                        <div class="element clickable method public  method_getNamespaceName inherited" data-toggle="collapse" data-target=".method_getNamespaceName .collapse">
+                            <h2>Gets the namespace name of this asset.</h2>
+                            <pre>getNamespaceName() : string|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If NULL is returned this means the default namespace is used.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNotnull"></a>
+                        <div class="element clickable method public  method_getNotnull" data-toggle="collapse" data-target=".method_getNotnull .collapse">
+                            <h2>getNotnull</h2>
+                            <pre>getNotnull() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPlatformOption"></a>
+                        <div class="element clickable method public  method_getPlatformOption" data-toggle="collapse" data-target=".method_getPlatformOption .collapse">
+                            <h2>getPlatformOption</h2>
+                            <pre>getPlatformOption(string $name) : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPlatformOptions"></a>
+                        <div class="element clickable method public  method_getPlatformOptions" data-toggle="collapse" data-target=".method_getPlatformOptions .collapse">
+                            <h2>getPlatformOptions</h2>
+                            <pre>getPlatformOptions() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPrecision"></a>
+                        <div class="element clickable method public  method_getPrecision" data-toggle="collapse" data-target=".method_getPrecision .collapse">
+                            <h2>getPrecision</h2>
+                            <pre>getPrecision() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getQuotedName"></a>
+                        <div class="element clickable method public  method_getQuotedName inherited" data-toggle="collapse" data-target=".method_getQuotedName .collapse">
+                            <h2>Gets the quoted representation of this asset but only if it was defined with one. Otherwise
+return the plain unquoted value as inserted.</h2>
+                            <pre>getQuotedName(\Doctrine\DBAL\Platforms\AbstractPlatform $platform) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platform</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Platforms.AbstractPlatform.html">\Doctrine\DBAL\Platforms\AbstractPlatform</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getScale"></a>
+                        <div class="element clickable method public  method_getScale" data-toggle="collapse" data-target=".method_getScale .collapse">
+                            <h2>getScale</h2>
+                            <pre>getScale() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getShortestName"></a>
+                        <div class="element clickable method public  method_getShortestName inherited" data-toggle="collapse" data-target=".method_getShortestName .collapse">
+                            <h2>The shortest name is stripped of the default namespace. All other
+namespaced elements are returned as full-qualified names.</h2>
+                            <pre>getShortestName(string $defaultNamespaceName) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultNamespaceName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getType"></a>
+                        <div class="element clickable method public  method_getType" data-toggle="collapse" data-target=".method_getType .collapse">
+                            <h2>getType</h2>
+                            <pre>getType() : \Doctrine\DBAL\Types\Type</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Types.Type.html">\Doctrine\DBAL\Types\Type</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getUnsigned"></a>
+                        <div class="element clickable method public  method_getUnsigned" data-toggle="collapse" data-target=".method_getUnsigned .collapse">
+                            <h2>getUnsigned</h2>
+                            <pre>getUnsigned() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasCustomSchemaOption"></a>
+                        <div class="element clickable method public  method_hasCustomSchemaOption" data-toggle="collapse" data-target=".method_hasCustomSchemaOption .collapse">
+                            <h2>hasCustomSchemaOption</h2>
+                            <pre>hasCustomSchemaOption(string $name) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasPlatformOption"></a>
+                        <div class="element clickable method public  method_hasPlatformOption" data-toggle="collapse" data-target=".method_hasPlatformOption .collapse">
+                            <h2>hasPlatformOption</h2>
+                            <pre>hasPlatformOption(string $name) : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isIdentifierQuoted"></a>
+                        <div class="element clickable method protected  method_isIdentifierQuoted inherited" data-toggle="collapse" data-target=".method_isIdentifierQuoted .collapse">
+                            <h2>Checks if this identifier is quoted.</h2>
+                            <pre>isIdentifierQuoted(string $identifier) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$identifier</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isInDefaultNamespace"></a>
+                        <div class="element clickable method public  method_isInDefaultNamespace inherited" data-toggle="collapse" data-target=".method_isInDefaultNamespace .collapse">
+                            <h2>Is this asset in the default namespace?</h2>
+                            <pre>isInDefaultNamespace(string $defaultNamespaceName) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$defaultNamespaceName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isQuoted"></a>
+                        <div class="element clickable method public  method_isQuoted inherited" data-toggle="collapse" data-target=".method_isQuoted .collapse">
+                            <h2>Checks if this asset&#039;s name is quoted.</h2>
+                            <pre>isQuoted() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setAutoincrement"></a>
+                        <div class="element clickable method public  method_setAutoincrement" data-toggle="collapse" data-target=".method_setAutoincrement .collapse">
+                            <h2>setAutoincrement</h2>
+                            <pre>setAutoincrement(boolean $flag) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setColumnDefinition"></a>
+                        <div class="element clickable method public  method_setColumnDefinition" data-toggle="collapse" data-target=".method_setColumnDefinition .collapse">
+                            <h2>setColumnDefinition</h2>
+                            <pre>setColumnDefinition(string $value) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setComment"></a>
+                        <div class="element clickable method public  method_setComment" data-toggle="collapse" data-target=".method_setComment .collapse">
+                            <h2>setComment</h2>
+                            <pre>setComment(string $comment) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$comment</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCustomSchemaOption"></a>
+                        <div class="element clickable method public  method_setCustomSchemaOption" data-toggle="collapse" data-target=".method_setCustomSchemaOption .collapse">
+                            <h2>setCustomSchemaOption</h2>
+                            <pre>setCustomSchemaOption(string $name, mixed $value) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCustomSchemaOptions"></a>
+                        <div class="element clickable method public  method_setCustomSchemaOptions" data-toggle="collapse" data-target=".method_setCustomSchemaOptions .collapse">
+                            <h2>setCustomSchemaOptions</h2>
+                            <pre>setCustomSchemaOptions(array $customSchemaOptions) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$customSchemaOptions</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDefault"></a>
+                        <div class="element clickable method public  method_setDefault" data-toggle="collapse" data-target=".method_setDefault .collapse">
+                            <h2>setDefault</h2>
+                            <pre>setDefault(mixed $default) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$default</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFixed"></a>
+                        <div class="element clickable method public  method_setFixed" data-toggle="collapse" data-target=".method_setFixed .collapse">
+                            <h2>setFixed</h2>
+                            <pre>setFixed(boolean $fixed) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$fixed</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setLength"></a>
+                        <div class="element clickable method public  method_setLength" data-toggle="collapse" data-target=".method_setLength .collapse">
+                            <h2>setLength</h2>
+                            <pre>setLength(integer|null $length) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$length</h4>
+                                                <code>integer|null</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setNotnull"></a>
+                        <div class="element clickable method public  method_setNotnull" data-toggle="collapse" data-target=".method_setNotnull .collapse">
+                            <h2>setNotnull</h2>
+                            <pre>setNotnull(boolean $notnull) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$notnull</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setOptions"></a>
+                        <div class="element clickable method public  method_setOptions" data-toggle="collapse" data-target=".method_setOptions .collapse">
+                            <h2>setOptions</h2>
+                            <pre>setOptions(array $options) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setPlatformOption"></a>
+                        <div class="element clickable method public  method_setPlatformOption" data-toggle="collapse" data-target=".method_setPlatformOption .collapse">
+                            <h2>setPlatformOption</h2>
+                            <pre>setPlatformOption(string $name, mixed $value) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setPlatformOptions"></a>
+                        <div class="element clickable method public  method_setPlatformOptions" data-toggle="collapse" data-target=".method_setPlatformOptions .collapse">
+                            <h2>setPlatformOptions</h2>
+                            <pre>setPlatformOptions(array $platformOptions) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$platformOptions</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setPrecision"></a>
+                        <div class="element clickable method public  method_setPrecision" data-toggle="collapse" data-target=".method_setPrecision .collapse">
+                            <h2>setPrecision</h2>
+                            <pre>setPrecision(integer $precision) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$precision</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setScale"></a>
+                        <div class="element clickable method public  method_setScale" data-toggle="collapse" data-target=".method_setScale .collapse">
+                            <h2>setScale</h2>
+                            <pre>setScale(integer $scale) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$scale</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setType"></a>
+                        <div class="element clickable method public  method_setType" data-toggle="collapse" data-target=".method_setType .collapse">
+                            <h2>setType</h2>
+                            <pre>setType(\Doctrine\DBAL\Types\Type $type) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code><a href="../classes/Doctrine.DBAL.Types.Type.html">\Doctrine\DBAL\Types\Type</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setUnsigned"></a>
+                        <div class="element clickable method public  method_setUnsigned" data-toggle="collapse" data-target=".method_setUnsigned .collapse">
+                            <h2>setUnsigned</h2>
+                            <pre>setUnsigned(boolean $unsigned) : \Doctrine\DBAL\Schema\Column</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$unsigned</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Doctrine.DBAL.Schema.Column.html">\Doctrine\DBAL\Schema\Column</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_toArray"></a>
+                        <div class="element clickable method public  method_toArray" data-toggle="collapse" data-target=".method_toArray .collapse">
+                            <h2>toArray</h2>
+                            <pre>toArray() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_trimQuotes"></a>
+                        <div class="element clickable method protected  method_trimQuotes inherited" data-toggle="collapse" data-target=".method_trimQuotes .collapse">
+                            <h2>Trim quotes from the identifier.</h2>
+                            <pre>trimQuotes(string $identifier) : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$identifier</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property__type"> </a>
+                            <div class="element clickable property  protected property__type" data-toggle="collapse" data-target=".property__type .collapse">
+                                <h2>_type</h2>
+                                <pre>_type : \Doctrine\DBAL\Types\Type</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Doctrine.DBAL.Types.Type.html">\Doctrine\DBAL\Types\Type</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__length"> </a>
+                            <div class="element clickable property  protected property__length" data-toggle="collapse" data-target=".property__length .collapse">
+                                <h2>_length</h2>
+                                <pre>_length : integer|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__precision"> </a>
+                            <div class="element clickable property  protected property__precision" data-toggle="collapse" data-target=".property__precision .collapse">
+                                <h2>_precision</h2>
+                                <pre>_precision : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__scale"> </a>
+                            <div class="element clickable property  protected property__scale" data-toggle="collapse" data-target=".property__scale .collapse">
+                                <h2>_scale</h2>
+                                <pre>_scale : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__unsigned"> </a>
+                            <div class="element clickable property  protected property__unsigned" data-toggle="collapse" data-target=".property__unsigned .collapse">
+                                <h2>_unsigned</h2>
+                                <pre>_unsigned : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__fixed"> </a>
+                            <div class="element clickable property  protected property__fixed" data-toggle="collapse" data-target=".property__fixed .collapse">
+                                <h2>_fixed</h2>
+                                <pre>_fixed : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__notnull"> </a>
+                            <div class="element clickable property  protected property__notnull" data-toggle="collapse" data-target=".property__notnull .collapse">
+                                <h2>_notnull</h2>
+                                <pre>_notnull : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__default"> </a>
+                            <div class="element clickable property  protected property__default" data-toggle="collapse" data-target=".property__default .collapse">
+                                <h2>_default</h2>
+                                <pre>_default : string|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__autoincrement"> </a>
+                            <div class="element clickable property  protected property__autoincrement" data-toggle="collapse" data-target=".property__autoincrement .collapse">
+                                <h2>_autoincrement</h2>
+                                <pre>_autoincrement : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__platformOptions"> </a>
+                            <div class="element clickable property  protected property__platformOptions" data-toggle="collapse" data-target=".property__platformOptions .collapse">
+                                <h2>_platformOptions</h2>
+                                <pre>_platformOptions : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__columnDefinition"> </a>
+                            <div class="element clickable property  protected property__columnDefinition" data-toggle="collapse" data-target=".property__columnDefinition .collapse">
+                                <h2>_columnDefinition</h2>
+                                <pre>_columnDefinition : string|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__comment"> </a>
+                            <div class="element clickable property  protected property__comment" data-toggle="collapse" data-target=".property__comment .collapse">
+                                <h2>_comment</h2>
+                                <pre>_comment : string|null</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__customSchemaOptions"> </a>
+                            <div class="element clickable property  protected property__customSchemaOptions" data-toggle="collapse" data-target=".property__customSchemaOptions .collapse">
+                                <h2>_customSchemaOptions</h2>
+                                <pre>_customSchemaOptions : array</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__name"> </a>
+                            <div class="element clickable property  protected property__name inherited" data-toggle="collapse" data-target=".property__name .collapse">
+                                <h2>_name</h2>
+                                <pre>_name : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__namespace"> </a>
+                            <div class="element clickable property  protected property__namespace inherited" data-toggle="collapse" data-target=".property__namespace .collapse">
+                                <h2>Namespace of the asset. If none isset the default namespace is assumed.</h2>
+                                <pre>_namespace : string|null</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string|null</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property__quoted"> </a>
+                            <div class="element clickable property  protected property__quoted inherited" data-toggle="collapse" data-target=".property__quoted .collapse">
+                                <h2>_quoted</h2>
+                                <pre>_quoted : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Doctrine\DBAL\Schema\Column"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Doctrine.DBAL.Schema.html">Schema</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Doctrine.DBAL.Schema.Column.html">Column</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:24 +0000.<br/>
+    </footer>
+    </body>
+</html>

@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Router\Http\TranslatorAwareTreeRouteStack
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Create a new simple route stack.">
+            <span class="description">Create a new simple route stack.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addPrototype" title="addPrototype :: Add a prototype.">
+            <span class="description">Add a prototype.</span><pre>addPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addPrototypes" title="addPrototypes :: Add multiple prototypes at once.">
+            <span class="description">Add multiple prototypes at once.</span><pre>addPrototypes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addRoute" title="addRoute :: addRoute(): defined by RouteStackInterface interface.">
+            <span class="description">addRoute(): defined by RouteStackInterface interface.</span><pre>addRoute</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addRoutes" title="addRoutes :: addRoutes(): defined by RouteStackInterface interface.">
+            <span class="description">addRoutes(): defined by RouteStackInterface interface.</span><pre>addRoutes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_assemble" title="assemble :: assemble(): defined by RouteInterface interface.">
+            <span class="description">assemble(): defined by RouteInterface interface.</span><pre>assemble</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_factory" title="factory :: factory(): defined by RouteInterface interface.">
+            <span class="description">factory(): defined by RouteInterface interface.</span><pre>factory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getBaseUrl" title="getBaseUrl :: Get the base URL.">
+            <span class="description">Get the base URL.</span><pre>getBaseUrl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getPrototype" title="getPrototype :: Get a prototype.">
+            <span class="description">Get a prototype.</span><pre>getPrototype</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRequestUri" title="getRequestUri :: Get the request URI.">
+            <span class="description">Get the request URI.</span><pre>getRequestUri</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRoute" title="getRoute :: Get a route by name">
+            <span class="description">Get a route by name</span><pre>getRoute</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRoutePluginManager" title="getRoutePluginManager :: Get the route plugin manager.">
+            <span class="description">Get the route plugin manager.</span><pre>getRoutePluginManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getRoutes" title="getRoutes :: Get the added routes">
+            <span class="description">Get the added routes</span><pre>getRoutes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getTranslator" title="getTranslator :: getTranslator(): defined by TranslatorAwareInterface.">
+            <span class="description">getTranslator(): defined by TranslatorAwareInterface.</span><pre>getTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_getTranslatorTextDomain" title="getTranslatorTextDomain :: getTranslatorTextDomain(): defined by TranslatorAwareInterface.">
+            <span class="description">getTranslatorTextDomain(): defined by TranslatorAwareInterface.</span><pre>getTranslatorTextDomain</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_hasRoute" title="hasRoute :: Check if a route with a specific name exists">
+            <span class="description">Check if a route with a specific name exists</span><pre>hasRoute</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_hasTranslator" title="hasTranslator :: hasTranslator(): defined by TranslatorAwareInterface.">
+            <span class="description">hasTranslator(): defined by TranslatorAwareInterface.</span><pre>hasTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public">
+        <a href="#method_isTranslatorEnabled" title="isTranslatorEnabled :: isTranslatorEnabled(): defined by TranslatorAwareInterface.">
+            <span class="description">isTranslatorEnabled(): defined by TranslatorAwareInterface.</span><pre>isTranslatorEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_match" title="match :: match(): defined by RouteInterface interface.">
+            <span class="description">match(): defined by RouteInterface interface.</span><pre>match</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_removeRoute" title="removeRoute :: removeRoute(): defined by RouteStackInterface interface.">
+            <span class="description">removeRoute(): defined by RouteStackInterface interface.</span><pre>removeRoute</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_setBaseUrl" title="setBaseUrl :: Set the base URL.">
+            <span class="description">Set the base URL.</span><pre>setBaseUrl</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setDefaultParam" title="setDefaultParam :: Set a default parameter.">
+            <span class="description">Set a default parameter.</span><pre>setDefaultParam</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setDefaultParams" title="setDefaultParams :: Set a default parameters.">
+            <span class="description">Set a default parameters.</span><pre>setDefaultParams</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setRequestUri" title="setRequestUri :: Set the request URI.">
+            <span class="description">Set the request URI.</span><pre>setRequestUri</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setRoutePluginManager" title="setRoutePluginManager :: Set the route plugin manager.">
+            <span class="description">Set the route plugin manager.</span><pre>setRoutePluginManager</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setRoutes" title="setRoutes :: setRoutes(): defined by RouteStackInterface interface.">
+            <span class="description">setRoutes(): defined by RouteStackInterface interface.</span><pre>setRoutes</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTranslator" title="setTranslator :: setTranslator(): defined by TranslatorAwareInterface.">
+            <span class="description">setTranslator(): defined by TranslatorAwareInterface.</span><pre>setTranslator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTranslatorEnabled" title="setTranslatorEnabled :: setTranslatorEnabled(): defined by TranslatorAwareInterface.">
+            <span class="description">setTranslatorEnabled(): defined by TranslatorAwareInterface.</span><pre>setTranslatorEnabled</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_setTranslatorTextDomain" title="setTranslatorTextDomain :: setTranslatorTextDomain(): defined by TranslatorAwareInterface.">
+            <span class="description">setTranslatorTextDomain(): defined by TranslatorAwareInterface.</span><pre>setTranslatorTextDomain</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <li class="method protected inherited">
+                            <a href="#method_init" title="init :: Init method for extending classes.">
+                                <span class="description">Init method for extending classes.</span><pre>init</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method protected inherited">
+                            <a href="#method_routeFromArray" title="routeFromArray :: Create a route from array specifications.">
+                                <span class="description">Create a route from array specifications.</span><pre>routeFromArray</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                    </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>TranslatorAwareTreeRouteStack</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.Router.Http.TreeRouteStack.html">\Zend\Router\Http\TreeRouteStack</a>
+                                                                Implements <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html">\Zend\I18n\Translator\TranslatorAwareInterface</a>
+                                    </small>
+                <p class="short_description">Translator aware tree route stack.</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Create a new simple route stack.</h2>
+                            <pre>__construct(\Zend\Router\RoutePluginManager $routePluginManager = null) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$routePluginManager</h4>
+                                                <code><a href="../classes/Zend.Router.RoutePluginManager.html">\Zend\Router\RoutePluginManager</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addPrototype"></a>
+                        <div class="element clickable method public  method_addPrototype inherited" data-toggle="collapse" data-target=".method_addPrototype .collapse">
+                            <h2>Add a prototype.</h2>
+                            <pre>addPrototype(string $name, mixed $route) : \Zend\Router\Http\TreeRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$route</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.Http.TreeRouteStack.html">\Zend\Router\Http\TreeRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addPrototypes"></a>
+                        <div class="element clickable method public  method_addPrototypes inherited" data-toggle="collapse" data-target=".method_addPrototypes .collapse">
+                            <h2>Add multiple prototypes at once.</h2>
+                            <pre>addPrototypes(\Traversable $routes) : \Zend\Router\Http\TreeRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Router\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$routes</h4>
+                                                <code>\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.Http.TreeRouteStack.html">\Zend\Router\Http\TreeRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addRoute"></a>
+                        <div class="element clickable method public  method_addRoute inherited" data-toggle="collapse" data-target=".method_addRoute .collapse">
+                            <h2>addRoute(): defined by RouteStackInterface interface.</h2>
+                            <pre>addRoute(string $name, mixed $route, integer $priority = null) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Router.RouteStackInterface.html#method_addRoute">\Zend\Router\RouteStackInterface::addRoute()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$route</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$priority</h4>
+                                                <code>integer</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addRoutes"></a>
+                        <div class="element clickable method public  method_addRoutes inherited" data-toggle="collapse" data-target=".method_addRoutes .collapse">
+                            <h2>addRoutes(): defined by RouteStackInterface interface.</h2>
+                            <pre>addRoutes(array|\Traversable $routes) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Router.RouteStackInterface.html#method_addRoutes">\Zend\Router\RouteStackInterface::addRoutes()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Router\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$routes</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_assemble"></a>
+                        <div class="element clickable method public  method_assemble inherited" data-toggle="collapse" data-target=".method_assemble .collapse">
+                            <h2>assemble(): defined by RouteInterface interface.</h2>
+                            <pre>assemble(array $params = array(), array $options = array()) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Router.RouteInterface.html#method_assemble">\Zend\Router\RouteInterface::assemble()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Router\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                            <dt>\Zend\Router\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$params</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_factory"></a>
+                        <div class="element clickable method public  method_factory inherited" data-toggle="collapse" data-target=".method_factory .collapse">
+                            <h2>factory(): defined by RouteInterface interface.</h2>
+                            <pre>factory(array|\Traversable $options = array()) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Router.RouteInterface.html#method_factory">\Zend\Router\RouteInterface::factory()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Router\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getBaseUrl"></a>
+                        <div class="element clickable method public  method_getBaseUrl inherited" data-toggle="collapse" data-target=".method_getBaseUrl .collapse">
+                            <h2>Get the base URL.</h2>
+                            <pre>getBaseUrl() : string</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getPrototype"></a>
+                        <div class="element clickable method public  method_getPrototype inherited" data-toggle="collapse" data-target=".method_getPrototype .collapse">
+                            <h2>Get a prototype.</h2>
+                            <pre>getPrototype(string $name) : \Zend\Router\Http\RouteInterface|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.Http.RouteInterface.html">\Zend\Router\Http\RouteInterface</a>|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRequestUri"></a>
+                        <div class="element clickable method public  method_getRequestUri inherited" data-toggle="collapse" data-target=".method_getRequestUri .collapse">
+                            <h2>Get the request URI.</h2>
+                            <pre>getRequestUri() : \Zend\Uri\Http</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Uri.Http.html">\Zend\Uri\Http</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRoute"></a>
+                        <div class="element clickable method public  method_getRoute inherited" data-toggle="collapse" data-target=".method_getRoute .collapse">
+                            <h2>Get a route by name</h2>
+                            <pre>getRoute(string $name) : \Zend\Router\RouteInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.RouteInterface.html">\Zend\Router\RouteInterface</a></code><p><p>the route</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRoutePluginManager"></a>
+                        <div class="element clickable method public  method_getRoutePluginManager inherited" data-toggle="collapse" data-target=".method_getRoutePluginManager .collapse">
+                            <h2>Get the route plugin manager.</h2>
+                            <pre>getRoutePluginManager() : \Zend\Router\RoutePluginManager</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.RoutePluginManager.html">\Zend\Router\RoutePluginManager</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getRoutes"></a>
+                        <div class="element clickable method public  method_getRoutes inherited" data-toggle="collapse" data-target=".method_getRoutes .collapse">
+                            <h2>Get the added routes</h2>
+                            <pre>getRoutes() : \Traversable</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\Traversable</code><p><p>list of all routes</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTranslator"></a>
+                        <div class="element clickable method public  method_getTranslator" data-toggle="collapse" data-target=".method_getTranslator .collapse">
+                            <h2>getTranslator(): defined by TranslatorAwareInterface.</h2>
+                            <pre>getTranslator() : \Zend\I18n\Translator\TranslatorInterface</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_getTranslator">\Zend\I18n\Translator\TranslatorAwareInterface::getTranslator()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.I18n.Translator.TranslatorInterface.html">\Zend\I18n\Translator\TranslatorInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getTranslatorTextDomain"></a>
+                        <div class="element clickable method public  method_getTranslatorTextDomain" data-toggle="collapse" data-target=".method_getTranslatorTextDomain .collapse">
+                            <h2>getTranslatorTextDomain(): defined by TranslatorAwareInterface.</h2>
+                            <pre>getTranslatorTextDomain() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_getTranslatorTextDomain">\Zend\I18n\Translator\TranslatorAwareInterface::getTranslatorTextDomain()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasRoute"></a>
+                        <div class="element clickable method public  method_hasRoute inherited" data-toggle="collapse" data-target=".method_hasRoute .collapse">
+                            <h2>Check if a route with a specific name exists</h2>
+                            <pre>hasRoute(string $name) : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p><p>true if route exists</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_hasTranslator"></a>
+                        <div class="element clickable method public  method_hasTranslator" data-toggle="collapse" data-target=".method_hasTranslator .collapse">
+                            <h2>hasTranslator(): defined by TranslatorAwareInterface.</h2>
+                            <pre>hasTranslator() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_hasTranslator">\Zend\I18n\Translator\TranslatorAwareInterface::hasTranslator()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_init"></a>
+                        <div class="element clickable method protected  method_init inherited" data-toggle="collapse" data-target=".method_init .collapse">
+                            <h2>Init method for extending classes.</h2>
+                            <pre>init() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_isTranslatorEnabled"></a>
+                        <div class="element clickable method public  method_isTranslatorEnabled" data-toggle="collapse" data-target=".method_isTranslatorEnabled .collapse">
+                            <h2>isTranslatorEnabled(): defined by TranslatorAwareInterface.</h2>
+                            <pre>isTranslatorEnabled() : boolean</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_isTranslatorEnabled">\Zend\I18n\Translator\TranslatorAwareInterface::isTranslatorEnabled()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_match"></a>
+                        <div class="element clickable method public  method_match inherited" data-toggle="collapse" data-target=".method_match .collapse">
+                            <h2>match(): defined by RouteInterface interface.</h2>
+                            <pre>match(\Zend\Stdlib\RequestInterface $request) : \Zend\Router\RouteMatch|null</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Router.RouteInterface.html#method_match">\Zend\Router\RouteInterface::match()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$request</h4>
+                                                <code><a href="../classes/Zend.Stdlib.RequestInterface.html">\Zend\Stdlib\RequestInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.RouteMatch.html">\Zend\Router\RouteMatch</a>|null</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_removeRoute"></a>
+                        <div class="element clickable method public  method_removeRoute inherited" data-toggle="collapse" data-target=".method_removeRoute .collapse">
+                            <h2>removeRoute(): defined by RouteStackInterface interface.</h2>
+                            <pre>removeRoute(string $name) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.Router.RouteStackInterface.html#method_removeRoute">\Zend\Router\RouteStackInterface::removeRoute()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_routeFromArray"></a>
+                        <div class="element clickable method protected  method_routeFromArray inherited" data-toggle="collapse" data-target=".method_routeFromArray .collapse">
+                            <h2>Create a route from array specifications.</h2>
+                            <pre>routeFromArray(array|\Traversable $specs) : \Zend\Router\RouteInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Router\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$specs</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.RouteInterface.html">\Zend\Router\RouteInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setBaseUrl"></a>
+                        <div class="element clickable method public  method_setBaseUrl inherited" data-toggle="collapse" data-target=".method_setBaseUrl .collapse">
+                            <h2>Set the base URL.</h2>
+                            <pre>setBaseUrl(string $baseUrl) : self</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$baseUrl</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDefaultParam"></a>
+                        <div class="element clickable method public  method_setDefaultParam inherited" data-toggle="collapse" data-target=".method_setDefaultParam .collapse">
+                            <h2>Set a default parameter.</h2>
+                            <pre>setDefaultParam(string $name, mixed $value) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$value</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setDefaultParams"></a>
+                        <div class="element clickable method public  method_setDefaultParams inherited" data-toggle="collapse" data-target=".method_setDefaultParams .collapse">
+                            <h2>Set a default parameters.</h2>
+                            <pre>setDefaultParams(array $params) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$params</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setRequestUri"></a>
+                        <div class="element clickable method public  method_setRequestUri inherited" data-toggle="collapse" data-target=".method_setRequestUri .collapse">
+                            <h2>Set the request URI.</h2>
+                            <pre>setRequestUri(\Zend\Uri\Http $uri) : \Zend\Router\Http\TreeRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$uri</h4>
+                                                <code><a href="../classes/Zend.Uri.Http.html">\Zend\Uri\Http</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.Http.TreeRouteStack.html">\Zend\Router\Http\TreeRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setRoutePluginManager"></a>
+                        <div class="element clickable method public  method_setRoutePluginManager inherited" data-toggle="collapse" data-target=".method_setRoutePluginManager .collapse">
+                            <h2>Set the route plugin manager.</h2>
+                            <pre>setRoutePluginManager(\Zend\Router\RoutePluginManager $routePlugins) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$routePlugins</h4>
+                                                <code><a href="../classes/Zend.Router.RoutePluginManager.html">\Zend\Router\RoutePluginManager</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setRoutes"></a>
+                        <div class="element clickable method public  method_setRoutes inherited" data-toggle="collapse" data-target=".method_setRoutes .collapse">
+                            <h2>setRoutes(): defined by RouteStackInterface interface.</h2>
+                            <pre>setRoutes(array|\Traversable $routes) : \Zend\Router\SimpleRouteStack</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$routes</h4>
+                                                <code>array|\Traversable</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.SimpleRouteStack.html">\Zend\Router\SimpleRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTranslator"></a>
+                        <div class="element clickable method public  method_setTranslator" data-toggle="collapse" data-target=".method_setTranslator .collapse">
+                            <h2>setTranslator(): defined by TranslatorAwareInterface.</h2>
+                            <pre>setTranslator(\Zend\I18n\Translator\TranslatorInterface $translator = null, string $textDomain = null) : \Zend\Router\Http\TreeRouteStack</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_setTranslator">\Zend\I18n\Translator\TranslatorAwareInterface::setTranslator()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$translator</h4>
+                                                <code><a href="../classes/Zend.I18n.Translator.TranslatorInterface.html">\Zend\I18n\Translator\TranslatorInterface</a></code><p><p>[optional] translator.
+Default is null, which sets no translator.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$textDomain</h4>
+                                                <code>string</code><p><p>[optional] text domain
+Default is null, which skips setTranslatorTextDomain</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.Http.TreeRouteStack.html">\Zend\Router\Http\TreeRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTranslatorEnabled"></a>
+                        <div class="element clickable method public  method_setTranslatorEnabled" data-toggle="collapse" data-target=".method_setTranslatorEnabled .collapse">
+                            <h2>setTranslatorEnabled(): defined by TranslatorAwareInterface.</h2>
+                            <pre>setTranslatorEnabled(boolean $enabled = true) : \Zend\Router\Http\TreeRouteStack</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_setTranslatorEnabled">\Zend\I18n\Translator\TranslatorAwareInterface::setTranslatorEnabled()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$enabled</h4>
+                                                <code>boolean</code><p><p>[optional] whether translator should be used.
+Default is true.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.Router.Http.TreeRouteStack.html">\Zend\Router\Http\TreeRouteStack</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setTranslatorTextDomain"></a>
+                        <div class="element clickable method public  method_setTranslatorTextDomain" data-toggle="collapse" data-target=".method_setTranslatorTextDomain .collapse">
+                            <h2>setTranslatorTextDomain(): defined by TranslatorAwareInterface.</h2>
+                            <pre>setTranslatorTextDomain(string $textDomain = &#039;default&#039;) : self</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    see
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                            <a href="../classes/Zend.I18n.Translator.TranslatorAwareInterface.html#method_setTranslatorTextDomain">\Zend\I18n\Translator\TranslatorAwareInterface::setTranslatorTextDomain()</a>
+                                                                                                                
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$textDomain</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_translator"> </a>
+                            <div class="element clickable property  protected property_translator" data-toggle="collapse" data-target=".property_translator .collapse">
+                                <h2>Translator used for translatable segments.</h2>
+                                <pre>translator : \Zend\I18n\Translator\TranslatorInterface</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.I18n.Translator.TranslatorInterface.html">\Zend\I18n\Translator\TranslatorInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_translatorEnabled"> </a>
+                            <div class="element clickable property  protected property_translatorEnabled" data-toggle="collapse" data-target=".property_translatorEnabled .collapse">
+                                <h2>Whether the translator is enabled.</h2>
+                                <pre>translatorEnabled : boolean</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_translatorTextDomain"> </a>
+                            <div class="element clickable property  protected property_translatorTextDomain" data-toggle="collapse" data-target=".property_translatorTextDomain .collapse">
+                                <h2>Translator text domain to use.</h2>
+                                <pre>translatorTextDomain : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_baseUrl"> </a>
+                            <div class="element clickable property  protected property_baseUrl inherited" data-toggle="collapse" data-target=".property_baseUrl .collapse">
+                                <h2>Base URL.</h2>
+                                <pre>baseUrl : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_requestUri"> </a>
+                            <div class="element clickable property  protected property_requestUri inherited" data-toggle="collapse" data-target=".property_requestUri .collapse">
+                                <h2>Request URI.</h2>
+                                <pre>requestUri : \Zend\Uri\Http</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Uri.Http.html">\Zend\Uri\Http</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_prototypes"> </a>
+                            <div class="element clickable property  protected property_prototypes inherited" data-toggle="collapse" data-target=".property_prototypes .collapse">
+                                <h2>Prototype routes.</h2>
+                                <pre>prototypes : \ArrayObject</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>We use an ArrayObject in this case so we can easily pass it down the tree
+by reference.</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\ArrayObject</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_routes"> </a>
+                            <div class="element clickable property  protected property_routes inherited" data-toggle="collapse" data-target=".property_routes .collapse">
+                                <h2>Stack containing all routes.</h2>
+                                <pre>routes : \Zend\Router\PriorityList</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Router.PriorityList.html">\Zend\Router\PriorityList</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_routePluginManager"> </a>
+                            <div class="element clickable property  protected property_routePluginManager inherited" data-toggle="collapse" data-target=".property_routePluginManager .collapse">
+                                <h2>Route plugin manager</h2>
+                                <pre>routePluginManager : \Zend\Router\RoutePluginManager</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Zend.Router.RoutePluginManager.html">\Zend\Router\RoutePluginManager</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_defaultParams"> </a>
+                            <div class="element clickable property  protected property_defaultParams inherited" data-toggle="collapse" data-target=".property_defaultParams .collapse">
+                                <h2>Default parameters.</h2>
+                                <pre>defaultParams : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Router\Http\TranslatorAwareTreeRouteStack"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Router.Http.html">Http</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Router.Http.TranslatorAwareTreeRouteStack.html">TranslatorAwareTreeRouteStack</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:00:59 +0000.<br/>
+    </footer>
+    </body>
+</html>

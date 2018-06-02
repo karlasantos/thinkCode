@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * TCC - Ciência da Computação, URI Santo Ângelo
+ * Orientador: Denílson Rodrigues da Silva <deniro@san.uri.br>
+ * @author Karla dos Santos Lencina <karla.krs@outlook.com>
  */
 
 namespace Application\Controller;
@@ -10,8 +10,18 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class IndexController
+ * Controlador da aplicação
+ * @package Application\Controller
+ */
 class IndexController extends AbstractActionController
 {
+    /**
+     * Retorna a página inicial da aplicação
+     *
+     * @return ViewModel
+     */
     public function indexAction()
     {
         return new ViewModel();

@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Log\FormatterPluginManager
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: Constructor.">
+            <span class="description">Constructor.</span><pre>__construct</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addAbstractFactory" title="addAbstractFactory :: Add an abstract factory for resolving services.">
+            <span class="description">Add an abstract factory for resolving services.</span><pre>addAbstractFactory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addDelegator" title="addDelegator :: Add a delegator for a given service.">
+            <span class="description">Add a delegator for a given service.</span><pre>addDelegator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_addInitializer" title="addInitializer :: Add an initializer.">
+            <span class="description">Add an initializer.</span><pre>addInitializer</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_build" title="build :: Build a service by its name, using optional options (such services are NEVER cached).">
+            <span class="description">Build a service by its name, using optional options (such services are NEVER cached).</span><pre>build</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_configure" title="configure :: Configure the service manager">
+            <span class="description">Configure the service manager</span><pre>configure</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_get" title="get :: {@inheritDoc}">
+            <span class="description">{@inheritDoc}</span><pre>get</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getAllowOverride" title="getAllowOverride :: Retrieve the flag indicating immutability status.">
+            <span class="description">Retrieve the flag indicating immutability status.</span><pre>getAllowOverride</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                <li class="method public inherited">
+        <a href="#method_getServiceLocator" title="getServiceLocator :: Implemented for backwards compatibility with previous plugin managers only.">
+            <span class="description">Implemented for backwards compatibility with previous plugin managers only.</span><pre>getServiceLocator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_has" title="has :: {@inheritDoc}">
+            <span class="description">{@inheritDoc}</span><pre>has</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_mapLazyService" title="mapLazyService :: Create a lazy service mapping to a class.">
+            <span class="description">Create a lazy service mapping to a class.</span><pre>mapLazyService</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_setAlias" title="setAlias :: Add an alias.">
+            <span class="description">Add an alias.</span><pre>setAlias</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setAllowOverride" title="setAllowOverride :: Indicate whether or not the instance is immutable.">
+            <span class="description">Indicate whether or not the instance is immutable.</span><pre>setAllowOverride</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setFactory" title="setFactory :: Specify a factory for a given service name.">
+            <span class="description">Specify a factory for a given service name.</span><pre>setFactory</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setInvokableClass" title="setInvokableClass :: Add an invokable class mapping.">
+            <span class="description">Add an invokable class mapping.</span><pre>setInvokableClass</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setService" title="setService :: Map a service.">
+            <span class="description">Map a service.</span><pre>setService</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setServiceLocator" title="setServiceLocator :: Implemented for backwards compatibility only.">
+            <span class="description">Implemented for backwards compatibility only.</span><pre>setServiceLocator</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_setShared" title="setShared :: Add a service sharing rule.">
+            <span class="description">Add a service sharing rule.</span><pre>setShared</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public inherited">
+        <a href="#method_validate" title="validate :: Validate an instance">
+            <span class="description">Validate an instance</span><pre>validate</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_validatePlugin" title="validatePlugin :: Validate the plugin is of the expected type (v2).">
+            <span class="description">Validate the plugin is of the expected type (v2).</span><pre>validatePlugin</pre>
+        </a>
+    </li>
+
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                    <li class="method private inherited">
+                            <a href="#method_configureAliases" title="configureAliases :: ">
+                                <span class="description"></span><pre>configureAliases</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_createAliasesForInvokables" title="createAliasesForInvokables :: Create aliases for invokable classes.">
+                                <span class="description">Create aliases for invokable classes.</span><pre>createAliasesForInvokables</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_createDelegatorFromName" title="createDelegatorFromName :: ">
+                                <span class="description"></span><pre>createDelegatorFromName</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_createFactoriesForInvokables" title="createFactoriesForInvokables :: Create invokable factories for invokable classes.">
+                                <span class="description">Create invokable factories for invokable classes.</span><pre>createFactoriesForInvokables</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_createLazyServiceDelegatorFactory" title="createLazyServiceDelegatorFactory :: Create the lazy services delegator factory.">
+                                <span class="description">Create the lazy services delegator factory.</span><pre>createLazyServiceDelegatorFactory</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_doCreate" title="doCreate :: Create a new instance with an already resolved name">
+                                <span class="description">Create a new instance with an already resolved name</span><pre>doCreate</pre>
+                            </a>
+                        </li>
+                                                                                                                                                        <li class="method private inherited">
+                            <a href="#method_getFactory" title="getFactory :: Get a factory for the given service name">
+                                <span class="description">Get a factory for the given service name</span><pre>getFactory</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                            <li class="method private inherited">
+                            <a href="#method_resolveAbstractFactories" title="resolveAbstractFactories :: Instantiate abstract factories for to avoid checks during service construction.">
+                                <span class="description">Instantiate abstract factories for to avoid checks during service construction.</span><pre>resolveAbstractFactories</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_resolveAliases" title="resolveAliases :: Resolve aliases to their canonical service names.">
+                                <span class="description">Resolve aliases to their canonical service names.</span><pre>resolveAliases</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_resolveInitializers" title="resolveInitializers :: Instantiate initializers for to avoid checks during service construction.">
+                                <span class="description">Instantiate initializers for to avoid checks during service construction.</span><pre>resolveInitializers</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_resolveNewAliasesWithPreviouslyResolvedAliases" title="resolveNewAliasesWithPreviouslyResolvedAliases :: Rewrites the map of aliases by resolving the given $aliases with the existing resolved ones.">
+                                <span class="description">Rewrites the map of aliases by resolving the given $aliases with the existing resolved ones.</span><pre>resolveNewAliasesWithPreviouslyResolvedAliases</pre>
+                            </a>
+                        </li>
+                                                                                                                                                                                                                                                                                                                                                                                <li class="method private inherited">
+                            <a href="#method_validateOverrides" title="validateOverrides :: Determine if one or more services already exist in the container.">
+                                <span class="description">Determine if one or more services already exist in the container.</span><pre>validateOverrides</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method private inherited">
+                            <a href="#method_validateOverrideSet" title="validateOverrideSet :: Determine if one or more services already exist for a given type.">
+                                <span class="description">Determine if one or more services already exist for a given type.</span><pre>validateOverrideSet</pre>
+                            </a>
+                        </li>
+                                                                                    </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>FormatterPluginManager</h1>
+                <small style="display: block; text-align: right">
+                                            Extends <a href="../classes/Zend.ServiceManager.AbstractPluginManager.html">\Zend\ServiceManager\AbstractPluginManager</a>
+                                                        </small>
+                <p class="short_description">Abstract plugin manager.</p>
+                <div class="details">
+                    <div class="long_description">
+                        <p>Abstract PluginManagerInterface implementation providing:</p>
+<ul>
+<li>creation context support. The constructor accepts the parent container
+instance, which is then used when creating instances.</li>
+<li>plugin validation. Implementations may define the <code>$instanceOf</code> property
+to indicate what class types constitute valid plugins, omitting the
+requirement to define the <code>validate()</code> method.</li>
+</ul>
+<p>The implementation extends <code>ServiceManager</code>, thus providing the same set
+of capabilities as found in that implementation.</p>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                                                                                                                                                                            </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor.</h2>
+                            <pre>__construct(array $config = array()) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>See <a href="../classes/Zend.ServiceManager.ServiceManager.html#method_configure">\Zend\ServiceManager\ServiceManager::configure()</a> for details
+on what $config accepts.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$config</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addAbstractFactory"></a>
+                        <div class="element clickable method public  method_addAbstractFactory inherited" data-toggle="collapse" data-target=".method_addAbstractFactory .collapse">
+                            <h2>Add an abstract factory for resolving services.</h2>
+                            <pre>addAbstractFactory(string|\Zend\ServiceManager\Factory\AbstractFactoryInterface $factory) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$factory</h4>
+                                                <code>string|<a href="../classes/Zend.ServiceManager.Factory.AbstractFactoryInterface.html">\Zend\ServiceManager\Factory\AbstractFactoryInterface</a></code><p><p>Service name</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addDelegator"></a>
+                        <div class="element clickable method public  method_addDelegator inherited" data-toggle="collapse" data-target=".method_addDelegator .collapse">
+                            <h2>Add a delegator for a given service.</h2>
+                            <pre>addDelegator(string $name, string|callable|\Zend\ServiceManager\Factory\DelegatorFactoryInterface $factory) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Service name</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$factory</h4>
+                                                <code>string|callable|<a href="../classes/Zend.ServiceManager.Factory.DelegatorFactoryInterface.html">\Zend\ServiceManager\Factory\DelegatorFactoryInterface</a></code><p><p>Delegator
+factory to assign.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_addInitializer"></a>
+                        <div class="element clickable method public  method_addInitializer inherited" data-toggle="collapse" data-target=".method_addInitializer .collapse">
+                            <h2>Add an initializer.</h2>
+                            <pre>addInitializer(string|callable|\Zend\ServiceManager\Initializer\InitializerInterface $initializer) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$initializer</h4>
+                                                <code>string|callable|<a href="../classes/Zend.ServiceManager.Initializer.InitializerInterface.html">\Zend\ServiceManager\Initializer\InitializerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_build"></a>
+                        <div class="element clickable method public  method_build inherited" data-toggle="collapse" data-target=".method_build .collapse">
+                            <h2>Build a service by its name, using optional options (such services are NEVER cached).</h2>
+                            <pre>build(string $name, array $options = null) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_configure"></a>
+                        <div class="element clickable method public  method_configure inherited" data-toggle="collapse" data-target=".method_configure .collapse">
+                            <h2>Configure the service manager</h2>
+                            <pre>configure(array $config) : self</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Valid top keys are:</p>
+<ul>
+<li>services: service name =&gt; service instance pairs</li>
+<li>invokables: service name =&gt; class name pairs for classes that do not
+have required constructor arguments; internally, maps the class to an
+InvokableFactory instance, and creates an alias if the service name
+and class name do not match.</li>
+<li>factories: service name =&gt; factory pairs; factories may be any
+callable, string name resolving to an invokable class, or string name
+resolving to a FactoryInterface instance.</li>
+<li>abstract_factories: an array of abstract factories; these may be
+instances of AbstractFactoryInterface, or string names resolving to
+classes that implement that interface.</li>
+<li>delegators: service name =&gt; list of delegator factories for the given
+service; each item in the list may be a callable, a string name
+resolving to an invokable class, or a string name resolving to a class
+implementing DelegatorFactoryInterface.</li>
+<li>shared: service name =&gt; flag pairs; the flag is a boolean indicating
+whether or not the service is shared.</li>
+<li>aliases: alias =&gt; service name pairs.</li>
+<li>lazy_services: lazy service configuration; can contain the keys:
+<ul>
+<li>class_map: service name =&gt; class name pairs.</li>
+<li>proxies_namespace: string namespace to use for generated proxy
+classes.</li>
+<li>proxies_target_dir: directory in which to write generated proxy
+classes; uses system temporary by default.</li>
+<li>write_proxy_files: boolean indicating whether generated proxy
+classes should be written; defaults to boolean false.</li>
+</ul></li>
+<li>shared_by_default: boolean, indicating if services in this instance
+should be shared by default.</li>
+</ul></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ContainerModificationsNotAllowedException</dt>
+                                                        <dd><p>if the allow
+override flag has been toggled off, and a service instance
+exists for a given service.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$config</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>self</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_configureAliases"></a>
+                        <div class="element clickable method private  method_configureAliases inherited" data-toggle="collapse" data-target=".method_configureAliases .collapse">
+                            <h2>configureAliases</h2>
+                            <pre>configureAliases(array&lt;mixed,string&gt; $aliases) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliases</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createAliasesForInvokables"></a>
+                        <div class="element clickable method private  method_createAliasesForInvokables inherited" data-toggle="collapse" data-target=".method_createAliasesForInvokables .collapse">
+                            <h2>Create aliases for invokable classes.</h2>
+                            <pre>createAliasesForInvokables(array $invokables) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If an invokable service name does not match the class it maps to, this
+creates an alias to the class (which will later be mapped as an
+invokable factory).</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$invokables</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createDelegatorFromName"></a>
+                        <div class="element clickable method private  method_createDelegatorFromName inherited" data-toggle="collapse" data-target=".method_createDelegatorFromName .collapse">
+                            <h2>createDelegatorFromName</h2>
+                            <pre>createDelegatorFromName(string $name, null|array $options = null) : object</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>null|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>object</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createFactoriesForInvokables"></a>
+                        <div class="element clickable method private  method_createFactoriesForInvokables inherited" data-toggle="collapse" data-target=".method_createFactoriesForInvokables .collapse">
+                            <h2>Create invokable factories for invokable classes.</h2>
+                            <pre>createFactoriesForInvokables(array $invokables) : array</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If an invokable service name does not match the class it maps to, this
+creates an invokable factory entry for the class name; otherwise, it
+creates an invokable factory for the entry name.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$invokables</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_createLazyServiceDelegatorFactory"></a>
+                        <div class="element clickable method private  method_createLazyServiceDelegatorFactory inherited" data-toggle="collapse" data-target=".method_createLazyServiceDelegatorFactory .collapse">
+                            <h2>Create the lazy services delegator factory.</h2>
+                            <pre>createLazyServiceDelegatorFactory() : \Zend\ServiceManager\Proxy\LazyServiceFactory</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Creates the lazy services delegator factory based on the lazy_services
+configuration present.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ServiceNotCreatedException</dt>
+                                                        <dd><p>when the lazy service class_map
+configuration is missing</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Zend.ServiceManager.Proxy.LazyServiceFactory.html">\Zend\ServiceManager\Proxy\LazyServiceFactory</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_doCreate"></a>
+                        <div class="element clickable method private  method_doCreate inherited" data-toggle="collapse" data-target=".method_doCreate .collapse">
+                            <h2>Create a new instance with an already resolved name</h2>
+                            <pre>doCreate(string $resolvedName, null|array $options = null) : mixed</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This is a highly performance sensitive method, do not modify if you have not benchmarked it carefully</p></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ServiceNotFoundException</dt>
+                                                        <dd><p>if unable to resolve the service.</p></dd>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ServiceNotCreatedException</dt>
+                                                        <dd><p>if an exception is raised when
+creating a service.</p></dd>
+                                                                                                            <dt>\Interop\Container\Exception\ContainerException</dt>
+                                                        <dd><p>if any other error occurs</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$resolvedName</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$options</h4>
+                                                <code>null|array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_get"></a>
+                        <div class="element clickable method public  method_get inherited" data-toggle="collapse" data-target=".method_get .collapse">
+                            <h2>{@inheritDoc}</h2>
+                            <pre>get( $name) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getAllowOverride"></a>
+                        <div class="element clickable method public  method_getAllowOverride inherited" data-toggle="collapse" data-target=".method_getAllowOverride .collapse">
+                            <h2>Retrieve the flag indicating immutability status.</h2>
+                            <pre>getAllowOverride() : boolean</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>boolean</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFactory"></a>
+                        <div class="element clickable method private  method_getFactory inherited" data-toggle="collapse" data-target=".method_getFactory .collapse">
+                            <h2>Get a factory for the given service name</h2>
+                            <pre>getFactory(string $name) : callable</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ServiceNotFoundException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>callable</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getServiceLocator"></a>
+                        <div class="element clickable method public deprecated method_getServiceLocator inherited" data-toggle="collapse" data-target=".method_getServiceLocator .collapse">
+                            <h2>Implemented for backwards compatibility with previous plugin managers only.</h2>
+                            <pre>getServiceLocator() : \Interop\Container\ContainerInterface</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Returns the creation context.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    deprecated
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>since 3.0.0. Factories using 3.0 should use the container
+instance passed to the factory instead.</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Interop.Container.ContainerInterface.html">\Interop\Container\ContainerInterface</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_has"></a>
+                        <div class="element clickable method public  method_has inherited" data-toggle="collapse" data-target=".method_has .collapse">
+                            <h2>{@inheritDoc}</h2>
+                            <pre>has( $name) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_mapLazyService"></a>
+                        <div class="element clickable method public  method_mapLazyService inherited" data-toggle="collapse" data-target=".method_mapLazyService .collapse">
+                            <h2>Create a lazy service mapping to a class.</h2>
+                            <pre>mapLazyService(string $name, null|string $class = null) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Service name to map</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>null|string</code><p><p>Class to which to map; if not provided, $name
+will be used for the mapping.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_resolveAbstractFactories"></a>
+                        <div class="element clickable method private  method_resolveAbstractFactories inherited" data-toggle="collapse" data-target=".method_resolveAbstractFactories .collapse">
+                            <h2>Instantiate abstract factories for to avoid checks during service construction.</h2>
+                            <pre>resolveAbstractFactories(array&lt;mixed,string&gt;|array&lt;mixed,\Zend\ServiceManager\Factory\AbstractFactoryInterface&gt; $abstractFactories) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$abstractFactories</h4>
+                                                <code>array&lt;mixed,string&gt;|array&lt;mixed,<a href="../classes/Zend.ServiceManager.Factory.AbstractFactoryInterface.html">\Zend\ServiceManager\Factory\AbstractFactoryInterface</a>&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_resolveAliases"></a>
+                        <div class="element clickable method private  method_resolveAliases inherited" data-toggle="collapse" data-target=".method_resolveAliases .collapse">
+                            <h2>Resolve aliases to their canonical service names.</h2>
+                            <pre>resolveAliases(array&lt;mixed,string&gt; $aliases) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    returns
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>void</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliases</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_resolveInitializers"></a>
+                        <div class="element clickable method private  method_resolveInitializers inherited" data-toggle="collapse" data-target=".method_resolveInitializers .collapse">
+                            <h2>Instantiate initializers for to avoid checks during service construction.</h2>
+                            <pre>resolveInitializers(array&lt;mixed,string&gt;|array&lt;mixed,\Zend\ServiceManager\Initializer\InitializerInterface&gt;|array&lt;mixed,callable&gt; $initializers) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$initializers</h4>
+                                                <code>array&lt;mixed,string&gt;|array&lt;mixed,<a href="../classes/Zend.ServiceManager.Initializer.InitializerInterface.html">\Zend\ServiceManager\Initializer\InitializerInterface</a>&gt;|array&lt;mixed,callable&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_resolveNewAliasesWithPreviouslyResolvedAliases"></a>
+                        <div class="element clickable method private  method_resolveNewAliasesWithPreviouslyResolvedAliases inherited" data-toggle="collapse" data-target=".method_resolveNewAliasesWithPreviouslyResolvedAliases .collapse">
+                            <h2>Rewrites the map of aliases by resolving the given $aliases with the existing resolved ones.</h2>
+                            <pre>resolveNewAliasesWithPreviouslyResolvedAliases(array&lt;mixed,string&gt; $aliases) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This is mostly done for performance reasons.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$aliases</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setAlias"></a>
+                        <div class="element clickable method public  method_setAlias inherited" data-toggle="collapse" data-target=".method_setAlias .collapse">
+                            <h2>Add an alias.</h2>
+                            <pre>setAlias(string $alias, string $target) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$alias</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$target</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setAllowOverride"></a>
+                        <div class="element clickable method public  method_setAllowOverride inherited" data-toggle="collapse" data-target=".method_setAllowOverride .collapse">
+                            <h2>Indicate whether or not the instance is immutable.</h2>
+                            <pre>setAllowOverride(boolean $flag) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFactory"></a>
+                        <div class="element clickable method public  method_setFactory inherited" data-toggle="collapse" data-target=".method_setFactory .collapse">
+                            <h2>Specify a factory for a given service name.</h2>
+                            <pre>setFactory(string $name, string|callable|\Zend\ServiceManager\Factory\FactoryInterface $factory) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Service name</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$factory</h4>
+                                                <code>string|callable|<a href="../classes/Zend.ServiceManager.Factory.FactoryInterface.html">\Zend\ServiceManager\Factory\FactoryInterface</a></code><p><p>Factory to which
+to map.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setInvokableClass"></a>
+                        <div class="element clickable method public  method_setInvokableClass inherited" data-toggle="collapse" data-target=".method_setInvokableClass .collapse">
+                            <h2>Add an invokable class mapping.</h2>
+                            <pre>setInvokableClass(string $name, null|string $class = null) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Service name</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$class</h4>
+                                                <code>null|string</code><p><p>Class to which to map; if omitted, $name is
+assumed.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setService"></a>
+                        <div class="element clickable method public  method_setService inherited" data-toggle="collapse" data-target=".method_setService .collapse">
+                            <h2>Map a service.</h2>
+                            <pre>setService(string $name, array|object $service) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Service name</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$service</h4>
+                                                <code>array|object</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setServiceLocator"></a>
+                        <div class="element clickable method public deprecated method_setServiceLocator inherited" data-toggle="collapse" data-target=".method_setServiceLocator .collapse">
+                            <h2>Implemented for backwards compatibility only.</h2>
+                            <pre>setServiceLocator(\Interop\Container\ContainerInterface $container) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Returns the creation context.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    deprecated
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p>since 3.0.0. The creation context should be passed during
+instantiation instead.</p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$container</h4>
+                                                <code><a href="../classes/Interop.Container.ContainerInterface.html">\Interop\Container\ContainerInterface</a></code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setShared"></a>
+                        <div class="element clickable method public  method_setShared inherited" data-toggle="collapse" data-target=".method_setShared .collapse">
+                            <h2>Add a service sharing rule.</h2>
+                            <pre>setShared(string $name, boolean $flag) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$name</h4>
+                                                <code>string</code><p><p>Service name</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$flag</h4>
+                                                <code>boolean</code><p><p>Whether or not the service should be shared.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validate"></a>
+                        <div class="element clickable method public  method_validate inherited" data-toggle="collapse" data-target=".method_validate .collapse">
+                            <h2>Validate an instance</h2>
+                            <pre>validate(object $instance) : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$instance</h4>
+                                                <code>object</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validateOverrides"></a>
+                        <div class="element clickable method private  method_validateOverrides inherited" data-toggle="collapse" data-target=".method_validateOverrides .collapse">
+                            <h2>Determine if one or more services already exist in the container.</h2>
+                            <pre>validateOverrides(array $config) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>If the allow override flag is true or it's first time configured,
+this method does nothing.</p>
+<p>Otherwise, it checks against each of the following service types,
+if present, and validates that none are defining services that
+already exist; if they do, it raises an exception indicating
+modification is not allowed.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ContainerModificationsNotAllowedException</dt>
+                                                        <dd><p>if any services
+provided already have instances available.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$config</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validateOverrideSet"></a>
+                        <div class="element clickable method private  method_validateOverrideSet inherited" data-toggle="collapse" data-target=".method_validateOverrideSet .collapse">
+                            <h2>Determine if one or more services already exist for a given type.</h2>
+                            <pre>validateOverrideSet(array&lt;mixed,string&gt; $services, string $type) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Loops through the provided service names, checking if any have current
+service instances; if not, it returns, but otherwise, it raises an
+exception indicating modification is not allowed.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\ServiceManager\Exception\ContainerModificationsNotAllowedException</dt>
+                                                        <dd><p>if any services
+provided already have instances available.</p></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$services</h4>
+                                                <code>array&lt;mixed,string&gt;</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$type</h4>
+                                                <code>string</code><p><p>Type of service being checked.</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_validatePlugin"></a>
+                        <div class="element clickable method public  method_validatePlugin" data-toggle="collapse" data-target=".method_validatePlugin .collapse">
+                            <h2>Validate the plugin is of the expected type (v2).</h2>
+                            <pre>validatePlugin(mixed $plugin) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Proxies to <code>validate()</code>.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Log\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$plugin</h4>
+                                                <code>mixed</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_aliases"> </a>
+                            <div class="element clickable property  protected property_aliases inherited" data-toggle="collapse" data-target=".property_aliases .collapse">
+                                <h2>A list of aliases</h2>
+                                <pre>aliases : array&lt;mixed,string&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>Should map one alias to a service name, or another alias (aliases are recursively resolved)</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,string&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_factories"> </a>
+                            <div class="element clickable property  protected property_factories inherited" data-toggle="collapse" data-target=".property_factories .collapse">
+                                <h2>A list of factories (either as string name or callable)</h2>
+                                <pre>factories : array&lt;mixed,string&gt;|array&lt;mixed,callable&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,string&gt;|array&lt;mixed,callable&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_instanceOf"> </a>
+                            <div class="element clickable property  protected property_instanceOf inherited" data-toggle="collapse" data-target=".property_instanceOf .collapse">
+                                <h2>An object type that the created instance must be instanced of</h2>
+                                <pre>instanceOf : null|string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_shareByDefault"> </a>
+                            <div class="element clickable property  protected property_shareByDefault" data-toggle="collapse" data-target=".property_shareByDefault .collapse">
+                                <h2>Allow many formatters of the same type (v2)</h2>
+                                <pre>shareByDefault : </pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        param
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_sharedByDefault"> </a>
+                            <div class="element clickable property  protected property_sharedByDefault inherited" data-toggle="collapse" data-target=".property_sharedByDefault .collapse">
+                                <h2>Should the services be shared by default?</h2>
+                                <pre>sharedByDefault : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_autoAddInvokableClass"> </a>
+                            <div class="element clickable property  protected property_autoAddInvokableClass inherited" data-toggle="collapse" data-target=".property_autoAddInvokableClass .collapse">
+                                <h2>Whether or not to auto-add a FQCN as an invokable if it exists.</h2>
+                                <pre>autoAddInvokableClass : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_abstractFactories"> </a>
+                            <div class="element clickable property  protected property_abstractFactories inherited" data-toggle="collapse" data-target=".property_abstractFactories .collapse">
+                                <h2>abstractFactories</h2>
+                                <pre>abstractFactories : array&lt;mixed,\Zend\ServiceManager\Factory\AbstractFactoryInterface&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,<a href="../classes/Zend.ServiceManager.Factory.AbstractFactoryInterface.html">\Zend\ServiceManager\Factory\AbstractFactoryInterface</a>&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_allowOverride"> </a>
+                            <div class="element clickable property  protected property_allowOverride inherited" data-toggle="collapse" data-target=".property_allowOverride .collapse">
+                                <h2>Whether or not changes may be made to this instance.</h2>
+                                <pre>allowOverride : </pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        param
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_creationContext"> </a>
+                            <div class="element clickable property  protected property_creationContext inherited" data-toggle="collapse" data-target=".property_creationContext .collapse">
+                                <h2>creationContext</h2>
+                                <pre>creationContext : \Interop\Container\ContainerInterface</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/Interop.Container.ContainerInterface.html">\Interop\Container\ContainerInterface</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_delegators"> </a>
+                            <div class="element clickable property  protected property_delegators inherited" data-toggle="collapse" data-target=".property_delegators .collapse">
+                                <h2>delegators</h2>
+                                <pre>delegators : array&lt;mixed,string[]&gt;|array&lt;mixed,\Zend\ServiceManager\Factory\DelegatorFactoryInterface[]&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,string[]&gt;|array&lt;mixed,\Zend\ServiceManager\Factory\DelegatorFactoryInterface[]&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_initializers"> </a>
+                            <div class="element clickable property  protected property_initializers inherited" data-toggle="collapse" data-target=".property_initializers .collapse">
+                                <h2>initializers</h2>
+                                <pre>initializers : array&lt;mixed,\Zend\ServiceManager\Initializer\InitializerInterface&gt;|array&lt;mixed,callable&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,<a href="../classes/Zend.ServiceManager.Initializer.InitializerInterface.html">\Zend\ServiceManager\Initializer\InitializerInterface</a>&gt;|array&lt;mixed,callable&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_lazyServices"> </a>
+                            <div class="element clickable property  protected property_lazyServices inherited" data-toggle="collapse" data-target=".property_lazyServices .collapse">
+                                <h2>lazyServices</h2>
+                                <pre>lazyServices : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_lazyServicesDelegator"> </a>
+                            <div class="element clickable property  private property_lazyServicesDelegator inherited" data-toggle="collapse" data-target=".property_lazyServicesDelegator .collapse">
+                                <h2>lazyServicesDelegator</h2>
+                                <pre>lazyServicesDelegator : null|\Zend\ServiceManager\Proxy\LazyServiceFactory</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>null|<a href="../classes/Zend.ServiceManager.Proxy.LazyServiceFactory.html">\Zend\ServiceManager\Proxy\LazyServiceFactory</a></code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_resolvedAliases"> </a>
+                            <div class="element clickable property  private property_resolvedAliases inherited" data-toggle="collapse" data-target=".property_resolvedAliases .collapse">
+                                <h2>resolvedAliases</h2>
+                                <pre>resolvedAliases : array&lt;mixed,string&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,string&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_services"> </a>
+                            <div class="element clickable property  protected property_services inherited" data-toggle="collapse" data-target=".property_services .collapse">
+                                <h2>A list of already loaded services (this act as a local cache)</h2>
+                                <pre>services : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_shared"> </a>
+                            <div class="element clickable property  protected property_shared inherited" data-toggle="collapse" data-target=".property_shared .collapse">
+                                <h2>Enable/disable shared instances by service name.</h2>
+                                <pre>shared : array&lt;mixed,boolean&gt;</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"><p>Example configuration:</p>
+<p>'shared' =&gt; [
+MyService::class =&gt; true, // will be shared, even if &quot;sharedByDefault&quot; is false
+MyOtherService::class =&gt; false // won't be shared, even if &quot;sharedByDefault&quot; is true
+]</p></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array&lt;mixed,boolean&gt;</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_configured"> </a>
+                            <div class="element clickable property  protected property_configured inherited" data-toggle="collapse" data-target=".property_configured .collapse">
+                                <h2>Service manager was already configured?</h2>
+                                <pre>configured : boolean</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>boolean</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_cachedAbstractFactories"> </a>
+                            <div class="element clickable property  private property_cachedAbstractFactories inherited" data-toggle="collapse" data-target=".property_cachedAbstractFactories .collapse">
+                                <h2>Cached abstract factories from string.</h2>
+                                <pre>cachedAbstractFactories : array</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Log\FormatterPluginManager"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Log.html">Log</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Log.FormatterPluginManager.html">FormatterPluginManager</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:13 +0000.<br/>
+    </footer>
+    </body>
+</html>

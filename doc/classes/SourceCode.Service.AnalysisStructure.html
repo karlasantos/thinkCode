@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \SourceCode\Service\AnalysisStructure
+    <title>    ThinkCode Documentation &raquo; \SourceCode\Service\AnalysisStructure
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -33,20 +33,19 @@
                 <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                     <span class="icon-bar"></span> <span class="icon-bar"></span>
                     <span class="icon-bar"></span> </a>
-                <a class="brand" href="../index.html">API Documentation</a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
 
                 <div class="nav-collapse">
                     <ul class="nav">
                         <li class="dropdown">
                             <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                API Documentation <b class="caret"></b>
+                                ThinkCode Documentation <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
                                                                     <li><a>Namespaces</a></li>
-                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
-                                                                        <li><a href="../namespaces/User.html">User</a></li>
                                                                         <li><a href="../namespaces/Application.html">Application</a></li>
-                                                                        <li><a href="../namespaces/ApplicationTest.html">ApplicationTest</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
                                                                                                                                 </ul>
                         </li>
                         <li class="dropdown" id="charts-menu">
@@ -123,20 +122,20 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
-        <a href="#method___construct" title="__construct :: ">
-            <span class="description"></span><pre>__construct</pre>
-        </a>
-    </li>
-
-                                                                                                                                                                                                                                                                                                                                        <li class="method public">
-        <a href="#method_setEdges" title="setEdges :: ">
-            <span class="description"></span><pre>setEdges</pre>
+        <a href="#method___construct" title="__construct :: AnalysisStructure constructor.">
+            <span class="description">AnalysisStructure constructor.</span><pre>__construct</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_setVertices" title="setVertices :: ">
-            <span class="description"></span><pre>setVertices</pre>
+        <a href="#method_calculateCyclomaticComplexity" title="calculateCyclomaticComplexity :: Calcula a complexidade ciclomática de acordo com o código fonte enviado">
+            <span class="description">Calcula a complexidade ciclomática de acordo com o código fonte enviado</span><pre>calculateCyclomaticComplexity</pre>
+        </a>
+    </li>
+
+                                                                                                        <li class="method public">
+        <a href="#method_generateJsonGraph" title="generateJsonGraph :: Gera o array representando grafo em JSON de um código fonte enviado">
+            <span class="description">Gera o array representando grafo em JSON de um código fonte enviado</span><pre>generateJsonGraph</pre>
         </a>
     </li>
 
@@ -144,31 +143,11 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                        </ul>
+                                                                                                                                                        </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                <li class="method private">
-                            <a href="#method_containsBlockOpening" title="containsBlockOpening :: Indica se o vértice presente em um determinado índice possui dentro em seu bloco de comandos outros vértices">
-                                <span class="description">Indica se o vértice presente em um determinado índice possui dentro em seu bloco de comandos outros vértices</span><pre>containsBlockOpening</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
-                            <a href="#method_findsBlockEnd" title="findsBlockEnd :: Localiza a posição de fechamento de bloco (}) criado por uma abertura de bloco ({)">
-                                <span class="description">Localiza a posição de fechamento de bloco (}) criado por uma abertura de bloco ({)</span><pre>findsBlockEnd</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
-                            <a href="#method_isEndVertex" title="isEndVertex :: ">
-                                <span class="description"></span><pre>isEndVertex</pre>
-                            </a>
-                        </li>
-                                                                                <li class="method private">
-                            <a href="#method_removeEndVertexPrefix" title="removeEndVertexPrefix :: ">
-                                <span class="description"></span><pre>removeEndVertexPrefix</pre>
-                            </a>
-                        </li>
-                                                                                                                        </ul>
+                                                                                                                                                        </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -206,8 +185,8 @@ Realiza a análise dos códigos fonte</p>
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
                                                                 <a id="method___construct"></a>
                         <div class="element clickable method public  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-                            <h2>__construct</h2>
-                            <pre>__construct(\Doctrine\ORM\EntityManager $entityManager) </pre>
+                            <h2>AnalysisStructure constructor.</h2>
+                            <pre>__construct(\Doctrine\ORM\EntityManager $entityManager, \SourceCode\Service\Language $languageService, array $vertices, \SourceCode\Service\DataCollect $dataCollectService) </pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -217,13 +196,6 @@ Realiza a análise dos códigos fonte</p>
                                     <div class="long_description"></div>
 
                                     <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
                                                                                     <tr>
                                                 <th>
                                                     
@@ -236,17 +208,29 @@ Realiza a análise dos códigos fonte</p>
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$entityManager</h4>
-                                                <code>\Doctrine\ORM\EntityManager</code><p></p>
+                                                <code>\Doctrine\ORM\EntityManager</code><p><p>Gerenciador de entidades</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$languageService</h4>
+                                                <code><a href="../classes/SourceCode.Service.Language.html">\SourceCode\Service\Language</a></code><p><p>Serviço de carregamento e verificação dos dados da linguage</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$vertices</h4>
+                                                <code>array</code><p><p>vértices do grafo</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$dataCollectService</h4>
+                                                <code><a href="../classes/SourceCode.Service.DataCollect.html">\SourceCode\Service\DataCollect</a></code><p><p>serviço de coleta de dados</p></p>
                                             </div>
                                                                             
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_containsBlockOpening"></a>
-                        <div class="element clickable method private  method_containsBlockOpening" data-toggle="collapse" data-target=".method_containsBlockOpening .collapse">
-                            <h2>Indica se o vértice presente em um determinado índice possui dentro em seu bloco de comandos outros vértices</h2>
-                            <pre>containsBlockOpening( $index) : boolean</pre>
+                                            <a id="method_calculateCyclomaticComplexity"></a>
+                        <div class="element clickable method public  method_calculateCyclomaticComplexity" data-toggle="collapse" data-target=".method_calculateCyclomaticComplexity .collapse">
+                            <h2>Calcula a complexidade ciclomática de acordo com o código fonte enviado</h2>
+                            <pre>calculateCyclomaticComplexity(\SourceCode\Model\Entity\SourceCode $sourceCode) : \SourceCode\Model\Entity\AnalysisResults</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -257,195 +241,47 @@ Realiza a análise dos códigos fonte</p>
 
                                     <table class="table">
                                                                                                                     </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$index</h4>
-                                                <code></code><p><p>int</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>boolean</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_findsBlockEnd"></a>
-                        <div class="element clickable method private  method_findsBlockEnd" data-toggle="collapse" data-target=".method_findsBlockEnd .collapse">
-                            <h2>Localiza a posição de fechamento de bloco (}) criado por uma abertura de bloco ({)</h2>
-                            <pre>findsBlockEnd( $blockStartIndex) : integer</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                                                    </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$blockStartIndex</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code>integer</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_isEndVertex"></a>
-                        <div class="element clickable method private  method_isEndVertex" data-toggle="collapse" data-target=".method_isEndVertex .collapse">
-                            <h2>isEndVertex</h2>
-                            <pre>isEndVertex( $vetexName) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                                                    </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$vetexName</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_removeEndVertexPrefix"></a>
-                        <div class="element clickable method private  method_removeEndVertexPrefix" data-toggle="collapse" data-target=".method_removeEndVertexPrefix .collapse">
-                            <h2>removeEndVertexPrefix</h2>
-                            <pre>removeEndVertexPrefix( $vertexName) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                                                    </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$vertexName</h4>
-                                                <code></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_setEdges"></a>
-                        <div class="element clickable method public  method_setEdges" data-toggle="collapse" data-target=".method_setEdges .collapse">
-                            <h2>setEdges</h2>
-                            <pre>setEdges(\SourceCode\Entity\Language $language) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                                                    </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$language</h4>
-                                                <code><a href="../classes/SourceCode.Entity.Language.html">\SourceCode\Entity\Language</a></code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_setVertices"></a>
-                        <div class="element clickable method public  method_setVertices" data-toggle="collapse" data-target=".method_setVertices .collapse">
-                            <h2>setVertices</h2>
-                            <pre>setVertices(\SourceCode\Entity\SourceCode $sourceCode) : array</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                                                            <tr>
-                                                <th>Throws</th>
-                                                <td>
-                                                    <dl>
-                                                                                                            <dt>\Exception</dt>
-                                                        <dd></dd>
-                                                                                                                                                            </dl>
-                                                </td>
-                                            </tr>
-                                                                            </table>
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
                                                 <h4>$sourceCode</h4>
-                                                <code><a href="../classes/SourceCode.Entity.SourceCode.html">\SourceCode\Entity\SourceCode</a></code><p></p>
+                                                <code><a href="../classes/SourceCode.Model.Entity.SourceCode.html">\SourceCode\Model\Entity\SourceCode</a></code><p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>array</code><p></p>
+                                        <code><a href="../classes/SourceCode.Model.Entity.AnalysisResults.html">\SourceCode\Model\Entity\AnalysisResults</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_generateJsonGraph"></a>
+                        <div class="element clickable method public  method_generateJsonGraph" data-toggle="collapse" data-target=".method_generateJsonGraph .collapse">
+                            <h2>Gera o array representando grafo em JSON de um código fonte enviado</h2>
+                            <pre>generateJsonGraph(\SourceCode\Model\Entity\SourceCode $sourceCode) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$sourceCode</h4>
+                                                <code><a href="../classes/SourceCode.Model.Entity.SourceCode.html">\SourceCode\Model\Entity\SourceCode</a></code><p></p>
+                                            </div>
+                                                                            
                                                                     </div>
                             </div>
 
@@ -455,8 +291,8 @@ Realiza a análise dos códigos fonte</p>
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
                                                     <a id="property_entityManager"> </a>
                             <div class="element clickable property  protected property_entityManager" data-toggle="collapse" data-target=".property_entityManager .collapse">
-                                <h2>entityManager</h2>
-                                <pre>entityManager : </pre>
+                                <h2>Gerenciador de entidades</h2>
+                                <pre>entityManager : \Doctrine\ORM\EntityManager</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -466,47 +302,23 @@ Realiza a análise dos códigos fonte</p>
                                         <table class="table">
                                                                                             <tr>
                                                     <th>
-                                                        
+                                                        var
                                                     </th>
                                                     <td>
+                                                                                                                    
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code></code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_codeCommands"> </a>
-                            <div class="element clickable property  protected property_codeCommands" data-toggle="collapse" data-target=".property_codeCommands .collapse">
-                                <h2>codeCommands</h2>
-                                <pre>codeCommands : </pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code></code>
+                                            <code>\Doctrine\ORM\EntityManager</code>
                                                                             </div>
                                 </div>
                             </div>
                                                     <a id="property_vertices"> </a>
                             <div class="element clickable property  protected property_vertices" data-toggle="collapse" data-target=".property_vertices .collapse">
-                                <h2>vertices</h2>
-                                <pre>vertices : </pre>
+                                <h2>Array de vértices gerados</h2>
+                                <pre>vertices : array</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -516,22 +328,49 @@ Realiza a análise dos códigos fonte</p>
                                         <table class="table">
                                                                                             <tr>
                                                     <th>
-                                                        
+                                                        var
                                                     </th>
                                                     <td>
+                                                                                                                    
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code></code>
+                                            <code>array</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_languageService"> </a>
+                            <div class="element clickable property  protected property_languageService" data-toggle="collapse" data-target=".property_languageService .collapse">
+                                <h2>Serviço de carregamento e verificação dos dados da linguagem</h2>
+                                <pre>languageService : \SourceCode\Service\Language</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code><a href="../classes/SourceCode.Service.Language.html">\SourceCode\Service\Language</a></code>
                                                                             </div>
                                 </div>
                             </div>
                                                     <a id="property_dataCollectService"> </a>
                             <div class="element clickable property  protected property_dataCollectService" data-toggle="collapse" data-target=".property_dataCollectService .collapse">
-                                <h2>dataCollectService</h2>
-                                <pre>dataCollectService : </pre>
+                                <h2>Serviço de coleta de dados do código fonte</h2>
+                                <pre>dataCollectService : \SourceCode\Service\DataCollect</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -541,22 +380,23 @@ Realiza a análise dos códigos fonte</p>
                                         <table class="table">
                                                                                             <tr>
                                                     <th>
-                                                        
+                                                        var
                                                     </th>
                                                     <td>
+                                                                                                                    
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code></code>
+                                            <code><a href="../classes/SourceCode.Service.DataCollect.html">\SourceCode\Service\DataCollect</a></code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_languageEntity"> </a>
-                            <div class="element clickable property  protected property_languageEntity" data-toggle="collapse" data-target=".property_languageEntity .collapse">
-                                <h2>languageEntity</h2>
-                                <pre>languageEntity : </pre>
+                                                    <a id="property_analysisResults"> </a>
+                            <div class="element clickable property  protected property_analysisResults" data-toggle="collapse" data-target=".property_analysisResults .collapse">
+                                <h2>Resultados da análise</h2>
+                                <pre>analysisResults : \SourceCode\Model\Entity\AnalysisResults</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -566,15 +406,16 @@ Realiza a análise dos códigos fonte</p>
                                         <table class="table">
                                                                                             <tr>
                                                     <th>
-                                                        
+                                                        var
                                                     </th>
                                                     <td>
+                                                                                                                    
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code></code>
+                                            <code><a href="../classes/SourceCode.Model.Entity.AnalysisResults.html">\SourceCode\Model\Entity\AnalysisResults</a></code>
                                                                             </div>
                                 </div>
                             </div>
@@ -598,7 +439,7 @@ Realiza a análise dos códigos fonte</p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Sat, 05 May 2018 19:10:11 +0000.<br/>
+            generated on Sat, 02 Jun 2018 20:03:21 +0000.<br/>
     </footer>
     </body>
 </html>

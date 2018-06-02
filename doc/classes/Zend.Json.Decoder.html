@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>    ThinkCode Documentation &raquo; \Zend\Json\Decoder
+</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
+<body>
+
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">ThinkCode Documentation</a>
+
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                ThinkCode Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Application.html">Application</a></li>
+                                                                        <li><a href="../namespaces/User.html">User</a></li>
+                                                                        <li><a href="../namespaces/SourceCode.html">SourceCode</a></li>
+                                                                        <li><a href="../namespaces/ZFTest.html">ZFTest</a></li>
+                                                                        <li><a href="../namespaces/ZF.html">ZF</a></li>
+                                                                        <li><a href="../namespaces/Zend.html">Zend</a></li>
+                                                                        <li><a href="../namespaces/ZendDeveloperTools.html">ZendDeveloperTools</a></li>
+                                                                        <li><a href="../namespaces/ZendTest.html">ZendTest</a></li>
+                                                                        <li><a href="../namespaces/ZendBench.html">ZendBench</a></li>
+                                                                        <li><a href="../namespaces/Composer.html">Composer</a></li>
+                                                                        <li><a href="../namespaces/Psr.html">Psr</a></li>
+                                                                        <li><a href="../namespaces/Interop.html">Interop</a></li>
+                                                                        <li><a href="../namespaces/Doctrine.html">Doctrine</a></li>
+                                                                        <li><a href="../namespaces/DoctrineTest.html">DoctrineTest</a></li>
+                                                                        <li><a href="../namespaces/DoctrineORMModule.html">DoctrineORMModule</a></li>
+                                                                        <li><a href="../namespaces/DoctrineModule.html">DoctrineModule</a></li>
+                                                                        <li><a href="../namespaces/Symfony.html">Symfony</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
+    </div>
+
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                                                                            <li class="method public">
+        <a href="#method_decode" title="decode :: Decode a JSON source string.">
+            <span class="description">Decode a JSON source string.</span><pre>decode</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                        <li class="method public">
+        <a href="#method_decodeUnicodeString" title="decodeUnicodeString :: Decode Unicode Characters from \u0000 ASCII syntax.">
+            <span class="description">Decode Unicode Characters from \u0000 ASCII syntax.</span><pre>decodeUnicodeString</pre>
+        </a>
+    </li>
+
+                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                            <li class="method protected">
+                            <a href="#method___construct" title="__construct :: Constructor">
+                                <span class="description">Constructor</span><pre>__construct</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected">
+                            <a href="#method_decodeArray" title="decodeArray :: Decodes the JSON array format [element, element2, .">
+                                <span class="description">Decodes the JSON array format [element, element2, .</span><pre>decodeArray</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_decodeObject" title="decodeObject :: Decodes an object of the form { &quot;attribute: value, &quot;attribute2&quot; : value, .">
+                                <span class="description">Decodes an object of the form { &quot;attribute: value, &quot;attribute2&quot; : value, .</span><pre>decodeObject</pre>
+                            </a>
+                        </li>
+                                                                                                                    <li class="method protected">
+                            <a href="#method_decodeValue" title="decodeValue :: Recursive routine for supported toplevel types.">
+                                <span class="description">Recursive routine for supported toplevel types.</span><pre>decodeValue</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_eatWhitespace" title="eatWhitespace :: Removes whitespace characters from the source input.">
+                                <span class="description">Removes whitespace characters from the source input.</span><pre>eatWhitespace</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_getNextToken" title="getNextToken :: Retrieves the next token from the source stream.">
+                                <span class="description">Retrieves the next token from the source stream.</span><pre>getNextToken</pre>
+                            </a>
+                        </li>
+                                                                                <li class="method protected">
+                            <a href="#method_utf162utf8" title="utf162utf8 :: Convert a string from one UTF-16 char to one UTF-8 char.">
+                                <span class="description">Convert a string from one UTF-16 char to one UTF-8 char.</span><pre>utf162utf8</pre>
+                            </a>
+                        </li>
+                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                                <li class="constant ">
+                    <a href="#constant_COLON" title="COLON :: ">
+                        <span class="description"></span><pre>COLON</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_COMMA" title="COMMA :: ">
+                        <span class="description"></span><pre>COMMA</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_DATUM" title="DATUM :: ">
+                        <span class="description"></span><pre>DATUM</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_EOF" title="EOF :: Parse tokens used to decode the JSON object. These are not
+for public consumption, they are just used internally to the
+class.">
+                        <span class="description">Parse tokens used to decode the JSON object. These are not
+for public consumption, they are just used internally to the
+class.</span><pre>EOF</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_LBRACE" title="LBRACE :: ">
+                        <span class="description"></span><pre>LBRACE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_LBRACKET" title="LBRACKET :: ">
+                        <span class="description"></span><pre>LBRACKET</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_RBRACE" title="RBRACE :: ">
+                        <span class="description"></span><pre>RBRACE</pre>
+                    </a>
+                </li>
+                                <li class="constant ">
+                    <a href="#constant_RBRACKET" title="RBRACKET :: ">
+                        <span class="description"></span><pre>RBRACKET</pre>
+                    </a>
+                </li>
+                            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+
+        <div class="span8">
+            <div class="element class">
+                <h1>Decoder</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Decode JSON encoded string to PHP variable constructs</p>
+                <div class="details">
+                    <div class="long_description">
+                        
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Default</p>
+                                    </td>
+                                </tr>
+                                                                                                                                                                                </table>
+
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method protected  method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>Constructor</h2>
+                            <pre>__construct(string $source, integer $decodeType) </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Json\Exception\InvalidArgumentException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$source</h4>
+                                                <code>string</code><p><p>String source to decode</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$decodeType</h4>
+                                                <code>integer</code><p><p>How objects should be decoded -- see
+{@link Json::TYPE_ARRAY} and {@link Json::TYPE_OBJECT} for * valid
+values</p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_decode"></a>
+                        <div class="element clickable method public  method_decode" data-toggle="collapse" data-target=".method_decode .collapse">
+                            <h2>Decode a JSON source string.</h2>
+                            <pre>decode(string $source, integer $objectDecodeType = \Zend\Json\Json::TYPE_OBJECT) : mixed</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Decodes a JSON encoded string; the value returned will be one of the
+following:</p>
+<ul>
+<li>integer</li>
+<li>float</li>
+<li>boolean</li>
+<li>null</li>
+<li>stdClass</li>
+<li>array</li>
+<li>array of one or more of the above types</li>
+</ul>
+<p>By default, decoded objects will be returned as associative arrays; to
+return a stdClass object instead, pass \Json::TYPE_OBJECT to
+the $objectDecodeType parameter.</p></div>
+
+                                    <table class="table">
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$source</h4>
+                                                <code>string</code><p><p>String to be decoded.</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$objectDecodeType</h4>
+                                                <code>integer</code><p><p>How objects should be decoded; should be
+either or {@link Json::TYPE_ARRAY} or {@link Json::TYPE_OBJECT};
+defaults to Json::TYPE_OBJECT.</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_decodeArray"></a>
+                        <div class="element clickable method protected  method_decodeArray" data-toggle="collapse" data-target=".method_decodeArray .collapse">
+                            <h2>Decodes the JSON array format [element, element2, .</h2>
+                            <pre>decodeArray() : array</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>.., elementN]</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Json\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_decodeObject"></a>
+                        <div class="element clickable method protected  method_decodeObject" data-toggle="collapse" data-target=".method_decodeObject .collapse">
+                            <h2>Decodes an object of the form { &quot;attribute: value, &quot;attribute2&quot; : value, .</h2>
+                            <pre>decodeObject() : array|\stdClass</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>.. }</p>
+<p>If Zend\Json\Encoder was used to encode the original object, then
+a special attribute called __className will specify a class
+name with which to wrap the data contained within the encoded source.</p>
+<p>Decodes to either an array or stdClass object, based on the value of
+\$decodeType. If invalid $decodeType present, returns as an
+array.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Json\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>array|\stdClass</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_decodeUnicodeString"></a>
+                        <div class="element clickable method public  method_decodeUnicodeString" data-toggle="collapse" data-target=".method_decodeUnicodeString .collapse">
+                            <h2>Decode Unicode Characters from \u0000 ASCII syntax.</h2>
+                            <pre>decodeUnicodeString(string $chrs) : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>This algorithm was originally developed for the
+Solar Framework by Paul M. Jones</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    link
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p><a href="http://solarphp.com/">http://solarphp.com/</a></p>
+                                                                                                                                                                        
+                                                                                                                                                                        <p><a href="https://github.com/solarphp/core/blob/master/Solar/Json.php">https://github.com/solarphp/core/blob/master/Solar/Json.php</a></p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$chrs</h4>
+                                                <code>string</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_decodeValue"></a>
+                        <div class="element clickable method protected  method_decodeValue" data-toggle="collapse" data-target=".method_decodeValue .collapse">
+                            <h2>Recursive routine for supported toplevel types.</h2>
+                            <pre>decodeValue() : mixed</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>mixed</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_eatWhitespace"></a>
+                        <div class="element clickable method protected  method_eatWhitespace" data-toggle="collapse" data-target=".method_eatWhitespace .collapse">
+                            <h2>Removes whitespace characters from the source input.</h2>
+                            <pre>eatWhitespace() </pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getNextToken"></a>
+                        <div class="element clickable method protected  method_getNextToken" data-toggle="collapse" data-target=".method_getNextToken .collapse">
+                            <h2>Retrieves the next token from the source stream.</h2>
+                            <pre>getNextToken() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                            <tr>
+                                                <th>Throws</th>
+                                                <td>
+                                                    <dl>
+                                                                                                            <dt>\Zend\Json\Exception\RuntimeException</dt>
+                                                        <dd></dd>
+                                                                                                                                                            </dl>
+                                                </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p><p>Token constant value specified in class definition.</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_utf162utf8"></a>
+                        <div class="element clickable method protected  method_utf162utf8" data-toggle="collapse" data-target=".method_utf162utf8 .collapse">
+                            <h2>Convert a string from one UTF-16 char to one UTF-8 char.</h2>
+                            <pre>utf162utf8(string $utf16) : string</pre>
+                            <div class="labels">
+                                                                <span class="label">static</span>                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"><p>Normally should be handled by mb_convert_encoding, but provides a slower
+PHP-only method for installations that lack the multibyte string
+extension.</p>
+<p>This method is from the Solar Framework by Paul M. Jones.</p></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    link
+                                                </th>
+                                                <td>
+                                                                                                                                                                        
+                                                                                                                                                                        <p><a href="http://solarphp.com">http://solarphp.com</a></p>
+                                                                                                    </td>
+                                            </tr>
+                                                                                                                    </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$utf16</h4>
+                                                <code>string</code><p><p>UTF-16 character</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p><p>UTF-8 character</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                                            <h3><i class="icon-custom icon-constant"></i> Constants</h3>
+                                                    <a id="constant_EOF"> </a>
+                            <div class="element clickable constant  constant_EOF" data-toggle="collapse" data-target=".constant_EOF .collapse">
+                                <h2>Parse tokens used to decode the JSON object. These are not
+for public consumption, they are just used internally to the
+class.</h2>
+                                <pre>EOF</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_DATUM"> </a>
+                            <div class="element clickable constant  constant_DATUM" data-toggle="collapse" data-target=".constant_DATUM .collapse">
+                                <h2>DATUM</h2>
+                                <pre>DATUM</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_LBRACE"> </a>
+                            <div class="element clickable constant  constant_LBRACE" data-toggle="collapse" data-target=".constant_LBRACE .collapse">
+                                <h2>LBRACE</h2>
+                                <pre>LBRACE</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_LBRACKET"> </a>
+                            <div class="element clickable constant  constant_LBRACKET" data-toggle="collapse" data-target=".constant_LBRACKET .collapse">
+                                <h2>LBRACKET</h2>
+                                <pre>LBRACKET</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_RBRACE"> </a>
+                            <div class="element clickable constant  constant_RBRACE" data-toggle="collapse" data-target=".constant_RBRACE .collapse">
+                                <h2>RBRACE</h2>
+                                <pre>RBRACE</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_RBRACKET"> </a>
+                            <div class="element clickable constant  constant_RBRACKET" data-toggle="collapse" data-target=".constant_RBRACKET .collapse">
+                                <h2>RBRACKET</h2>
+                                <pre>RBRACKET</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_COMMA"> </a>
+                            <div class="element clickable constant  constant_COMMA" data-toggle="collapse" data-target=".constant_COMMA .collapse">
+                                <h2>COMMA</h2>
+                                <pre>COMMA</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                                    <a id="constant_COLON"> </a>
+                            <div class="element clickable constant  constant_COLON" data-toggle="collapse" data-target=".constant_COLON .collapse">
+                                <h2>COLON</h2>
+                                <pre>COLON</pre>
+                                <div class="labels">
+                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        
+                                                    </th>
+                                                    <td>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_source"> </a>
+                            <div class="element clickable property  protected property_source" data-toggle="collapse" data-target=".property_source .collapse">
+                                <h2>Use to maintain a &quot;pointer&quot; to the source being decoded</h2>
+                                <pre>source : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_sourceLength"> </a>
+                            <div class="element clickable property  protected property_sourceLength" data-toggle="collapse" data-target=".property_sourceLength .collapse">
+                                <h2>Caches the source length</h2>
+                                <pre>sourceLength : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_offset"> </a>
+                            <div class="element clickable property  protected property_offset" data-toggle="collapse" data-target=".property_offset .collapse">
+                                <h2>The offset within the source being decoded</h2>
+                                <pre>offset : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_token"> </a>
+                            <div class="element clickable property  protected property_token" data-toggle="collapse" data-target=".property_token .collapse">
+                                <h2>The current token being considered in the parser cycle</h2>
+                                <pre>token : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_decodeType"> </a>
+                            <div class="element clickable property  protected property_decodeType" data-toggle="collapse" data-target=".property_decodeType .collapse">
+                                <h2>Flag indicating how objects should be decoded</h2>
+                                <pre>decodeType : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        access
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>protected</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_tokenValue"> </a>
+                            <div class="element clickable property  protected property_tokenValue" data-toggle="collapse" data-target=".property_tokenValue .collapse">
+                                <h2>tokenValue</h2>
+                                <pre>tokenValue : mixed</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>mixed</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Zend\Json\Decoder"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Zend.Json.html">Json</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Zend.Json.Decoder.html">Decoder</a></li>
+            </ul>
+        </div>
+    </div>
+
+    </div>
+
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 02 Jun 2018 20:01:12 +0000.<br/>
+    </footer>
+    </body>
+</html>
