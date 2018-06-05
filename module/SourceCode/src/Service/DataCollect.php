@@ -254,9 +254,11 @@ class DataCollect
 
             //se a linha não contiver um comentário incrementa o contador de linhas úteis
             if(!$isComment) {
+                //remove os caracteres de espaço e enter da linha
                 $lineClean =  str_replace(PHP_EOL, "", $line);
                 $lineClean = str_replace(" ", "", $lineClean);
 
+                //se ainda restarem caracteres marca como linha útil
                 if(!empty($lineClean))
                     $this->usefulLineCounter++;
             }

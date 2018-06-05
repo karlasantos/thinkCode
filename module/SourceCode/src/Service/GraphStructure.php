@@ -548,7 +548,18 @@ class GraphStructure
             else if($this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getInitialBypassCommandElseIf() || $this->vertices[$key]->getName() == $language->getEndVertexName().$languageService->getBypassCommandElse()['initialCommandName']) {
                 $vertexOpening = $this->vertices[$key]->getOpeningVertexIndex();
                 $coordinateY = $this->vertices[$vertexOpening]->getY();
-                $coordinateX = $this->vertices[$key-1]->getX() + $distanceX;
+
+                //todo temporário
+                for($i = $key; $i > 0; $i--) {
+                    if($this->vertices[$i]->getLeftVertexIndex() == $key) {
+                        $coordinateX = $this->vertices[$i]->getX() + $distanceX;
+                        break;
+                    }
+                }
+
+                if($coordinateX == 0) {
+                    $coordinateX = $this->vertices[$key-1]->getX() + $distanceX;
+                }
             }
 
             /* 4. Trata o comando SWITCH */
