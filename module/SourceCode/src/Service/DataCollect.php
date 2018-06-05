@@ -211,7 +211,7 @@ class DataCollect
             //quebra a linha em um array de caracteres caracteres
             $characters = str_split($line);
 
-            //se a linha não contém nenhum comando de desvio marca texto e comentário
+            //se a linha não contém nenhum comando de desvio marca texto
             if(!$isComment && !$this->lineContainsInitialBypassCommand($line) && !$this->lineContainsTerminalBypassCommand($line) && strpos($line, $language->getEndCodeStructure()) === false) {
                 $isText = true;
             }
@@ -254,7 +254,11 @@ class DataCollect
 
             //se a linha não contiver um comentário incrementa o contador de linhas úteis
             if(!$isComment) {
-                $this->usefulLineCounter++;
+                $lineClean =  str_replace(PHP_EOL, "", $line);
+                $lineClean = str_replace(" ", "", $lineClean);
+
+                if(!empty($lineClean))
+                    $this->usefulLineCounter++;
             }
 
             //acumula o número de conectivos lógicos do código
@@ -306,9 +310,10 @@ class DataCollect
                         // 3.1.1 - Se a ação de adição de token estiver marcada efetua a análise e a inserção do token
                         if($addToken) {
                             /* Para os casos da linguagem C,
-                              que possui um caractere especial (}) como terminal de comando de desvio */
-                            if ($this->languageService->isTerminalBypassCommand($character) && $token == "") {
-//                                \Zend\Debug\Debug::dump(' $token = $character' . $character . ".");
+                              que possui um caractere especial (}) e { para abertura de bloco como terminal de comando de desvio */
+                            //todo CONDIÇÃO DO { TEMPORÁRIA, DEVE-SE INSERIR UM ATRIBUTO NA LINGUAGEM
+                            if (($this->languageService->isTerminalBypassCommand($character) && $token == "") || ($language->getName() == "Linguagem C" && $character == "{")) {
+                                //\Zend\Debug\Debug::dump(' $token = $character' . $character . ".");
                                 $token = $character;
                             }
 
@@ -714,20 +719,26 @@ class DataCollect
         }
 
         // Se o token lido for um Comando início de desvio então deve ser armazenado na lista de comandos.
-        if($this->languageService->isInitialBypassCommand($token)) {
+        if($this->languageService->isInitialBypassCommand($token) || $token === "{") {
             //cria o comando de desvio
             $codeBypassCommand = new CodeBypassCommand();
             $codeBypassCommand->setName($token);
             $codeBypassCommand->setInitialLineNumber($lineNumber);
 
-            //cria o comando de início de bloco
-            $initialBlockCommand = new CodeBypassCommand();
-            $initialBlockCommand->setName("{");
-            $initialBlockCommand->setInitialLineNumber($lineNumber);
+            //adiciona o comando de desvio
+            array_push($this->codeCommands, $codeBypassCommand);
+            array_push($this->codeCommandsName, $token);
 
-            //adiciona o comando de desvio e o comando de início de bloco nos últimos índices do array de comandos de desvio do código
-            array_push($this->codeCommands, $codeBypassCommand, $initialBlockCommand);
-            array_push($this->codeCommandsName, $token, "{");
+            //cria o comando de início de bloco e o adiciona nos últimos índices do array de comandos de desvio do código se for diferente da Linguagem C
+            //TODO TEMPORÁRIO PARA CORRIGIR PROBLEMA DOS COMANDOS SEM MAPEAMENTO NO C, MUDAR PARA ATRIBUTO NA LINGUAGEM E ETC
+            if($this->languageService->getEndCodeStructure() !== "}" ) {
+                $initialBlockCommand = new CodeBypassCommand();
+                $initialBlockCommand->setName("{");
+                $initialBlockCommand->setInitialLineNumber($lineNumber);
+                array_push($this->codeCommands, $initialBlockCommand);
+                array_push($this->codeCommandsName, "{");
+            }
+
         } else if($token === ".") { //verifica se é o caractere que indica o final da lista de comandos
             //cria o indicador de final de comandos
             $endCodeBypassCommand = new CodeBypassCommand();
