@@ -271,7 +271,7 @@ class GraphStructure
                 /* 4.1 Percorre do vértice até ao início da lista de vértices*/
                 for($i = $key; $i >= 0; $i--) {
                     /*4.1.1 Se encontrar um vértice que feche o bloco marca a ligação a esquerda */
-                    if($this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName']) {
+                    if($this->vertices[$i] instanceof Vertex && $this->vertices[$i]->getName() === $language->getEndVertexName().$languageService->getBypassCommandIf()['initialCommandName']) {
                         $left = $i;
                         break;
                     }

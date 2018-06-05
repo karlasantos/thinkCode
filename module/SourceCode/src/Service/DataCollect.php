@@ -374,9 +374,15 @@ class DataCollect
 
                             // 3.1.1.1 - Este caso é para tratar o ELSE IF da Linguagem C
                             if ($this->languageService->isInitialBypassCommandElse($previusToken) && $this->languageService->isInitialBypassCommandIf($token) && $language->getName() == "Linguagem C") {
-                                //remove o comando de abertura de bloco "{"
-                                array_pop($this->codeCommands);
-                                array_pop($this->codeCommandsName);
+                                //pega o conteúdo da última posição do array
+                                end($this->codeCommandsName);
+                                $keyK = key($this->codeCommandsName);
+
+                                //remove o comando de abertura de bloco "{" se ele existir
+                                if($this->codeCommandsName[$keyK] == "{") {
+                                    array_pop($this->codeCommands);
+                                    array_pop($this->codeCommandsName);
+                                }
                                 //remove o comando de desvio else
                                 array_pop($this->codeCommands);
                                 array_pop($this->codeCommandsName);
