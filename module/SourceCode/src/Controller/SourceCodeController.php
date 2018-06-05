@@ -250,7 +250,10 @@ class SourceCodeController extends RestfulController
         } catch (Exception $exception) {
             $this->getResponse()->setStatusCode(400);
             $results = array(
-                'result' => $exception->getMessage(),
+                'result' => [
+                    0 => "Ocorreu um erro interno ao processar essa solução",
+                    'exception' => $exception->getMessage()
+                ],
             );
         }
 
