@@ -549,7 +549,7 @@ class GraphStructure
                 $vertexOpening = $this->vertices[$key]->getOpeningVertexIndex();
                 $coordinateY = $this->vertices[$vertexOpening]->getY();
 
-                //todo temporário
+                //verifica qual o último vértice que se liga a sua esquerda e atribui uma distância maior
                 for($i = $key; $i > 0; $i--) {
                     if($this->vertices[$i]->getLeftVertexIndex() == $key) {
                         $coordinateX = $this->vertices[$i]->getX() + $distanceX;
@@ -557,6 +557,7 @@ class GraphStructure
                     }
                 }
 
+                //se não encontrar nenhum significa que a coordenada não foi definida e receber uma distância mairo que o vértice anterior a ele
                 if($coordinateX == 0) {
                     $coordinateX = $this->vertices[$key-1]->getX() + $distanceX;
                 }
