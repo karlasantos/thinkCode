@@ -739,7 +739,7 @@ class DataCollect
 
             //cria o comando de início de bloco e o adiciona nos últimos índices do array de comandos de desvio do código se for diferente da Linguagem C
             //TODO TEMPORÁRIO PARA CORRIGIR PROBLEMA DOS COMANDOS SEM MAPEAMENTO NO C, MUDAR PARA ATRIBUTO NA LINGUAGEM E ETC
-            if($this->languageService->getEndCodeStructure() !== "}" ) {
+            if($this->languageService->getEndCodeStructure() !== "}" || $this->languageService->isInitialBypassCommandCaseOrDefault($token)) {
                 $initialBlockCommand = new CodeBypassCommand();
                 $initialBlockCommand->setName("{");
                 $initialBlockCommand->setInitialLineNumber($lineNumber);

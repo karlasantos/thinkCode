@@ -11,6 +11,7 @@ namespace SourceCode\Controller;
 use Application\Controller\RestfulController;
 use Doctrine\ORM\EntityManager;
 use Exception;
+use SourceCode\Model\Entity\AnalysisResults;
 use SourceCode\Model\Entity\Language;
 use SourceCode\Model\Entity\Problem;
 use SourceCode\Model\Entity\SourceCode;
@@ -158,6 +159,12 @@ class SourceCodeController extends RestfulController
             //se não tiver nenhum código fonte, insere um novo
             if(!$sourceCode instanceof SourceCode) {
                 $sourceCode = new SourceCode();
+            } else {
+                $analysisResultsRemove = $sourceCode->getAnalysisResults();
+
+                if($analysisResultsRemove instanceof AnalysisResults) {
+                    $this->entityManager->remove($analysisResultsRemove);
+                }
             }
 
             $sourceCode->setData($sourceCodeFilter->getValues());
