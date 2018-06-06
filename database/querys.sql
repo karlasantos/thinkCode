@@ -163,19 +163,20 @@ INSERT INTO categories_problem(id, name, description) VALUES
 -- Problemas
 INSERT INTO problems(id, category_id, title, description) VALUES
 ( 1, 1, 'Fatorial', 'Desenvolva um programa que calcule e mostre o fatorial de um número inteiro informado.'),
-( 2, 1, 'Categoria do Nadador', 'Elabore um programa que dada a idade de um nadador classifica-o em uma das seguintes categorias:
+( 2, 1, 'Altura de Zé e Chico', 'Chico tem 1,50 metro e cresce 2 centímetros por ano, enquanto Zé tem 1,10 metro e cresce 3 centímetros por ano. Construa um algoritmo que calcule e imprima quantos anos serão necessários para que Zé seja maior que Chico.'),
+( 3, 1, 'Categoria do Nadador', 'Elabore um programa que dada a idade de um nadador classifica-o em uma das seguintes categorias:
 - infantil A = 5 - 7 anos
 - infantil B = 8-10 anos
 - juvenil A = 11-13 anos
 - juvenil B = 14-17 anos
 - adulto = maiores de 18 anos'),
-( 3, 1, 'Número Primo', 'Faça um algoritmo que leia um número inteiro e logo após mostre uma mensagem se ele é primo.'),
-( 4, 1, 'Número Perfeito', 'Um número inteiro é dito perfeito se o dobro dele é igual à soma de todos os seus divisores. Por exemplo, como os divisores de 6 são 1, 2, 3 e 6 e 1+2+3+6=12, 6 é perfeito. Escreva um programa que liste todos os números perfeitos menores que um inteiro n dado.'),
-( 5, 1, 'Resultado da Soma', 'Faça um programa que leia 2 números do teclado e imprima a soma deles e se a mesma é par ou impar.'),
-( 6, 1, 'Valor da chamada', 'Uma companhia telefônica opera com a seguinte tarifa: uma chamada telefônica com duração de 3 minutos custa R$ 1.15. Cada minuto adicional custa R$ 0.26. Escreva um programa que leia a duração total de uma chamada (em minutos) e calcule o total a ser pago.'),
-( 7, 1, 'Fibonacci', 'Escreva um programa que imprime na tela a série de FIBONACCI até um numero dado. Esta séria começa com 1 e 1 e os próximos números são obtidos pela soma dos anteriores. Ex: 1 1 2 3 5 8 13 21 34 55'),
-( 8, 2, 'Seleção', 'Entrar com nome, idade e sexo de 5 pessoas, e imprimir na tela o nome dos homens maiores de 21 anos.'),
-( 9, 2, 'Lanchonete', 'Uma lanchonete possui o seguinte cardápio:
+( 4, 1, 'Número Primo', 'Faça um algoritmo que leia um número inteiro e logo após mostre uma mensagem se ele é primo.'),
+( 5, 1, 'Número Perfeito', 'Um número inteiro é dito perfeito se o dobro dele é igual à soma de todos os seus divisores. Por exemplo, como os divisores de 6 são 1, 2, 3 e 6 e 1+2+3+6=12, 6 é perfeito. Escreva um programa que liste todos os números perfeitos menores que um inteiro n dado.'),
+( 6, 1, 'Maior e Menor', 'Escreva um algoritmo que leia 4 números inteiros e mostre o maior e o menor valor informado.'),
+( 7, 1, 'Valor da chamada', 'Uma companhia telefônica opera com a seguinte tarifa: uma chamada telefônica com duração de 3 minutos custa R$ 1.15. Cada minuto adicional custa R$ 0.26. Escreva um programa que leia a duração total de uma chamada (em minutos) e calcule o total a ser pago.'),
+( 8, 1, 'Fibonacci', 'Escreva um programa que imprime na tela a série de FIBONACCI até um numero dado. Esta séria começa com 1 e 1 e os próximos números são obtidos pela soma dos anteriores. Ex: 1 1 2 3 5 8 13 21 34 55'),
+( 9, 2, 'Seleção', 'Entrar com nome, idade e sexo de 5 pessoas, e imprimir na tela o nome dos homens maiores de 21 anos.'),
+( 10, 2, 'Lanchonete', 'Uma lanchonete possui o seguinte cardápio:
 Código Produto Valor (R$)
 1 Refrigerante 2,50
 2 Bolo 3,50
@@ -183,4 +184,33 @@ Código Produto Valor (R$)
 4 Picadinho 10,00
 5 Agua mineral 2,00
 Faça um programa que controle a venda destes produtos. Um cliente deve ser capaz de comprar quantos produtos ele desejar. O programa deve solicitar o código do produto e quantidade. A compra deve ser finalizada quando for digitado o valor 99. Nesse momento deve ser mostrado o valor total que o cliente deve pagar. Simule a situação onde um cliente compra 2 refrigerantes + 1 picadinho + 1 bolo (total a pagar = R$ 18,50).'),
-(10, 2, 'Valores Negativos e positivos no Vetor', '10. Faça um programa que leia um vetor com 10 elementos positivos e/ou negativos e no final diga quantos elementos negativos e quantos positivos foram encontrados.');
+(11, 2, 'Faixas etárias', 'Escreva um algoritmo que receba a idade de 15 pessoas, calcule e escreva:
+
+a)     a quantidade de pessoas em cada faixa;
+b)     a porcentagem de cada faixa etária em relação ao total de pessoas;
+
+As faixas etárias são:
+ 1 --------- 15 anos
+16 -------  30 anos
+31 -------  45 anos
+> 45 anos'),
+(12, 2, 'Classificação de Números', 'Faça um algoritmo que leia 10 valores inteiros. A seguir mostre o total de números pares, total de números ímpares, total de positivos, total de negativos e o total de zeros.'),
+(13, 2, 'União de Vetores', 'Faça um algoritmo que leia 2(dois) vetores A e B de tamanho 10 de inteiros. Logo após deverá ser criado e exibido um vetor C de tamanho 20, que contenha todos os elementos dos vetores  A e B.'),
+(14, 2, 'Dois Maiores Números do Vetor', 'Faça um algoritmo que leia um vetor de números inteiros de tamanho 20. Logo após, calcule e mostre dois maiores números armazenados no vetor lido.'),
+(15, 3, 'Pesquisa do Cinema', 'Um cinema possui capacidade de 100 lugares e está sempre com ocupação total. Certo dia, cada espectador respondeu a um questionário, no qual constava:
+- sua idade;
+- sua opinião em relação ao filme, segundo as seguintes notas:
+Nota   Significado
+A       Ótimo
+B       Bom
+C       Regular
+D       Ruim
+E       Péssimo
+
+Elabore um algoritmo que, lendo esses dados, calcule e imprima:
+a)    a quantidade de respostas Ótimo;
+b)    o total de respostas consideradas Bom e Regular;
+c)    a média de idade das pessoas que responderam Ruim;
+d)    o percentual de respostas Péssimo e a maior idade que escolheu essa opção;
+e)    a diferença de idade entre a maior idade que respondeu Ótimo e a maior idade que respondeu Ruim;
+');
