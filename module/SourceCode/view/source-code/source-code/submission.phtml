@@ -21,10 +21,10 @@ namespace SourceCode;
                     <h5 class="text-center text-blue font-weight-normal"> {{submissionTools.problem.category.name}}</h5>
                 </div>
                 <div class="col-md-3 text-right p-r-20">
-                    <h3 title="Posição da sua solução no ranking do problema." ng-if="submissionTools.problem.ranking">
+                    <h3 title="Posição da sua solução no ranking do problema." ng-show="submissionTools.problem.ranking">
                         <i class="fa fa-trophy text-warning fa-2x" aria-hidden="true"></i>
                         {{submissionTools.problem.ranking}}
-                        <button ng-if="resultAnalysisTools.showAnalysis" type="button" title="Visualizar Rank completo desse problema." class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-rank">
+                        <button ng-show="resultAnalysisTools.showAnalysis" type="button" title="Visualizar Rank completo desse problema." class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-rank">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
                     </h3>
@@ -32,7 +32,7 @@ namespace SourceCode;
             </div>
         </div>
         <!-- Content para submissão -->
-        <div class="card-body" ng-if="!resultAnalysisTools.showAnalysis">
+        <div class="card-body" ng-show="!resultAnalysisTools.showAnalysis">
             <form id="submission-form">
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
                     <div class="col-md-3">
@@ -65,8 +65,8 @@ namespace SourceCode;
                     <div class="col-md-6">
                         <h5 class="text-center"> Rank de soluções
                             <span class="dropdown inline">
-                                <button type="button" class="button-info"  id="closeCard1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
-                                <div aria-labelledby="closeCard1" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                                <button type="button" class="button-info"  id="closeCard10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
+                                <div aria-labelledby="closeCard10" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
                                     <p>Selecione uma das soluções do ranking para realizar a comparação dos códigos fonte.</p>
                                 </div>
                             </span>
@@ -106,7 +106,7 @@ namespace SourceCode;
         </div>
 
         <!-- Content para visualização de resultados da análise -->
-        <div class="card-body p-t-2" ng-if="resultAnalysisTools.showAnalysis">
+        <div class="card-body p-t-2" ng-show="resultAnalysisTools.showAnalysis">
             <form id="analysis-form">
                 <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0">
                     <div class="col-md-12">
@@ -122,15 +122,15 @@ namespace SourceCode;
                         <ul class="list-unstyled">
                             <li>Média da Solução
                                 <span class="dropdown inline">
-                                    <button type="button"  class="button-info" id="closeCard2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
-                                    <div aria-labelledby="closeCard2" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                                    <button type="button"  class="button-info" id="closeCard8" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
+                                    <div aria-labelledby="closeCard8" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
                                         <p>Média aritmética da sua solução, define sua posição no Rank e indica a complexidade do seu código de acordo com os recursos utilizados.</p>
                                     </div>
                                 </span>: {{resultAnalysisTools.analysisSourceCodeSubject.arithmeticMean}}</li>
                             <li>Complexidade Ciclomática
                                 <span class="dropdown inline">
-                                    <button type="button" class="button-info" id="closeCard3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
-                                    <div aria-labelledby="closeCard3" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
+                                    <button type="button" class="button-info" id="closeCard9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-info"></i></button>
+                                    <div aria-labelledby="closeCard9" class="dropdown-menu dropdown-menu-right has-shadow bg-info text-white p-l-5 p-r-5 p-t-10" style="display: none; position: absolute; transform: translate3d(-94px, 26px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-end">
                                         <p>Esse valor indica a complexidade do código desenvolvido, quanto maior for este número maior é a complexidade do seu código.</p>
                                     </div>
                                 </span>: {{resultAnalysisTools.analysisSourceCodeSubject.cyclomaticComplexity}}</li>
@@ -145,7 +145,7 @@ namespace SourceCode;
                     </div>
                 </div>
                 <hr/>
-                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0" ng-if="resultAnalysisTools.analysisSourceCodeSystem.userCompareId != null">
+                <div class="form-group row p-t-0 p-b-0 p-l-0 p-r-0 m-b-0" ng-show="resultAnalysisTools.analysisSourceCodeSystem.userCompareId != null">
                     <div class="col-md-12">
                         <h4>Resultados do {{resultAnalysisTools.analysisSourceCodeSystem.userCompare}}</h4>
                     </div>
