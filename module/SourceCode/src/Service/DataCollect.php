@@ -635,12 +635,13 @@ class DataCollect
         $specialCharacterCounter = 0;
         foreach ($this->languageService->getElementsOfLanguage()['logicalConnectives'] as $logicalConnective) {
             $index = strpos($line, $logicalConnective);
+            $sizeConective = strlen($logicalConnective);
             if($index !== false) {
                 $valueIndex = $index;
                 if($index > 0) {
                     $valueIndex = $index-1;
                 }
-                if($line[$valueIndex] == " " && $line[$index+1] == " ") {
+                if($line[$valueIndex] == " " && $line[$index+$sizeConective] == " ") {
                     $specialCharacterCounter += substr_count($line, $logicalConnective);
                 }
             }
