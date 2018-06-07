@@ -70,7 +70,7 @@ class AnalysisResults extends Entity
     /**
      * Quantidade de comandos de desvio do código fonte
      *
-     * @ORM\Column(name="number_diversion_coommands", type="integer")
+     * @ORM\Column(name="number_diversion_commands", type="integer")
      * @var integer
      */
     private $numberDiversionCommands;
@@ -351,14 +351,13 @@ class AnalysisResults extends Entity
      */
     public function setArithmeticMean()
     {
-        $this->arithmeticMean = round(($this->numberUsefulLines +
-                                $this->numberVariables +
-                                $this->numberLogicalConnectives +
-                                $this->numberDiversionCommands +
-                                $this->numberRegionsGraph +
-                                $this->numberEdgesGraph +
-                                $this->numberVertexGraph +
-                                $this->cyclomaticComplexity)/8, 3);
+        $this->arithmeticMean = round(
+            (($this->cyclomaticComplexity*6 +
+                    $this->numberDiversionCommands*5 +
+                    $this->numberRegionsGraph*4 +
+                    $this->numberVariables*3 +  +
+                    $this->numberUsefulLines*2 +
+                    $this->numberLogicalConnectives)/21), 3);
     }
 
     /**
