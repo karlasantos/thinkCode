@@ -1,0 +1,1528 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.13
+-- Dumped by pg_dump version 9.5.13
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: analysis_results; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.analysis_results (
+    id integer NOT NULL,
+    number_useful_lines integer NOT NULL,
+    number_variables integer NOT NULL,
+    number_logical_connectives integer NOT NULL,
+    number_diversion_coommands integer NOT NULL,
+    number_regions_graph integer NOT NULL,
+    number_edges_graph integer NOT NULL,
+    number_vertex_graph integer NOT NULL,
+    cyclomatic_complexity integer NOT NULL,
+    graph json NOT NULL,
+    arithmetic_mean double precision NOT NULL
+);
+
+
+ALTER TABLE public.analysis_results OWNER TO tcc_user;
+
+--
+-- Name: analysis_results_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.analysis_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.analysis_results_id_seq OWNER TO tcc_user;
+
+--
+-- Name: categories_problem; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.categories_problem (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.categories_problem OWNER TO tcc_user;
+
+--
+-- Name: categories_problem_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.categories_problem_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_problem_id_seq OWNER TO tcc_user;
+
+--
+-- Name: data_types; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.data_types (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    byte_size numeric(10,0) NOT NULL
+);
+
+
+ALTER TABLE public.data_types OWNER TO tcc_user;
+
+--
+-- Name: data_types_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.data_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.data_types_id_seq OWNER TO tcc_user;
+
+--
+-- Name: diversion_commands; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.diversion_commands (
+    id integer NOT NULL,
+    graph_element_id integer,
+    initial_command_name character varying(255) NOT NULL,
+    terminal_command_name character varying(255) DEFAULT NULL::character varying,
+    type character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.diversion_commands OWNER TO tcc_user;
+
+--
+-- Name: diversion_commands_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.diversion_commands_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.diversion_commands_id_seq OWNER TO tcc_user;
+
+--
+-- Name: graph_elements; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.graph_elements (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    model_image character varying(255) DEFAULT NULL::character varying,
+    type character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.graph_elements OWNER TO tcc_user;
+
+--
+-- Name: graph_elements_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.graph_elements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.graph_elements_id_seq OWNER TO tcc_user;
+
+--
+-- Name: language__bypass_command; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.language__bypass_command (
+    language_id integer NOT NULL,
+    bypass_command_id integer NOT NULL
+);
+
+
+ALTER TABLE public.language__bypass_command OWNER TO tcc_user;
+
+--
+-- Name: language__data_type; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.language__data_type (
+    language_id integer NOT NULL,
+    data_type_id integer NOT NULL
+);
+
+
+ALTER TABLE public.language__data_type OWNER TO tcc_user;
+
+--
+-- Name: language__logical_connective; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.language__logical_connective (
+    language_id integer NOT NULL,
+    logical_connective_id integer NOT NULL
+);
+
+
+ALTER TABLE public.language__logical_connective OWNER TO tcc_user;
+
+--
+-- Name: language__special_character; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.language__special_character (
+    language_id integer NOT NULL,
+    special_character_id integer NOT NULL
+);
+
+
+ALTER TABLE public.language__special_character OWNER TO tcc_user;
+
+--
+-- Name: languages; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.languages (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    initial_code_structure character varying(255) NOT NULL,
+    end_code_structure character varying(255) NOT NULL,
+    initial_vertex_name character varying(255) NOT NULL,
+    end_vertex_name character varying(255) NOT NULL,
+    if_then_name_vertex character varying(255) DEFAULT 'then'::character varying NOT NULL
+);
+
+
+ALTER TABLE public.languages OWNER TO tcc_user;
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.languages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.languages_id_seq OWNER TO tcc_user;
+
+--
+-- Name: logical_connectives; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.logical_connectives (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.logical_connectives OWNER TO tcc_user;
+
+--
+-- Name: logical_connectives_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.logical_connectives_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.logical_connectives_id_seq OWNER TO tcc_user;
+
+--
+-- Name: problems; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.problems (
+    id integer NOT NULL,
+    category_id integer,
+    title character varying(255) NOT NULL,
+    description text NOT NULL
+);
+
+
+ALTER TABLE public.problems OWNER TO tcc_user;
+
+--
+-- Name: problems_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.problems_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.problems_id_seq OWNER TO tcc_user;
+
+--
+-- Name: profiles; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.profiles (
+    id integer NOT NULL,
+    default_language_id integer,
+    full_name character varying(255) NOT NULL,
+    avatar character varying(255) DEFAULT NULL::character varying,
+    birthday character varying(255) DEFAULT NULL::character varying,
+    school character varying(255) DEFAULT NULL::character varying,
+    gender character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public.profiles OWNER TO tcc_user;
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profiles_id_seq OWNER TO tcc_user;
+
+--
+-- Name: rank; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.rank (
+    id integer NOT NULL,
+    problem_id integer,
+    source_code_id integer,
+    ranking integer NOT NULL,
+    analysis_mean double precision NOT NULL
+);
+
+
+ALTER TABLE public.rank OWNER TO tcc_user;
+
+--
+-- Name: rank_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.rank_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.rank_id_seq OWNER TO tcc_user;
+
+--
+-- Name: source_codes; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.source_codes (
+    id integer NOT NULL,
+    problem_id integer,
+    language_id integer,
+    user_id integer,
+    analysis_results_id integer NOT NULL,
+    content text NOT NULL,
+    submission_date timestamp(0) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.source_codes OWNER TO tcc_user;
+
+--
+-- Name: source_codes_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.source_codes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.source_codes_id_seq OWNER TO tcc_user;
+
+--
+-- Name: special_characters; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.special_characters (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.special_characters OWNER TO tcc_user;
+
+--
+-- Name: special_characters_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.special_characters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.special_characters_id_seq OWNER TO tcc_user;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: tcc_user
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    profile_id integer NOT NULL,
+    email character varying(255) NOT NULL,
+    password character varying(255) NOT NULL,
+    created timestamp(0) without time zone NOT NULL,
+    active_account boolean DEFAULT true NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO tcc_user;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: tcc_user
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO tcc_user;
+
+--
+-- Data for Name: analysis_results; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.analysis_results (id, number_useful_lines, number_variables, number_logical_connectives, number_diversion_coommands, number_regions_graph, number_edges_graph, number_vertex_graph, cyclomatic_complexity, graph, arithmetic_mean) FROM stdin;
+75	21	1	4	5	5	11	8	5	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"elseif\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"elseif\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"elseif\\"},\\"position\\":{\\"x\\":530,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"elseif\\"},\\"position\\":{\\"x\\":650,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1010,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"6.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"27.\\",\\"label\\":null,\\"source\\":2,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"32.\\",\\"label\\":null,\\"source\\":3,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":null,\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"42.\\",\\"label\\":null,\\"source\\":4,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":null,\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"52.\\",\\"label\\":null,\\"source\\":5,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"62.\\",\\"label\\":null,\\"source\\":6,\\"target\\":2}}]}"	5.90500000000000025
+102	13	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"6...12\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.95199999999999996
+109	25	1	0	7	7	22	16	8	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":650,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1010,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":1130,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1250,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":1370,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":12,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1490,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":13,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":1610,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":14,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1730,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":15,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":1850,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"4...6\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":null,\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"35.\\",\\"label\\":null,\\"source\\":3,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":\\"7...9\\",\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":null,\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"10...12\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":\\"13...15\\",\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"89.\\",\\"label\\":null,\\"source\\":8,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"911.\\",\\"label\\":null,\\"source\\":9,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"910.\\",\\"label\\":\\"16...18\\",\\"source\\":9,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1011.\\",\\"label\\":null,\\"source\\":10,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1113.\\",\\"label\\":null,\\"source\\":11,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1112.\\",\\"label\\":\\"19...21\\",\\"source\\":11,\\"target\\":12}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1213.\\",\\"label\\":null,\\"source\\":12,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1315.\\",\\"label\\":null,\\"source\\":13,\\"target\\":15}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1314.\\",\\"label\\":\\"22...24\\",\\"source\\":13,\\"target\\":14}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1415.\\",\\"label\\":null,\\"source\\":14,\\"target\\":15}}]}"	7.80999999999999961
+3	12	2	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	1.71399999999999997
+103	2	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.475999999999999979
+110	12	2	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"8.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.42899999999999983
+117	2	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.475999999999999979
+12	21	4	0	3	3	10	8	4	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":650,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":770,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"17.\\",\\"label\\":null,\\"source\\":1,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"12...14\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"46.\\",\\"label\\":null,\\"source\\":4,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":\\"15...17\\",\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":null,\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"61.\\",\\"label\\":null,\\"source\\":6,\\"target\\":1}}]}"	5
+84	14	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"8...11\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.76200000000000001
+98	13	2	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"7...10\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.52400000000000002
+111	15	3	0	3	3	10	8	4	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":530,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":650,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"15.\\",\\"label\\":null,\\"source\\":1,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"9...10\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"41.\\",\\"label\\":null,\\"source\\":4,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"12.\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}}]}"	4.28599999999999959
+24	18	3	0	4	4	11	9	4	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":530,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":650,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1010,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"15.\\",\\"label\\":null,\\"source\\":1,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"9...12\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"41.\\",\\"label\\":null,\\"source\\":4,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"14...16\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"68.\\",\\"label\\":null,\\"source\\":6,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"76.\\",\\"label\\":null,\\"source\\":7,\\"target\\":6}}]}"	5
+30	3	6	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	1.42900000000000005
+2	18	3	0	4	4	11	9	4	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":530,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":650,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":1010,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"15.\\",\\"label\\":null,\\"source\\":1,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"7...10\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"41.\\",\\"label\\":null,\\"source\\":4,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"13...15\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"68.\\",\\"label\\":null,\\"source\\":6,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"76.\\",\\"label\\":null,\\"source\\":7,\\"target\\":6}}]}"	5
+4	22	4	0	4	4	12	10	4	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":410,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":530,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":650,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"endelse\\"},\\"position\\":{\\"x\\":890,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1130,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"8.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"29.\\",\\"label\\":null,\\"source\\":2,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"48.\\",\\"label\\":null,\\"source\\":4,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":null,\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"16.\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"74.\\",\\"label\\":null,\\"source\\":7,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"82.\\",\\"label\\":null,\\"source\\":8,\\"target\\":2}}]}"	5.52400000000000002
+7	37	3	1	10	10	17	16	3	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"do\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"switch\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"case\\"},\\"position\\":{\\"x\\":530,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"case\\"},\\"position\\":{\\"x\\":530,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"case\\"},\\"position\\":{\\"x\\":530,\\"y\\":375}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"case\\"},\\"position\\":{\\"x\\":530,\\"y\\":440}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"case\\"},\\"position\\":{\\"x\\":530,\\"y\\":505}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"default\\"},\\"position\\":{\\"x\\":530,\\"y\\":570}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"endswitch\\"},\\"position\\":{\\"x\\":650,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":770,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":12,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":890,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":13,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":14,\\"name\\":\\"enddo\\"},\\"position\\":{\\"x\\":1130,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":15,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1250,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"214.\\",\\"label\\":null,\\"source\\":2,\\"target\\":14}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":null,\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"35.\\",\\"source\\":3,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"36.\\",\\"source\\":3,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"37.\\",\\"source\\":3,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"38.\\",\\"source\\":3,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"39.\\",\\"source\\":3,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"410.\\",\\"label\\":null,\\"source\\":4,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"510.\\",\\"label\\":null,\\"source\\":5,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"610.\\",\\"label\\":null,\\"source\\":6,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"710.\\",\\"label\\":null,\\"source\\":7,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"810.\\",\\"label\\":null,\\"source\\":8,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"910.\\",\\"label\\":null,\\"source\\":9,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1011.\\",\\"label\\":null,\\"source\\":10,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1113.\\",\\"label\\":\\"33.\\",\\"source\\":11,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1112.\\",\\"label\\":\\"33.\\",\\"source\\":11,\\"target\\":12}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1213.\\",\\"label\\":null,\\"source\\":12,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1314.\\",\\"label\\":null,\\"source\\":13,\\"target\\":14}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"141.\\",\\"label\\":null,\\"source\\":14,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1415.\\",\\"label\\":null,\\"source\\":14,\\"target\\":15}}]}"	9.14300000000000068
+10	20	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"12...18\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	3.61900000000000022
+11	13	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"8...11\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.66699999999999982
+19	10	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"7...10\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.38099999999999978
+22	22	1	0	7	7	18	14	6	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":650,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":890,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":1130,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":12,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1250,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":13,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1370,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"16.\\",\\"label\\":null,\\"source\\":1,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"8.\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"35.\\",\\"label\\":null,\\"source\\":3,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"43.\\",\\"label\\":null,\\"source\\":4,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":null,\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"611.\\",\\"label\\":null,\\"source\\":6,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":\\"15.\\",\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"810.\\",\\"label\\":null,\\"source\\":8,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"98.\\",\\"label\\":null,\\"source\\":9,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1011.\\",\\"label\\":null,\\"source\\":10,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1113.\\",\\"label\\":null,\\"source\\":11,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1112.\\",\\"label\\":\\"20.\\",\\"source\\":11,\\"target\\":12}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1213.\\",\\"label\\":null,\\"source\\":12,\\"target\\":13}}]}"	6.95199999999999996
+13	12	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"6...9\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.85700000000000021
+15	19	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"11...17\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	3.52400000000000002
+16	28	5	0	5	5	16	12	6	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":530,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":650,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":770,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":890,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":1130,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1250,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1370,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"111.\\",\\"label\\":null,\\"source\\":1,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"210.\\",\\"label\\":null,\\"source\\":2,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":null,\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"37.\\",\\"label\\":null,\\"source\\":3,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"46.\\",\\"label\\":null,\\"source\\":4,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":\\"13...15\\",\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":null,\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"63.\\",\\"label\\":null,\\"source\\":6,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":\\"21...23\\",\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"89.\\",\\"label\\":null,\\"source\\":8,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"92.\\",\\"label\\":null,\\"source\\":9,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1011.\\",\\"label\\":null,\\"source\\":10,\\"target\\":11}}]}"	7.23800000000000043
+18	18	5	0	5	5	14	11	5	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":410,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":650,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":890,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":1130,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1250,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"110.\\",\\"label\\":null,\\"source\\":1,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"10.\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"32.\\",\\"label\\":null,\\"source\\":3,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"46.\\",\\"label\\":null,\\"source\\":4,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":\\"11.\\",\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":null,\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"68.\\",\\"label\\":null,\\"source\\":6,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":\\"13.\\",\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"87.\\",\\"label\\":null,\\"source\\":8,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"91.\\",\\"label\\":null,\\"source\\":9,\\"target\\":1}}]}"	6
+21	25	1	0	9	9	24	20	6	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":2210,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":410,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1970,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":530,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":650,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1730,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":770,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":890,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1490,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":12,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":1010,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":13,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":1130,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":14,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1250,\\"y\\":375}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":15,\\"name\\":\\"endelse\\"},\\"position\\":{\\"x\\":1370,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":16,\\"name\\":\\"endelse\\"},\\"position\\":{\\"x\\":1610,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":17,\\"name\\":\\"endelse\\"},\\"position\\":{\\"x\\":1850,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":18,\\"name\\":\\"endelse\\"},\\"position\\":{\\"x\\":2090,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":19,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":2330,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"7.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"219.\\",\\"label\\":null,\\"source\\":2,\\"target\\":19}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"46.\\",\\"label\\":null,\\"source\\":4,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":\\"10.\\",\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"518.\\",\\"label\\":null,\\"source\\":5,\\"target\\":18}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":\\"13.\\",\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"817.\\",\\"label\\":null,\\"source\\":8,\\"target\\":17}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"910.\\",\\"label\\":null,\\"source\\":9,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1012.\\",\\"label\\":null,\\"source\\":10,\\"target\\":12}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1011.\\",\\"label\\":\\"16.\\",\\"source\\":10,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1116.\\",\\"label\\":null,\\"source\\":11,\\"target\\":16}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1213.\\",\\"label\\":null,\\"source\\":12,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1315.\\",\\"label\\":null,\\"source\\":13,\\"target\\":15}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1314.\\",\\"label\\":\\"19.\\",\\"source\\":13,\\"target\\":14}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1415.\\",\\"label\\":null,\\"source\\":14,\\"target\\":15}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1511.\\",\\"label\\":null,\\"source\\":15,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"168.\\",\\"label\\":null,\\"source\\":16,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"175.\\",\\"label\\":null,\\"source\\":17,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"182.\\",\\"label\\":null,\\"source\\":18,\\"target\\":2}}]}"	8.09500000000000064
+23	14	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"9...12\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.76200000000000001
+32	26	11	0	7	7	18	15	5	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1490,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":530,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1250,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":650,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":770,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1010,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":890,\\"y\\":310}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"fimsenao\\"},\\"position\\":{\\"x\\":1130,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":12,\\"name\\":\\"fimsenao\\"},\\"position\\":{\\"x\\":1370,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":13,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":1610,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":14,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":1730,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"114.\\",\\"label\\":null,\\"source\\":1,\\"target\\":14}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"6...8\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"313.\\",\\"label\\":null,\\"source\\":3,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":null,\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"9...11\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"612.\\",\\"label\\":null,\\"source\\":6,\\"target\\":12}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":null,\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"810.\\",\\"label\\":null,\\"source\\":8,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"89.\\",\\"label\\":\\"12...14\\",\\"source\\":8,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"911.\\",\\"label\\":null,\\"source\\":9,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"109.\\",\\"label\\":null,\\"source\\":10,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"116.\\",\\"label\\":null,\\"source\\":11,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"123.\\",\\"label\\":null,\\"source\\":12,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"131.\\",\\"label\\":null,\\"source\\":13,\\"target\\":1}}]}"	8.47600000000000087
+35	30	4	0	12	12	29	24	7	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1370,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":410,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":1130,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":530,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":650,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":890,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":770,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"fimsenao\\"},\\"position\\":{\\"x\\":1010,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"fimsenao\\"},\\"position\\":{\\"x\\":1250,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":12,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":1490,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":13,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":2690,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":14,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":1610,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":15,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":1730,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":16,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":2450,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":17,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":1850,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":18,\\"name\\":\\"se\\"},\\"position\\":{\\"x\\":1970,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":19,\\"name\\":\\"fimse\\"},\\"position\\":{\\"x\\":2210,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":20,\\"name\\":\\"senao\\"},\\"position\\":{\\"x\\":2090,\\"y\\":245}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":21,\\"name\\":\\"fimsenao\\"},\\"position\\":{\\"x\\":2330,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":22,\\"name\\":\\"fimsenao\\"},\\"position\\":{\\"x\\":2570,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":23,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":2810,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"4...6\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"212.\\",\\"label\\":null,\\"source\\":2,\\"target\\":12}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"46.\\",\\"label\\":null,\\"source\\":4,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":\\"7...9\\",\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"511.\\",\\"label\\":null,\\"source\\":5,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":\\"10...12\\",\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"810.\\",\\"label\\":null,\\"source\\":8,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"98.\\",\\"label\\":null,\\"source\\":9,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"105.\\",\\"label\\":null,\\"source\\":10,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"112.\\",\\"label\\":null,\\"source\\":11,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1214.\\",\\"label\\":null,\\"source\\":12,\\"target\\":14}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1213.\\",\\"label\\":\\"17...19\\",\\"source\\":12,\\"target\\":13}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1323.\\",\\"label\\":null,\\"source\\":13,\\"target\\":23}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1415.\\",\\"label\\":null,\\"source\\":14,\\"target\\":15}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1517.\\",\\"label\\":null,\\"source\\":15,\\"target\\":17}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1516.\\",\\"label\\":\\"20...22\\",\\"source\\":15,\\"target\\":16}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1622.\\",\\"label\\":null,\\"source\\":16,\\"target\\":22}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1718.\\",\\"label\\":null,\\"source\\":17,\\"target\\":18}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1820.\\",\\"label\\":null,\\"source\\":18,\\"target\\":20}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1819.\\",\\"label\\":\\"23...25\\",\\"source\\":18,\\"target\\":19}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1921.\\",\\"label\\":null,\\"source\\":19,\\"target\\":21}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"2019.\\",\\"label\\":null,\\"source\\":20,\\"target\\":19}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"2116.\\",\\"label\\":null,\\"source\\":21,\\"target\\":16}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"2213.\\",\\"label\\":null,\\"source\\":22,\\"target\\":13}}]}"	10.5709999999999997
+36	9	2	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"5...8\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.14299999999999979
+38	10	3	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	1.66700000000000004
+92	1	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.381000000000000005
+99	2	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.475999999999999979
+119	11	2	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"9.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.33300000000000018
+129	11	1	0	5	5	16	12	6	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":650,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":770,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":8,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1010,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":9,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":1130,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":10,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":1250,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":11,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":1370,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"5.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":null,\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"35.\\",\\"label\\":null,\\"source\\":3,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":\\"6.\\",\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":null,\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"57.\\",\\"label\\":null,\\"source\\":5,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":\\"7.\\",\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"67.\\",\\"label\\":null,\\"source\\":6,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"79.\\",\\"label\\":null,\\"source\\":7,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"78.\\",\\"label\\":\\"8.\\",\\"source\\":7,\\"target\\":8}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"89.\\",\\"label\\":null,\\"source\\":8,\\"target\\":9}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"911.\\",\\"label\\":null,\\"source\\":9,\\"target\\":11}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"910.\\",\\"label\\":\\"9.\\",\\"source\\":9,\\"target\\":10}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"1011.\\",\\"label\\":null,\\"source\\":10,\\"target\\":11}}]}"	5.04800000000000004
+79	3	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.570999999999999952
+86	13	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"6...12\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.95199999999999996
+100	13	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"6...12\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.95199999999999996
+113	25	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	2.66699999999999982
+120	11	4	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"9...12\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.61900000000000022
+124	19	5	0	3	3	10	8	4	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":410,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":530,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":5,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":650,\\"y\\":180}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":6,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":770,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":7,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":890,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"17.\\",\\"label\\":null,\\"source\\":1,\\"target\\":7}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":null,\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"23.\\",\\"label\\":\\"9...11\\",\\"source\\":2,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"34.\\",\\"label\\":null,\\"source\\":3,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"46.\\",\\"label\\":null,\\"source\\":4,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"45.\\",\\"label\\":\\"13...15\\",\\"source\\":4,\\"target\\":5}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"56.\\",\\"label\\":null,\\"source\\":5,\\"target\\":6}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"61.\\",\\"label\\":null,\\"source\\":6,\\"target\\":1}}]}"	4.95199999999999996
+87	5	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.762000000000000011
+94	1	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.381000000000000005
+53	14	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"9...12\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.76200000000000001
+107	14	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"7...11\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.76200000000000001
+114	13	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"inicio\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"enquanto\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"fimenquanto\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"fim\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"6...11\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.95199999999999996
+74	16	2	0	2	2	5	5	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"if\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endif\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"else\\"},\\"position\\":{\\"x\\":290,\\"y\\":115}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":4,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":530,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"8...10\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"24.\\",\\"label\\":null,\\"source\\":2,\\"target\\":4}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"32.\\",\\"label\\":null,\\"source\\":3,\\"target\\":2}}]}"	3.23799999999999999
+88	5	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.762000000000000011
+61	16	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"12...18\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.95199999999999996
+63	12	3	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"7...9\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.57100000000000017
+64	8	2	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"for\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endfor\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"5.\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.04800000000000004
+115	2	0	0	0	0	1	2	1	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}}]}"	0.475999999999999979
+66	19	5	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"14...18\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	3.52400000000000002
+72	14	2	0	1	1	4	4	2	"{\\"elements\\":[{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":0,\\"name\\":\\"start\\"},\\"position\\":{\\"x\\":50,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":1,\\"name\\":\\"while\\"},\\"position\\":{\\"x\\":170,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":2,\\"name\\":\\"endwhile\\"},\\"position\\":{\\"x\\":290,\\"y\\":50}},{\\"group\\":\\"nodes\\",\\"data\\":{\\"id\\":3,\\"name\\":\\"end\\"},\\"position\\":{\\"x\\":410,\\"y\\":50}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"01.\\",\\"label\\":null,\\"source\\":0,\\"target\\":1}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"13.\\",\\"label\\":null,\\"source\\":1,\\"target\\":3}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"12.\\",\\"label\\":\\"8...11\\",\\"source\\":1,\\"target\\":2}},{\\"group\\":\\"edges\\",\\"data\\":{\\"id\\":\\"21.\\",\\"label\\":null,\\"source\\":2,\\"target\\":1}}]}"	2.61900000000000022
+\.
+
+
+--
+-- Name: analysis_results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.analysis_results_id_seq', 129, true);
+
+
+--
+-- Data for Name: categories_problem; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.categories_problem (id, name, description) FROM stdin;
+1	Iniciante	Problemas de nível inicial.
+2	Intermediário	Problemas de nível intermediário.
+3	Difícil	Problemas de nível difícil.
+\.
+
+
+--
+-- Name: categories_problem_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.categories_problem_id_seq', 1, false);
+
+
+--
+-- Data for Name: data_types; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.data_types (id, name, byte_size) FROM stdin;
+1	char	1
+2	unsigned char	1
+3	short	2
+4	unsigned short	2
+5	int	4
+6	unsigned int	4
+7	long	4
+8	float	8
+9	double	8
+10	signed long long	8
+11	unsigned long long	8
+12	real	8
+13	inteiro	4
+14	cadeia	8
+15	caracter	1
+16	logico	2
+\.
+
+
+--
+-- Name: data_types_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.data_types_id_seq', 1, false);
+
+
+--
+-- Data for Name: diversion_commands; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.diversion_commands (id, graph_element_id, initial_command_name, terminal_command_name, type) FROM stdin;
+1	1	if	}	conditional
+2	3	else	}	conditional
+3	2	elseif	}	conditional
+4	4	switch	}	conditional
+5	4	case	case|default|}	conditional
+6	4	default	}|$	conditional
+7	5	for	}	loop
+8	6	while	}	loop
+9	7	do	while	loop
+10	1	se	senao|fimse	conditional
+11	3	senao	fimse	conditional
+12	4	escolhe	fimescolhe	conditional
+13	4	caso	caso|defeito|fimescolhe	conditional
+14	4	defeito	fimescolhe|$	conditional
+15	5	para	fimpara	loop
+16	6	enquanto	fimenquanto	loop
+17	7	repete	ate	loop
+\.
+
+
+--
+-- Name: diversion_commands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.diversion_commands_id_seq', 1, false);
+
+
+--
+-- Data for Name: graph_elements; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.graph_elements (id, name, model_image, type) FROM stdin;
+1	if	\N	conditional
+2	else-if	\N	conditional
+3	if-else	\N	conditional
+4	switch-case	\N	conditional
+5	for	\N	loop
+6	while	\N	loop
+7	do-while	\N	loop
+\.
+
+
+--
+-- Name: graph_elements_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.graph_elements_id_seq', 1, false);
+
+
+--
+-- Data for Name: language__bypass_command; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.language__bypass_command (language_id, bypass_command_id) FROM stdin;
+1	1
+1	2
+1	3
+1	4
+1	5
+1	6
+1	7
+1	8
+1	9
+2	10
+2	11
+2	12
+2	13
+2	14
+2	15
+2	16
+2	17
+\.
+
+
+--
+-- Data for Name: language__data_type; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.language__data_type (language_id, data_type_id) FROM stdin;
+1	1
+1	2
+1	3
+1	4
+1	5
+1	6
+1	7
+1	8
+1	9
+1	10
+1	11
+2	12
+2	13
+2	14
+2	15
+2	16
+\.
+
+
+--
+-- Data for Name: language__logical_connective; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.language__logical_connective (language_id, logical_connective_id) FROM stdin;
+1	1
+1	2
+1	3
+2	4
+2	5
+2	6
+2	7
+\.
+
+
+--
+-- Data for Name: language__special_character; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.language__special_character (language_id, special_character_id) FROM stdin;
+1	1
+1	2
+1	3
+1	4
+1	5
+1	6
+1	7
+1	8
+1	9
+1	10
+1	11
+1	12
+1	13
+1	14
+1	15
+1	16
+1	17
+2	1
+2	2
+2	4
+2	5
+2	6
+2	7
+2	8
+2	9
+2	11
+2	12
+2	18
+\.
+
+
+--
+-- Data for Name: languages; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.languages (id, name, initial_code_structure, end_code_structure, initial_vertex_name, end_vertex_name, if_then_name_vertex) FROM stdin;
+1	Linguagem C	int main()|int main ()	}	start	end	then
+2	Portugol	inicio	fim	inicio	fim	entao
+\.
+
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.languages_id_seq', 1, false);
+
+
+--
+-- Data for Name: logical_connectives; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.logical_connectives (id, name) FROM stdin;
+1	&&
+2	||
+3	!
+4	e
+5	ou
+6	nao
+7	xou
+\.
+
+
+--
+-- Name: logical_connectives_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.logical_connectives_id_seq', 1, false);
+
+
+--
+-- Data for Name: problems; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.problems (id, category_id, title, description) FROM stdin;
+1	1	Fatorial	Desenvolva um programa que calcule e mostre o fatorial de um número inteiro informado.
+2	1	Altura de Zé e Chico	Chico tem 1,50 metro e cresce 2 centímetros por ano, enquanto Zé tem 1,10 metro e cresce 3 centímetros por ano. Construa um algoritmo que calcule e imprima quantos anos serão necessários para que Zé seja maior que Chico.
+3	1	Categoria do Nadador	Elabore um programa que dada a idade de um nadador classifica-o em uma das seguintes categorias:\n- infantil A = 5 - 7 anos\n- infantil B = 8-10 anos\n- juvenil A = 11-13 anos\n- juvenil B = 14-17 anos\n- adulto = maiores de 18 anos
+4	1	Número Primo	Faça um algoritmo que leia um número inteiro e logo após mostre uma mensagem se ele é primo.
+5	1	Número Perfeito	Um número inteiro é dito perfeito se o dobro dele é igual à soma de todos os seus divisores. Por exemplo, como os divisores de 6 são 1, 2, 3 e 6 e 1+2+3+6=12, 6 é perfeito. Escreva um programa que liste todos os números perfeitos menores que um inteiro n dado.
+6	1	Maior e Menor	Escreva um algoritmo que leia 4 números inteiros e mostre o maior e o menor valor informado.
+7	1	Valor da chamada	Uma companhia telefônica opera com a seguinte tarifa: uma chamada telefônica com duração de 3 minutos custa R$ 1.15. Cada minuto adicional custa R$ 0.26. Escreva um programa que leia a duração total de uma chamada (em minutos) e calcule o total a ser pago.
+8	1	Fibonacci	Escreva um programa que imprime na tela a série de FIBONACCI até um numero dado. Esta séria começa com 1 e 1 e os próximos números são obtidos pela soma dos anteriores. Ex: 1 1 2 3 5 8 13 21 34 55
+9	2	Seleção	Entrar com nome, idade e sexo de 5 pessoas, e imprimir na tela o nome dos homens maiores de 21 anos.
+10	2	Lanchonete	Uma lanchonete possui o seguinte cardápio:\nCódigo Produto Valor (R$)\n1 Refrigerante 2,50\n2 Bolo 3,50\n3 Torrada 4,50\n4 Picadinho 10,00\n5 Agua mineral 2,00\nFaça um programa que controle a venda destes produtos. Um cliente deve ser capaz de comprar quantos produtos ele desejar. O programa deve solicitar o código do produto e quantidade. A compra deve ser finalizada quando for digitado o valor 99. Nesse momento deve ser mostrado o valor total que o cliente deve pagar. Simule a situação onde um cliente compra 2 refrigerantes + 1 picadinho + 1 bolo (total a pagar = R$ 18,50).
+11	2	Faixas etárias	Escreva um algoritmo que receba a idade de 15 pessoas, calcule e escreva:\n\na)     a quantidade de pessoas em cada faixa;\nb)     a porcentagem de cada faixa etária em relação ao total de pessoas;\n\nAs faixas etárias são:\n 1 --------- 15 anos\n16 -------  30 anos\n31 -------  45 anos\n> 45 anos
+12	2	Classificação de Números	Faça um algoritmo que leia 10 valores inteiros. A seguir mostre o total de números pares, total de números ímpares, total de positivos, total de negativos e o total de zeros.
+13	2	União de Vetores	Faça um algoritmo que leia 2(dois) vetores A e B de tamanho 10 de inteiros. Logo após deverá ser criado e exibido um vetor C de tamanho 20, que contenha todos os elementos dos vetores  A e B.
+14	2	Dois Maiores Números do Vetor	Faça um algoritmo que leia um vetor de números inteiros de tamanho 20. Logo após, calcule e mostre dois maiores números armazenados no vetor lido.
+15	3	Pesquisa do Cinema	Um cinema possui capacidade de 100 lugares e está sempre com ocupação total. Certo dia, cada espectador respondeu a um questionário, no qual constava:\n- sua idade;\n- sua opinião em relação ao filme, segundo as seguintes notas:\nNota   Significado\nA       Ótimo\nB       Bom\nC       Regular\nD       Ruim\nE       Péssimo\n\nElabore um algoritmo que, lendo esses dados, calcule e imprima:\na)    a quantidade de respostas Ótimo;\nb)    o total de respostas consideradas Bom e Regular;\nc)    a média de idade das pessoas que responderam Ruim;\nd)    o percentual de respostas Péssimo e a maior idade que escolheu essa opção;\ne)    a diferença de idade entre a maior idade que respondeu Ótimo e a maior idade que respondeu Ruim;\n
+\.
+
+
+--
+-- Name: problems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.problems_id_seq', 1, false);
+
+
+--
+-- Data for Name: profiles; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.profiles (id, default_language_id, full_name, avatar, birthday, school, gender) FROM stdin;
+1	\N	Karla dos Santos	\N	26/10/1995	Ciência da Computação	Feminino
+2	\N	Karla dos Santos 2	\N	26/10/1995	Ciência da Computação	Feminino
+3	\N	vinicius rosa	\N	29/08/1997	Ciências da Computação	Masculino
+4	\N	Maria Gisele	\N	30/11/1997	Ciência da Computação	Feminino
+5	\N	Renan Daniel Völz	\N	05/05/1997	Ciência da Computação	Masculino
+6	\N	Rafael Wendt	\N	14/03/1998	Ciência da Computação	Masculino
+7	2	Guilherme Colovini Basso	\N	08/07/1993	Sistemas de Informação	Masculino
+8	\N	Ricardo Ewerling	\N	14/02/2000	Ciência da Computação	Masculino
+9	\N	Lucas Goulart Streb	\N	10 11 2000	Ciência da Computação	Masculino
+11	\N	Gabriel	\N	13/02/1999	Ciencia da Computação	Masculino
+12	\N	Mateus Welter Goettems	\N	03/03/2000	Ciencia da Computação	Masculino
+13	\N	samuel	\N	07/11/1998	ciencia da computação	Masculino
+14	\N	Lorenzo Motta Bettanin	\N	28/04/1999	ciencia da computação	Masculino
+15	\N	Henrique	\N	15/06/1999	CC/TI	Masculino
+16	\N	Abdiel Godoflite	\N	20/01/2001	Ciência da computação	Masculino
+17	\N	Carlos henrique Rodrigues Strada	\N	26/05/2000	Ciência da Computação	Masculino
+18	\N	Gabriel	\N	13/02/1999	Ciencia da Computação	Masculino
+19	1	Augusliana	\N	11/07/1999	Ciencia da Computaçao	Masculino
+20	\N	Gladistone Ribas	\N	25/01/2000	Ciência da Computação	Masculino
+23	\N	Rafael Barichello Oliveira	\N	11/01/2000	Ciência da Computação	Masculino
+21	1	Denilson Silveira	\N	19/06/1998	Ciência da Computação	Masculino
+10	1	Mansur	\N	01/01/1994	CC	Masculino
+24	\N	Franco Gheller Veronese	\N	09/10/2000	Ciência da Computação	Masculino
+22	1	Dhener	\N	20/06/2000	Ciencia da computação	Masculino
+25	\N	Yuri Gomes da Luz	\N	05/04/1996	Sistemas de Informação	Masculino
+26	\N	Talison Avila	\N	11/05/1998	Sistemas da Informação	Masculino
+27	\N	William Klein	\N	07/04/1998	Sistemas de Informação	Masculino
+28	\N	Jonatan André Anschau	\N	03/01/1994	Sistemas de Informação	Masculino
+29	\N	cristiano	\N	25/02/1998	si	Masculino
+30	\N	calvin	\N	23/04/1996	Sistemas de Informação	Masculino
+\.
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.profiles_id_seq', 30, true);
+
+
+--
+-- Data for Name: rank; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.rank (id, problem_id, source_code_id, ranking, analysis_mean) FROM stdin;
+47	2	69	5	2.76200000000000001
+27	2	42	4	2.76200000000000001
+38	2	57	6	2.76200000000000001
+10	2	24	7	2.85700000000000021
+40	2	59	1	0.762000000000000011
+18	2	33	2	1.42900000000000005
+29	2	44	8	2.95199999999999996
+52	6	78	1	4.95199999999999996
+9	6	23	2	5
+6	2	6	3	2.38099999999999978
+35	3	50	3	5.90500000000000025
+15	3	30	4	6.95199999999999996
+32	3	47	5	7.80999999999999961
+41	14	60	1	0.762000000000000011
+16	3	31	6	8.09500000000000064
+11	4	25	4	5
+3	7	3	1	1.71399999999999997
+22	1	37	1	0.475999999999999979
+5	10	5	1	9.14300000000000068
+43	15	62	1	0.381000000000000005
+36	1	54	2	0.570999999999999952
+23	1	38	3	1.66700000000000004
+25	1	40	4	2.04800000000000004
+44	12	63	1	0.381000000000000005
+1	1	1	5	2.14299999999999979
+53	3	79	2	5.04800000000000004
+21	7	36	2	3.23799999999999999
+20	11	35	1	8.47600000000000087
+45	8	65	3	2.95199999999999996
+39	8	58	4	2.95199999999999996
+30	4	45	1	0.475999999999999979
+49	4	71	3	4.28599999999999959
+24	8	39	1	0.475999999999999979
+42	4	61	2	2.66699999999999982
+34	3	49	1	0.475999999999999979
+31	1	46	7	2.42899999999999983
+37	1	56	8	2.52400000000000002
+26	1	41	9	2.57100000000000017
+28	2	43	9	3.52400000000000002
+48	8	70	2	2.95199999999999996
+12	8	27	5	3.52400000000000002
+7	8	11	6	3.61900000000000022
+4	8	4	7	5.52400000000000002
+50	1	72	6	2.33300000000000018
+46	1	68	14	2.95199999999999996
+51	1	77	10	2.61900000000000022
+33	1	48	11	2.61900000000000022
+8	1	16	12	2.66699999999999982
+17	1	32	13	2.76200000000000001
+19	6	34	3	10.5709999999999997
+2	4	2	5	5
+14	4	29	6	6
+13	4	28	7	7.23800000000000043
+\.
+
+
+--
+-- Name: rank_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.rank_id_seq', 53, true);
+
+
+--
+-- Data for Name: source_codes; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.source_codes (id, problem_id, language_id, user_id, analysis_results_id, content, submission_date) FROM stdin;
+2	4	2	1	2	inicio\n    inteiro n, cont, i\n    cont<-2\n    i<-2\n    ler n\t\n    enquanto (i<=n/2) faz\n        se (n%i=0) entao\n            cont<-cont+1\n            i<-n\n        fimse     \n        i<-i+1\n    fimenquanto\n    se (cont=2) entao\n        escrever "eh primo"\n    senao\n        escrever "nao eh primo"\n    fimse    \nfim	2018-06-06 15:02:31
+3	7	1	1	3	#include <stdio.h>\n#include <stdlib.h>\n\nint main (){\n\tint minuto;\n\tfloat custo;\n\tprintf ("digite a duracao da chamada em minutos:\\n");\n\tscanf ("%d",&minuto);\n\tcusto=((minuto-3)*0.26)+1.15;\n\tprintf ("voce pagou r$%.2f pela ligacao\\n",custo);\n\t\n\tsystem ("pause");\n\treturn 0;\n}	2018-06-06 15:03:09
+4	8	1	1	4	#include <stdio.h>\n#include <stdlib.h>\n\nint main(){\n\tint a=0,b=1,c=0,numero;\n\tprintf ("digite um numero:\\n");\n\tscanf ("%d",&numero);\n\tif (numero==0)\n\t\tprintf ("numero invalido!");\n\telse {\n\t\tprintf ("a fibonacci ate o numero digitado eh: ");\n\t\tfor (;c<numero;){\n\t\t\tc=a+b;\n\t\t\tb=a;\n\t\t\ta=c;\n\t\t\tif (c<=numero)\n\t\t\t\tprintf ("%d ",c);\n\t\t}\n\t}\n\tprintf ("\\n");\n\t\n\t\n\tsystem ("pause");\n\treturn 0;\n}	2018-06-06 15:04:15
+5	10	1	1	7	#include <stdio.h>\n#include <stdlib.h>\n\nint main (){\n\tint quant,codigo;\n\tfloat total;\n\tprintf ("para parar as leituras digite 99\\n");\n\tdo {\n\t\tprintf ("digite codigo do produto: ");\n\t\tscanf ("%d",&codigo);\n\t\tif (codigo!=99) {\n\t\t\tprintf ("digite a quantidade consumida: ");\n\t\t\tscanf ("%d",&quant);\n\t\t\tswitch (codigo) {\n\t\t\t\tcase 1:\n\t\t\t\t\ttotal=quant*2.5;\n\t\t\t\t\tbreak;\n\t\t\t\tcase 2:\n\t\t\t\t\ttotal=quant*3.5;\n\t\t\t\t\tbreak;\n\t\t\t\tcase 3:\n\t\t\t\t\ttotal=quant*4.5;\n\t\t\t\t\tbreak;\n\t\t\t\tcase 4:\n\t\t\t\t\ttotal=quant*10.0;\n\t\t\t\t\tbreak;\n\t\t\t\tcase 5:\n\t\t\t\t\ttotal=quant*2.0;\n\t\t\t\t\tbreak;\n\t\t\t\tdefault:\n\t\t\t\t\tprintf ("codigo nao existente!\\n\\n");\n\t\t\t}\n\t\t\tif (codigo<6 && codigo>0)\n\t\t\t\tprintf ("voce gastou r$ %.2f\\n\\n",total);\n\t\t}\n\t} while (codigo!=99);\n\t\n\treturn 0;\n}	2018-06-06 15:08:43
+11	8	1	4	10	#include <stdlib.h>\n#include <stdio.h>\nint main()\n{\n\tint n, i, x, y, c;\n\tscanf("%d",&n);\n\ti=1;\n\tx=0;\n\ty=1;\n\tc=0;\n\tprintf("0 ");\n\twhile (c<n-1){\n\t\ty=i+x;\n\t\tprintf("%d",y);\n\t\ti=x;\n\t\tx=y;\n\t\tc++;\n\t}\n\treturn 0;\n}	2018-06-06 16:50:36
+16	1	1	4	11	#include <stdlib.h>\n#include <stdio.h>\nint main ()\n{ \n\tint n, f, i;\n\tscanf ("%d",&n);\n\ti=n;\n\twhile (i!=1){ \n\t\tn=n*(i-1);\n\t\ti=i-1;\t\t\n\t} \n\tprintf("%d",n);\t\n}	2018-06-06 16:53:37
+23	6	1	6	12	#include <stdio.h>\n#include <stdlib.h>\n\nint main()\n{\nint n, maior, menor,i;\nscanf("%d",&n);\nmaior=n;\nmenor=n;\nfor(i=0; i<3; i++) {\n\tscanf("%d",&n);\n\tif(n>=maior) {\n\t\tmaior=n;\n\t}\n\tif (n<=menor) {\n\t\tmenor=n;\n\t}\n}\nprintf("maior: %d\\n", maior);\nprintf("menor: %d", menor);\nreturn 0;\n}	2018-06-06 16:55:47
+24	2	1	5	13	#include <stdio.h>\n#include <stdlib.h>\nint main() {\n\tfloat hc = 1.5, hz = 1.1, cc = 0.02, cz = 0.03;\n\tint i;\n\tfor (i = 0; hz <= hc; i++) {\n\t\thc = hc + cc;\n\t\thz = hz + cz;\n\t}\n\tprintf("%d", i);\n\treturn 0;\n}	2018-06-06 16:56:08
+27	8	1	5	15	#include <stdio.h>\n#include <stdlib.h>\n \nint main() {\n    int n,i,a,b,aux;\n    scanf("%d",&n);\n    i=1;  \n    a=1;\n    b=1;\n    printf("%d",a);\n\twhile (i<n) {\n\t\tprintf(" %d",b);\n\t\taux=b;\n        b=a+b;\n        a=aux;\n        i=i+1;\n\t}\n\tprintf("\\n");\n\treturn 0;\n}	2018-06-06 16:57:26
+28	4	1	4	16	#include <stdio.h>\n#include <stdlib.h>\nint main (){\n\tint n, x, i, p, y;\n\tscanf("%d",&n);\n\tif ((n>=1)&&(n<=100)){\n\t\ty=0;\n\t\twhile (y<n){\n\t\t\tscanf("%d",&x);\n\t\t\ti=1;\n\t\t\tp=1;\n\t\t\twhile (i<=(x/2)){\n\t\t\t\tif ((x%i)==0){\n\t\t\t\t\tp++;\n\t\t\t\t}\n\t\t\t\ti++;\n\t\t\t}\n\t\t\tif (p==2){\n\t\t\t\tprintf("%d eh primo\\n",x);\n\t\t\t}\n\t\t\telse{\n\t\t\t\tprintf("%d nao eh primo\\n",x);\n\t\t\t}\n\t\t\ty++;\n\t\t}\n\t}\n\treturn 0;\n}	2018-06-06 16:57:32
+29	4	1	5	18	#include <stdio.h>\n#include <stdlib.h>\n\nint main()\n{\n\tint n, x, s, i, j;\n\tscanf("%d", &n);\n\tfor (i=0; i<n; i++) {\n\t\tscanf("%d", &x);\n\t\tfor (j=1, s=1; j<((x/2)+1); j++)\n\t\t\tif ((x%j)==0)\n\t\t\t\ts++;\n\t\tif (s==2)\n\t\t\tprintf("%d eh primo\\n", x);\n\t\telse\n\t\t\tprintf("%d nao eh primo\\n", x);\n\t}\n\treturn 0;\n}	2018-06-06 16:59:35
+6	2	1	3	19	#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n\t\n\tfloat a, b, i;\n\tfor(a = 1.50, b = 1.10, i = 0;b > a;i++) {\n\t\ta = a + 0.02;//uiwoehfuiwehfihiwe\n\t\tb = b + 0.03;//iwehfuihwefuihweuif\n\t}\n\tprintf("%d",i);\n}	2018-06-06 16:46:19
+31	3	1	5	21	#include <stdio.h>\n#include <stdlib.h>\n \nint main() {\n    int id;\n\tscanf("%d",&id);\n\tif (id>17)\n\t\tprintf("adulto\\n");\n\telse {\n\t\tif (id>13)\n\t\t\tprintf("juvenil b\\n");\n\t\telse {\n\t\t\tif (id>10)\n\t\t\t\tprintf("juvenil a\\n");\n\t\t\telse {\n\t\t\t\tif (id>7)\n\t\t\t\t\tprintf("infantil b");\n\t\t\t\telse {\n\t\t\t\t\tif (id>4)\n\t\t\t\t\t\tprintf("infantil a");\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn 0;\n}	2018-06-06 17:02:34
+30	3	1	4	22	#include<stdlib.h>\n#include<stdio.h>\nint main(){\n\tint idade;\n\tscanf("%d", &idade);\n\tif ((idade>=5)&&(idade<=10)) {\n\t\tprintf (" categoria infantil ");\n\t\tif (idade<8)\n\t\t\tprintf ("a");\n\t\telse\n\t\t\tprintf ("b");\n\t}\n\tif ((idade>=11)&&(idade<=17)) {\n\t\tprintf (" categoria juvenil ");\n\t\tif (idade<14)\n\t\t\tprintf ("a");\n\t\telse\n\t\t\tprintf ("b");\n\t}\n\tif (idade>17)\n\t\tprintf ("categoria adulto");\n\t\n}	2018-06-06 17:02:26
+32	1	1	5	23	#include <stdio.h>\n#include <stdlib.h>\n    \nint main() {\n    int f,n,s;\n    scanf("%d",&n);\n    s=n;\n    f=1;\n    while (s>0) {\n        f=f*s;\n        s=s-1;\n    }\n    printf("%d\\n",f);\n    return 0;\n}	2018-06-06 17:04:32
+25	4	1	3	24	#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n\t\n\tint n, aux, i;\n\tscanf("%d",&n);\n\tfor(i = 2, aux = 0; i < n /2; i++) {\n\t\tif(n%i == 0) {\n\t\t\taux = 1;\n\t\t\tbreak;\n\t\t}\n\t}\n\tif(aux == 0) {\n\t\tprintf("eh primo");\n\t}\n\telse {\n\t\tprintf("nao eh primo");\n\t}\n\t\n}	2018-06-06 16:56:33
+33	2	1	6	30	#include <stdio.h>\nint main(){\nfloat ze = 1.10, chico = 1.50;int i;for (i=1; ze<=chico; i++){chico= chico + 0.02; ze = ze + 0.03;} printf ("%d\\n", i);}	2018-06-06 17:17:04
+1	1	2	1	36	inicio\n    inteiro n,fat\n    fat<-1\n    ler n\n    enquanto (n>=1) faz\n        fat<-fat*n\n        n<-n-1\n    fimenquanto\nfim	2018-06-06 15:01:11
+56	1	1	12	98	int main()\n{\nint a,d;\na=0;\nscanf("%d",&a);\nd=a-1;\nwhile (d > 0) {\na=a*d;\nd=d-1;\n}\nprintf("%d",a);\nreturn 0;\n}	2018-06-07 22:02:30
+70	8	2	20	102	inicio\n    inteiro a , b , c , x, n\n    ler n\n    a <- 1\n    x <- 1\n    enquanto ( x <= n ) faz\n        c <- a + b\n        escrever " " , c\n        a <- b\n        b <- c\n        x <- x + 1\n    fimenquanto\nfim	2018-06-07 22:13:23
+37	1	1	8	103	#include <stdio.h>\nint main() {int n, p;scanf("%d", &n);p=n;while (n>1){p*=n-1;n--;}printf("%d\\n", p);\treturn 0;}	2018-06-07 21:32:06
+69	2	1	16	107	int main ()\n{\n\tfloat c,z;\n\tint a=0;\n\t\tc=1.5;\n\t\tz=1.1;\n\t\twhile (c>z) {\n\t\t\tc=c+0.02;\n\t\t\tz=z+0.03;\n\t\t\ta++;\n\t\t}\n\t\tprintf("%d",a);\t\n\t\treturn 0;\n}	2018-06-07 22:12:51
+46	1	1	21	110	#include <stdio.h>\n#include <stdlib.h>\nint main()\n{\n\tint fat, n;\n\tprintf("insira um valor para o qual deseja calcular seu fatorial: ");\n\tscanf("%d", &n);\n\tfor(fat = 1; n > 1; n = n - 1)\n\tfat = fat * n;\n\tprintf("\\nfatorial calculado: %d", fat);\nreturn 0;\n\n}	2018-06-07 21:49:10
+71	4	1	19	111	#include <stdio.h>\n#include <stdlib.h>\nint main(){\n\tint n,r,i;\n\tscanf("%d", &n);\n\ti=1;\n\tr=0;\t\t\t\t\t\n\twhile(i <= n){\n\t\tif(n % i==0){\n\t\t\tr++;}\n\t\t\ti++;}\n\t\tif(r == 2)\n\t\t\tprintf("e primo");\nreturn 0;\n}	2018-06-07 22:13:37
+35	11	2	7	32	inicio\n    real i , idade , f1 , f2 , f3 , f4 ,\n    real ff1, ff2, ff3, ff4\n    enquanto i < 15 faz\n        ler idade\n        se idade > 1 e idade <= 15 entao\n            f1 <- f1 + 1\n        senao\n            se idade > 15 e idade <= 30 entao\n                f2 <- f2 + 1\n            senao\n                se idade > 30 e idade <= 45 entao\n                    f3 <- f3 + 1\n                senao\n                    f4 <- f4 + 1\n                fimse\n            fimse\n        fimse\n        i <- i + 1\n    fimenquanto\n    ff1 <- ((f1*15)/100) * 100\n    ff2 <- ((f2*15)/100) * 100\n    ff3 <- ((f3*15)/100) * 100\n    ff4 <- ((f4*15)/100) * 100\n    escrever "há , nas faixas etárias de 1 a 15 anos , 16 a 30 anos , 31 a 45 anos e acima de 45 anos , respectivamente: " , f1 ,", ", f2, ", ", f3, ", " , f4 , " pessoas. a porcentagem em relação ao total de pessoas é respectivamente: ", ff1, "%, ", ff2, "%, ", ff3,"%, ", ff4,"%. "\nfim	2018-06-06 18:22:55
+61	4	1	21	113	a\na\n\na\na\na\na\na\na\naa\n\na\na\na\na\na\na\na\na\na\na\naa\na\na\na\n\na\na	2018-06-07 22:07:03
+34	6	2	7	35	inicio\n    inteiro n1 , n2 , n3 , n4\n    ler n1 , n2 , n3, n4\n    se ( ( n1 >= n2 ) e ( n1 >= n3 ) e ( n1 >= n4 ) ) entao\n        escrever "o valor " , n1 , " é o maior valor digitado"\n    senao\n        se ( ( n2 >= n1 ) e ( n2 >= n3 ) e ( n2 >= n4 ) ) entao\n            escrever "o valor " , n2 , " é o maior valor digitado"\n        senao\n            se ( ( n3 >= n1 ) e ( n3 >= n2 ) e ( n3 >= n4 ) )entao\n                escrever "o valor " , n3 , " é o maior valor digitado"\n            senao\n                escrever "o valor " , n4 , " é o maior valor digitado"\n            fimse\n        fimse\n    fimse\n    se ( ( n1 <= n2 ) e ( n1 <= n3 ) e ( n1 <= n4 ) ) entao\n        escrever "\\no valor " , n1 , " é o menor valor digitado"\n    senao\n        se ( ( n2 <= n1 ) e ( n2 <= n3 ) e ( n2 <= n4 ) ) entao\n            escrever "\\no valor " , n2 , " é o menor valor digitado"\n        senao\n            se ( ( n3 <= n1 ) e ( n3 <= n2 ) e ( n3 <= n4 )) entao\n                escrever "\\no valor " , n3 , " é o menor valor digitado"\n            senao\n                escrever "\\no valor " , n4 , " é o menor valor digitado"\n            fimse\n        fimse\n    fimse\nfim	2018-06-06 17:57:30
+65	8	2	23	114	inicio\n    inteiro a , b , c , m , i\n    ler m\n    a <- 1\n    i <- 1\n    enquanto ( i <= m ) faz\n        c <- a + b\n        a <- b\n        b <- c\n        i <- i + 1\n    fimenquanto\n    escrever " " , c\nfim	2018-06-07 22:11:44
+38	1	1	13	38	#include <stdio.h>\nint main()\n{\n\t\n\nint a,b,s;\n scanf("%d",&a);\n  scanf("%d",&b);\n  s=a*b;\n  printf("%d",s);\n  return 0;\n}	2018-06-07 21:34:26
+45	4	1	8	115	#include <stdio.h>\nint main() {\t\tint i, d, x;\tscanf("%d", &x);i=1;\td=0;\t\twhile (i<=x && d<3){\t\t\tif (x%i==0)\t\t\t\td++;\t\t\ti++;\t\t}\tif (d==2)\tprintf("%d eh primo\\n", x);\treturn 0;}	2018-06-07 21:48:29
+49	3	1	22	117	#include <stdio.h>\nint main() { return 0; }	2018-06-07 21:56:26
+72	1	1	28	119	#include <stdio.h>\n \nint main()\n{\nint fat, n;\nprintf("insira um valor para o qual deseja calcular seu fatorial: ");\nscanf("%d", &n);\n \nfor(fat = 1; n > 1; n = n - 1)\nfat = fat * n;\n \nprintf("\\nfatorial calculado: %d", fat);\nreturn 0;\n}	2018-06-09 10:48:16
+78	6	1	25	124	#include <stdio.h>\nint main(){\n\tint x[4];\n\tint i, menor, aux;\n\tint maior = 0;\t\n\tfor(i=0; i<4; i++){\n\t\tscanf("%d", &x[i]);\n\t\taux=x[i];\t\t\n\t\tif (maior < x[i])\t{\n\t\t\tmaior=x[i];\n\t\t}\t\n\t\t\t\t\n\t\tif (menor > x[i])\t{\n\t\t\tmenor=x[i];\n\t\t}\t\n\t}\t\n\tprintf("%d \\n", maior);\n\tprintf("%d", menor);\n\treturn (0);\n}	2018-06-09 11:02:38
+42	2	1	18	53	#include <stdio.h>\n#include <stdlib.h>\n\nint main() {\n\tfloat z, c, a;\n\tz=1.10;\n\tc=1.50;\n\ta=0;\n\twhile (c>z) {\n\tc=c+0.02;\n\tz=z+0.03;\n\ta++;  }\n\tprintf ("%f",a);\n\t\n\treturn 0;\n}	2018-06-07 21:46:07
+44	2	1	13	61	#include <stdio.h>\nint main()\n{\n\t\n\nfloat c,z,a;\nc=1.50;\nz=1.10;\n\n\na=0;\nwhile (z<c){\n\t\n\n\tc=c+0.02;\nz=z+0.03;\na=a+1;\n}\n\n\n \n \t\n \n\n  printf("%f",a);\n  system("pause");\n  return 0;\n}	2018-06-07 21:47:37
+41	1	1	19	63	#include <stdio.h>\n#include <stdlib.h>\nint main(){\n\tint n,i,total;\n\tscanf("%d", &n);\n\ti=1, total = 1;\n\twhile(i <= n){\n\t\ttotal = (total * i);\n\t\ti++;}\n\tprintf("%d", total);\nreturn 0;\n}	2018-06-07 21:45:31
+40	1	1	22	64	#include <stdio.h>\nint main() {\nint f,n;\nscanf("%d",&n);\nfor(f=1; n>1; n=n-1);\nf=f*n;\nprintf("\\n %d",f);\nreturn 0; }	2018-06-07 21:44:53
+43	2	1	10	66	#include <stdio.h>\n#include <stdlib.h>\nint main()\n\n{\nfloat a,b,c,d,i;\n\na = 1.5;\nb = 0.02;\nc = 1.1;\nd = 0.03;\ni = 0;\n\nwhile (c<a){\n\ta = (a+b);\n\tc = (c+d);\n\ti=i+1;\n}\ni = i-1;\nprintf("%f ", i);\nreturn 0;\n}	2018-06-07 21:46:42
+48	1	1	15	72	#include<stdio.h>\n#include<stdlib.h>\nint main()\n{\n\tint x, i;\n\tscanf("%d",&x);\n\ti=x-1;\n\twhile (i>0){\n\t\tx=x*i;\n\t\ti=i-1;\n\t}\n\tprintf("%d",x);\n\treturn 0;\n}	2018-06-07 21:54:00
+36	7	1	7	74	#include <stdio.h>\n#include <stdlib.h>\nint main ()\n{\n\tfloat min, cs;\n\tscanf("%f",&min);\n\tcs=0;\n\tif (min>3) { \n\t\tcs=(1.15+((min-3)*(0.26)));\n\t} \n\t\telse { \n\t\t\tcs=1.15;\n\t\t} \n\tprintf ("%f",cs);\n\t\n\treturn 0;\t\t\n}	2018-06-06 18:29:45
+50	3	1	19	75	#include <stdio.h>\n#include <stdlib.h>\nint main(){\n\tint n;\n\tscanf("%d", &n);\n\tif((n >= 5) && (n <= 7))\t\n\t\tprintf("infantil a");\n\telse\n\t\tif((n >= 8) && (n <= 10))\t\n\t\t\tprintf("infantil b");\n\t\telse\n\t\t\tif((n >=11) && (n <= 13))\t\n\t\t\t\tprintf("juvenil a");\n\t\t\telse\n\t\t\t\tif((n >= 14) && (n <= 17))\t\n\t\t\t\t\tprintf("juvenil b");\n\t\t\t\t\telse\n\t\t\t\t\t\tif(n >= 18)\t\n\t\t\t\t\t\t\tprintf("adulto");\nreturn 0;\n}	2018-06-07 22:00:13
+54	1	1	18	79	#include <stdio.h>\nint main(){\n\n\n\n}	2018-06-07 22:01:08
+57	2	1	15	84	#include<stdio.h>\n#include<stdlib.h>\nint main()\n{\tfloat z, c, i;\n\tz=1.10;\n\tc=1.50;\n\ti=0;\n\twhile (c>z) {\n\t\tz=z+0.03;\n\t\tc=c+0.02;\n\t\ti=i+1;\t}\n\tprintf("%f", i);\n\treturn 0;\n}	2018-06-07 22:03:58
+58	8	2	24	86	inicio\n    inteiro a , b , c , n , i\n    ler n\n    a <- 1\n    i <- 1\n    enquanto ( i <= n ) faz\n        c <- a + b\n        escrever " " , c\n        a <- b\n        b <- c\n        i <- i + 1\n    fimenquanto\nfim	2018-06-07 22:05:51
+59	2	1	21	87	#include <stdio.h>\nint main ()\n{\n}\nreturn 0;	2018-06-07 22:06:01
+60	14	1	21	88	#include <stdio.h>\nint main ()\n{\n}\nreturn 0;	2018-06-07 22:06:29
+62	15	1	21	92	#include <stdio.h>	2018-06-07 22:07:38
+63	12	1	21	94	#include	2018-06-07 22:09:10
+39	8	1	8	99	#include <stdio.h> \nint main() {\tint n, i, f, fa, x; x=1; i=1; f=1; scanf("%d", &n);\twhile (i<=n){printf("%d", x);i++;fa = x;\tx = f;f = f+fa;\tif (i<=n)printf(" ");}\treturn 0; }	2018-06-07 21:39:08
+68	1	2	20	100	inicio\n    inteiro a , b , c , x, n\n    ler n\n    a <- 1\n    x <- 1\n    enquanto ( x <= n ) faz\n        c <- a + b\n        escrever " " , c\n        a <- b\n        b <- c\n        x <- x + 1\n    fimenquanto\nfim	2018-06-07 22:12:29
+47	3	2	9	109	inicio\n    inteiro x\n    ler x\n    se ( x < 0 ) entao\n        escrever "idade inválida"\n    fimse\n    se ( x < 5 ) entao\n        escrever "o nadador não tem idade para competir"\n    fimse\n    se ( x <= 7 ) e ( x >= 5 ) entao\n        escrever "o nadador tem idade para a categoria infantil a"\n    fimse\n    se ( x <= 10 ) e ( x >= 8 ) entao\n        escrever "o nadador tem idade para a categoria infantil b"\n    fimse\n    se ( x <= 13 ) e ( x >= 11 ) entao\n        escrever "o nadador tem idade para a categoria juvenil a"\n    fimse\n    se ( x <= 17 ) e ( x >= 14 ) entao\n        escrever "o nadador tem idade para a categoria juvenil b"\n    fimse\n    se ( x >= 18 ) entao\n        escrever "o nadador tem idade para a categoria adulta"\n    fimse\nfim	2018-06-07 21:50:28
+77	1	1	26	120	#include <stdio.h>\n\nint main(){\n\tint n,i,x=1,y;\n\tscanf("%d",&n);\n\t\n\tx=x*(n*(n-1));\n\tn--;\n\tfor(i=1;i<n;i++){\n\t\tx=x*(n-i);\n\t\t\n\t}\n\tprintf("%d",x);\n}	2018-06-09 11:00:06
+79	3	1	27	129	#include <stdio.h>\nint main(){\n\tint idade;\n\tscanf ("%d",&idade);\n\tif(idade>4&&idade<8) printf ("infantil a");\n\tif(idade>7&&idade<11) printf("infantil b");\n\tif(idade>10&&idade<14) printf("juvenil a");\n\tif(idade>13&&idade<18) printf("juvenil b");\n\tif (idade>17) printf("adulto");\n\treturn 0;\n}	2018-06-09 11:09:04
+\.
+
+
+--
+-- Name: source_codes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.source_codes_id_seq', 81, true);
+
+
+--
+-- Data for Name: special_characters; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.special_characters (id, name) FROM stdin;
+1	(
+2	)
+3	;
+4	=
+5	+
+6	-
+7	*
+8	/
+9	%
+10	==
+11	>
+12	<
+13	!=
+14	#
+15	{
+16	}
+17	:
+18	^
+\.
+
+
+--
+-- Name: special_characters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.special_characters_id_seq', 1, false);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tcc_user
+--
+
+COPY public.users (id, profile_id, email, password, created, active_account) FROM stdin;
+1	1	karla.krs@outlook.com	$2y$10$.wn9iGJkgY0txE.VCJF1yeM6jybkuL6V1CEYQ9BBCDHmrldLLYLOq	2018-06-05 20:00:24	t
+2	2	karlaa.krs@hotmail.com	$2y$10$5XPWvVqVx8fEUoQNvTjtvOvJjrFGQtfovfK3p/fCj0bs6vfcogswG	2018-06-05 21:54:29	t
+3	3	viniciusr25@hotmail.com	$2y$10$ivwZw2JlAjCv9/M68ZtJt.wW8uVG.qF0/vIZWBWo0mj1ngSIIqXBu	2018-06-06 16:39:29	t
+4	4	guiga.flores.silveira@hotmail.com	$2y$10$nce8/HcDfRFsSIZSPsXVse72lzq3p0sjd030U8DzcUxp6M3GE8XZi	2018-06-06 16:40:52	t
+5	5	renanvolz@yahoo.com.br	$2y$10$.dNlxLQ.r94YVEJXxJilFe4EIk2JXT1Oql.oGu5fREet2fADe7.oC	2018-06-06 16:40:58	t
+6	6	fael_wm@hotmail.com	$2y$10$VjRN8ImgN92GsQUWyBsSkO8xi66nOmnKDRrDN7LpqzUNw9usM3MCi	2018-06-06 16:47:01	t
+8	8	ricardoewerling@gmail.com	$2y$10$dBhvI5/p/DItwPcb4cTekupt1oY32lyVfKxwQ9Hy0oL8Ij76qXMz.	2018-06-07 21:29:41	t
+7	7	guilhermecbasso@aluno.santoangelo.uri.br	$2y$10$UcKlOzLV/zmP9c9aOedMdOwk.hnVr5YFM9/HMw7Qdkd6k4jH2SMR.	2018-06-06 17:33:11	t
+9	9	lucasstreb13@gmail.com	$2y$10$nxIM.xQLlh38wB6U60qOu.H0UGVTz/nmFNE6HGkrwEoB2YZ6AM2Gu	2018-06-07 21:29:55	t
+10	10	billgates@hotmail.com	$2y$10$.URZvLd51rLg6ryj3noijewhEUCJtyOm9sgJ4I1EjJAu.cVR7cYKu	2018-06-07 21:30:13	t
+11	11	gabiel-h-luz@hotmail.com	$2y$10$EylxVfVXgJy4Wx1MXTIM1eQs94IM3fSx9HvgmWufHx5fH4hmoO1Ce	2018-06-07 21:30:15	t
+12	12	mateuswgoettems@aluno.santoangelo.uri.br	$2y$10$vNsdi6jzl8QEnTgaEfHckuHhtwC8Z0gk6fVm5JZwRpUTWU0cDZLjS	2018-06-07 21:30:20	t
+13	13	samuel.kriegerb@gmail.com	$2y$10$Mw9wYOAVBcQf8KHWZ/vv9./oB4osNbs1I8r4vY/fws3hCidy5YWca	2018-06-07 21:30:25	t
+14	14	lorenzo_mb@hotmail.com	$2y$10$FlqwypWoahGg5/TR/xgVauiCG3QSyndgnXyq5GllKHCF3ID1RPPOO	2018-06-07 21:31:04	t
+15	15	ikefollmann@hotmail.com	$2y$10$SAbMERbKWziFgCYkOhqpBOSKPWDTx95UjhCh2p529aXAQbBcLh0o6	2018-06-07 21:31:05	t
+16	16	abdielgodofliteag@gmail.com	$2y$10$S7MK2l8pvj0LlQXvBv7PAOzgtihkSOcCbVYiBhUSqb84ftg9DZgzm	2018-06-07 21:31:13	t
+17	17	Carlosstrada00@gmail.com	$2y$10$TrBtoK8boGCagq8fDXBuROJ0TA2H6f6Bf0zVRQx2NPnL3bGWtoz7K	2018-06-07 21:31:27	t
+18	18	gabriel-h-luz@hotmail.com	$2y$10$9NRXP6Hgyv0HWwj4GT0Fg.NrdDOUcGsdu9yfqcju4TVs.iAMxUPwe	2018-06-07 21:31:29	t
+19	19	augustocarmo@aluno.santoangelo.uri.br	$2y$10$MUcFCdYxsop/InMTcbx1oukASfPZ/YR2ozlOiy21IQfAJ4OY50VUm	2018-06-07 21:31:30	t
+20	20	gladistonern@hotmail.com	$2y$10$/pmIyuBJ2sDen0nQIM0YnO58FGCQLY.Ww/oIqcDYQwcgzgohkYxHe	2018-06-07 21:33:07	t
+21	21	denilsonsilveira78@hotmail.com	$2y$10$wWD1oIIwRobQHC1LYcU0we3IT41.MxbUL6z4tgFhcXMtUP2IgR0Wm	2018-06-07 21:33:32	t
+22	22	dhenermello@gmail.com	$2y$10$486kL6dPNWopRs/1mS3NHe8gAOhmt15w1gKvUpgly241NJN8TLvxy	2018-06-07 21:33:38	t
+23	23	rafaelbarrichello@hotmail.com	$2y$10$bfROukRGK0VPJd/c6hMc0.afezkM.oP4ruyGVl.xvkrJBs8nO/iei	2018-06-07 21:34:23	t
+24	24	francogveronese@aluno.santoangelo.uri.br	$2y$10$y2dW4BQl6amabSh38Ug4.OzqvjGcjjVYqasqx1DuuDjVsBgzVHJ6y	2018-06-07 21:42:39	t
+25	25	gomesdaluzy@yahoo.com.br	$2y$10$olRTIzDqypMSgxXMTZz9OOz/9M1Y4WW0v1vHoQ/7LpqNm9L86jdkC	2018-06-09 10:42:15	t
+26	26	talisonavila@gmail.com	$2y$10$wsupv8j6P23AK6QQceLKTuJvDyrkC66KdO6bG7mfvKbN.cYNsItxy	2018-06-09 10:44:40	t
+27	27	klein.william@hotmail.com	$2y$10$4uu2CFwGoTNLutckRoV2n.enMotqXf4eBwSzA3uZe5S5wOrbvvpcS	2018-06-09 10:44:40	t
+28	28	jonatananschau@yahoo.com.br	$2y$10$9m.LlQR/ljyvYdb1JNRCAOVMl8xq8VyeBfOFdqD7fHYJKylsnmBtK	2018-06-09 10:46:48	t
+29	29	wamescristiano0@gmail.com	$2y$10$0ZhEMsZTjq223HP9QA4/c.UTgvLZ1SpEN1hszTbkUfcTlrzbJrTLi	2018-06-09 10:47:03	t
+30	30	calvingsx@gmail.com	$2y$10$AB4tdX352S38A0ej2wGU2ObgG8bDqXsB7oNCtQGGowwBE6vg.EVje	2018-06-09 11:08:39	t
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tcc_user
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 30, true);
+
+
+--
+-- Name: analysis_results_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.analysis_results
+    ADD CONSTRAINT analysis_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories_problem_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.categories_problem
+    ADD CONSTRAINT categories_problem_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: data_types_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.data_types
+    ADD CONSTRAINT data_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: diversion_commands_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.diversion_commands
+    ADD CONSTRAINT diversion_commands_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: graph_elements_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.graph_elements
+    ADD CONSTRAINT graph_elements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: language__bypass_command_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__bypass_command
+    ADD CONSTRAINT language__bypass_command_pkey PRIMARY KEY (language_id, bypass_command_id);
+
+
+--
+-- Name: language__data_type_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__data_type
+    ADD CONSTRAINT language__data_type_pkey PRIMARY KEY (language_id, data_type_id);
+
+
+--
+-- Name: language__logical_connective_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__logical_connective
+    ADD CONSTRAINT language__logical_connective_pkey PRIMARY KEY (language_id, logical_connective_id);
+
+
+--
+-- Name: language__special_character_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__special_character
+    ADD CONSTRAINT language__special_character_pkey PRIMARY KEY (language_id, special_character_id);
+
+
+--
+-- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.languages
+    ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: logical_connectives_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.logical_connectives
+    ADD CONSTRAINT logical_connectives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: problems_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.problems
+    ADD CONSTRAINT problems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.profiles
+    ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rank_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.rank
+    ADD CONSTRAINT rank_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: source_codes_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.source_codes
+    ADD CONSTRAINT source_codes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: special_characters_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.special_characters
+    ADD CONSTRAINT special_characters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_23118aa782f1baf4; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_23118aa782f1baf4 ON public.language__special_character USING btree (language_id);
+
+
+--
+-- Name: idx_23118aa7c9f0107c; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_23118aa7c9f0107c ON public.language__special_character USING btree (special_character_id);
+
+
+--
+-- Name: idx_3429302c14625500; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_3429302c14625500 ON public.language__bypass_command USING btree (bypass_command_id);
+
+
+--
+-- Name: idx_3429302c82f1baf4; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_3429302c82f1baf4 ON public.language__bypass_command USING btree (language_id);
+
+
+--
+-- Name: idx_3a1456cb82f1baf4; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_3a1456cb82f1baf4 ON public.language__data_type USING btree (language_id);
+
+
+--
+-- Name: idx_3a1456cba147da62; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_3a1456cba147da62 ON public.language__data_type USING btree (data_type_id);
+
+
+--
+-- Name: idx_77047a041906918; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_77047a041906918 ON public.language__logical_connective USING btree (logical_connective_id);
+
+
+--
+-- Name: idx_77047a0482f1baf4; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_77047a0482f1baf4 ON public.language__logical_connective USING btree (language_id);
+
+
+--
+-- Name: idx_7ca51a7282f1baf4; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_7ca51a7282f1baf4 ON public.source_codes USING btree (language_id);
+
+
+--
+-- Name: idx_7ca51a72a0dced86; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_7ca51a72a0dced86 ON public.source_codes USING btree (problem_id);
+
+
+--
+-- Name: idx_7ca51a72a76ed395; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_7ca51a72a76ed395 ON public.source_codes USING btree (user_id);
+
+
+--
+-- Name: idx_835407b914723607; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_835407b914723607 ON public.diversion_commands USING btree (graph_element_id);
+
+
+--
+-- Name: idx_8879e8e5a0dced86; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_8879e8e5a0dced86 ON public.rank USING btree (problem_id);
+
+
+--
+-- Name: idx_8b3085305602a942; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_8b3085305602a942 ON public.profiles USING btree (default_language_id);
+
+
+--
+-- Name: idx_8e66624512469de2; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE INDEX idx_8e66624512469de2 ON public.problems USING btree (category_id);
+
+
+--
+-- Name: uniq_1483a5e9ccfa12b8; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_1483a5e9ccfa12b8 ON public.users USING btree (profile_id);
+
+
+--
+-- Name: uniq_1483a5e9e7927c74; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_1483a5e9e7927c74 ON public.users USING btree (email);
+
+
+--
+-- Name: uniq_178f45af5e237e06; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_178f45af5e237e06 ON public.data_types USING btree (name);
+
+
+--
+-- Name: uniq_4bf16cc05e237e06; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_4bf16cc05e237e06 ON public.logical_connectives USING btree (name);
+
+
+--
+-- Name: uniq_7ca51a72ce5d5812; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_7ca51a72ce5d5812 ON public.source_codes USING btree (analysis_results_id);
+
+
+--
+-- Name: uniq_8879e8e56e05467f; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_8879e8e56e05467f ON public.rank USING btree (source_code_id);
+
+
+--
+-- Name: uniq_a0d153795e237e06; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_a0d153795e237e06 ON public.languages USING btree (name);
+
+
+--
+-- Name: uniq_de4965be5e237e06; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_de4965be5e237e06 ON public.special_characters USING btree (name);
+
+
+--
+-- Name: uniq_e165f5625e237e06; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_e165f5625e237e06 ON public.graph_elements USING btree (name);
+
+
+--
+-- Name: uniq_ffed1d685e237e06; Type: INDEX; Schema: public; Owner: tcc_user
+--
+
+CREATE UNIQUE INDEX uniq_ffed1d685e237e06 ON public.categories_problem USING btree (name);
+
+
+--
+-- Name: fk_1483a5e9ccfa12b8; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT fk_1483a5e9ccfa12b8 FOREIGN KEY (profile_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_23118aa782f1baf4; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__special_character
+    ADD CONSTRAINT fk_23118aa782f1baf4 FOREIGN KEY (language_id) REFERENCES public.languages(id);
+
+
+--
+-- Name: fk_23118aa7c9f0107c; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__special_character
+    ADD CONSTRAINT fk_23118aa7c9f0107c FOREIGN KEY (special_character_id) REFERENCES public.special_characters(id);
+
+
+--
+-- Name: fk_3429302c14625500; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__bypass_command
+    ADD CONSTRAINT fk_3429302c14625500 FOREIGN KEY (bypass_command_id) REFERENCES public.diversion_commands(id);
+
+
+--
+-- Name: fk_3429302c82f1baf4; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__bypass_command
+    ADD CONSTRAINT fk_3429302c82f1baf4 FOREIGN KEY (language_id) REFERENCES public.languages(id);
+
+
+--
+-- Name: fk_3a1456cb82f1baf4; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__data_type
+    ADD CONSTRAINT fk_3a1456cb82f1baf4 FOREIGN KEY (language_id) REFERENCES public.languages(id);
+
+
+--
+-- Name: fk_3a1456cba147da62; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__data_type
+    ADD CONSTRAINT fk_3a1456cba147da62 FOREIGN KEY (data_type_id) REFERENCES public.data_types(id);
+
+
+--
+-- Name: fk_77047a041906918; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__logical_connective
+    ADD CONSTRAINT fk_77047a041906918 FOREIGN KEY (logical_connective_id) REFERENCES public.logical_connectives(id);
+
+
+--
+-- Name: fk_77047a0482f1baf4; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.language__logical_connective
+    ADD CONSTRAINT fk_77047a0482f1baf4 FOREIGN KEY (language_id) REFERENCES public.languages(id);
+
+
+--
+-- Name: fk_7ca51a7282f1baf4; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.source_codes
+    ADD CONSTRAINT fk_7ca51a7282f1baf4 FOREIGN KEY (language_id) REFERENCES public.languages(id);
+
+
+--
+-- Name: fk_7ca51a72a0dced86; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.source_codes
+    ADD CONSTRAINT fk_7ca51a72a0dced86 FOREIGN KEY (problem_id) REFERENCES public.problems(id);
+
+
+--
+-- Name: fk_7ca51a72a76ed395; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.source_codes
+    ADD CONSTRAINT fk_7ca51a72a76ed395 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: fk_7ca51a72ce5d5812; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.source_codes
+    ADD CONSTRAINT fk_7ca51a72ce5d5812 FOREIGN KEY (analysis_results_id) REFERENCES public.analysis_results(id) ON DELETE CASCADE;
+
+
+--
+-- Name: fk_835407b914723607; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.diversion_commands
+    ADD CONSTRAINT fk_835407b914723607 FOREIGN KEY (graph_element_id) REFERENCES public.graph_elements(id);
+
+
+--
+-- Name: fk_8879e8e56e05467f; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.rank
+    ADD CONSTRAINT fk_8879e8e56e05467f FOREIGN KEY (source_code_id) REFERENCES public.source_codes(id);
+
+
+--
+-- Name: fk_8879e8e5a0dced86; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.rank
+    ADD CONSTRAINT fk_8879e8e5a0dced86 FOREIGN KEY (problem_id) REFERENCES public.problems(id);
+
+
+--
+-- Name: fk_8b3085305602a942; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.profiles
+    ADD CONSTRAINT fk_8b3085305602a942 FOREIGN KEY (default_language_id) REFERENCES public.languages(id);
+
+
+--
+-- Name: fk_8e66624512469de2; Type: FK CONSTRAINT; Schema: public; Owner: tcc_user
+--
+
+ALTER TABLE ONLY public.problems
+    ADD CONSTRAINT fk_8e66624512469de2 FOREIGN KEY (category_id) REFERENCES public.categories_problem(id);
+
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
