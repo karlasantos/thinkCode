@@ -214,3 +214,50 @@ c)    a média de idade das pessoas que responderam Ruim;
 d)    o percentual de respostas Péssimo e a maior idade que escolheu essa opção;
 e)    a diferença de idade entre a maior idade que respondeu Ótimo e a maior idade que respondeu Ruim;
 ');
+
+
+-- SELECT DE SELEÇÃO DOS DADOS PARA A ANÁLISE
+SELECT
+  users.id as user_id,
+  users.created as user_created,
+  pf.school as user_school,
+  sc.problem_id,
+  rank.ranking,
+  ar.arithmetic_mean,
+  ar.number_useful_lines,
+  ar.number_variables,
+  ar.number_logical_connectives,
+  ar.number_diversion_coommands,
+  ar.number_regions_graph,
+  ar.number_edges_graph,
+  ar.number_vertex_graph,
+  ar.cyclomatic_complexity
+FROM analysis_results ar
+LEFT JOIN source_codes sc ON sc.analysis_results_id = ar.id
+LEFT JOIN users ON users.id = sc.user_id
+LEFT JOIN profiles pf ON users.profile_id = pf.id
+LEFT JOIN rank ON rank.source_code_id = sc.id
+ORDER BY problem_id ASC, ranking ASC;
+
+-- SELECT DE SELEÇÃO DOS DADOS PARA A ANÁLISE CORRETO
+SELECT
+  users.id as user_id,
+  users.created as user_created,
+  pf.school as user_school,
+  sc.problem_id,
+  rank.ranking,
+  ar.mean,
+  ar.number_useful_lines,
+  ar.number_variables,
+  ar.number_logical_connectives,
+  ar.number_diversion_commands,
+  ar.number_regions_graph,
+  ar.number_edges_graph,
+  ar.number_vertex_graph,
+  ar.cyclomatic_complexity
+FROM analysis_results ar
+LEFT JOIN source_codes sc ON sc.analysis_results_id = ar.id
+LEFT JOIN users ON users.id = sc.user_id
+LEFT JOIN profiles pf ON users.profile_id = pf.id
+LEFT JOIN rank ON rank.source_code_id = sc.id
+ORDER BY problem_id ASC, ranking ASC;
