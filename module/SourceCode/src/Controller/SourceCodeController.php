@@ -79,10 +79,11 @@ class SourceCodeController extends RestfulController
 
         try {
             $sourceCode = $this->entityManager->createQueryBuilder()
-                        ->select('sc, analysisResults, ranking')
+                        ->select('sc, analysisResults, ranking, partial lang.{id, name}')
                         ->from(SourceCode::class, 'sc')
                         ->leftJoin('sc.analysisResults', 'analysisResults')
                         ->leftJoin('sc.ranking', 'ranking')
+                        ->leftJoin('sc.language', 'lang')
                         ->where('sc.problem = :problemId')
                         ->andWhere('sc.user = :userId')
                         ->setParameter('problemId', $problemId)
@@ -229,6 +230,10 @@ class SourceCodeController extends RestfulController
 
                 //retorna o resultado da análise do código fonte selecionado pelo usuário
                 $analysisResultsSystem = $sourceCodeSystem->getAnalysisResults()->toArray();
+                $analysisResultsSystem['language'] = array(
+                    'id' => $sourceCodeSystem->getLanguage()->getId(),
+                    'name' => $sourceCodeSystem->getLanguage()->getName(),
+                );
             }
 
             $dataRank = [
@@ -242,6 +247,11 @@ class SourceCodeController extends RestfulController
 
             $analysisResultsReturn['content'] = $sourceCode->getContent();
             $analysisResultsReturn['ranking'] = $ranking;
+            $analysisResultsReturn['language'] = array(
+                'id' => $sourceCode->getLanguage()->getId(),
+                'name' => $sourceCode->getLanguage()->getName(),
+            );
+
 
             $analysisResultsSystem['userCompareId'] = ($sourceCodeSystem instanceof SourceCode)? $sourceCodeSystem->getUser()->getId() : null;
             $analysisResultsSystem['userCompare'] = ($sourceCodeSystem instanceof SourceCode)? $sourceCodeSystem->getUser()->getProfile()->getFullName() : null;

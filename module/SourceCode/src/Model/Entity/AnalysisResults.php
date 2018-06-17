@@ -356,8 +356,8 @@ class AnalysisResults extends Entity
                     $this->numberDiversionCommands*5 +
                     $this->numberRegionsGraph*4 +
                     $this->numberVariables*3 +  +
-                    $this->numberUsefulLines*2 +
-                    $this->numberLogicalConnectives)/21), 3);
+                    $this->numberLogicalConnectives*2 +
+                    $this->numberUsefulLines)/21), 3);
     }
 
     /**
