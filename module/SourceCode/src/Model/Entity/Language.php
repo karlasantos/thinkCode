@@ -8,6 +8,7 @@
 namespace SourceCode\Model\Entity;
 
 use Application\Model\Entity\Entity;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -360,5 +361,28 @@ class Language extends Entity
             'id'   => $this->id,
             'name' => $this->name,
         );
+    }
+
+    /**
+     * Retorna todos os registros de Linguagens salvos
+     *
+     * @param EntityManager $entityManager
+     * @param null $name
+     * @return array
+     */
+    public function getList($entityManager, $name = null)
+    {
+        $languages = $entityManager->createQueryBuilder()
+            ->select('partial languages.{id, name}')
+            ->from(Language::class, 'languages');
+
+        if($name) {
+            $name = "%{$name}%";
+
+            $languages->andWhere('LOWER(languages.name) like :languageName')
+                ->setParameter('languageName', $name);
+        }
+
+        return $languages->getQuery()->getArrayResult();
     }
 }

@@ -432,6 +432,17 @@ class Language extends \SourceCode\Model\Entity\Language implements \Doctrine\OR
     /**
      * {@inheritDoc}
      */
+    public function getList($entityManager, $name = NULL)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getList', [$entityManager, $name]);
+
+        return parent::getList($entityManager, $name);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setData($data)
     {
 

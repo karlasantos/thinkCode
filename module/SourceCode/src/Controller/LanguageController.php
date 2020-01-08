@@ -11,12 +11,6 @@ namespace SourceCode\Controller;
 use Application\Controller\RestfulController;
 use Doctrine\ORM\EntityManager;
 use SourceCode\Model\Entity\Language;
-use SourceCode\Model\Entity\SourceCode;
-use SourceCode\Model\CodeBypassCommand;
-use SourceCode\Model\Vertex;
-use SourceCode\Service\AnalysisStructure;
-use SourceCode\Service\DataCollect;
-use Zend\Mvc\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
 /**
@@ -47,17 +41,8 @@ class LanguageController extends RestfulController
         //página selecionada
         $search  = $this->params()->fromQuery('search');
 
-        $languages = $this->entityManager->createQueryBuilder()
-                    ->select('partial languages.{id, name}')
-                    ->from(Language::class, 'languages');
-
-        if($search) {
-            $languages->andWhere('languages.name = :languageName')
-                ->setParameter('languageName', $search);
-        }
-
-        $languages = $languages->getQuery()
-            ->getArrayResult();
+        $language = new Language();
+        $languages = $language->getList($this->entityManager, $search);
 
         return new JsonModel(array(
             'results' => $languages,
